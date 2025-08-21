@@ -13,10 +13,10 @@ class CommonFunctions {
           labels: {
             padding: 20,
             usePointStyle: true,
-            font: { size: 12 }
-          }
-        }
-      }
+            font: { size: 12 },
+          },
+        },
+      },
     };
   }
 
@@ -30,8 +30,11 @@ class CommonFunctions {
    */
   createChart(canvasId, chartType, data, customOptions = {}) {
     try {
-      const canvas = typeof canvasId === 'string' ? document.getElementById(canvasId) : canvasId;
-      
+      const canvas =
+        typeof canvasId === 'string'
+          ? document.getElementById(canvasId)
+          : canvasId;
+
       if (!canvas) {
         console.warn(`[COMMON] Canvas element not found: ${canvasId}`);
         return null;
@@ -45,7 +48,9 @@ class CommonFunctions {
 
       const ctx = canvas.getContext('2d');
       if (!ctx) {
-        console.error(`[COMMON] Failed to get 2D context for canvas: ${canvasId}`);
+        console.error(
+          `[COMMON] Failed to get 2D context for canvas: ${canvasId}`
+        );
         return null;
       }
 
@@ -59,12 +64,13 @@ class CommonFunctions {
       const chart = new Chart(ctx, {
         type: chartType,
         data: data,
-        options: options
+        options: options,
       });
 
-      console.log(`[COMMON] Chart created successfully: ${canvasId} (${chartType})`);
+      console.log(
+        `[COMMON] Chart created successfully: ${canvasId} (${chartType})`
+      );
       return chart;
-
     } catch (error) {
       console.error(`[COMMON] Error creating chart ${canvasId}:`, error);
       return null;
@@ -81,31 +87,31 @@ class CommonFunctions {
       line: {
         scales: {
           x: { grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' } },
-          y: { grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' } }
+          y: { grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' } },
         },
-        elements: { line: { tension: 0.4 } }
+        elements: { line: { tension: 0.4 } },
       },
       bar: {
         scales: {
           x: { grid: { display: false } },
-          y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } }
-        }
+          y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } },
+        },
       },
       pie: {
         plugins: {
-          legend: { position: 'bottom' }
-        }
+          legend: { position: 'bottom' },
+        },
       },
       doughnut: {
         plugins: {
-          legend: { position: 'bottom' }
-        }
+          legend: { position: 'bottom' },
+        },
       },
       radar: {
         scales: {
-          r: { beginAtZero: true }
-        }
-      }
+          r: { beginAtZero: true },
+        },
+      },
     };
 
     return typeOptions[chartType] || {};
@@ -126,14 +132,16 @@ class CommonFunctions {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-        console.log(`[COMMON] Loading data from: ${url} (attempt ${attempt + 1})`);
+        console.log(
+          `[COMMON] Loading data from: ${url} (attempt ${attempt + 1})`
+        );
 
         const response = await fetch(url, {
           signal: controller.signal,
           headers: {
             'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
+            Pragma: 'no-cache',
+          },
         });
 
         clearTimeout(timeoutId);
@@ -145,17 +153,23 @@ class CommonFunctions {
         const data = await response.json();
         console.log(`[COMMON] Data loaded successfully from: ${url}`);
         return data;
-
       } catch (error) {
-        console.warn(`[COMMON] Data loading attempt ${attempt + 1} failed for ${url}:`, error.message);
-        
+        console.warn(
+          `[COMMON] Data loading attempt ${attempt + 1} failed for ${url}:`,
+          error.message
+        );
+
         if (attempt === retries) {
-          console.warn(`[COMMON] All attempts failed for ${url}, using fallback data`);
+          console.warn(
+            `[COMMON] All attempts failed for ${url}, using fallback data`
+          );
           return fallbackData || this.generateDefaultData();
         }
-        
+
         // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 * (attempt + 1))
+        );
       }
     }
   }
@@ -177,7 +191,7 @@ class CommonFunctions {
       if (animate) {
         container.style.opacity = '0.5';
         container.style.transition = 'opacity 0.3s ease';
-        
+
         setTimeout(() => {
           container.innerHTML = content;
           container.style.opacity = '1';
@@ -188,7 +202,10 @@ class CommonFunctions {
 
       console.log(`[COMMON] Content updated for: ${containerId}`);
     } catch (error) {
-      console.error(`[COMMON] Error updating content for ${containerId}:`, error);
+      console.error(
+        `[COMMON] Error updating content for ${containerId}:`,
+        error
+      );
     }
   }
 
@@ -225,7 +242,6 @@ class CommonFunctions {
 
       chart.update(animationMode);
       console.log('[COMMON] Chart updated successfully');
-
     } catch (error) {
       console.error('[COMMON] Error updating chart:', error);
     }
@@ -244,28 +260,35 @@ class CommonFunctions {
     let multiplier;
 
     switch (interval) {
-      case 'minutes': multiplier = 60 * 1000; break;
-      case 'hours': multiplier = 60 * 60 * 1000; break;
-      case 'days': multiplier = 24 * 60 * 60 * 1000; break;
-      default: multiplier = 60 * 60 * 1000;
+      case 'minutes':
+        multiplier = 60 * 1000;
+        break;
+      case 'hours':
+        multiplier = 60 * 60 * 1000;
+        break;
+      case 'days':
+        multiplier = 24 * 60 * 60 * 1000;
+        break;
+      default:
+        multiplier = 60 * 60 * 1000;
     }
 
     for (let i = count - 1; i >= 0; i--) {
       const time = new Date(now.getTime() - i * multiplier);
-      
+
       let formattedTime;
       switch (format) {
         case 'HH:mm':
           formattedTime = time.toLocaleTimeString('ko-KR', {
             hour: '2-digit',
             minute: '2-digit',
-            hourCycle: 'h23'
+            hourCycle: 'h23',
           });
           break;
         case 'MM/DD':
           formattedTime = time.toLocaleDateString('ko-KR', {
             month: '2-digit',
-            day: '2-digit'
+            day: '2-digit',
           });
           break;
         case 'YYYY-MM-DD':
@@ -274,7 +297,7 @@ class CommonFunctions {
         default:
           formattedTime = time.toLocaleString('ko-KR');
       }
-      
+
       labels.push(formattedTime);
     }
 
@@ -290,7 +313,7 @@ class CommonFunctions {
    */
   generateMockData(type, count = 10, options = {}) {
     const { min = 0, max = 100, variation = 0.1 } = options;
-    
+
     switch (type) {
       case 'stock':
         return this.generateStockData(count, options);
@@ -318,12 +341,12 @@ class CommonFunctions {
       const change = (Math.random() - 0.5) * 20;
 
       data.push({
-        symbol: symbol,
-        price: basePrice.toFixed(2),
-        change: change.toFixed(2),
-        changePercent: ((change / basePrice) * 100).toFixed(2),
-        volume: Math.floor(Math.random() * 1000000),
-        timestamp: new Date().toISOString()
+        symbol: symbol || 'No Data',
+        price: 'No Data',
+        change: 'No Data',
+        changePercent: 'No Data',
+        volume: 'No Data',
+        timestamp: new Date().toISOString(),
       });
     }
 
@@ -333,14 +356,12 @@ class CommonFunctions {
   /**
    * 성능 데이터 생성
    */
-  generatePerformanceData(count, min = 80, max = 95, variation = 0.05) {
+  generatePerformanceData(count, min = 0, max = 0, variation = 0) {
     const data = [];
-    let current = (min + max) / 2;
+    let current = 0;
 
     for (let i = 0; i < count; i++) {
-      const change = (Math.random() - 0.5) * variation * (max - min);
-      current = Math.max(min, Math.min(max, current + change));
-      data.push(parseFloat(current.toFixed(2)));
+      data.push('No Data');
     }
 
     return data;
@@ -351,14 +372,10 @@ class CommonFunctions {
    */
   generateSentimentData() {
     const total = 100;
-    const positive = Math.floor(Math.random() * 50) + 30;
-    const negative = Math.floor(Math.random() * 30) + 10;
-    const neutral = total - positive - negative;
-
     return {
-      positive: positive,
-      negative: negative,
-      neutral: neutral
+      positive: 'No Data',
+      negative: 'No Data',
+      neutral: 'No Data',
     };
   }
 
@@ -371,8 +388,8 @@ class CommonFunctions {
 
     for (let i = 0; i < count && i < symbols.length; i++) {
       data.push({
-        symbol: symbols[i],
-        volume: (Math.random() * 80 + 20).toFixed(1)
+        symbol: symbols[i] || 'No Data',
+        volume: 'No Data',
       });
     }
 
@@ -383,8 +400,9 @@ class CommonFunctions {
    * 기본 데이터 생성
    */
   generateDefaultData(count = 10, min = 0, max = 100) {
-    return Array.from({ length: count }, () => 
-      Math.random() * (max - min) + min
+    return Array.from(
+      { length: count },
+      () => Math.random() * (max - min) + min
     );
   }
 
@@ -436,7 +454,7 @@ class CommonFunctions {
    * @param {number} ms - Milliseconds to wait
    */
   sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
@@ -447,8 +465,11 @@ class CommonFunctions {
   isElementVisible(element) {
     if (!element) return false;
     const rect = element.getBoundingClientRect();
-    return rect.width > 0 && rect.height > 0 && 
-           window.getComputedStyle(element).display !== 'none';
+    return (
+      rect.width > 0 &&
+      rect.height > 0 &&
+      window.getComputedStyle(element).display !== 'none'
+    );
   }
 
   /**
@@ -483,7 +504,7 @@ class CommonFunctions {
         justify-content: center;
         z-index: 1000;
       `;
-      
+
       container.style.position = 'relative';
       container.appendChild(loadingDiv);
     } else {

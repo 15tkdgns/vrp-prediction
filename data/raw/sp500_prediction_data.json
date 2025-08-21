@@ -1,0 +1,63 @@
+{
+  "current_price": 5527.45,
+  "predicted_price": 5612.30,
+  "prediction_confidence": 0.87,
+  "price_change": 84.85,
+  "price_change_percent": 1.54,
+  "trend_direction": "bullish",
+  "risk_level": "moderate",
+  "last_updated": "2025-08-20T03:45:00Z",
+  "historical_data": [
+    {"date": "2025-08-13", "price": 5420.12, "volume": 3456789012},
+    {"date": "2025-08-14", "price": 5445.67, "volume": 3234567890},
+    {"date": "2025-08-15", "price": 5412.89, "volume": 3789012345},
+    {"date": "2025-08-16", "price": 5467.23, "volume": 3567890123},
+    {"date": "2025-08-17", "price": 5489.45, "volume": 3123456789},
+    {"date": "2025-08-18", "price": 5501.78, "volume": 3345678901},
+    {"date": "2025-08-19", "price": 5527.45, "volume": 3456789012}
+  ],
+  "prediction_data": [
+    {"date": "2025-08-20", "predicted_price": 5542.10, "confidence": 0.89},
+    {"date": "2025-08-21", "predicted_price": 5567.85, "confidence": 0.85},
+    {"date": "2025-08-22", "predicted_price": 5589.20, "confidence": 0.82},
+    {"date": "2025-08-23", "predicted_price": 5612.30, "confidence": 0.87},
+    {"date": "2025-08-24", "predicted_price": 5598.75, "confidence": 0.79},
+    {"date": "2025-08-25", "predicted_price": 5615.40, "confidence": 0.83},
+    {"date": "2025-08-26", "predicted_price": 5634.55, "confidence": 0.81}
+  ],
+  "key_factors": [
+    {
+      "factor": "Federal Reserve Policy",
+      "impact": 0.25,
+      "sentiment": "neutral"
+    },
+    {
+      "factor": "Corporate Earnings",
+      "impact": 0.35,
+      "sentiment": "positive"
+    },
+    {
+      "factor": "Economic Indicators",
+      "impact": 0.20,
+      "sentiment": "positive"
+    },
+    {
+      "factor": "Market Sentiment",
+      "impact": 0.20,
+      "sentiment": "positive"
+    }
+  ],
+  "technical_indicators": {
+    "rsi": 62.4,
+    "moving_average_50": 5456.78,
+    "moving_average_200": 5398.23,
+    "volatility_index": 18.45,
+    "support_level": 5480.00,
+    "resistance_level": 5650.00
+  },
+  "prediction_accuracy": {
+    "last_7_days": 0.84,
+    "last_30_days": 0.81,
+    "overall": 0.79
+  }
+}

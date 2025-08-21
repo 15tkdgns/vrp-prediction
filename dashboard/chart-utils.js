@@ -14,20 +14,22 @@ class ChartUtils {
       console.warn(`[CHART UTILS] Chart element not found: ${elementId}`);
       return null;
     }
-    
+
     // Check if element is visible and has dimensions
     const computedStyle = window.getComputedStyle(element);
     if (computedStyle.display === 'none') {
       console.warn(`[CHART UTILS] Chart element is hidden: ${elementId}`);
       return null;
     }
-    
+
     // Check if element has canvas context capability
     if (element.tagName.toLowerCase() !== 'canvas') {
-      console.warn(`[CHART UTILS] Chart element is not a canvas: ${elementId} (${element.tagName})`);
+      console.warn(
+        `[CHART UTILS] Chart element is not a canvas: ${elementId} (${element.tagName})`
+      );
       return null;
     }
-    
+
     return element;
   }
 
@@ -37,15 +39,18 @@ class ChartUtils {
    */
   static destroyExistingChart(elementOrId) {
     try {
-      const element = typeof elementOrId === 'string' 
-        ? document.getElementById(elementOrId) 
-        : elementOrId;
-        
+      const element =
+        typeof elementOrId === 'string'
+          ? document.getElementById(elementOrId)
+          : elementOrId;
+
       if (element) {
         const existingChart = Chart.getChart(element);
         if (existingChart) {
           existingChart.destroy();
-          console.log(`[CHART UTILS] Destroyed existing chart for element: ${element.id || 'unknown'}`);
+          console.log(
+            `[CHART UTILS] Destroyed existing chart for element: ${element.id || 'unknown'}`
+          );
         }
       }
     } catch (error) {
@@ -74,10 +79,12 @@ class ChartUtils {
       const chart = new Chart(element, config);
       console.log(`[CHART UTILS] Successfully created chart: ${elementId}`);
       return chart;
-
     } catch (error) {
-      console.error(`[CHART UTILS] Failed to create chart ${elementId}:`, error);
-      
+      console.error(
+        `[CHART UTILS] Failed to create chart ${elementId}:`,
+        error
+      );
+
       // Try to show error in the container
       const container = document.getElementById(elementId);
       if (container && container.parentElement) {
@@ -89,7 +96,7 @@ class ChartUtils {
           </div>
         `;
       }
-      
+
       return null;
     }
   }
@@ -118,7 +125,7 @@ class ChartUtils {
 
       observer.observe(document.body, {
         childList: true,
-        subtree: true
+        subtree: true,
       });
 
       // Timeout fallback
@@ -137,15 +144,17 @@ class ChartUtils {
    */
   static createChartseBatch(chartConfigs) {
     const charts = [];
-    
-    for (const {elementId, config} of chartConfigs) {
+
+    for (const { elementId, config } of chartConfigs) {
       const chart = this.createChartSafe(elementId, config);
       if (chart) {
-        charts.push({elementId, chart});
+        charts.push({ elementId, chart });
       }
     }
-    
-    console.log(`[CHART UTILS] Created ${charts.length}/${chartConfigs.length} charts successfully`);
+
+    console.log(
+      `[CHART UTILS] Created ${charts.length}/${chartConfigs.length} charts successfully`
+    );
     return charts;
   }
 }

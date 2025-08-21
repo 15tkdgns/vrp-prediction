@@ -5,6 +5,11 @@ from datetime import datetime, timedelta
 import yfinance as yf
 from textblob import TextBlob
 import logging
+import os
+from dotenv import load_dotenv
+
+# 환경변수 로드
+load_dotenv()
 
 
 class APIManager:
@@ -19,23 +24,31 @@ class APIManager:
             "sp500_data": {
                 "ALPHA_VANTAGE": {
                     "base_url": "https://www.alphavantage.co/query",
-                    "api_key": "XL71HG5D4EBIUZ6L",
+                    "api_key": os.getenv("ALPHA_VANTAGE_KEY"),
                 },
                 "TWELVE_DATA": {
                     "base_url": "https://api.twelvedata.com",
-                    "api_key": "YOUR_TWELVE_DATA_API_KEY",  # Replace with your actual API key
+                    "api_key": os.getenv("TWELVE_DATA_KEY"),
                 },
                 "FINNHUB": {
                     "base_url": "https://finnhub.io/api/v1",
-                    "api_key": "YOUR_FINNHUB_API_KEY",  # Replace with your actual API key
+                    "api_key": os.getenv("FINNHUB_KEY"),
                 },
                 "MARKETAUX": {
                     "base_url": "https://api.marketaux.com/v1",
-                    "api_key": "lktDvope4smOUe1Lwx2TaC5OsYVCFbTmPRGxwmCT",
+                    "api_key": os.getenv("MARKETAUX_KEY"),
                 },
                 "POLYGON": {
                     "base_url": "https://api.polygon.io",
-                    "api_key": "oiPSORSBg0kPrrmoaSJUiVTkAdslJFb8",
+                    "api_key": os.getenv("POLYGON_KEY"),
+                },
+                "FMP": {
+                    "base_url": "https://financialmodelingprep.com/api/v3",
+                    "api_key": os.getenv("FMP_KEY"),
+                },
+                "IEX_CLOUD": {
+                    "base_url": "https://cloud.iexapis.com/stable",
+                    "api_key": os.getenv("IEX_CLOUD_KEY"),
                 },
             },
         }

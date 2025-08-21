@@ -1,0 +1,124 @@
+{
+  "timestamp": "2025-08-19T16:44:30.000Z",
+  "overall_sentiment": "neutral",
+  "sentiment_score": 0.12,
+  "confidence": 0.85,
+  "market_conditions": {
+    "volatility": "moderate",
+    "trend": "sideways",
+    "volume": "average"
+  },
+  "sectors": [
+    {
+      "name": "Technology",
+      "sentiment": "positive",
+      "score": 0.65,
+      "stocks": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
+    },
+    {
+      "name": "Healthcare",
+      "sentiment": "neutral",
+      "score": 0.05,
+      "stocks": ["JNJ", "PFE", "UNH", "ABBV", "MRK"]
+    },
+    {
+      "name": "Financial",
+      "sentiment": "negative",
+      "score": -0.25,
+      "stocks": ["JPM", "BAC", "WFC", "GS", "MS"]
+    },
+    {
+      "name": "Energy",
+      "sentiment": "negative",
+      "score": -0.35,
+      "stocks": ["XOM", "CVX", "COP", "EOG", "SLB"]
+    }
+  ],
+  "news_analysis": {
+    "total_articles": 247,
+    "positive": 89,
+    "negative": 76,
+    "neutral": 82,
+    "key_topics": [
+      "Federal Reserve Policy",
+      "Inflation Concerns",
+      "Earnings Season",
+      "Geopolitical Tensions",
+      "Tech Innovation"
+    ]
+  },
+  "social_sentiment": {
+    "twitter_sentiment": 0.18,
+    "reddit_sentiment": -0.05,
+    "news_sentiment": 0.22,
+    "total_mentions": 15847
+  },
+  "hourly_sentiment": [
+    {"hour": "00:00", "sentiment": 0.2, "volume": 15},
+    {"hour": "01:00", "sentiment": 0.3, "volume": 12},
+    {"hour": "02:00", "sentiment": 0.1, "volume": 8},
+    {"hour": "03:00", "sentiment": 0.4, "volume": 18},
+    {"hour": "04:00", "sentiment": 0.6, "volume": 25},
+    {"hour": "05:00", "sentiment": 0.5, "volume": 22},
+    {"hour": "06:00", "sentiment": 0.7, "volume": 35},
+    {"hour": "07:00", "sentiment": 0.8, "volume": 42},
+    {"hour": "08:00", "sentiment": 0.6, "volume": 38},
+    {"hour": "09:00", "sentiment": 0.4, "volume": 45},
+    {"hour": "10:00", "sentiment": 0.3, "volume": 48},
+    {"hour": "11:00", "sentiment": 0.5, "volume": 52},
+    {"hour": "12:00", "sentiment": 0.7, "volume": 55},
+    {"hour": "13:00", "sentiment": 0.8, "volume": 60},
+    {"hour": "14:00", "sentiment": 0.6, "volume": 58},
+    {"hour": "15:00", "sentiment": 0.4, "volume": 50},
+    {"hour": "16:00", "sentiment": 0.2, "volume": 45},
+    {"hour": "17:00", "sentiment": 0.3, "volume": 40},
+    {"hour": "18:00", "sentiment": 0.5, "volume": 35},
+    {"hour": "19:00", "sentiment": 0.6, "volume": 30},
+    {"hour": "20:00", "sentiment": 0.4, "volume": 25},
+    {"hour": "21:00", "sentiment": 0.3, "volume": 20},
+    {"hour": "22:00", "sentiment": 0.2, "volume": 18},
+    {"hour": "23:00", "sentiment": 0.1, "volume": 15}
+  ],
+  "sentiment_distribution": {
+    "positive": 45,
+    "neutral": 35,
+    "negative": 20
+  },
+  "news_topics": [
+    {
+      "topic": "Federal Reserve Policy",
+      "sentiment": 0.3,
+      "impact": "high",
+      "articles_count": 45,
+      "keywords": ["interest rates", "inflation", "monetary policy"]
+    },
+    {
+      "topic": "Technology Earnings",
+      "sentiment": 0.8,
+      "impact": "high",
+      "articles_count": 38,
+      "keywords": ["Q3 earnings", "AI revenue", "cloud growth"]
+    },
+    {
+      "topic": "Market Volatility",
+      "sentiment": -0.2,
+      "impact": "medium",
+      "articles_count": 32,
+      "keywords": ["volatility", "uncertainty", "risk"]
+    },
+    {
+      "topic": "Energy Sector",
+      "sentiment": 0.6,
+      "impact": "medium",
+      "articles_count": 28,
+      "keywords": ["oil prices", "renewable energy", "demand"]
+    },
+    {
+      "topic": "Healthcare Developments",
+      "sentiment": 0.4,
+      "impact": "low",
+      "articles_count": 22,
+      "keywords": ["biotech", "FDA approval", "clinical trials"]
+    }
+  ]
+}

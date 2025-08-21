@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "parserOptions": {
@@ -16,6 +17,30 @@
   "globals": {
     "Chart": "readonly",
     "Prism": "readonly",
-    "DashboardExtensions": "readonly"
-  }
+    "DashboardExtensions": "readonly",
+    "DataManager": "readonly",
+    "ChartManager": "readonly",
+    "ChartUtils": "readonly",
+    "StockChartStyleModule": "readonly",
+    "DebugDashboard": "readonly"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.js", "**/*.test.js", "**/*.spec.js"],
+      "env": {
+        "jest": true
+      },
+      "globals": {
+        "describe": "readonly",
+        "test": "readonly",
+        "it": "readonly",
+        "expect": "readonly",
+        "beforeEach": "readonly",
+        "afterEach": "readonly",
+        "beforeAll": "readonly",
+        "afterAll": "readonly",
+        "jest": "readonly"
+      }
+    }
+  ]
 }

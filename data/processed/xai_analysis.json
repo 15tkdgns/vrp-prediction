@@ -1,0 +1,123 @@
+{
+  "feature_importance": [
+    {
+      "feature": "Volume",
+      "importance": 0.85,
+      "description": "Trading volume impact on price prediction",
+      "category": "market"
+    },
+    {
+      "feature": "News Sentiment",
+      "importance": 0.72,
+      "description": "Sentiment analysis from news articles",
+      "category": "sentiment"
+    },
+    {
+      "feature": "Price Momentum",
+      "importance": 0.65,
+      "description": "Short-term price trend momentum",
+      "category": "technical"
+    },
+    {
+      "feature": "Market Volatility",
+      "importance": 0.58,
+      "description": "Market volatility index (VIX)",
+      "category": "market"
+    },
+    {
+      "feature": "RSI",
+      "importance": 0.52,
+      "description": "Relative Strength Index",
+      "category": "technical"
+    },
+    {
+      "feature": "Moving Average",
+      "importance": 0.48,
+      "description": "50-day moving average",
+      "category": "technical"
+    }
+  ],
+  "shap_values": {
+    "AAPL": {
+      "features": ["Volume", "News Sentiment", "Price Momentum", "Market Volatility", "RSI", "Moving Average"],
+      "values": [0.32, -0.18, 0.25, -0.12, 0.08, 0.15],
+      "prediction": 0.78,
+      "confidence": 0.85
+    },
+    "MSFT": {
+      "features": ["Volume", "News Sentiment", "Price Momentum", "Market Volatility", "RSI", "Moving Average"],
+      "values": [0.28, 0.22, 0.18, -0.08, 0.12, 0.10],
+      "prediction": 0.82,
+      "confidence": 0.89
+    },
+    "GOOGL": {
+      "features": ["Volume", "News Sentiment", "Price Momentum", "Market Volatility", "RSI", "Moving Average"],
+      "values": [0.25, 0.15, 0.30, -0.15, 0.05, 0.20],
+      "prediction": 0.75,
+      "confidence": 0.82
+    },
+    "AMZN": {
+      "features": ["Volume", "News Sentiment", "Price Momentum", "Market Volatility", "RSI", "Moving Average"],
+      "values": [0.35, -0.10, 0.22, -0.18, 0.15, 0.08],
+      "prediction": 0.72,
+      "confidence": 0.87
+    },
+    "TSLA": {
+      "features": ["Volume", "News Sentiment", "Price Momentum", "Market Volatility", "RSI", "Moving Average"],
+      "values": [0.42, -0.25, 0.35, -0.22, 0.18, 0.12],
+      "prediction": 0.68,
+      "confidence": 0.76
+    }
+  },
+  "lime_explanations": {
+    "AAPL": {
+      "top_features": [
+        {"feature": "Volume", "weight": 0.32, "direction": "positive"},
+        {"feature": "Price Momentum", "weight": 0.25, "direction": "positive"},
+        {"feature": "News Sentiment", "weight": -0.18, "direction": "negative"}
+      ],
+      "prediction_probability": 0.78,
+      "explanation": "High volume and positive momentum drive prediction up, while negative sentiment reduces confidence"
+    },
+    "MSFT": {
+      "top_features": [
+        {"feature": "Volume", "weight": 0.28, "direction": "positive"},
+        {"feature": "News Sentiment", "weight": 0.22, "direction": "positive"},
+        {"feature": "Price Momentum", "weight": 0.18, "direction": "positive"}
+      ],
+      "prediction_probability": 0.82,
+      "explanation": "Consistent positive signals across volume, sentiment, and momentum indicators"
+    }
+  },
+  "model_performance": {
+    "accuracy": 0.84,
+    "precision": 0.82,
+    "recall": 0.86,
+    "f1_score": 0.84,
+    "auc_score": 0.88,
+    "feature_stability": 0.91,
+    "explanation_fidelity": 0.87
+  },
+  "interpretation_summary": {
+    "key_insights": [
+      "Volume is the most predictive feature across all stocks",
+      "Sentiment analysis provides significant explanatory power",
+      "Technical indicators show moderate but consistent importance",
+      "Market volatility generally acts as a negative predictor"
+    ],
+    "model_behavior": {
+      "complexity": "medium",
+      "interpretability": "high",
+      "bias_detection": "low_bias",
+      "fairness_score": 0.89
+    }
+  },
+  "metadata": {
+    "generated_at": "2025-08-20T03:20:00.000Z",
+    "model_version": "v2.1.0",
+    "data_period": "2024-01-01 to 2025-08-20",
+    "feature_count": 15,
+    "sample_size": 10000,
+    "analysis_type": "post_hoc_explanation"
+  }
+}

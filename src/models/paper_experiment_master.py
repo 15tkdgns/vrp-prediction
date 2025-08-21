@@ -169,9 +169,7 @@ class PaperExperimentMaster:
 
         try:
             # 집중 실험 계획 생성
-            self.experiment_framework.create_focused_experiment_plan(
-                "top_models"
-            )
+            self.experiment_framework.create_focused_experiment_plan("top_models")
 
             # 실험 실행
             self.logger.info("주요 모델 비교 실험 실행 중...")

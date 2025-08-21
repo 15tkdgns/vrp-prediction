@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-08-20T03:45:00Z",
+  "performance_history": [
+    {"date": "2025-08-13", "accuracy": 0.834, "precision": 0.821, "recall": 0.847, "f1_score": 0.834},
+    {"date": "2025-08-14", "accuracy": 0.841, "precision": 0.828, "recall": 0.854, "f1_score": 0.841},
+    {"date": "2025-08-15", "accuracy": 0.838, "precision": 0.825, "recall": 0.851, "f1_score": 0.838},
+    {"date": "2025-08-16", "accuracy": 0.845, "precision": 0.832, "recall": 0.858, "f1_score": 0.845},
+    {"date": "2025-08-17", "accuracy": 0.843, "precision": 0.830, "recall": 0.856, "f1_score": 0.843},
+    {"date": "2025-08-18", "accuracy": 0.849, "precision": 0.836, "recall": 0.862, "f1_score": 0.849},
+    {"date": "2025-08-19", "accuracy": 0.847, "precision": 0.834, "recall": 0.860, "f1_score": 0.847}
+  ],
+  "model_comparison": {
+    "Random Forest": {
+      "current_accuracy": 0.834,
+      "trend": "stable",
+      "change_7d": -0.002,
+      "best_accuracy": 0.841,
+      "avg_response_time": 89
+    },
+    "Gradient Boosting": {
+      "current_accuracy": 0.847,
+      "trend": "improving",
+      "change_7d": 0.008,
+      "best_accuracy": 0.852,
+      "avg_response_time": 156
+    },
+    "LSTM Neural Network": {
+      "current_accuracy": 0.856,
+      "trend": "stable",
+      "change_7d": 0.003,
+      "best_accuracy": 0.864,
+      "avg_response_time": 234
+    },
+    "XGBoost": {
+      "current_accuracy": 0.841,
+      "trend": "declining",
+      "change_7d": -0.005,
+      "best_accuracy": 0.849,
+      "avg_response_time": 167
+    }
+  },
+  "performance_metrics": {
+    "best_model": "LSTM Neural Network",
+    "worst_model": "Random Forest",
+    "average_accuracy": 0.8445,
+    "accuracy_variance": 0.000089,
+    "improvement_rate_weekly": 0.0035,
+    "overall_trend": "improving"
+  },
+  "reference_stocks": [
+    {
+      "symbol": "AAPL",
+      "prediction_accuracy": 0.867,
+      "actual_price": 227.45,
+      "predicted_price": 234.20,
+      "prediction_error": 2.9
+    },
+    {
+      "symbol": "MSFT", 
+      "prediction_accuracy": 0.823,
+      "actual_price": 421.78,
+      "predicted_price": 428.50,
+      "prediction_error": 1.6
+    },
+    {
+      "symbol": "GOOGL",
+      "prediction_accuracy": 0.841,
+      "actual_price": 167.89,
+      "predicted_price": 172.45,
+      "prediction_error": 2.7
+    }
+  ],
+  "prediction_confidence": {
+    "high_confidence": 67,
+    "medium_confidence": 28,
+    "low_confidence": 5,
+    "total_predictions": 1847
+  }
+}
