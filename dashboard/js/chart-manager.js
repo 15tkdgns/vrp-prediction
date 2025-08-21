@@ -47,6 +47,44 @@ class ChartManager {
   }
 
   /**
+   * 초기 차트들 로드 (최소한의 필수 차트만)
+   */
+  async loadInitialCharts() {
+    try {
+      // 가장 중요한 차트들만 미리 준비
+      console.log('📊 필수 차트 구성 요소 준비 중...');
+      
+      // Chart.js 전역 설정 최적화
+      Chart.defaults.animation = {
+        duration: 300 // 애니메이션 단축
+      };
+      
+      // 기본 차트 색상 팔레트 준비
+      this.prepareChartColors();
+      
+      console.log('✅ 필수 차트 로드 완료');
+    } catch (error) {
+      console.warn('⚠️ 차트 초기화 일부 실패:', error);
+    }
+  }
+
+  /**
+   * 차트 색상 팔레트 준비
+   */
+  prepareChartColors() {
+    this.colorPalette = [
+      this.colors.primary,
+      this.colors.success,
+      this.colors.warning,
+      this.colors.danger,
+      this.colors.info,
+      this.colors.purple,
+      this.colors.orange,
+      this.colors.pink
+    ];
+  }
+
+  /**
    * 라인 차트 생성
    */
   createLineChart(canvasId, data, options = {}) {

@@ -22,7 +22,8 @@
     "ChartManager": "readonly",
     "ChartUtils": "readonly",
     "StockChartStyleModule": "readonly",
-    "DebugDashboard": "readonly"
+    "DebugDashboard": "readonly",
+    "SP500Widget": "readonly"
   },
   "overrides": [
     {

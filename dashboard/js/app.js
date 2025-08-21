@@ -24,46 +24,71 @@ class DashboardApp {
   }
 
   /**
-   * 애플리케이션 초기화
+   * 애플리케이션 초기화 (성능 최적화됨)
    */
   async init() {
+    const startTime = Date.now();
+    
     try {
-      this.showLoading('시스템 초기화 중...');
+      this.showLoadingProgress('시스템 초기화 중...', 0);
 
-      // 1. DOM 준비 대기
+      // 1. DOM 준비 대기 (필수 선행)
       await this.waitForDOM();
+      this.showLoadingProgress('DOM 준비 완료', 10);
 
-      // 2. 의존성 확인
+      // 2. 의존성 확인 (빠른 체크)
       await this.checkDependencies();
+      this.showLoadingProgress('의존성 확인 완료', 20);
 
-      // 3. 데이터 매니저 초기화
-      this.dataManager = new DataManager();
-      await this.dataManager.init();
+      // 3. 핵심 컴포넌트들을 병렬로 초기화
+      this.showLoadingProgress('핵심 모듈 초기화 중...', 30);
+      
+      const [dataManager, chartManager, sp500Widget] = await Promise.all([
+        this.initDataManager(),
+        this.initChartManager(),
+        this.initSP500Widget()
+      ]);
+      
+      this.dataManager = dataManager;
+      this.chartManager = chartManager;
+      this.sp500Widget = sp500Widget;
+      
+      this.showLoadingProgress('핵심 모듈 완료', 60);
 
-      // 4. 차트 매니저 초기화
-      this.chartManager = new ChartManager();
-      await this.chartManager.init();
+      // 4. UI 컴포넌트와 데이터를 병렬로 처리
+      this.showLoadingProgress('UI 및 데이터 로딩 중...', 70);
+      
+      await Promise.all([
+        this.initComponents(),
+        this.loadInitialDataOptimized()
+      ]);
+      
+      this.showLoadingProgress('컴포넌트 초기화 완료', 90);
 
-      // 5. UI 컴포넌트 초기화
-      await this.initComponents();
-
-      // 6. 초기 데이터 로드
-      await this.loadInitialData();
-
-      // 7. 이벤트 리스너 설정
+      // 5. 이벤트 리스너 설정 (가장 빠름)
       this.setupEventListeners();
+      
+      this.showLoadingProgress('시스템 준비 완료', 100);
 
+      // 초기화 완료
       this.isInitialized = true;
-      this.hideLoading();
+      
+      const duration = Date.now() - startTime;
+      console.log(`✅ Dashboard App 초기화 완료 (${duration}ms)`);
+      
+      // 로딩 완료 후 페이드아웃
+      setTimeout(() => {
+        this.hideLoading();
+        this.showStatus(`🚀 시스템 준비 완료 (${duration}ms)`, 'success');
+      }, 300);
 
-      console.log('✅ Dashboard App 초기화 완료');
-      this.showStatus('시스템 준비 완료', 'success');
-
-      // 선택적 자동 새로고침 (60초)
-      this.startAutoRefresh();
+      // 자동 새로고침 시작 (백그라운드)
+      setTimeout(() => this.startAutoRefresh(), 1000);
+      
     } catch (error) {
       console.error('❌ App 초기화 실패:', error);
       this.showError('시스템 초기화에 실패했습니다: ' + error.message);
+      this.hideLoading();
     }
   }
 
@@ -90,6 +115,89 @@ class DashboardApp {
     }
 
     console.log('✅ Chart.js 버전:', Chart.version);
+  }
+
+  /**
+   * 데이터 매니저 병렬 초기화
+   */
+  async initDataManager() {
+    const dataManager = new DataManager();
+    await dataManager.init();
+    return dataManager;
+  }
+
+  /**
+   * 차트 매니저 병렬 초기화
+   */
+  async initChartManager() {
+    const chartManager = new ChartManager();
+    await chartManager.init();
+    return chartManager;
+  }
+
+  /**
+   * S&P 500 위젯 병렬 초기화
+   */
+  async initSP500Widget() {
+    const sp500Widget = new SP500Widget();
+    await sp500Widget.init();
+    return sp500Widget;
+  }
+
+  /**
+   * 최적화된 초기 데이터 로드
+   */
+  async loadInitialDataOptimized() {
+    try {
+      // 중요도 순으로 데이터 로드
+      const criticalData = await Promise.allSettled([
+        this.loadCriticalData(),
+        this.loadChartData()
+      ]);
+
+      // 백그라운드에서 추가 데이터 로드
+      setTimeout(() => {
+        this.loadSecondaryData();
+      }, 100);
+
+      console.log('✅ 최적화된 초기 데이터 로드 완료');
+    } catch (error) {
+      console.warn('⚠️ 일부 데이터 로드 실패:', error);
+    }
+  }
+
+  /**
+   * 중요한 데이터 우선 로드
+   */
+  async loadCriticalData() {
+    // S&P 500 데이터는 위젯에서 자체 로드
+    // 여기서는 필수 시스템 데이터만 로드
+    if (this.dataManager) {
+      await this.dataManager.loadSystemStatus();
+    }
+  }
+
+  /**
+   * 차트 데이터 로드
+   */
+  async loadChartData() {
+    if (this.chartManager) {
+      await this.chartManager.loadInitialCharts();
+    }
+  }
+
+  /**
+   * 보조 데이터 백그라운드 로드
+   */
+  async loadSecondaryData() {
+    try {
+      if (this.dataManager) {
+        await this.dataManager.loadNewsData();
+        await this.dataManager.loadMarketData();
+      }
+    } catch (error) {
+      console.warn('보조 데이터 로드 실패:', error);
+    }
   }
 
   /**
@@ -220,6 +328,11 @@ class DashboardApp {
 
       this.showStatus('🔧 UI 컴포넌트 업데이트 중...', 'info');
 
+      // S&P 500 위젯 새로고침
+      if (this.sp500Widget) {
+        await this.sp500Widget.refresh();
+      }
+
       // 컴포넌트 업데이트
       this.updateAllComponents();
 
@@ -330,12 +443,120 @@ class DashboardApp {
   }
 
   /**
+   * 진행률과 함께 로딩 표시
+   */
+  showLoadingProgress(message = '로딩 중...', progress = 0) {
+    const loadingEl = document.getElementById('loading-indicator');
+    if (loadingEl) {
+      // 진행률 바가 없으면 생성
+      let progressBar = loadingEl.querySelector('.progress-bar');
+      if (!progressBar) {
+        loadingEl.innerHTML = `
+          <div class="loading-content">
+            <div class="loading-text">${message}</div>
+            <div class="progress-container">
+              <div class="progress-bar"></div>
+            </div>
+            <div class="loading-percentage">0%</div>
+          </div>
+        `;
+        progressBar = loadingEl.querySelector('.progress-bar');
+        
+        // 진행률 바 스타일 추가
+        this.addProgressBarStyles();
+      }
+      
+      // 텍스트와 진행률 업데이트
+      const textEl = loadingEl.querySelector('.loading-text');
+      const percentEl = loadingEl.querySelector('.loading-percentage');
+      
+      if (textEl) textEl.textContent = message;
+      if (percentEl) percentEl.textContent = `${progress}%`;
+      if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+        progressBar.style.transition = 'width 0.3s ease';
+      }
+      
+      loadingEl.style.display = 'block';
+    }
+  }
+
+  /**
+   * 진행률 바 스타일 추가
+   */
+  addProgressBarStyles() {
+    if (document.getElementById('progress-bar-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'progress-bar-styles';
+    style.textContent = `
+      .loading-content {
+        text-align: center;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        min-width: 300px;
+      }
+      
+      .loading-text {
+        font-size: 1.1rem;
+        color: #333;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+      
+      .progress-container {
+        width: 100%;
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+      
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #007bff, #0056b3);
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      
+      .loading-percentage {
+        font-size: 0.9rem;
+        color: #6c757d;
+        font-weight: 600;
+      }
+      
+      #loading-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  /**
    * 로딩 숨김
    */
   hideLoading() {
     const loadingEl = document.getElementById('loading-indicator');
     if (loadingEl) {
-      loadingEl.style.display = 'none';
+      loadingEl.style.opacity = '0';
+      loadingEl.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => {
+        loadingEl.style.display = 'none';
+        loadingEl.style.opacity = '1';
+      }, 300);
     }
   }
 

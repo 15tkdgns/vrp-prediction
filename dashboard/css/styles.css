@@ -1043,3 +1043,150 @@ a:hover {
     border: 1px solid #000;
   }
 }
+
+/* ==================== S&P 500 위젯 스타일 ==================== */
+
+.sp500-widget {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: var(--spacing-lg);
+  transition: all 0.3s ease;
+}
+
+.sp500-widget:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+.sp500-container {
+  width: 100%;
+}
+
+.sp500-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.sp500-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sp500-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+}
+
+/* 가격 섹션 */
+.sp500-price-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.sp500-current-price,
+.sp500-prediction {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+}
+
+.sp500-current-price {
+  border-left: 4px solid var(--success-color);
+}
+
+.sp500-prediction {
+  border-left: 4px solid var(--primary-color);
+}
+
+.price-label,
+.prediction-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+}
+
+.price-value,
+.prediction-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.price-change {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.price-change.positive {
+  color: var(--success-color);
+}
+
+.price-change.negative {
+  color: var(--danger-color);
+}
+
+.confidence {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 차트 섹션 */
+.sp500-chart-section {
+  position: relative;
+  height: 200px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sp500-30day-chart {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.last-update {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 12px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .sp500-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .sp500-price-section {
+    order: 2;
+  }
+  
+  .sp500-chart-section {
+    order: 1;
+    height: 150px;
+  }
+  
+  .price-value,
+  .prediction-value {
+    font-size: 1.5rem;
+  }
+}

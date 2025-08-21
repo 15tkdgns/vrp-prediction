@@ -31,18 +31,84 @@ class DataManager {
   }
 
   /**
-   * 초기화
+   * 초기화 (빠른 초기화)
    */
   async init() {
     console.log('📊 DataManager 초기화 중...');
+    
+    // API 서버 상태는 백그라운드에서 확인
+    this.checkAPIStatusBackground();
+    
+    // 즉시 반환하여 초기화 속도 개선
+    console.log('✅ DataManager 빠른 초기화 완료');
+  }
 
-    // API 서버 상태 확인
+  /**
+   * 백그라운드에서 API 상태 확인
+   */
+  async checkAPIStatusBackground() {
     try {
       const status = await this.fetchAPI('/status');
       console.log('✅ API 서버 상태 확인:', status.status);
+      this.apiAvailable = true;
     } catch (error) {
-      console.warn('⚠️ API 서버 접속 실패, 폴백 모드로 동작:', error.message);
+      console.warn('⚠️ API 서버 접속 실패, 로컬 데이터 모드로 동작');
+      this.apiAvailable = false;
     }
+  }
+
+  /**
+   * 시스템 상태 데이터만 빠르게 로드
+   */
+  async loadSystemStatus() {
+    try {
+      // 로컬 파일에서 빠르게 로드
+      const data = await this.loadLocalFile('../data/raw/system_status.json');
+      this.data.systemStatus = data;
+      return data;
+    } catch (error) {
+      console.warn('시스템 상태 로드 실패:', error);
+      return null;
+    }
+  }
+
+  /**
+   * 뉴스 데이터 백그라운드 로드
+   */
+  async loadNewsData() {
+    try {
+      const data = await this.loadLocalFile('../data/raw/market_sentiment.json');
+      this.data.news = data;
+      return data;
+    } catch (error) {
+      console.warn('뉴스 데이터 로드 실패:', error);
+      return null;
+    }
+  }
+
+  /**
+   * 마켓 데이터 백그라운드 로드
+   */
+  async loadMarketData() {
+    try {
+      const data = await this.loadLocalFile('../data/raw/trading_volume.json');
+      this.data.market = data;
+      return data;
+    } catch (error) {
+      console.warn('마켓 데이터 로드 실패:', error);
+      return null;
+    }
+  }
+
+  /**
+   * 로컬 파일 로드 유틸리티
+   */
+  async loadLocalFile(path) {
+    const response = await fetch(path);
+    if (!response.ok) {
+      throw new Error(`File load failed: ${response.status}`);
+    }
+    return await response.json();
   }
 
   /**

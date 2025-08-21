@@ -11,9 +11,9 @@ class APIDataLoader {
       marketSentiment: '/api/market/sentiment',
       modelPerformance: '/api/model/performance',
       sp500Data: '/api/stocks/sp500',
-      sp500Predictions: '/api/predictions/sp500'
+      sp500Predictions: '/api/predictions/sp500',
     };
-    
+
     this.init();
   }
 
@@ -47,7 +47,8 @@ class APIDataLoader {
       }
 
       // Load market sentiment from Python backend
-      const marketSentimentData = await this.fetchFromBackend('marketSentiment');
+      const marketSentimentData =
+        await this.fetchFromBackend('marketSentiment');
       if (marketSentimentData) {
         this.dataCache.set('marketSentiment', marketSentimentData);
         window.marketSentimentData = marketSentimentData;
@@ -68,19 +69,20 @@ class APIDataLoader {
       }
 
       console.log('[API LOADER] Real API data loading completed');
-      
-      // Notify dashboard of data update
-      window.dispatchEvent(new CustomEvent('realDataLoaded', {
-        detail: {
-          predictions: predictionsData,
-          systemStatus: systemData,
-          tradingVolume: tradingVolumeData,
-          marketSentiment: marketSentimentData,
-          sp500Data: sp500Data,
-          sp500Predictions: sp500Predictions
-        }
-      }));
 
+      // Notify dashboard of data update
+      window.dispatchEvent(
+        new CustomEvent('realDataLoaded', {
+          detail: {
+            predictions: predictionsData,
+            systemStatus: systemData,
+            tradingVolume: tradingVolumeData,
+            marketSentiment: marketSentimentData,
+            sp500Data: sp500Data,
+            sp500Predictions: sp500Predictions,
+          },
+        })
+      );
     } catch (error) {
       console.error('[API LOADER] Error loading real API data:', error);
       // Show no data instead of mock data
@@ -92,7 +94,7 @@ class APIDataLoader {
     try {
       const url = `${this.backendApiUrl}${this.endpoints[endpoint]}`;
       console.log(`[API LOADER] Fetching from: ${url}`);
-      
+
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -100,17 +102,19 @@ class APIDataLoader {
         },
         timeout: 5000, // 5 second timeout
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
       console.log(`[API LOADER] Successfully loaded ${endpoint} data`);
       return data;
-      
     } catch (error) {
-      console.warn(`[API LOADER] Failed to load ${endpoint} from backend:`, error.message);
+      console.warn(
+        `[API LOADER] Failed to load ${endpoint} from backend:`,
+        error.message
+      );
       return null;
     }
   }
@@ -121,10 +125,12 @@ class APIDataLoader {
     window.systemStatus = null;
     window.tradingVolumeData = null;
     window.marketSentimentData = null;
-    
-    window.dispatchEvent(new CustomEvent('noDataAvailable', {
-      detail: { message: 'Backend API not available' }
-    }));
+
+    window.dispatchEvent(
+      new CustomEvent('noDataAvailable', {
+        detail: { message: 'Backend API not available' },
+      })
+    );
   }
 
   startAutoRefresh() {
@@ -139,14 +145,16 @@ class APIDataLoader {
     if (!data || !data.top_volume_stocks) return null;
 
     return {
-      labels: data.top_volume_stocks.map(stock => stock.symbol),
-      datasets: [{
-        label: 'Trading Volume (Millions)',
-        data: data.top_volume_stocks.map(stock => stock.volume / 1000000),
-        backgroundColor: 'rgba(34, 197, 94, 0.8)',
-        borderColor: 'rgba(34, 197, 94, 1)',
-        borderWidth: 2
-      }]
+      labels: data.top_volume_stocks.map((stock) => stock.symbol),
+      datasets: [
+        {
+          label: 'Trading Volume (Millions)',
+          data: data.top_volume_stocks.map((stock) => stock.volume / 1000000),
+          backgroundColor: 'rgba(34, 197, 94, 0.8)',
+          borderColor: 'rgba(34, 197, 94, 1)',
+          borderWidth: 2,
+        },
+      ],
     };
   }
 
@@ -158,18 +166,20 @@ class APIDataLoader {
     const analysis = data.news_analysis;
     return {
       labels: ['Positive', 'Negative', 'Neutral'],
-      datasets: [{
-        data: [
-          analysis.positive_articles,
-          analysis.negative_articles,
-          analysis.neutral_articles
-        ],
-        backgroundColor: [
-          '#10B981', // Green for positive
-          '#EF4444', // Red for negative  
-          '#6B7280'  // Gray for neutral
-        ]
-      }]
+      datasets: [
+        {
+          data: [
+            analysis.positive_articles,
+            analysis.negative_articles,
+            analysis.neutral_articles,
+          ],
+          backgroundColor: [
+            '#10B981', // Green for positive
+            '#EF4444', // Red for negative
+            '#6B7280', // Gray for neutral
+          ],
+        },
+      ],
     };
   }
 
@@ -204,16 +214,20 @@ class APIDataLoader {
 
     const historicalData = data.historical_data;
     return {
-      labels: historicalData.map(item => new Date(item.date).toLocaleDateString()),
-      datasets: [{
-        label: 'S&P 500 Price',
-        data: historicalData.map(item => item.close),
-        borderColor: 'rgba(59, 130, 246, 1)',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        borderWidth: 2,
-        fill: true,
-        tension: 0.1
-      }]
+      labels: historicalData.map((item) =>
+        new Date(item.date).toLocaleDateString()
+      ),
+      datasets: [
+        {
+          label: 'S&P 500 Price',
+          data: historicalData.map((item) => item.close),
+          borderColor: 'rgba(59, 130, 246, 1)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1,
+        },
+      ],
     };
   }
 }

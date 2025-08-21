@@ -106,6 +106,33 @@
             <p>AI 주식 예측 시스템의 전체 현황을 한눈에 확인하세요</p>
           </div>
           <div class="dashboard-grid">
+            <!-- S&P 500 실시간 위젯 -->
+            <section class="sp500-widget" style="grid-column: 1 / -1; margin-bottom: 2rem;">
+              <div class="sp500-container">
+                <div class="sp500-header">
+                  <h3>📈 S&P 500 실시간 가격 & 예측</h3>
+                  <span id="sp500-last-update" class="last-update"></span>
+                </div>
+                <div class="sp500-content">
+                  <div class="sp500-price-section">
+                    <div class="sp500-current-price">
+                      <span class="price-label">현재 가격</span>
+                      <span id="sp500-current-price" class="price-value">$4,580.23</span>
+                      <span id="sp500-price-change" class="price-change positive">+15.67 (+0.34%)</span>
+                    </div>
+                    <div class="sp500-prediction">
+                      <span class="prediction-label">AI 예측</span>
+                      <span id="sp500-predicted-price" class="prediction-value">$4,642.15</span>
+                      <span id="sp500-prediction-confidence" class="confidence">신뢰도: 82%</span>
+                    </div>
+                  </div>
+                  <div class="sp500-chart-section">
+                    <canvas id="sp500-30day-chart" width="400" height="200"></canvas>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
             <section class="stock-grid" style="grid-column: 1 / -1">
               <!-- StockGrid 컴포넌트 -->
             </section>
@@ -225,6 +252,7 @@
     <!-- JavaScript -->
     <script src="js/data-manager.js"></script>
     <script src="js/chart-manager.js"></script>
+    <script src="js/sp500-widget.js"></script>
     <script src="js/components.js"></script>
     <script src="js/app.js"></script>
 
