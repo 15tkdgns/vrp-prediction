@@ -88,6 +88,12 @@
               <span class="menu-text">모델 성능</span>
             </a>
           </li>
+          <li class="menu-item" data-page="training">
+            <a href="#training" class="menu-link">
+              <span class="menu-icon">🧠</span>
+              <span class="menu-text">학습 과정 & XAI</span>
+            </a>
+          </li>
           <li class="menu-item" data-page="settings">
             <a href="#settings" class="menu-link">
               <span class="menu-icon">⚙️</span>
@@ -107,7 +113,10 @@
           </div>
           <div class="dashboard-grid">
             <!-- S&P 500 실시간 위젯 -->
-            <section class="sp500-widget" style="grid-column: 1 / -1; margin-bottom: 2rem;">
+            <section
+              class="sp500-widget"
+              style="grid-column: 1 / -1; margin-bottom: 2rem"
+            >
               <div class="sp500-container">
                 <div class="sp500-header">
                   <h3>📈 S&P 500 실시간 가격 & 예측</h3>
@@ -117,22 +126,36 @@
                   <div class="sp500-price-section">
                     <div class="sp500-current-price">
                       <span class="price-label">현재 가격</span>
-                      <span id="sp500-current-price" class="price-value">$4,580.23</span>
-                      <span id="sp500-price-change" class="price-change positive">+15.67 (+0.34%)</span>
+                      <span id="sp500-current-price" class="price-value"
+                        >$4,580.23</span
+                      >
+                      <span
+                        id="sp500-price-change"
+                        class="price-change positive"
+                        >+15.67 (+0.34%)</span
+                      >
                     </div>
                     <div class="sp500-prediction">
                       <span class="prediction-label">AI 예측</span>
-                      <span id="sp500-predicted-price" class="prediction-value">$4,642.15</span>
-                      <span id="sp500-prediction-confidence" class="confidence">신뢰도: 82%</span>
+                      <span id="sp500-predicted-price" class="prediction-value"
+                        >$4,642.15</span
+                      >
+                      <span id="sp500-prediction-confidence" class="confidence"
+                        >신뢰도: 82%</span
+                      >
                     </div>
                   </div>
                   <div class="sp500-chart-section">
-                    <canvas id="sp500-30day-chart" width="400" height="200"></canvas>
+                    <canvas
+                      id="sp500-30day-chart"
+                      width="400"
+                      height="200"
+                    ></canvas>
                   </div>
                 </div>
               </div>
             </section>
-            
+
             <section class="stock-grid" style="grid-column: 1 / -1">
               <!-- StockGrid 컴포넌트 -->
             </section>
@@ -209,6 +232,217 @@
           </div>
         </div>
 
+        <!-- 학습 과정 & XAI 페이지 -->
+        <div id="page-training" class="page-content">
+          <div class="page-header">
+            <h2>🧠 모델 학습 과정 & 설명 가능한 AI</h2>
+            <p>모델 학습 파라미터, 주요 변수 분석 및 XAI 시각화</p>
+          </div>
+          
+          <!-- 학습 파라미터 섹션 -->
+          <section class="training-parameters-section" style="margin-bottom: 2rem;">
+            <div class="section-header">
+              <h3>📊 학습 파라미터 & 모델 구성</h3>
+            </div>
+            <div class="parameters-grid">
+              <div class="parameter-card">
+                <h4>🌳 Random Forest</h4>
+                <div class="parameter-details">
+                  <div class="param-item">
+                    <span class="param-label">트리 개수:</span>
+                    <span class="param-value">100</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">최대 깊이:</span>
+                    <span class="param-value">10</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">분할 기준:</span>
+                    <span class="param-value">Gini</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">가중치:</span>
+                    <span id="rf-weight" class="param-value">34.2%</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="parameter-card">
+                <h4>🚀 Gradient Boosting</h4>
+                <div class="parameter-details">
+                  <div class="param-item">
+                    <span class="param-label">학습률:</span>
+                    <span class="param-value">0.1</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">추정기 개수:</span>
+                    <span class="param-value">100</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">최대 깊이:</span>
+                    <span class="param-value">3</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">가중치:</span>
+                    <span id="gb-weight" class="param-value">34.5%</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="parameter-card">
+                <h4>🧠 LSTM</h4>
+                <div class="parameter-details">
+                  <div class="param-item">
+                    <span class="param-label">LSTM 유닛:</span>
+                    <span class="param-value">50</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">Dropout:</span>
+                    <span class="param-value">0.2</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">시퀀스 길이:</span>
+                    <span class="param-value">60일</span>
+                  </div>
+                  <div class="param-item">
+                    <span class="param-label">가중치:</span>
+                    <span id="lstm-weight" class="param-value">31.3%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 캘리브레이션 정보 섹션 -->
+          <section class="calibration-section" style="margin-bottom: 2rem;">
+            <div class="section-header">
+              <h3>🎯 확률 캘리브레이션 정보</h3>
+            </div>
+            <div class="calibration-grid">
+              <div class="calibration-card">
+                <h4>📈 Platt Scaling</h4>
+                <p>시그모이드 함수를 사용한 확률 캘리브레이션</p>
+                <div class="calibration-metrics">
+                  <div class="metric">
+                    <span class="metric-label">적용 모델:</span>
+                    <span class="metric-value">Gradient Boosting</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-label">개선 효과:</span>
+                    <span class="metric-value">Brier Score 감소</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="calibration-card">
+                <h4>📊 Isotonic Regression</h4>
+                <p>단조증가 함수를 사용한 비모수 캘리브레이션</p>
+                <div class="calibration-metrics">
+                  <div class="metric">
+                    <span class="metric-label">적용 모델:</span>
+                    <span class="metric-value">Random Forest</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-label">개선 효과:</span>
+                    <span class="metric-value">신뢰도 안정화</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="calibration-card">
+                <h4>🎲 Bootstrap 신뢰구간</h4>
+                <p>500회 반복을 통한 불확실성 정량화</p>
+                <div class="calibration-metrics">
+                  <div class="metric">
+                    <span class="metric-label">반복 횟수:</span>
+                    <span class="metric-value">500회</span>
+                  </div>
+                  <div class="metric">
+                    <span class="metric-label">신뢰구간:</span>
+                    <span class="metric-value">95%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- XAI 시각화 섹션 -->
+          <section class="xai-visualization-section" style="margin-bottom: 2rem;">
+            <div class="section-header">
+              <h3>🔍 설명 가능한 AI (XAI) 분석</h3>
+            </div>
+            <div class="xai-grid">
+              <div class="xai-card">
+                <h4>📊 특성 중요도 (Feature Importance)</h4>
+                <canvas id="feature-importance-chart" width="500" height="300"></canvas>
+              </div>
+              
+              <div class="xai-card">
+                <h4>🎯 모델 성능 비교</h4>
+                <canvas id="model-comparison-chart" width="500" height="300"></canvas>
+              </div>
+              
+              <div class="xai-card">
+                <h4>📈 신뢰도 분포</h4>
+                <canvas id="confidence-distribution-chart" width="500" height="300"></canvas>
+              </div>
+              
+              <div class="xai-card">
+                <h4>⚖️ 캘리브레이션 곡선</h4>
+                <canvas id="calibration-curve-chart" width="500" height="300"></canvas>
+              </div>
+            </div>
+          </section>
+
+          <!-- 주요 변수 분석 섹션 -->
+          <section class="key-variables-section">
+            <div class="section-header">
+              <h3>🔑 주요 변수 분석</h3>
+            </div>
+            <div class="variables-grid">
+              <div class="variable-card">
+                <h4>💰 가격 변수</h4>
+                <ul class="variable-list">
+                  <li><span class="var-name">현재가:</span> <span class="var-desc">S&P500 현재 지수</span></li>
+                  <li><span class="var-name">종가:</span> <span class="var-desc">이전 거래일 종가</span></li>
+                  <li><span class="var-name">고가/저가:</span> <span class="var-desc">일중 최고/최저가</span></li>
+                  <li><span class="var-name">가격 변화율:</span> <span class="var-desc">전일 대비 변화율</span></li>
+                </ul>
+              </div>
+              
+              <div class="variable-card">
+                <h4>📊 기술적 지표</h4>
+                <ul class="variable-list">
+                  <li><span class="var-name">RSI:</span> <span class="var-desc">상대강도지수 (과매수/과매도)</span></li>
+                  <li><span class="var-name">MACD:</span> <span class="var-desc">이동평균수렴확산 지표</span></li>
+                  <li><span class="var-name">볼린저 밴드:</span> <span class="var-desc">가격 변동성 측정</span></li>
+                  <li><span class="var-name">ATR:</span> <span class="var-desc">평균 진정한 범위</span></li>
+                </ul>
+              </div>
+              
+              <div class="variable-card">
+                <h4>📈 거래량 변수</h4>
+                <ul class="variable-list">
+                  <li><span class="var-name">거래량:</span> <span class="var-desc">일일 거래량</span></li>
+                  <li><span class="var-name">거래량 변화:</span> <span class="var-desc">평균 대비 거래량 변화</span></li>
+                  <li><span class="var-name">거래량 스파이크:</span> <span class="var-desc">1.3배 이상 급증 여부</span></li>
+                  <li><span class="var-name">평균 거래량:</span> <span class="var-desc">20일 이동평균 거래량</span></li>
+                </ul>
+              </div>
+              
+              <div class="variable-card">
+                <h4>🎯 이벤트 정의</h4>
+                <ul class="variable-list">
+                  <li><span class="var-name">가격 이벤트:</span> <span class="var-desc">±2% 이상 변동</span></li>
+                  <li><span class="var-name">거래량 이벤트:</span> <span class="var-desc">1.3배 이상 증가</span></li>
+                  <li><span class="var-name">복합 이벤트:</span> <span class="var-desc">가격 + 거래량 동시 발생</span></li>
+                  <li><span class="var-name">이벤트 비율:</span> <span class="var-desc">46% (최적화됨)</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
         <!-- 설정 페이지 -->
         <div id="page-settings" class="page-content">
           <div class="page-header">
@@ -253,6 +487,8 @@
     <script src="js/data-manager.js"></script>
     <script src="js/chart-manager.js"></script>
     <script src="js/sp500-widget.js"></script>
+    <script src="js/xai-visualization.js"></script>
+    <script src="js/page-router.js"></script>
     <script src="js/components.js"></script>
     <script src="js/app.js"></script>
 
@@ -269,6 +505,10 @@
           // 앱 인스턴스 생성 및 초기화
           app = new DashboardApp();
           window.app = app; // 전역 접근용
+
+          // 페이지 라우터 초기화
+          window.pageRouter = new PageRouter();
+          window.pageRouter.init();
 
           await app.init();
 

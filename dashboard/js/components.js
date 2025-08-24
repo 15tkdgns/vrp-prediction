@@ -80,6 +80,29 @@ class StockGrid extends BaseComponent {
     if (!this.isInitialized) return;
 
     try {
+      // 데이터가 없으면 직접 로드 시도
+      if (
+        !this.dataManager.data.stocks ||
+        this.dataManager.data.stocks.length === 0
+      ) {
+        console.log('🚀 StockGrid: 주식 데이터 로딩 시작...');
+        this.showLoading('주식 데이터 로딩 중...');
+
+        // 비동기로 데이터 로드
+        this.dataManager
+          .loadStockData()
+          .then(() => {
+            this.stocks = this.dataManager.data.stocks || [];
+            this.render();
+            console.log('✅ StockGrid: 주식 데이터 로드 완료');
+          })
+          .catch((error) => {
+            console.error('❌ StockGrid: 주식 데이터 로드 실패:', error);
+            this.showError('주식 데이터 로드 실패. 잠시 후 다시 시도해주세요.');
+          });
+        return;
+      }
+
       this.stocks = this.dataManager.data.stocks || [];
       this.render();
     } catch (error) {
@@ -92,7 +115,23 @@ class StockGrid extends BaseComponent {
     if (!this.element) return;
 
     if (this.stocks.length === 0) {
-      this.showError('주식 데이터가 없습니다');
+      // 데이터가 없을 때 로딩 상태 표시
+      this.element.innerHTML = `
+        <div class="stock-grid-container">
+          <h2 class="section-title">주요 종목 Top 4 - 실시간 가격 & 예측</h2>
+          <div class="loading-container" style="text-align: center; padding: 3rem;">
+            <div class="loading-spinner" style="margin: 0 auto 1rem; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="color: #666; font-size: 1.1rem;">주식 데이터 로딩 중...</p>
+            <p style="color: #999; font-size: 0.9rem; margin-top: 0.5rem;">잠시만 기다려주세요</p>
+          </div>
+        </div>
+        <style>
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+      `;
       return;
     }
 
@@ -109,11 +148,15 @@ class StockGrid extends BaseComponent {
       </div>
     `;
 
-    // 미니 차트들 생성
-    this.stocks.forEach((stock, index) => {
+    // 미니 차트들 생성 (비동기 처리)
+    this.stocks.forEach(async (stock, index) => {
       const chartId = `stock-mini-${stock.symbol.toLowerCase()}`;
-      setTimeout(() => {
-        this.chartManager.createStockPriceChart(chartId, stock);
+      setTimeout(async () => {
+        try {
+          await this.chartManager.createStockPriceChart(chartId, stock);
+        } catch (error) {
+          console.error(`❌ ${stock.symbol} 차트 생성 실패:`, error);
+        }
       }, 100 * index);
     });
   }

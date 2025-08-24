@@ -17,6 +17,7 @@ class PageRouter {
       charts: '차트 분석',
       news: '뉴스 & 감정',
       performance: '모델 성능',
+      training: '학습 과정 & XAI',
       settings: '설정',
     };
 
@@ -216,6 +217,9 @@ class PageRouter {
         case 'performance':
           window.app.updateComponent('metrics-panel');
           break;
+        case 'training':
+          this.initializeTrainingPage();
+          break;
         case 'settings':
           this.initializeSettings();
           break;
@@ -319,6 +323,31 @@ class PageRouter {
       if (!this.sidebarOpen && sidebar) {
         sidebar.classList.remove('open');
       }
+    }
+  }
+
+  /**
+   * 학습 과정 & XAI 페이지 초기화
+   */
+  async initializeTrainingPage() {
+    try {
+      // XAI Visualization 인스턴스가 없으면 생성
+      if (!window.xaiVisualization) {
+        window.xaiVisualization = new XAIVisualization();
+      }
+      
+      // XAI 차트 초기화 (중복 방지)
+      if (!window.xaiVisualization.isInitialized) {
+        await window.xaiVisualization.init();
+        window.xaiVisualization.isInitialized = true;
+        console.log('✅ 학습 과정 & XAI 페이지 초기화 완료');
+      } else {
+        // 이미 초기화된 경우 차트 업데이트만
+        await window.xaiVisualization.updateCharts();
+        console.log('🔄 XAI 차트 업데이트 완료');
+      }
+    } catch (error) {
+      console.error('❌ 학습 과정 & XAI 페이지 초기화 실패:', error);
     }
   }
 

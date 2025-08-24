@@ -1,63 +1,234 @@
 {
-  "current_price": 5527.45,
-  "predicted_price": 5612.30,
-  "prediction_confidence": 0.87,
-  "price_change": 84.85,
-  "price_change_percent": 1.54,
-  "trend_direction": "bullish",
-  "risk_level": "moderate",
-  "last_updated": "2025-08-20T03:45:00Z",
-  "historical_data": [
-    {"date": "2025-08-13", "price": 5420.12, "volume": 3456789012},
-    {"date": "2025-08-14", "price": 5445.67, "volume": 3234567890},
-    {"date": "2025-08-15", "price": 5412.89, "volume": 3789012345},
-    {"date": "2025-08-16", "price": 5467.23, "volume": 3567890123},
-    {"date": "2025-08-17", "price": 5489.45, "volume": 3123456789},
-    {"date": "2025-08-18", "price": 5501.78, "volume": 3345678901},
-    {"date": "2025-08-19", "price": 5527.45, "volume": 3456789012}
-  ],
-  "prediction_data": [
-    {"date": "2025-08-20", "predicted_price": 5542.10, "confidence": 0.89},
-    {"date": "2025-08-21", "predicted_price": 5567.85, "confidence": 0.85},
-    {"date": "2025-08-22", "predicted_price": 5589.20, "confidence": 0.82},
-    {"date": "2025-08-23", "predicted_price": 5612.30, "confidence": 0.87},
-    {"date": "2025-08-24", "predicted_price": 5598.75, "confidence": 0.79},
-    {"date": "2025-08-25", "predicted_price": 5615.40, "confidence": 0.83},
-    {"date": "2025-08-26", "predicted_price": 5634.55, "confidence": 0.81}
-  ],
-  "key_factors": [
-    {
-      "factor": "Federal Reserve Policy",
-      "impact": 0.25,
-      "sentiment": "neutral"
-    },
-    {
-      "factor": "Corporate Earnings",
-      "impact": 0.35,
-      "sentiment": "positive"
-    },
-    {
-      "factor": "Economic Indicators",
-      "impact": 0.20,
-      "sentiment": "positive"
-    },
-    {
-      "factor": "Market Sentiment",
-      "impact": 0.20,
-      "sentiment": "positive"
+  "current_price": 4580.23,
+  "predicted_price": 4632.89,
+  "confidence": 46.4,
+  "trend": "\ud558\ub77d",
+  "change_percent": 1.34,
+  "volume": 3200000000.0,
+  "market_cap": "45.8T",
+  "timestamp": "2025-08-25T03:02:19.931209",
+  "model_info": {
+    "type": "Ensemble (Calibrated)",
+    "avg_confidence": 0.46400672362821677,
+    "auc_score": 0.9835403311965812,
+    "brier_score": 0.054911120822557995,
+    "calibration_method": "Platt Scaling + Isotonic Regression",
+    "model_components": {
+      "random_forest": 0.342,
+      "gradient_boosting": 0.345,
+      "lstm": 0.313
     }
-  ],
-  "technical_indicators": {
-    "rsi": 62.4,
-    "moving_average_50": 5456.78,
-    "moving_average_200": 5398.23,
-    "volatility_index": 18.45,
-    "support_level": 5480.00,
-    "resistance_level": 5650.00
   },
-  "prediction_accuracy": {
-    "last_7_days": 0.84,
-    "last_30_days": 0.81,
-    "overall": 0.79
-  }
+  "predictions_30day": [
+    {
+      "date": "2025-08-26",
+      "predicted_price": 4663.16,
+      "confidence": 33.2,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 1.81
+    },
+    {
+      "date": "2025-08-27",
+      "predicted_price": 4700.58,
+      "confidence": 46.8,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.8
+    },
+    {
+      "date": "2025-08-28",
+      "predicted_price": 4653.01,
+      "confidence": 42.7,
+      "trend": "\ud558\ub77d",
+      "volatility": 1.01
+    },
+    {
+      "date": "2025-08-29",
+      "predicted_price": 4727.6,
+      "confidence": 44.9,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 1.6
+    },
+    {
+      "date": "2025-08-30",
+      "predicted_price": 4780.24,
+      "confidence": 42.3,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 1.11
+    },
+    {
+      "date": "2025-08-31",
+      "predicted_price": 4798.33,
+      "confidence": 60.0,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.38
+    },
+    {
+      "date": "2025-09-01",
+      "predicted_price": 4797.12,
+      "confidence": 44.7,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.03
+    },
+    {
+      "date": "2025-09-02",
+      "predicted_price": 4624.69,
+      "confidence": 60.0,
+      "trend": "\ud558\ub77d",
+      "volatility": 3.59
+    },
+    {
+      "date": "2025-09-03",
+      "predicted_price": 4613.94,
+      "confidence": 38.6,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.23
+    },
+    {
+      "date": "2025-09-04",
+      "predicted_price": 4560.99,
+      "confidence": 43.7,
+      "trend": "\ud558\ub77d",
+      "volatility": 1.15
+    },
+    {
+      "date": "2025-09-05",
+      "predicted_price": 4495.23,
+      "confidence": 53.9,
+      "trend": "\ud558\ub77d",
+      "volatility": 1.44
+    },
+    {
+      "date": "2025-09-06",
+      "predicted_price": 4455.91,
+      "confidence": 54.6,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.87
+    },
+    {
+      "date": "2025-09-07",
+      "predicted_price": 4340.26,
+      "confidence": 48.6,
+      "trend": "\ud558\ub77d",
+      "volatility": 2.6
+    },
+    {
+      "date": "2025-09-08",
+      "predicted_price": 4345.85,
+      "confidence": 54.4,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.13
+    },
+    {
+      "date": "2025-09-09",
+      "predicted_price": 4287.91,
+      "confidence": 47.1,
+      "trend": "\ud558\ub77d",
+      "volatility": 1.33
+    },
+    {
+      "date": "2025-09-10",
+      "predicted_price": 4266.7,
+      "confidence": 41.8,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.49
+    },
+    {
+      "date": "2025-09-11",
+      "predicted_price": 4258.08,
+      "confidence": 37.0,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.2
+    },
+    {
+      "date": "2025-09-12",
+      "predicted_price": 4299.43,
+      "confidence": 50.8,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.97
+    },
+    {
+      "date": "2025-09-13",
+      "predicted_price": 4256.8,
+      "confidence": 45.7,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.99
+    },
+    {
+      "date": "2025-09-14",
+      "predicted_price": 4238.41,
+      "confidence": 30.0,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.43
+    },
+    {
+      "date": "2025-09-15",
+      "predicted_price": 4007.09,
+      "confidence": 39.9,
+      "trend": "\ud558\ub77d",
+      "volatility": 5.46
+    },
+    {
+      "date": "2025-09-16",
+      "predicted_price": 3984.31,
+      "confidence": 55.0,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.57
+    },
+    {
+      "date": "2025-09-17",
+      "predicted_price": 4068.24,
+      "confidence": 36.9,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 2.11
+    },
+    {
+      "date": "2025-09-18",
+      "predicted_price": 4092.33,
+      "confidence": 46.1,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.59
+    },
+    {
+      "date": "2025-09-19",
+      "predicted_price": 4163.59,
+      "confidence": 44.3,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 1.74
+    },
+    {
+      "date": "2025-09-20",
+      "predicted_price": 4159.77,
+      "confidence": 60.0,
+      "trend": "\ud558\ub77d",
+      "volatility": 0.09
+    },
+    {
+      "date": "2025-09-21",
+      "predicted_price": 4108.48,
+      "confidence": 46.6,
+      "trend": "\ud558\ub77d",
+      "volatility": 1.23
+    },
+    {
+      "date": "2025-09-22",
+      "predicted_price": 4109.47,
+      "confidence": 45.8,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.02
+    },
+    {
+      "date": "2025-09-23",
+      "predicted_price": 4121.08,
+      "confidence": 30.0,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 0.28
+    },
+    {
+      "date": "2025-09-24",
+      "predicted_price": 4275.35,
+      "confidence": 60.0,
+      "trend": "\uc0c1\uc2b9",
+      "volatility": 3.74
+    }
+  ]
 }

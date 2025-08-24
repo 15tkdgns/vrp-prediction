@@ -1175,18 +1175,270 @@ a:hover {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
   .sp500-price-section {
     order: 2;
   }
-  
+
   .sp500-chart-section {
     order: 1;
     height: 150px;
   }
-  
+
   .price-value,
   .prediction-value {
     font-size: 1.5rem;
+  }
+}
+
+/* ==================== 학습 과정 & XAI 페이지 스타일 ==================== */
+
+/* 섹션 헤더 */
+.section-header {
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: var(--spacing-md);
+}
+
+.section-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+}
+
+/* 학습 파라미터 그리드 */
+.parameters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.parameter-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.parameter-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.parameter-card h4 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.parameter-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.param-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.param-item:last-child {
+  border-bottom: none;
+}
+
+.param-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.param-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 4px;
+}
+
+/* 캘리브레이션 그리드 */
+.calibration-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.calibration-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease;
+}
+
+.calibration-card:hover {
+  transform: translateY(-2px);
+}
+
+.calibration-card h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--success-color);
+  font-size: 1.1rem;
+}
+
+.calibration-card p {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.calibration-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-xs) 0;
+}
+
+.metric-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+/* XAI 시각화 그리드 */
+.xai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.xai-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease;
+}
+
+.xai-card:hover {
+  transform: translateY(-2px);
+}
+
+.xai-card h4 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--info-color);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.xai-card canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 300px;
+}
+
+/* 주요 변수 그리드 */
+.variables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.variable-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease;
+}
+
+.variable-card:hover {
+  transform: translateY(-2px);
+}
+
+.variable-card h4 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--warning-color);
+  font-size: 1.1rem;
+}
+
+.variable-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.variable-list li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.variable-list li:last-child {
+  border-bottom: none;
+}
+
+.var-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.var-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* 반응형 디자인 - 학습 과정 페이지 */
+@media (max-width: 768px) {
+  .parameters-grid,
+  .calibration-grid,
+  .variables-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .xai-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .xai-card {
+    min-width: unset;
+  }
+  
+  .parameter-card,
+  .calibration-card,
+  .xai-card,
+  .variable-card {
+    padding: var(--spacing-md);
+  }
+  
+  .param-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
   }
 }

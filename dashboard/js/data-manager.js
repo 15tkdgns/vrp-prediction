@@ -11,12 +11,32 @@ class DataManager {
   constructor() {
     this.cache = new Map();
     this.lastFetchTime = new Map();
-    this.cacheTimeout = 30000; // 30초 캐시
+    this.cacheTimeout = 60000; // 60초 캐시 (실제 데이터는 좋은 캐시 사용)
 
-    // API Configuration
-    this.apiBaseUrl = 'http://localhost:8091/api';
-    this.apiTimeout = 5000; // 5초 타임아웃
-    this.maxRetries = 3;
+    // API Configuration - 실제 데이터 API 서버
+    this.apiBaseUrl = 'http://localhost:8092/api';
+    this.apiTimeout = 2000; // 2초 타임아웃 (더 단축)
+    this.maxRetries = 2; // 재시도 횟수
+    this.retryDelay = 300; // 재시도 지연 더 단축
+    this.fastTimeout = 1000; // 빠른 요청용 타임아웃
+    this.adaptiveRetry = true; // 적응형 재시도
+
+    // 로딩 상태 및 에러 추적
+    this.loadingStates = new Map();
+    this.loadingStartTimes = new Map();
+    this.errorCounts = new Map();
+    this.lastErrors = new Map();
+    this.userNotifications = []; // 사용자 알림
+
+    // 성능 모니터링
+    this.performanceMetrics = {
+      totalRequests: 0,
+      successfulRequests: 0,
+      failedRequests: 0,
+      avgResponseTime: 0,
+      cacheHitRate: 0,
+      loadTimes: new Map(),
+    };
 
     // 데이터 저장소
     this.data = {
@@ -35,10 +55,10 @@ class DataManager {
    */
   async init() {
     console.log('📊 DataManager 초기화 중...');
-    
+
     // API 서버 상태는 백그라운드에서 확인
     this.checkAPIStatusBackground();
-    
+
     // 즉시 반환하여 초기화 속도 개선
     console.log('✅ DataManager 빠른 초기화 완료');
   }
@@ -77,7 +97,9 @@ class DataManager {
    */
   async loadNewsData() {
     try {
-      const data = await this.loadLocalFile('../data/raw/market_sentiment.json');
+      const data = await this.loadLocalFile(
+        '../data/raw/market_sentiment.json'
+      );
       this.data.news = data;
       return data;
     } catch (error) {
@@ -112,13 +134,16 @@ class DataManager {
   }
 
   /**
-   * API 호출 메서드 (재시도 로직 포함)
+   * API 호출 메서드 (개선된 재시도 로직)
    */
   async fetchAPI(endpoint, options = {}) {
     const url = `${this.apiBaseUrl}${endpoint}`;
+    const isFastRequest = options.fast || false;
+    const timeout = isFastRequest ? this.fastTimeout : this.apiTimeout;
+
     const config = {
       method: 'GET',
-      timeout: this.apiTimeout,
+      timeout: timeout,
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -127,13 +152,16 @@ class DataManager {
     };
 
     let lastError;
+    const startTime = Date.now();
 
     for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
       try {
-        console.log(`🔄 API 호출 (시도 ${attempt}/${this.maxRetries}): ${url}`);
+        console.log(
+          `🔄 API 호출 (시도 ${attempt}/${this.maxRetries}): ${url} (타임아웃: ${timeout}ms)`
+        );
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), config.timeout);
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
 
         const response = await fetch(url, {
           ...config,
@@ -147,69 +175,341 @@ class DataManager {
         }
 
         const data = await response.json();
-        console.log(`✅ API 호출 성공: ${endpoint}`);
+        const duration = Date.now() - startTime;
+        console.log(`✅ API 호출 성공: ${endpoint} (${duration}ms)`);
+
+        // 성능 메트릭 업데이트
+        this.updatePerformanceMetrics(endpoint, duration, true, false);
+
+        // 성공 시 에러 카운터 리셋
+        this.errorCounts.delete(endpoint);
+
         return data;
       } catch (error) {
         lastError = error;
+        this.trackError(endpoint, error);
         console.warn(`❌ API 호출 실패 (시도 ${attempt}): ${error.message}`);
 
         if (attempt < this.maxRetries) {
-          const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000); // Exponential backoff
-          console.log(`⏱️ ${delay}ms 후 재시도...`);
+          // 적응형 재시도 지연
+          let delay = this.retryDelay * attempt;
+
+          if (this.adaptiveRetry) {
+            // 에러 유형에 따른 지연 조정
+            const errorType = this.classifyError(lastError);
+            switch (errorType) {
+              case 'timeout':
+                delay = this.retryDelay * 2; // 타임아웃은 더 오래 대기
+                break;
+              case 'network':
+                delay = this.retryDelay * 3; // 네트워크 문제는 더 오래 대기
+                break;
+              case 'server':
+                delay = this.retryDelay * 1.5;
+                break;
+              default:
+                delay = this.retryDelay;
+            }
+          }
+
+          console.log(
+            `⏱️ ${delay}ms 후 재시도... (에러: ${this.classifyError(lastError)})`
+          );
           await new Promise((resolve) => setTimeout(resolve, delay));
         }
       }
     }
 
+    // 실패 메트릭 업데이트
+    const duration = Date.now() - startTime;
+    this.updatePerformanceMetrics(endpoint, duration, false, false);
+
     throw lastError;
+  }
+
+  /**
+   * 에러 추적 및 분석
+   */
+  trackError(endpoint, error) {
+    const count = this.errorCounts.get(endpoint) || 0;
+    this.errorCounts.set(endpoint, count + 1);
+    this.lastErrors.set(endpoint, {
+      error: error.message,
+      timestamp: Date.now(),
+      type: this.classifyError(error),
+    });
+
+    // 사용자 알림 추가 (다수 오류 시만)
+    if (count >= 2) {
+      this.addUserNotification({
+        type: 'warning',
+        message: `데이터 로딩 중 문제가 발생했습니다. 캐시된 데이터를 사용합니다.`,
+        timestamp: Date.now(),
+        endpoint: endpoint,
+      });
+    }
+  }
+
+  /**
+   * 에러 유형 분류
+   */
+  classifyError(error) {
+    if (error.name === 'AbortError') return 'timeout';
+    if (error.message.includes('Failed to fetch')) return 'network';
+    if (error.message.includes('HTTP 5')) return 'server';
+    if (error.message.includes('HTTP 4')) return 'client';
+    return 'unknown';
+  }
+
+  /**
+   * 사용자 알림 추가
+   */
+  addUserNotification(notification) {
+    this.userNotifications.unshift(notification);
+    // 최대 5개만 유지
+    if (this.userNotifications.length > 5) {
+      this.userNotifications = this.userNotifications.slice(0, 5);
+    }
+  }
+
+  /**
+   * 사용자 알림 가져오기
+   */
+  getUserNotifications() {
+    return this.userNotifications;
+  }
+
+  /**
+   * 알림 클리어
+   */
+  clearNotifications() {
+    this.userNotifications = [];
+  }
+
+  /**
+   * 성능 메트릭 업데이트
+   */
+  updatePerformanceMetrics(
+    endpoint,
+    duration,
+    success = true,
+    fromCache = false
+  ) {
+    this.performanceMetrics.totalRequests++;
+
+    if (success) {
+      this.performanceMetrics.successfulRequests++;
+    } else {
+      this.performanceMetrics.failedRequests++;
+    }
+
+    // 평균 응답 시간 업데이트
+    const currentAvg = this.performanceMetrics.avgResponseTime;
+    const totalSuccessful = this.performanceMetrics.successfulRequests;
+    this.performanceMetrics.avgResponseTime =
+      (currentAvg * (totalSuccessful - 1) + duration) / totalSuccessful;
+
+    // 캐시 히트율 계산
+    if (fromCache) {
+      const cacheHits = this.performanceMetrics.cacheHits || 0;
+      this.performanceMetrics.cacheHits = cacheHits + 1;
+    }
+
+    this.performanceMetrics.cacheHitRate =
+      ((this.performanceMetrics.cacheHits || 0) /
+        this.performanceMetrics.totalRequests) *
+      100;
+
+    // 개별 엔드포인트 성능 추적
+    if (!this.performanceMetrics.loadTimes.has(endpoint)) {
+      this.performanceMetrics.loadTimes.set(endpoint, []);
+    }
+
+    const endpointTimes = this.performanceMetrics.loadTimes.get(endpoint);
+    endpointTimes.push({ duration, success, timestamp: Date.now(), fromCache });
+
+    // 최근 20개만 유지
+    if (endpointTimes.length > 20) {
+      this.performanceMetrics.loadTimes.set(endpoint, endpointTimes.slice(-20));
+    }
+  }
+
+  /**
+   * 성능 리포트 생성
+   */
+  getPerformanceReport() {
+    const metrics = this.performanceMetrics;
+    const report = {
+      summary: {
+        totalRequests: metrics.totalRequests,
+        successRate:
+          ((metrics.successfulRequests / metrics.totalRequests) * 100).toFixed(
+            1
+          ) + '%',
+        avgResponseTime: Math.round(metrics.avgResponseTime) + 'ms',
+        cacheHitRate: metrics.cacheHitRate.toFixed(1) + '%',
+      },
+      endpoints: {},
+      issues: [],
+    };
+
+    // 각 엔드포인트별 성능 분석
+    for (const [endpoint, times] of metrics.loadTimes) {
+      const successful = times.filter((t) => t.success);
+      const failed = times.filter((t) => !t.success);
+      const avgTime =
+        successful.length > 0
+          ? successful.reduce((sum, t) => sum + t.duration, 0) /
+            successful.length
+          : 0;
+
+      report.endpoints[endpoint] = {
+        requests: times.length,
+        successRate:
+          ((successful.length / times.length) * 100).toFixed(1) + '%',
+        avgResponseTime: Math.round(avgTime) + 'ms',
+        lastRequest: new Date(
+          Math.max(...times.map((t) => t.timestamp))
+        ).toLocaleTimeString(),
+      };
+
+      // 문제 점 식별
+      if (successful.length / times.length < 0.8) {
+        report.issues.push(
+          `${endpoint}: 낮은 성공률 (${report.endpoints[endpoint].successRate})`
+        );
+      }
+
+      if (avgTime > 3000) {
+        report.issues.push(
+          `${endpoint}: 느린 응답 시간 (${Math.round(avgTime)}ms)`
+        );
+      }
+    }
+
+    return report;
+  }
+
+  /**
+   * 성능 메트릭 리셋
+   */
+  resetPerformanceMetrics() {
+    this.performanceMetrics = {
+      totalRequests: 0,
+      successfulRequests: 0,
+      failedRequests: 0,
+      avgResponseTime: 0,
+      cacheHitRate: 0,
+      loadTimes: new Map(),
+    };
+    console.log('📈 성능 메트릭 리셋됨');
+  }
+
+  /**
+   * 디버그 정보 출력
+   */
+  logDebugInfo() {
+    console.group('📈 DataManager 성능 리포트');
+
+    const report = this.getPerformanceReport();
+    console.log('📊 전체 성능:', report.summary);
+
+    if (report.issues.length > 0) {
+      console.warn('⚠️ 발견된 문제점:', report.issues);
+    }
+
+    console.log('🔍 엔드포인트별 성능:', report.endpoints);
+
+    const notifications = this.getUserNotifications();
+    if (notifications.length > 0) {
+      console.log('📬 사용자 알림:', notifications);
+    }
+
+    console.log('💾 캐시 상태:', {
+      keys: Array.from(this.cache.keys()),
+      hitRate: report.summary.cacheHitRate,
+    });
+
+    console.log('🔄 로딩 상태:', Object.fromEntries(this.loadingStates));
+
+    console.groupEnd();
   }
 
   /**
    * 주식 데이터 로드
    */
   async loadStockData() {
+    const startTime = Date.now();
+    const methodName = 'loadStockData';
+
     try {
+      this.loadingStates.set(methodName, 'loading');
+      this.loadingStartTimes.set(methodName, startTime);
+
       const cacheKey = 'stocks';
       const cached = this.getCachedData(cacheKey);
       if (cached) {
         this.data.stocks = cached.predictions || cached;
+        console.log(`📋 캐시된 주식 데이터 사용 (${Date.now() - startTime}ms)`);
+        this.loadingStates.set(methodName, 'cached');
         return this.data.stocks;
       }
 
-      // API에서 실시간 주식 데이터 로드
-      const apiData = await this.fetchAPI('/stocks/live');
-      if (apiData && apiData.predictions) {
-        this.data.stocks = apiData.predictions.slice(0, 4); // 상위 4개
-        this.setCachedData(cacheKey, apiData);
+      // API에서 실시간 주식 데이터 로드 (빠른 폴백 병렬 처리)
+      const apiPromise = this.fetchAPI('/stocks/live', { fast: true }); // 빠른 요청 옵션
+      const fallbackPromise = this.fetchJSON(
+        '../data/raw/realtime_results.json'
+      );
+
+      // Race 조건: API가 1초 내에 응답하면 사용, 아니면 폴백
+      const result = await Promise.race([
+        Promise.allSettled([
+          apiPromise.then((data) => ({
+            source: 'api',
+            data,
+            timestamp: Date.now(),
+          })),
+          fallbackPromise.then((data) => ({
+            source: 'fallback',
+            data,
+            timestamp: Date.now(),
+          })),
+        ]).then((results) => {
+          const successful = results.find((r) => r.status === 'fulfilled');
+          return successful ? successful.value : null;
+        }),
+        new Promise((resolve) =>
+          setTimeout(() => resolve(null), this.fastTimeout + 500)
+        ),
+      ]);
+
+      if (result && result.data && result.data.predictions) {
+        this.data.stocks = result.data.predictions.slice(0, 4);
+        this.setCachedData(cacheKey, result.data);
         console.log(
-          '✅ 실시간 주식 데이터 로드됨 (소스:',
-          apiData.source || 'api',
-          ')'
+          `✅ 주식 데이터 로드됨 (소스: ${result.source}, ${Date.now() - startTime}ms)`
         );
+        this.loadingStates.set(methodName, 'success');
         return this.data.stocks;
       }
 
-      throw new Error('API에서 주식 데이터가 비어있음');
+      throw new Error('모든 데이터 소스 실패');
     } catch (error) {
-      console.warn('⚠️ API 데이터 로드 실패, 폴백 시도:', error.message);
-
-      // 폴백: 기존 JSON 파일 시도
-      try {
-        const fallbackData = await this.fetchJSON(
-          '../data/raw/realtime_results.json'
-        );
-        if (fallbackData && fallbackData.predictions) {
-          this.data.stocks = fallbackData.predictions.slice(0, 4);
-          console.log('✅ 폴백 주식 데이터 로드됨 (JSON 파일)');
-          return this.data.stocks;
-        }
-      } catch (fallbackError) {
-        console.warn('⚠️ 폴백 파일도 실패:', fallbackError.message);
-      }
+      this.loadingStates.set(methodName, 'error');
+      this.lastErrors.set(methodName, {
+        error: error.message,
+        timestamp: Date.now(),
+        duration: Date.now() - startTime,
+      });
+      console.warn(
+        `⚠️ 주식 데이터 로드 실패 (${Date.now() - startTime}ms):`,
+        error.message
+      );
 
       // 최종 폴백: 목업 데이터
       this.data.stocks = this.getMockStockData();
-      console.log('⚠️ 목업 주식 데이터 사용');
+      this.loadingStates.set(methodName, 'fallback');
+      console.log(`⚠️ 목업 주식 데이터 사용 (${Date.now() - startTime}ms)`);
       return this.data.stocks;
     }
   }
@@ -387,26 +687,86 @@ class DataManager {
   }
 
   /**
-   * 캐시된 데이터 가져오기
+   * 캐시된 데이터 가져오기 (스마트 캐싱)
    */
   getCachedData(key) {
     const cached = this.cache.get(key);
     const lastFetch = this.lastFetchTime.get(key);
+    const now = Date.now();
 
-    if (cached && lastFetch && Date.now() - lastFetch < this.cacheTimeout) {
-      console.log(`📋 캐시에서 ${key} 데이터 사용`);
-      return cached;
+    if (cached && lastFetch) {
+      const age = now - lastFetch;
+
+      // 신선한 데이터는 즉시 반환
+      if (age < this.cacheTimeout) {
+        console.log(
+          `📋 실제 데이터 캐시 사용: ${key} (나이: ${Math.round(age / 1000)}s)`
+        );
+        this.updatePerformanceMetrics(key, age, true, true);
+        return cached;
+      }
+
+      // 오래된 실제 데이터지만 백그라운드에서 업데이트 시작
+      if (age < this.cacheTimeout * 2) {
+        console.log(`📋 실제 데이터 캐시 사용 + 백그라운드 업데이트: ${key}`);
+        this.backgroundRefresh(key);
+        return cached;
+      }
     }
 
     return null;
   }
 
   /**
-   * 데이터 캐시에 저장
+   * 데이터 캐시에 저장 (개선된 메타데이터 포함)
    */
   setCachedData(key, data) {
-    this.cache.set(key, data);
-    this.lastFetchTime.set(key, Date.now());
+    const metadata = {
+      data: data,
+      timestamp: Date.now(),
+      size: JSON.stringify(data).length,
+      accessCount: (this.cache.get(key)?.accessCount || 0) + 1,
+    };
+
+    this.cache.set(key, metadata.data);
+    this.lastFetchTime.set(key, metadata.timestamp);
+
+    console.log(
+      `💾 캐시 저장: ${key} (크기: ${Math.round(metadata.size / 1024)}KB)`
+    );
+  }
+
+  /**
+   * 백그라운드에서 특정 데이터 새로고침
+   */
+  backgroundRefresh(key) {
+    // 이미 백그라운드 업데이트 중이면 건너뛰기
+    if (this.loadingStates.get(`background_${key}`) === 'loading') {
+      return;
+    }
+
+    this.loadingStates.set(`background_${key}`, 'loading');
+
+    setTimeout(async () => {
+      try {
+        switch (key) {
+          case 'stocks':
+            await this.loadStockData();
+            break;
+          case 'metrics':
+            await this.loadMetricsData();
+            break;
+          case 'news':
+            await this.loadNewsData();
+            break;
+        }
+        console.log(`✅ 백그라운드 업데이트 완료: ${key}`);
+      } catch (error) {
+        console.warn(`⚠️ 백그라운드 업데이트 실패: ${key}`, error);
+      } finally {
+        this.loadingStates.delete(`background_${key}`);
+      }
+    }, 100); // 100ms 지연 후 실행
   }
 
   /**
@@ -414,6 +774,7 @@ class DataManager {
    */
   async refresh() {
     console.log('🔄 모든 데이터 새로고침 중...');
+    const startTime = Date.now();
 
     // 캐시 클리어
     this.cache.clear();
@@ -537,6 +898,9 @@ class DataManager {
   getDebugInfo() {
     return {
       cacheKeys: Array.from(this.cache.keys()),
+      performance: this.getPerformanceReport(),
+      notifications: this.getUserNotifications(),
+      loadingStates: Object.fromEntries(this.loadingStates),
       dataKeys: Object.keys(this.data),
       stocksCount: this.data.stocks.length,
       lastUpdate: Math.max(...Array.from(this.lastFetchTime.values())),

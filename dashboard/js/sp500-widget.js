@@ -11,7 +11,7 @@ class SP500Widget {
     this.updateInterval = null;
     this.retryCount = 0;
     this.maxRetries = 3;
-    
+
     console.log('📊 S&P 500 Widget 초기화됨');
   }
 
@@ -21,14 +21,11 @@ class SP500Widget {
   async init() {
     try {
       // 차트 초기화와 데이터 로드를 병렬로 처리
-      await Promise.all([
-        this.initChartOptimized(),
-        this.loadDataOptimized()
-      ]);
-      
+      await Promise.all([this.initChartOptimized(), this.loadDataOptimized()]);
+
       // 자동 업데이트는 백그라운드에서 시작
       setTimeout(() => this.startAutoUpdate(), 500);
-      
+
       console.log('✅ S&P 500 Widget 빠른 초기화 완료');
     } catch (error) {
       console.error('❌ S&P 500 Widget 초기화 실패:', error);
@@ -57,27 +54,29 @@ class SP500Widget {
       type: 'line',
       data: {
         labels: placeholderData.labels,
-        datasets: [{
-          label: 'S&P 500',
-          data: placeholderData.prices,
-          borderColor: '#007bff',
-          backgroundColor: 'rgba(0, 123, 255, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          pointRadius: 0,
-          pointHoverRadius: 6,
-        }]
+        datasets: [
+          {
+            label: 'S&P 500',
+            data: placeholderData.prices,
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+          },
+        ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         animation: {
-          duration: 0 // 초기화 시 애니메이션 없음
+          duration: 0, // 초기화 시 애니메이션 없음
         },
         interaction: {
           intersect: false,
-          mode: 'index'
+          mode: 'index',
         },
         plugins: {
           legend: { display: false },
@@ -85,13 +84,13 @@ class SP500Widget {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
             titleColor: '#ffffff',
             bodyColor: '#ffffff',
-          }
+          },
         },
         scales: {
           x: {
             display: true,
             grid: { color: 'rgba(0, 0, 0, 0.1)' },
-            ticks: { color: '#6c757d', maxTicksLimit: 6 }
+            ticks: { color: '#6c757d', maxTicksLimit: 6 },
           },
           y: {
             display: true,
@@ -99,13 +98,13 @@ class SP500Widget {
             grid: { color: 'rgba(0, 0, 0, 0.1)' },
             ticks: {
               color: '#6c757d',
-              callback: function(value) {
+              callback: function (value) {
                 return '$' + value.toLocaleString();
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
 
     // 실제 데이터는 백그라운드에서 업데이트
@@ -119,14 +118,16 @@ class SP500Widget {
     const labels = [];
     const prices = [];
     const basePrice = 5527.45;
-    
+
     for (let i = 6; i >= 0; i--) {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      labels.push(date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }));
+      labels.push(
+        date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })
+      );
       prices.push(basePrice + (Math.random() - 0.5) * 100);
     }
-    
+
     return { labels, prices };
   }
 
@@ -154,10 +155,9 @@ class SP500Widget {
     try {
       // 기본 데이터로 즉시 표시
       this.displayDefaultData();
-      
+
       // 실제 데이터는 백그라운드에서 로드
       setTimeout(() => this.loadRealData(), 50);
-      
     } catch (error) {
       console.warn('데이터 로드 실패:', error);
       this.displayDefaultData();
@@ -170,12 +170,12 @@ class SP500Widget {
   displayDefaultData() {
     const defaultData = {
       current_price: 5527.45,
-      predicted_price: 5612.30,
+      predicted_price: 5612.3,
       price_change: 84.85,
       price_change_percent: 1.54,
-      prediction_confidence: 0.87
+      prediction_confidence: 0.87,
     };
-    
+
     this.updatePriceDisplay(defaultData);
     this.updateLastUpdateTime();
   }
@@ -216,31 +216,33 @@ class SP500Widget {
       type: 'line',
       data: {
         labels: data.labels,
-        datasets: [{
-          label: 'S&P 500',
-          data: data.prices,
-          borderColor: '#007bff',
-          backgroundColor: 'rgba(0, 123, 255, 0.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          pointRadius: 0,
-          pointHoverRadius: 6,
-          pointHoverBackgroundColor: '#007bff',
-          pointHoverBorderColor: '#ffffff',
-          pointHoverBorderWidth: 2
-        }]
+        datasets: [
+          {
+            label: 'S&P 500',
+            data: data.prices,
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#007bff',
+            pointHoverBorderColor: '#ffffff',
+            pointHoverBorderWidth: 2,
+          },
+        ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         interaction: {
           intersect: false,
-          mode: 'index'
+          mode: 'index',
         },
         plugins: {
           legend: {
-            display: false
+            display: false,
           },
           tooltip: {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -249,51 +251,51 @@ class SP500Widget {
             borderColor: '#007bff',
             borderWidth: 1,
             callbacks: {
-              title: function(context) {
+              title: function (context) {
                 return context[0].label;
               },
-              label: function(context) {
+              label: function (context) {
                 return `$${context.parsed.y.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
-                  maximumFractionDigits: 2
+                  maximumFractionDigits: 2,
                 })}`;
-              }
-            }
-          }
+              },
+            },
+          },
         },
         scales: {
           x: {
             display: true,
             grid: {
               color: 'rgba(0, 0, 0, 0.1)',
-              drawBorder: false
+              drawBorder: false,
             },
             ticks: {
               color: '#6c757d',
-              maxTicksLimit: 6
-            }
+              maxTicksLimit: 6,
+            },
           },
           y: {
             display: true,
             position: 'right',
             grid: {
               color: 'rgba(0, 0, 0, 0.1)',
-              drawBorder: false
+              drawBorder: false,
             },
             ticks: {
               color: '#6c757d',
-              callback: function(value) {
+              callback: function (value) {
                 return '$' + value.toLocaleString();
-              }
-            }
-          }
+              },
+            },
+          },
         },
         elements: {
           point: {
-            hoverRadius: 8
-          }
-        }
-      }
+            hoverRadius: 8,
+          },
+        },
+      },
     });
   }
 
@@ -303,30 +305,30 @@ class SP500Widget {
   generate30DayData() {
     const labels = [];
     const prices = [];
-    
+
     // 실제 데이터에서 역사적 데이터 가져오기
     const sp500Data = this.getStoredSP500Data();
-    
+
     if (sp500Data && sp500Data.historical_data) {
       // 실제 역사적 데이터 사용
       const historicalData = sp500Data.historical_data;
       const baseData = historicalData.slice(-7); // 최근 7일 데이터
-      
+
       // 23일의 추가 데이터 생성 (30일 - 7일)
       const today = new Date();
       const startDate = new Date(today);
       startDate.setDate(startDate.getDate() - 29);
-      
+
       for (let i = 0; i < 30; i++) {
         const date = new Date(startDate);
         date.setDate(date.getDate() + i);
-        
+
         const label = date.toLocaleDateString('ko-KR', {
           month: 'short',
-          day: 'numeric'
+          day: 'numeric',
         });
         labels.push(label);
-        
+
         if (i >= 23 && baseData[i - 23]) {
           // 실제 데이터 사용
           prices.push(baseData[i - 23].price);
@@ -343,21 +345,21 @@ class SP500Widget {
       // 폴백: 시뮬레이션 데이터
       const basePrice = 5527.45;
       const today = new Date();
-      
+
       for (let i = 29; i >= 0; i--) {
         const date = new Date(today);
         date.setDate(date.getDate() - i);
-        
+
         const label = date.toLocaleDateString('ko-KR', {
           month: 'short',
-          day: 'numeric'
+          day: 'numeric',
         });
         labels.push(label);
-        
+
         const variation = (Math.random() - 0.5) * 0.04; // -2% ~ +2%
-        const trendFactor = (30 - i) / 30 * 0.08; // 점진적 상승 트렌드
+        const trendFactor = ((30 - i) / 30) * 0.08; // 점진적 상승 트렌드
         const price = basePrice * (1 + variation + trendFactor - 0.04);
-        
+
         prices.push(parseFloat(price.toFixed(2)));
       }
     }
@@ -373,12 +375,12 @@ class SP500Widget {
     if (window.sp500Data) {
       return window.sp500Data;
     }
-    
+
     // API 데이터 로더에서 가져오기
     if (window.apiDataLoader) {
       return window.apiDataLoader.getSP500Data();
     }
-    
+
     return null;
   }
 
@@ -389,7 +391,7 @@ class SP500Widget {
     try {
       // S&P 500 데이터 로드 시도
       const sp500Data = await this.fetchSP500Data();
-      
+
       if (sp500Data) {
         this.updatePriceDisplay(sp500Data);
         this.updateLastUpdateTime();
@@ -398,7 +400,6 @@ class SP500Widget {
         // 실제 데이터가 없을 경우 모의 데이터 사용
         this.updateWithMockData();
       }
-      
     } catch (error) {
       console.error('S&P 500 데이터 로드 실패:', error);
       this.handleDataLoadError();
@@ -434,7 +435,7 @@ class SP500Widget {
    */
   updatePriceDisplay(data) {
     const currentPrice = data.current_price || 5527.45;
-    const predictedPrice = data.predicted_price || 5612.30;
+    const predictedPrice = data.predicted_price || 5612.3;
     const priceChange = data.price_change || 84.85;
     const changePercent = data.price_change_percent || 1.54;
     const confidence = (data.prediction_confidence || 0.87) * 100;
@@ -444,7 +445,7 @@ class SP500Widget {
     if (priceEl) {
       priceEl.textContent = `$${currentPrice.toLocaleString('en-US', {
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2,
       })}`;
     }
 
@@ -461,7 +462,7 @@ class SP500Widget {
     if (predictedEl) {
       predictedEl.textContent = `$${predictedPrice.toLocaleString('en-US', {
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2,
       })}`;
     }
 
@@ -489,7 +490,7 @@ class SP500Widget {
       predicted_price: predictedPrice,
       price_change: priceChange,
       change_percent: changePercent,
-      confidence: confidence
+      confidence: confidence,
     });
 
     this.updateLastUpdateTime();
@@ -511,12 +512,16 @@ class SP500Widget {
    */
   handleDataLoadError() {
     this.retryCount++;
-    
+
     if (this.retryCount <= this.maxRetries) {
-      console.log(`S&P 500 데이터 재시도 ${this.retryCount}/${this.maxRetries}`);
+      console.log(
+        `S&P 500 데이터 재시도 ${this.retryCount}/${this.maxRetries}`
+      );
       setTimeout(() => this.loadData(), 5000); // 5초 후 재시도
     } else {
-      console.warn('S&P 500 데이터 로드 최대 재시도 횟수 초과, 모의 데이터 사용');
+      console.warn(
+        'S&P 500 데이터 로드 최대 재시도 횟수 초과, 모의 데이터 사용'
+      );
       this.updateWithMockData();
     }
   }
@@ -565,12 +570,12 @@ class SP500Widget {
    */
   destroy() {
     this.stopAutoUpdate();
-    
+
     if (this.chart) {
       this.chart.destroy();
       this.chart = null;
     }
-    
+
     console.log('🗑️ S&P 500 Widget 정리 완료');
   }
 
@@ -580,7 +585,7 @@ class SP500Widget {
   async refresh() {
     console.log('🔄 S&P 500 위젯 수동 새로고침');
     await this.loadData();
-    
+
     // 차트 데이터도 업데이트
     if (this.chart) {
       const newData = this.generate30DayData();

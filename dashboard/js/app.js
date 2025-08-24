@@ -28,7 +28,7 @@ class DashboardApp {
    */
   async init() {
     const startTime = Date.now();
-    
+
     try {
       this.showLoadingProgress('시스템 초기화 중...', 0);
 
@@ -42,40 +42,40 @@ class DashboardApp {
 
       // 3. 핵심 컴포넌트들을 병렬로 초기화
       this.showLoadingProgress('핵심 모듈 초기화 중...', 30);
-      
+
       const [dataManager, chartManager, sp500Widget] = await Promise.all([
         this.initDataManager(),
         this.initChartManager(),
-        this.initSP500Widget()
+        this.initSP500Widget(),
       ]);
-      
+
       this.dataManager = dataManager;
       this.chartManager = chartManager;
       this.sp500Widget = sp500Widget;
-      
+
       this.showLoadingProgress('핵심 모듈 완료', 60);
 
       // 4. UI 컴포넌트와 데이터를 병렬로 처리
       this.showLoadingProgress('UI 및 데이터 로딩 중...', 70);
-      
+
       await Promise.all([
         this.initComponents(),
-        this.loadInitialDataOptimized()
+        this.loadInitialDataOptimized(),
       ]);
-      
+
       this.showLoadingProgress('컴포넌트 초기화 완료', 90);
 
       // 5. 이벤트 리스너 설정 (가장 빠름)
       this.setupEventListeners();
-      
+
       this.showLoadingProgress('시스템 준비 완료', 100);
 
       // 초기화 완료
       this.isInitialized = true;
-      
+
       const duration = Date.now() - startTime;
       console.log(`✅ Dashboard App 초기화 완료 (${duration}ms)`);
-      
+
       // 로딩 완료 후 페이드아웃
       setTimeout(() => {
         this.hideLoading();
@@ -84,7 +84,6 @@ class DashboardApp {
 
       // 자동 새로고침 시작 (백그라운드)
       setTimeout(() => this.startAutoRefresh(), 1000);
-      
     } catch (error) {
       console.error('❌ App 초기화 실패:', error);
       this.showError('시스템 초기화에 실패했습니다: ' + error.message);
@@ -152,13 +151,16 @@ class DashboardApp {
       // 중요도 순으로 데이터 로드
       const criticalData = await Promise.allSettled([
         this.loadCriticalData(),
-        this.loadChartData()
+        this.loadChartData(),
       ]);
 
-      // 백그라운드에서 추가 데이터 로드
-      setTimeout(() => {
+      // 주식 데이터 로드 후 즉시 UI 업데이트
+      this.updateAllComponents();
+
+      // 백그라운드에서 추가 데이터 로드 (비동기)
+      Promise.resolve().then(() => {
         this.loadSecondaryData();
-      }, 100);
+      });
 
       console.log('✅ 최적화된 초기 데이터 로드 완료');
     } catch (error) {
@@ -170,10 +172,14 @@ class DashboardApp {
    * 중요한 데이터 우선 로드
    */
   async loadCriticalData() {
-    // S&P 500 데이터는 위젯에서 자체 로드
-    // 여기서는 필수 시스템 데이터만 로드
     if (this.dataManager) {
+      console.log('🚀 주식 데이터 로딩 시작...');
+
+      // 주식 데이터를 가장 먼저 로드 (사용자가 가장 먼저 보는 데이터)
+      await this.dataManager.loadStockData();
       await this.dataManager.loadSystemStatus();
+
+      console.log('✅ 주식 데이터 로드 완료');
     }
   }
 
@@ -192,8 +198,18 @@ class DashboardApp {
   async loadSecondaryData() {
     try {
       if (this.dataManager) {
-        await this.dataManager.loadNewsData();
-        await this.dataManager.loadMarketData();
+        console.log('🔄 백그라운드 데이터 로딩...');
+
+        // 비중요 데이터들을 병렬로 로드
+        await Promise.allSettled([
+          this.dataManager.loadNewsData(),
+          this.dataManager.loadMarketData(),
+        ]);
+
+        // 컴포넌트 업데이트
+        this.updateAllComponents();
+
+        console.log('✅ 백그라운드 데이터 로딩 완료');
       }
     } catch (error) {
       console.warn('보조 데이터 로드 실패:', error);
@@ -461,22 +477,22 @@ class DashboardApp {
           </div>
         `;
         progressBar = loadingEl.querySelector('.progress-bar');
-        
+
         // 진행률 바 스타일 추가
         this.addProgressBarStyles();
       }
-      
+
       // 텍스트와 진행률 업데이트
       const textEl = loadingEl.querySelector('.loading-text');
       const percentEl = loadingEl.querySelector('.loading-percentage');
-      
+
       if (textEl) textEl.textContent = message;
       if (percentEl) percentEl.textContent = `${progress}%`;
       if (progressBar) {
         progressBar.style.width = `${progress}%`;
         progressBar.style.transition = 'width 0.3s ease';
       }
-      
+
       loadingEl.style.display = 'block';
     }
   }
@@ -486,7 +502,7 @@ class DashboardApp {
    */
   addProgressBarStyles() {
     if (document.getElementById('progress-bar-styles')) return;
-    
+
     const style = document.createElement('style');
     style.id = 'progress-bar-styles';
     style.textContent = `

@@ -1,86 +1,95 @@
 {
+  "timestamp": "2025-08-25T03:02:19.932032",
+  "model_version": "Calibrated Ensemble v2.0",
+  "confidence_calibrated": true,
   "predictions": [
     {
-      "symbol": "AAPL",
-      "current_price": 226.53,
-      "predicted_direction": "up",
-      "confidence": 0.5,
-      "risk_level": "low",
-      "sector": "technology",
-      "market_cap": "large",
-      "technical_indicators": {
-        "rsi": 24.3,
-        "bb_position": -0.027,
-        "price_change": -0.27,
-        "volatility": 0.87
-      }
+      "ticker": "AAPL",
+      "current_price": 153.9,
+      "predicted_price": 152.02,
+      "confidence": 41.9,
+      "change_percent": -1.22,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-25T03:02:19.932065"
     },
     {
-      "symbol": "GOOGL",
-      "current_price": 199.65,
-      "predicted_direction": "down",
-      "confidence": 0.5,
-      "risk_level": "low",
-      "sector": "technology",
-      "market_cap": "large",
-      "technical_indicators": {
-        "rsi": 34.69,
-        "bb_position": 0.233,
-        "price_change": -0.21,
-        "volatility": 0.63
-      }
+      "ticker": "MSFT",
+      "current_price": 210.16,
+      "predicted_price": 210.04,
+      "confidence": 60.0,
+      "change_percent": -0.06,
+      "prediction_type": "\uc774\ubca4\ud2b8",
+      "risk_level": "\ub192\uc74c",
+      "timestamp": "2025-08-25T03:02:19.932072"
     },
     {
-      "symbol": "MSFT",
-      "current_price": 505.93,
-      "predicted_direction": "up",
-      "confidence": 0.5,
-      "risk_level": "low",
-      "sector": "technology",
-      "market_cap": "large",
-      "technical_indicators": {
-        "rsi": 25.89,
-        "bb_position": 0.16,
-        "price_change": -0.03,
-        "volatility": 0.42
-      }
+      "ticker": "GOOGL",
+      "current_price": 182.61,
+      "predicted_price": 178.62,
+      "confidence": 60.0,
+      "change_percent": -2.19,
+      "prediction_type": "\uc774\ubca4\ud2b8",
+      "risk_level": "\ub192\uc74c",
+      "timestamp": "2025-08-25T03:02:19.932076"
     },
     {
-      "symbol": "AMZN",
-      "current_price": 223.76,
-      "predicted_direction": "up",
-      "confidence": 0.5,
-      "risk_level": "low",
-      "sector": "consumer_discretionary",
-      "market_cap": "large",
-      "technical_indicators": {
-        "rsi": 21.81,
-        "bb_position": 0.092,
-        "price_change": -0.17,
-        "volatility": 1.1
-      }
+      "ticker": "AMZN",
+      "current_price": 247.09,
+      "predicted_price": 254.42,
+      "confidence": 50.8,
+      "change_percent": 2.97,
+      "prediction_type": "\uc774\ubca4\ud2b8",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-25T03:02:19.932080"
     },
     {
-      "symbol": "TSLA",
-      "current_price": 321.23,
-      "predicted_direction": "down",
-      "confidence": 0.5,
-      "risk_level": "medium",
-      "sector": "consumer_discretionary",
-      "market_cap": "large",
-      "technical_indicators": {
-        "rsi": 30.02,
-        "bb_position": 0.113,
-        "price_change": -0.16,
-        "volatility": 1.77
-      }
+      "ticker": "TSLA",
+      "current_price": 190.53,
+      "predicted_price": 190.62,
+      "confidence": 50.0,
+      "change_percent": 0.05,
+      "prediction_type": "\uc774\ubca4\ud2b8",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-25T03:02:19.932084"
+    },
+    {
+      "ticker": "NVDA",
+      "current_price": 206.98,
+      "predicted_price": 206.71,
+      "confidence": 37.8,
+      "change_percent": -0.13,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-25T03:02:19.932088"
+    },
+    {
+      "ticker": "META",
+      "current_price": 200.67,
+      "predicted_price": 200.95,
+      "confidence": 30.0,
+      "change_percent": 0.14,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\ub0ae\uc74c",
+      "timestamp": "2025-08-25T03:02:19.932092"
+    },
+    {
+      "ticker": "NFLX",
+      "current_price": 246.17,
+      "predicted_price": 246.75,
+      "confidence": 43.4,
+      "change_percent": 0.24,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-25T03:02:19.932096"
     }
   ],
-  "market_summary": {
-    "overall_sentiment": "neutral",
-    "volatility_index": 6.0,
-    "trend": "sideways",
-    "confidence_level": 0.5
-  },
-  "timestamp": "2025-08-20T16:52:18.493586+00:00"
+  "statistics": {
+    "avg_confidence": 46.7,
+    "max_confidence": 60.0,
+    "min_confidence": 30.0,
+    "high_confidence_count": 2,
+    "total_predictions": 8,
+    "model_calibration_quality": "Excellent (Brier Score: 0.055)"
+  }
 }

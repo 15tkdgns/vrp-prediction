@@ -16,7 +16,7 @@ import tensorflow as tf
 
 
 class SystemOrchestrator:
-    def __init__(self, data_dir="../../data/raw"):
+    def __init__(self, data_dir="data/raw"):
         self.data_dir = os.path.abspath(data_dir)
         self.components = {}
         self.status = {
@@ -31,7 +31,7 @@ class SystemOrchestrator:
             level=logging.INFO,
             format="%(asctime)s - %(levelname)s - %(message)s",
             handlers=[
-                logging.FileHandler(f"{data_dir}/system_orchestrator.log"),
+                logging.FileHandler(f"{self.data_dir}/system_orchestrator.log"),
                 logging.StreamHandler(),
             ],
         )

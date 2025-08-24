@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore")
 
 
 class RealTimePredictor:
-    def __init__(self, data_dir="raw_data"):
+    def __init__(self, data_dir="data/raw"):
         self.data_dir = data_dir
         self.models = {}
         self.test_results = []

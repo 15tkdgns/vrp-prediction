@@ -20,16 +20,16 @@ import time
 parent_dir = Path(__file__).parent.parent.absolute()
 sys.path.append(str(parent_dir))
 
+# 간소화된 실제 API 연동
 try:
-    from src.core.api_config import APIManager
-    from src.testing.realtime_testing_system import RealTimeTestingSystem
-    from src.models.model_training import SP500EventDetectionModel
+    from real_stock_api import real_api
+    print("✅ 실제 주식 API 연동 활성화됨")
+    REAL_API_AVAILABLE = True
 except ImportError as e:
-    print(f"Warning: Could not import Python API modules: {e}")
-    print("Using fallback mode without real API integration")
-    APIManager = None
-    RealTimeTestingSystem = None
-    SP500EventDetectionModel = None
+    print(f"Warning: Could not import real stock API: {e}")
+    print("Using fallback mode with mock data")
+    real_api = None
+    REAL_API_AVAILABLE = False
 
 # Load environment variables
 load_dotenv()
@@ -45,8 +45,7 @@ UPDATE_INTERVAL = 60  # seconds for background updates
 # Global variables for caching
 data_cache = {}
 cache_timestamps = {}
-api_manager = None
-realtime_system = None
+real_api_instance = real_api
 
 # Logging setup
 logging.basicConfig(
@@ -56,19 +55,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def init_api_systems():
-    """Initialize API manager and realtime system"""
-    global api_manager, realtime_system
+    """Initialize real stock API"""
+    global real_api_instance
     
-    try:
-        if APIManager:
-            api_manager = APIManager()
-            logger.info("✅ API Manager initialized")
-        
-        if RealTimeTestingSystem:
-            realtime_system = RealTimeTestingSystem()
-            logger.info("✅ Realtime Testing System initialized")
-    except Exception as e:
-        logger.error(f"❌ Failed to initialize API systems: {e}")
+    if REAL_API_AVAILABLE and real_api_instance:
+        logger.info("✅ 실제 주식 API 연동 준비 완료")
+    else:
+        logger.info("⚠️ Mock 데이터 모드로 동작")
 
 def is_cache_valid(key, timeout=CACHE_TIMEOUT):
     """Check if cached data is still valid"""

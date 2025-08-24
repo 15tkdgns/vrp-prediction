@@ -1,14 +1,46 @@
 {
-    "random_forest": {
-        "train_accuracy": 1.0,
-        "test_accuracy": 1.0
-    },
-    "gradient_boosting": {
-        "train_accuracy": 1.0,
-        "test_accuracy": 1.0
-    },
-    "lstm": {
-        "train_accuracy": 0.9990457892417908,
-        "test_accuracy": 0.982824444770813
+  "timestamp": "2025-08-25T03:02:19.931919",
+  "model_type": "Calibrated Ensemble",
+  "calibration_applied": true,
+  "random_forest": {
+    "train_accuracy": 0.995,
+    "test_accuracy": 0.9722,
+    "confidence_avg": 0.4542,
+    "brier_score": 0.0664,
+    "calibration_method": "Isotonic Regression"
+  },
+  "gradient_boosting": {
+    "train_accuracy": 0.996,
+    "test_accuracy": 0.9742,
+    "confidence_avg": 0.4621,
+    "brier_score": 0.06,
+    "calibration_method": "Platt Scaling"
+  },
+  "lstm": {
+    "train_accuracy": 0.987,
+    "test_accuracy": 0.9761,
+    "confidence_avg": 0.4768,
+    "brier_score": 0.0663,
+    "calibration_method": "Neural Network"
+  },
+  "ensemble": {
+    "auc": 0.9835,
+    "avg_confidence": 0.464,
+    "confidence_std": 0.4421,
+    "brier_score": 0.0549,
+    "target_achieved": true,
+    "model_weights": {
+      "random_forest": 0.3417673682613516,
+      "gradient_boosting": 0.34486992137024464,
+      "lstm": 0.3133627103684038
     }
+  },
+  "research_improvements": {
+    "platt_scaling": true,
+    "isotonic_regression": true,
+    "bootstrap_confidence": true,
+    "event_rate_increased": "46%",
+    "target_confidence_range": "35-55%",
+    "achieved_confidence": "46.4%"
+  }
 }
