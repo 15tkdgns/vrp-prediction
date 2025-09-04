@@ -4,6 +4,7 @@ import json
 import os
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
@@ -227,6 +228,43 @@ class SP500EventDetectionModel:
             "test_score": test_score,
         }
 
+    def train_xgboost(self, X_train, y_train, X_test, y_test):
+        """
+        XGBoost 분류 모델을 훈련하고 성능을 평가합니다.
+        
+        Args:
+            X_train, y_train: 훈련 데이터 (특성 및 라벨).
+            X_test, y_test: 테스트 데이터 (특성 및 라벨).
+        """
+        # XGBoost 분류기 설정
+        xgb_model = xgb.XGBClassifier(
+            n_estimators=100,
+            learning_rate=0.1,
+            max_depth=6,
+            random_state=42,
+            eval_metric='logloss',  # 이진 분류를 위한 평가 메트릭
+            use_label_encoder=False  # 최신 버전에서 권장
+        )
+        
+        # 모델 훈련
+        xgb_model.fit(X_train, y_train)
+        
+        # 훈련 및 테스트 정확도 평가
+        train_score = xgb_model.score(X_train, y_train)
+        test_score = xgb_model.score(X_test, y_test)
+        print(f"XGBoost - Train: {train_score:.4f}, Test: {test_score:.4f}")
+        
+        # 특성 중요도 추출 (XGBoost는 내장 특성 중요도 제공)
+        feature_importance = xgb_model.feature_importances_
+        
+        # 모델 및 평가 결과 저장
+        self.models["xgboost"] = {
+            "model": xgb_model,
+            "train_score": train_score,
+            "test_score": test_score,
+            "feature_importance": feature_importance,
+        }
+
     def train_lstm(self, X_train, y_train, X_test, y_test):
         """
         LSTM(Long Short-Term Memory) 딥러닝 모델을 훈련합니다.
@@ -351,6 +389,7 @@ class SP500EventDetectionModel:
         print("\n[4/6] 모델 훈련...")
         self.train_random_forest(X_train, y_train, X_test, y_test)
         self.train_gradient_boosting(X_train, y_train, X_test, y_test)
+        self.train_xgboost(X_train, y_train, X_test, y_test)
         self.train_lstm(X_train, y_train, X_test, y_test)
 
         print("\n[5/6] 특성 중요도 시각화...")

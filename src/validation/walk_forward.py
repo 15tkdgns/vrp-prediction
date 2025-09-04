@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Any, Optional, Union
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
+import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 import matplotlib.pyplot as plt
@@ -501,6 +502,11 @@ class WalkForwardValidator:
             'GradientBoosting': {
                 'class': GradientBoostingClassifier, 
                 'params': {'n_estimators': 100, 'random_state': 42, 'learning_rate': 0.1}
+            },
+            'XGBoost': {
+                'class': xgb.XGBClassifier,
+                'params': {'n_estimators': 100, 'random_state': 42, 'learning_rate': 0.1, 
+                          'eval_metric': 'logloss', 'use_label_encoder': False}
             },
             'LogisticRegression': {
                 'class': LogisticRegression,

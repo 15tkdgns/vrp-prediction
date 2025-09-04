@@ -74,7 +74,7 @@ class SHAPAnalyzer:
         X = self.data[features]
         
         # 모델 타입에 따라 적절한 Explainer 선택
-        if 'RandomForest' in model_name or 'GradientBoosting' in model_name:
+        if 'RandomForest' in model_name or 'GradientBoosting' in model_name or 'XGBoost' in model_name:
             explainer = shap.TreeExplainer(model)
             logger.info(f"Created TreeExplainer for {model_name}")
         elif 'LogisticRegression' in model_name:
