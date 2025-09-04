@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Test Simple</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .chart-container { width: 100%; height: 400px; margin: 20px 0; }
+        canvas { border: 1px solid #ccc; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>간단한 Chart.js 테스트</h1>
+    
+    <div id="status" class="status">차트 로딩 중...</div>
+    
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        console.log('Script 시작');
+        
+        function updateStatus(message, isError = false) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${isError ? 'error' : 'success'}`;
+            console.log(message);
+        }
+
+        // Chart.js 로드 확인
+        if (typeof Chart === 'undefined') {
+            updateStatus('❌ Chart.js 로드 실패', true);
+        } else {
+            updateStatus('✅ Chart.js 로드 성공 (v' + (Chart.version || 'unknown') + ')');
+            
+            // 차트 생성
+            try {
+                const ctx = document.getElementById('myChart');
+                if (!ctx) {
+                    throw new Error('Canvas 요소를 찾을 수 없음');
+                }
+                
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1월', '2월', '3월', '4월', '5월'],
+                        datasets: [{
+                            label: '테스트 데이터',
+                            data: [10, 20, 15, 25, 22],
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                
+                if (chart) {
+                    updateStatus('✅ 차트 생성 성공!');
+                } else {
+                    updateStatus('❌ 차트 생성 실패 - null 반환', true);
+                }
+                
+            } catch (error) {
+                updateStatus('❌ 차트 생성 오류: ' + error.message, true);
+            }
+        }
+    </script>
+</body>
+</html>

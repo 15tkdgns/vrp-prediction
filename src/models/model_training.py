@@ -9,6 +9,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
 import joblib
 import matplotlib.pyplot as plt
+import logging
+from ..utils.directory_manager import DirectoryManager
+from ..core.config_manager import get_config_manager
 
 
 class SP500EventDetectionModel:
@@ -28,14 +31,33 @@ class SP500EventDetectionModel:
             data_dir (str): 원본 데이터가 저장된 디렉토리 경로.
             models_dir (str): 훈련된 모델과 스케일러가 저장될 디렉토리 경로.
         """
+        # 디렉토리 관리자 및 설정 관리자 초기화
+        self.directory_manager = DirectoryManager()
+        self.config_manager = get_config_manager()
+        
+        # 필요한 디렉토리들 자동 생성
+        additional_dirs = [
+            'results/analysis',
+            'results/training', 
+            'results/visualizations',
+            'logs/models'
+        ]
+        self.directory_manager.ensure_directories(additional_dirs)
+        
         self.data_dir = data_dir
         self.models_dir = models_dir
         self.scaler = StandardScaler()
         self.models = {}
+        
+        # 로거 설정
+        self.logger = logging.getLogger(__name__)
 
-        # 모델 저장 디렉토리 생성
+        # 모델 저장 디렉토리 생성 (기존 방식 유지하되 로깅 추가)
         if not os.path.exists(self.models_dir):
             os.makedirs(self.models_dir)
+            self.logger.info(f"📁 모델 저장 디렉토리 생성: {self.models_dir}")
+        else:
+            self.logger.info(f"📁 모델 저장 디렉토리 확인: {self.models_dir}")
 
     def load_training_data(self):
         """
@@ -273,6 +295,8 @@ class SP500EventDetectionModel:
                 ha="right",
             )
             plt.tight_layout()
+            # 결과 디렉토리 생성
+            os.makedirs("results/analysis", exist_ok=True)
             plt.savefig("results/analysis/feature_importance.png")
             plt.close()
             print(

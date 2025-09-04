@@ -9,6 +9,7 @@ import logging
 
 from tqdm import tqdm
 from src.core.api_config import APIManager
+from src.utils.yfinance_manager import get_yfinance_manager
 
 # 로깅 설정
 logging.basicConfig(
@@ -61,37 +62,11 @@ class SP500DataCollector:
         except Exception as e:
             logging.error(f"S&P500 티커 수집 실패: {e}")
 
-    def _generate_mock_stock_data(self, ticker, period="1y"):
-        """
-        API 호출 실패 시 사용할 모의 주가 데이터를 생성합니다.
-        """
-        logging.warning(f"Generating mock stock data for {ticker} due to API failure.")
-        end_date = datetime.now()
-        if period == "1y":
-            start_date = end_date - timedelta(days=365)
-        elif period == "6mo":
-            start_date = end_date - timedelta(days=180)
-        else:  # Default to 1 year if period is not recognized
-            start_date = end_date - timedelta(days=365)
-
-        dates = pd.date_range(start=start_date, end=end_date, freq="B")  # Business days
-
-        data = {
-            "Date": dates,
-            "Open": np.random.uniform(100, 200, len(dates)),
-            "High": np.random.uniform(105, 205, len(dates)),
-            "Low": np.random.uniform(95, 195, len(dates)),
-            "Close": np.random.uniform(100, 200, len(dates)),
-            "Volume": np.random.randint(1000000, 5000000, len(dates)),
-        }
-        mock_df = pd.DataFrame(data)
-        mock_df["Date"] = mock_df["Date"].dt.tz_localize(None)  # Remove timezone info
-        return mock_df
 
     def collect_stock_data(self, period="1y", num_tickers=10):
         """
-        지정된 기간 동안의 주가 및 거래량 데이터를 APIManager를 통해 수집합니다.
-        API 호출 실패 시 모의 데이터를 사용합니다.
+        지정된 기간 동안의 주가 및 거래량 데이터를 수집합니다.
+        실패한 경우 명확한 오류 메시지를 로깅합니다.
 
         Args:
             period (str): 수집할 데이터 기간 (e.g., '1y', '6mo').
@@ -100,33 +75,54 @@ class SP500DataCollector:
         if not self.sp500_tickers:
             self.get_sp500_tickers()
 
+        # YFinanceManager 인스턴스 가져오기
+        yf_manager = get_yfinance_manager()
+        
         # 테스트를 위해 일부 티커만 사용
         tickers_to_fetch = self.sp500_tickers[:num_tickers]
+        successful_collections = 0
+        failed_collections = 0
 
         for ticker in tqdm(tickers_to_fetch, desc="Collecting stock data"):
-            hist = None
             try:
-                # APIManager를 통해 시장 데이터 수집
-                hist = self.api_manager.get_market_data(ticker, period=period)
-                if hist is None or hist.empty:
-                    logging.warning(
-                        f"{ticker} 주가 데이터를 수집하지 못했습니다. 모의 데이터를 생성합니다."
-                    )
-                    hist = self._generate_mock_stock_data(ticker, period)
+                # 새로운 YFinanceManager를 통한 데이터 수집
+                result = yf_manager.get_stock_history(ticker, period=period)
+                
+                if result['success']:
+                    # 성공적으로 데이터를 가져온 경우
+                    hist_data = result['data']
+                    hist_df = pd.DataFrame(hist_data)
+                    
+                    # Date 컬럼이 문자열인 경우 datetime으로 변환
+                    if 'Date' in hist_df.columns:
+                        hist_df['Date'] = pd.to_datetime(hist_df['Date'])
+                    
+                    hist_df.to_csv(f"{self.data_dir}/stock_{ticker}.csv", index=False)
+                    logging.info(f"✅ {ticker} 주가 데이터 저장 완료 ({len(hist_data)}개 레코드)")
+                    successful_collections += 1
+                    
+                else:
+                    # 실패한 경우 - 모의 데이터 생성하지 않고 명확한 오류 로깅
+                    error_msg = result.get('message', 'Unknown error')
+                    logging.error(f"❌ {ticker} 주가 데이터 수집 실패: {error_msg}")
+                    failed_collections += 1
+                    
+                    # 실패한 티커를 별도 파일에 기록
+                    self._log_failed_collection(ticker, 'stock_data', error_msg)
+                    
             except Exception as e:
-                logging.error(
-                    f"{ticker} 주가 데이터 수집 실패: {e}. 모의 데이터를 생성합니다."
-                )
-                hist = self._generate_mock_stock_data(ticker, period)
-
-            if hist is not None and not hist.empty:
-                hist.to_csv(f"{self.data_dir}/stock_{ticker}.csv", index=False)
-                logging.info(
-                    f"Columns saved to CSV for {ticker}: {hist.columns.tolist()}"
-                )
-                logging.info(f"{ticker} 주가 데이터 저장 완료.")
-            else:
-                logging.error(f"모의 데이터 생성에도 실패했습니다: {ticker}")
+                logging.error(f"❌ {ticker} 데이터 수집 중 예외 발생: {e}")
+                failed_collections += 1
+                self._log_failed_collection(ticker, 'stock_data', str(e))
+        
+        # 수집 결과 요약
+        total_attempted = len(tickers_to_fetch)
+        success_rate = (successful_collections / total_attempted) * 100 if total_attempted > 0 else 0
+        
+        logging.info(f"📊 주가 데이터 수집 완료: {successful_collections}/{total_attempted} 성공 ({success_rate:.1f}%)")
+        
+        if failed_collections > 0:
+            logging.warning(f"⚠️ {failed_collections}개 티커 데이터 수집 실패. 실패 목록은 failed_collections.log 참조")
 
     def calculate_technical_indicators(self, df):
         """
@@ -153,7 +149,7 @@ class SP500DataCollector:
     def collect_news_and_sentiment(self, num_tickers=5):
         """
         APIManager를 사용하여 뉴스 기사를 수집하고, FinBERT와 TextBlob으로 감성 분석을 수행합니다.
-        API 호출 실패 시 모의 뉴스 데이터를 사용합니다.
+        실패한 경우 명확한 오류 메시지를 로깅합니다.
         """
         all_news = []
         tickers_to_fetch = self.sp500_tickers[:num_tickers]
@@ -164,15 +160,13 @@ class SP500DataCollector:
                 # APIManager를 통해 뉴스 데이터 수집
                 articles = self.api_manager.get_news_data(ticker)
                 if not articles:  # If API returns empty or fails
-                    logging.warning(
-                        f"{ticker} 뉴스 데이터를 수집하지 못했습니다. 모의 뉴스 데이터를 생성합니다."
-                    )
-                    articles = self._generate_mock_news_data(ticker)
+                    logging.warning(f"⚠️ {ticker} 뉴스 데이터를 수집하지 못했습니다.")
+                    self._log_failed_collection(ticker, 'news_data', 'No articles returned from API')
+                    continue  # 다음 티커로 넘어가기
             except Exception as e:
-                logging.error(
-                    f"{ticker} 뉴스 처리 중 오류: {e}. 모의 뉴스 데이터를 생성합니다."
-                )
-                articles = self._generate_mock_news_data(ticker)
+                logging.error(f"❌ {ticker} 뉴스 처리 중 오류: {e}")
+                self._log_failed_collection(ticker, 'news_data', str(e))
+                continue  # 다음 티커로 넘어가기
 
             for article in articles:
                 title = article.get("title", "")
@@ -208,21 +202,17 @@ class SP500DataCollector:
         news_df = pd.DataFrame(all_news)
         news_df.to_csv(f"{self.data_dir}/news_sentiment_data.csv", index=False)
 
-    def _generate_mock_news_data(self, ticker, num_articles=5):
+    def _log_failed_collection(self, ticker, data_type, error_message):
         """
-        API 호출 실패 시 사용할 모의 뉴스 데이터를 생성합니다.
+        실패한 데이터 수집을 별도 로그 파일에 기록합니다.
         """
-        mock_articles = []
-        for i in range(num_articles):
-            mock_articles.append(
-                {
-                    "title": f"Mock News Title {i+1} for {ticker}",
-                    "description": f"This is a mock news description for {ticker}. It talks about general market trends.",
-                    "publishedAt": (datetime.now() - timedelta(days=i)).isoformat()
-                    + "Z",
-                }
-            )
-        return mock_articles
+        failed_log_path = os.path.join(self.data_dir, "failed_collections.log")
+        timestamp = datetime.now().isoformat()
+        
+        with open(failed_log_path, "a", encoding="utf-8") as f:
+            f.write(f"{timestamp} | {data_type} | {ticker} | {error_message}\n")
+        
+        logging.debug(f"실패한 수집 기록됨: {ticker} ({data_type})")
 
     def create_training_dataset(self, num_tickers=10):
         """

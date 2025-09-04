@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🧪 S&P 500 API 테스트</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #1a1a2e; 
+            color: #eee; 
+            margin: 20px; 
+            padding: 20px;
+        }
+        .test-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: #16213e;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #0f3460;
+        }
+        .test-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .results-panel {
+            background: #0f1419;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .success-text { color: #56d364; }
+        .error-text { color: #f85149; }
+        .warning-text { color: #e3b341; }
+        .info-text { color: #79c0ff; }
+        .data-display {
+            background: #1c2128;
+            border: 1px solid #373e47;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .metric {
+            display: inline-block;
+            background: #21262d;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 3px;
+            border-left: 3px solid #238636;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 S&P 500 API 테스트 도구</h1>
+        <p>실제 API 연동 및 데이터 소스 확인</p>
+        
+        <div>
+            <button class="test-button" onclick="testAPIService()">API 서비스 테스트</button>
+            <button class="test-button" onclick="testSP500Data()">S&P 500 데이터 로드</button>
+            <button class="test-button" onclick="testYahooAPI()">Yahoo Finance 직접 호출</button>
+            <button class="test-button" onclick="testWidget()">위젯 데이터 소스 확인</button>
+            <button class="test-button" onclick="clearResults()">결과 지우기</button>
+        </div>
+        
+        <div class="results-panel" id="results-panel">
+S&P 500 API 테스트 도구 준비됨...
+실시간 데이터 소스와 API 연동 상태를 확인합니다.
+        </div>
+        
+        <div class="data-display" id="data-display" style="display: none;">
+            <h3>📊 현재 S&P 500 데이터</h3>
+            <div id="sp500-metrics"></div>
+        </div>
+    </div>
+
+    <!-- 필요한 스크립트 로드 -->
+    <script src="js/api-service.js"></script>
+    <script src="js/sp500-widget.js"></script>
+    
+    <script>
+        const resultsPanel = document.getElementById('results-panel');
+        const dataDisplay = document.getElementById('data-display');
+        const metricsDiv = document.getElementById('sp500-metrics');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = `${type}-text`;
+            resultsPanel.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+            resultsPanel.scrollTop = resultsPanel.scrollHeight;
+        }
+        
+        function clearResults() {
+            resultsPanel.innerHTML = 'S&P 500 API 테스트 도구 준비됨...\n';
+            dataDisplay.style.display = 'none';
+        }
+        
+        function displayMetrics(data) {
+            if (!data) return;
+            
+            metricsDiv.innerHTML = `
+                <div class="metric">현재가: $${data.current || 'N/A'}</div>
+                <div class="metric">변동률: ${(data.change || 0).toFixed(2)}%</div>
+                <div class="metric">거래량: ${(data.volume || 0).toLocaleString()}</div>
+                <div class="metric">데이터 소스: ${data.data_source || '알 수 없음'}</div>
+                <div class="metric">타임스탬프: ${data.timestamp ? new Date(data.timestamp).toLocaleString() : '알 수 없음'}</div>
+            `;
+            dataDisplay.style.display = 'block';
+        }
+        
+        // 1. API 서비스 테스트
+        async function testAPIService() {
+            log('🔍 API 서비스 테스트 시작...', 'info');
+            
+            try {
+                if (typeof APIService === 'undefined') {
+                    log('❌ APIService 클래스가 로드되지 않았습니다', 'error');
+                    return;
+                }
+                
+                const apiService = new APIService();
+                window.apiService = apiService; // 전역에 설정
+                
+                log('✅ APIService 인스턴스 생성 성공', 'success');
+                log(`📝 설정된 API 엔드포인트들:`, 'info');
+                log(`   Yahoo Finance: ${apiService.config.yahooFinance.baseUrl}`, 'info');
+                log(`   CORS 프록시: ${apiService.config.corsProxy[0]}`, 'info');
+                
+            } catch (error) {
+                log(`❌ API 서비스 테스트 실패: ${error.message}`, 'error');
+            }
+        }
+        
+        // 2. S&P 500 데이터 로드 테스트
+        async function testSP500Data() {
+            log('📊 S&P 500 데이터 로드 테스트 시작...', 'info');
+            
+            try {
+                if (!window.apiService) {
+                    log('⚠️ APIService가 초기화되지 않았습니다. 먼저 API 서비스를 테스트하세요.', 'warning');
+                    await testAPIService();
+                }
+                
+                log('🌐 실제 API에서 S&P 500 데이터 요청 중...', 'info');
+                const sp500Data = await window.apiService.getSP500Current();
+                
+                if (sp500Data && sp500Data.current) {
+                    log('✅ S&P 500 데이터 로드 성공!', 'success');
+                    log(`   현재가: $${sp500Data.current}`, 'success');
+                    log(`   변동률: ${sp500Data.change.toFixed(2)}%`, 'success');
+                    log(`   거래량: ${sp500Data.volume.toLocaleString()}`, 'success');
+                    
+                    // 데이터가 실제 API인지 폴백 데이터인지 확인
+                    if (sp500Data.current > 4500 && sp500Data.current < 4700) {
+                        log('⚠️ 폴백 데이터일 가능성이 높습니다 (4500-4700 범위)', 'warning');
+                    } else {
+                        log('✅ 실제 API 데이터로 보입니다', 'success');
+                    }
+                    
+                    displayMetrics({
+                        ...sp500Data,
+                        data_source: 'Yahoo Finance API',
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                } else {
+                    log('❌ S&P 500 데이터를 받지 못했습니다', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ S&P 500 데이터 로드 실패: ${error.message}`, 'error');
+            }
+        }
+        
+        // 3. Yahoo API 직접 호출 테스트
+        async function testYahooAPI() {
+            log('🌐 Yahoo Finance API 직접 호출 테스트...', 'info');
+            
+            try {
+                const url = 'https://query1.finance.yahoo.com/v8/finance/chart/^GSPC?interval=1d&range=1d';
+                log(`📡 요청 URL: ${url}`, 'info');
+                
+                // CORS 프록시 사용
+                const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+                log(`🔄 CORS 프록시 사용: ${proxyUrl}`, 'info');
+                
+                const response = await fetch(proxyUrl);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log('✅ Yahoo Finance API 직접 호출 성공!', 'success');
+                    
+                    if (data.chart && data.chart.result && data.chart.result[0]) {
+                        const result = data.chart.result[0];
+                        const meta = result.meta;
+                        const quotes = result.indicators.quote[0];
+                        const latestPrice = quotes.close[quotes.close.length - 1];
+                        
+                        log(`📊 S&P 500 현재 데이터:`, 'success');
+                        log(`   현재가: $${latestPrice.toFixed(2)}`, 'success');
+                        log(`   변동률: ${(meta.regularMarketChangePercent || 0).toFixed(2)}%`, 'success');
+                        log(`   거래량: ${(meta.regularMarketVolume || 0).toLocaleString()}`, 'success');
+                        log(`   마지막 업데이트: ${new Date(meta.regularMarketTime * 1000).toLocaleString()}`, 'success');
+                        
+                        displayMetrics({
+                            current: parseFloat(latestPrice.toFixed(2)),
+                            change: meta.regularMarketChangePercent || 0,
+                            volume: meta.regularMarketVolume || 0,
+                            data_source: 'Yahoo Finance API (Direct)',
+                            timestamp: new Date(meta.regularMarketTime * 1000).toISOString()
+                        });
+                        
+                    } else {
+                        log('⚠️ 응답 데이터 구조가 예상과 다릅니다', 'warning');
+                        log(JSON.stringify(data, null, 2), 'info');
+                    }
+                } else {
+                    log(`❌ API 호출 실패: ${response.status} ${response.statusText}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Yahoo Finance API 직접 호출 실패: ${error.message}`, 'error');
+            }
+        }
+        
+        // 4. 위젯 데이터 소스 확인
+        async function testWidget() {
+            log('🎨 S&P 500 위젯 데이터 소스 확인...', 'info');
+            
+            try {
+                if (typeof SP500Widget === 'undefined') {
+                    log('❌ SP500Widget 클래스가 로드되지 않았습니다', 'error');
+                    return;
+                }
+                
+                const widget = new SP500Widget();
+                
+                // APIService 확인
+                if (!window.apiService) {
+                    log('⚠️ 위젯용 APIService 초기화 중...', 'warning');
+                    window.apiService = new APIService();
+                }
+                
+                log('📊 위젯에서 S&P 500 데이터 가져오기 시도...', 'info');
+                const widgetData = await widget.fetchSP500Data();
+                
+                if (widgetData) {
+                    log('✅ 위젯 데이터 로드 성공!', 'success');
+                    log(`   현재가: $${widgetData.current_price}`, 'success');
+                    log(`   예측가: $${widgetData.predicted_price ? widgetData.predicted_price.toFixed(2) : 'N/A'}`, 'success');
+                    log(`   변동률: ${widgetData.change_percent ? widgetData.change_percent.toFixed(2) : 'N/A'}%`, 'success');
+                    log(`   신뢰도: ${widgetData.confidence ? widgetData.confidence.toFixed(1) : 'N/A'}%`, 'success');
+                    log(`   데이터 소스: ${widgetData.data_source}`, 'success');
+                    
+                    displayMetrics(widgetData);
+                    
+                } else {
+                    log('❌ 위젯에서 데이터를 받지 못했습니다', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ 위젯 테스트 실패: ${error.message}`, 'error');
+            }
+        }
+        
+        // 페이지 로드 시 자동으로 기본 테스트 실행
+        window.addEventListener('load', () => {
+            log('🧪 S&P 500 API 테스트 도구 시작됨', 'info');
+            log('📋 사용 가능한 테스트:', 'info');
+            log('   1. API 서비스 테스트 - APIService 초기화 확인', 'info');
+            log('   2. S&P 500 데이터 로드 - 실제 API 데이터 가져오기', 'info');
+            log('   3. Yahoo API 직접 호출 - CORS 프록시 통한 직접 호출', 'info');
+            log('   4. 위젯 데이터 소스 확인 - SP500Widget의 데이터 소스 검증', 'info');
+            log('', 'info');
+            log('💡 각 버튼을 클릭해서 테스트를 시작하세요!', 'info');
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "experiment_date": "2025-09-03 18:17:55",
+  "original_model": {
+    "accuracy": 0.5455,
+    "description": "Technical Analysis (RSI, MACD, Bollinger Bands)"
+  },
+  "improvements": {
+    "baseline_with_vix": {
+      "accuracy": 0.99,
+      "improvement_vs_original": 0.4445,
+      "description": "RF + VIX integration"
+    },
+    "ensemble": {
+      "accuracy": 0.99,
+      "improvement_vs_original": 0.4445,
+      "improvement_vs_baseline": 0.0,
+      "description": "RF + Gradient Boosting Ensemble"
+    },
+    "confidence_filtering": {
+      "best_accuracy": 1.0,
+      "improvement_vs_original": 0.4545,
+      "coverage": 1.0,
+      "description": "High confidence predictions only"
+    }
+  },
+  "vix_analysis": {
+    "contribution": 0.0,
+    "with_vix": 0.99,
+    "without_vix": 0.99
+  }
+}

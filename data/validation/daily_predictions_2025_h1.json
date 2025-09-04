@@ -1,0 +1,1818 @@
+{
+  "daily_predictions": [
+    {
+      "date": "2025-01-01",
+      "predicted_price": 4833.22,
+      "confidence": 64.0,
+      "direction": "up",
+      "daily_change": 0.692,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-02",
+      "predicted_price": 4829.84,
+      "confidence": 68.3,
+      "direction": "down",
+      "daily_change": -0.07,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-03",
+      "predicted_price": 4872.25,
+      "confidence": 62.2,
+      "direction": "up",
+      "daily_change": 0.878,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-06",
+      "predicted_price": 4965.74,
+      "confidence": 51.7,
+      "direction": "up",
+      "daily_change": 1.919,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-07",
+      "predicted_price": 4956.55,
+      "confidence": 67.2,
+      "direction": "down",
+      "daily_change": -0.185,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-08",
+      "predicted_price": 4947.38,
+      "confidence": 67.2,
+      "direction": "down",
+      "daily_change": -0.185,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-09",
+      "predicted_price": 5045.89,
+      "confidence": 51.0,
+      "direction": "up",
+      "daily_change": 1.991,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-10",
+      "predicted_price": 5097.44,
+      "confidence": 60.8,
+      "direction": "up",
+      "daily_change": 1.022,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-13",
+      "predicted_price": 5073.38,
+      "confidence": 64.4,
+      "direction": "down",
+      "daily_change": -0.472,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-14",
+      "predicted_price": 5111.28,
+      "confidence": 63.5,
+      "direction": "up",
+      "daily_change": 0.747,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-15",
+      "predicted_price": 5087.76,
+      "confidence": 64.4,
+      "direction": "down",
+      "daily_change": -0.46,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-16",
+      "predicted_price": 5064.21,
+      "confidence": 64.4,
+      "direction": "down",
+      "daily_change": -0.463,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-17",
+      "predicted_price": 5084.02,
+      "confidence": 67.1,
+      "direction": "up",
+      "daily_change": 0.391,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-20",
+      "predicted_price": 4971.93,
+      "confidence": 47.0,
+      "direction": "down",
+      "daily_change": -2.205,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-21",
+      "predicted_price": 4873.79,
+      "confidence": 49.3,
+      "direction": "down",
+      "daily_change": -1.974,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-22",
+      "predicted_price": 4845.58,
+      "confidence": 63.3,
+      "direction": "down",
+      "daily_change": -0.579,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-23",
+      "predicted_price": 4791.34,
+      "confidence": 57.8,
+      "direction": "down",
+      "daily_change": -1.119,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-24",
+      "predicted_price": 4814.24,
+      "confidence": 66.2,
+      "direction": "up",
+      "daily_change": 0.478,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-27",
+      "predicted_price": 4766.17,
+      "confidence": 59.1,
+      "direction": "down",
+      "daily_change": -0.998,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-28",
+      "predicted_price": 4689.97,
+      "confidence": 53.1,
+      "direction": "down",
+      "daily_change": -1.599,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-29",
+      "predicted_price": 4776.96,
+      "confidence": 52.4,
+      "direction": "up",
+      "daily_change": 1.855,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-30",
+      "predicted_price": 4768.6,
+      "confidence": 67.3,
+      "direction": "down",
+      "daily_change": -0.175,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-01-31",
+      "predicted_price": 4777.27,
+      "confidence": 69.2,
+      "direction": "up",
+      "daily_change": 0.182,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-03",
+      "predicted_price": 4699.23,
+      "confidence": 52.9,
+      "direction": "down",
+      "daily_change": -1.634,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-04",
+      "predicted_price": 4672.29,
+      "confidence": 63.5,
+      "direction": "down",
+      "daily_change": -0.573,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-05",
+      "predicted_price": 4682.25,
+      "confidence": 68.7,
+      "direction": "up",
+      "daily_change": 0.213,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-06",
+      "predicted_price": 4621.32,
+      "confidence": 56.2,
+      "direction": "down",
+      "daily_change": -1.301,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-07",
+      "predicted_price": 4646.04,
+      "confidence": 65.5,
+      "direction": "up",
+      "daily_change": 0.535,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-10",
+      "predicted_price": 4616.08,
+      "confidence": 62.8,
+      "direction": "down",
+      "daily_change": -0.645,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-11",
+      "predicted_price": 4603.62,
+      "confidence": 66.5,
+      "direction": "down",
+      "daily_change": -0.27,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-12",
+      "predicted_price": 4574.06,
+      "confidence": 62.8,
+      "direction": "down",
+      "daily_change": -0.642,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-13",
+      "predicted_price": 4679.39,
+      "confidence": 47.8,
+      "direction": "up",
+      "daily_change": 2.303,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-14",
+      "predicted_price": 4682.56,
+      "confidence": 69.8,
+      "direction": "up",
+      "daily_change": 0.068,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-17",
+      "predicted_price": 4626.69,
+      "confidence": 57.3,
+      "direction": "down",
+      "daily_change": -1.193,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-18",
+      "predicted_price": 4676.06,
+      "confidence": 60.1,
+      "direction": "up",
+      "daily_change": 1.067,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-19",
+      "predicted_price": 4611.29,
+      "confidence": 55.3,
+      "direction": "down",
+      "daily_change": -1.385,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-20",
+      "predicted_price": 4626.54,
+      "confidence": 67.5,
+      "direction": "up",
+      "daily_change": 0.331,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-21",
+      "predicted_price": 4521.63,
+      "confidence": 46.5,
+      "direction": "down",
+      "daily_change": -2.268,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-24",
+      "predicted_price": 4453.0,
+      "confidence": 54.1,
+      "direction": "down",
+      "daily_change": -1.518,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-25",
+      "predicted_price": 4467.08,
+      "confidence": 67.6,
+      "direction": "up",
+      "daily_change": 0.316,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-26",
+      "predicted_price": 4510.24,
+      "confidence": 61.1,
+      "direction": "up",
+      "daily_change": 0.966,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-27",
+      "predicted_price": 4523.12,
+      "confidence": 67.9,
+      "direction": "up",
+      "daily_change": 0.286,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-02-28",
+      "predicted_price": 4520.64,
+      "confidence": 68.6,
+      "direction": "down",
+      "daily_change": -0.055,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-03",
+      "predicted_price": 4508.09,
+      "confidence": 66.4,
+      "direction": "down",
+      "daily_change": -0.278,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-04",
+      "predicted_price": 4432.07,
+      "confidence": 52.3,
+      "direction": "down",
+      "daily_change": -1.686,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-05",
+      "predicted_price": 4397.69,
+      "confidence": 61.4,
+      "direction": "down",
+      "daily_change": -0.776,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-06",
+      "predicted_price": 4377.25,
+      "confidence": 64.5,
+      "direction": "down",
+      "daily_change": -0.465,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-07",
+      "predicted_price": 4436.82,
+      "confidence": 57.3,
+      "direction": "up",
+      "daily_change": 1.361,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-10",
+      "predicted_price": 4458.82,
+      "confidence": 65.9,
+      "direction": "up",
+      "daily_change": 0.496,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-11",
+      "predicted_price": 4368.41,
+      "confidence": 48.8,
+      "direction": "down",
+      "daily_change": -2.028,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-12",
+      "predicted_price": 4389.25,
+      "confidence": 66.1,
+      "direction": "up",
+      "daily_change": 0.477,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-13",
+      "predicted_price": 4372.83,
+      "confidence": 65.4,
+      "direction": "down",
+      "daily_change": -0.374,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-14",
+      "predicted_price": 4341.35,
+      "confidence": 61.9,
+      "direction": "down",
+      "daily_change": -0.72,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-17",
+      "predicted_price": 4376.84,
+      "confidence": 62.7,
+      "direction": "up",
+      "daily_change": 0.818,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-18",
+      "predicted_price": 4434.84,
+      "confidence": 57.6,
+      "direction": "up",
+      "daily_change": 1.325,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-19",
+      "predicted_price": 4488.31,
+      "confidence": 58.8,
+      "direction": "up",
+      "daily_change": 1.206,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-20",
+      "predicted_price": 4447.06,
+      "confidence": 59.9,
+      "direction": "down",
+      "daily_change": -0.919,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-21",
+      "predicted_price": 4434.67,
+      "confidence": 66.3,
+      "direction": "down",
+      "daily_change": -0.279,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-24",
+      "predicted_price": 4456.0,
+      "confidence": 66.0,
+      "direction": "up",
+      "daily_change": 0.481,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-25",
+      "predicted_price": 4512.09,
+      "confidence": 58.3,
+      "direction": "up",
+      "daily_change": 1.259,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-26",
+      "predicted_price": 4490.11,
+      "confidence": 64.2,
+      "direction": "down",
+      "daily_change": -0.487,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-27",
+      "predicted_price": 4484.06,
+      "confidence": 67.8,
+      "direction": "down",
+      "daily_change": -0.135,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-28",
+      "predicted_price": 4428.67,
+      "confidence": 56.7,
+      "direction": "down",
+      "daily_change": -1.235,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-03-31",
+      "predicted_price": 4368.8,
+      "confidence": 55.6,
+      "direction": "down",
+      "daily_change": -1.352,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-01",
+      "predicted_price": 4414.55,
+      "confidence": 60.2,
+      "direction": "up",
+      "daily_change": 1.047,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-02",
+      "predicted_price": 4489.57,
+      "confidence": 53.7,
+      "direction": "up",
+      "daily_change": 1.699,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-03",
+      "predicted_price": 4488.92,
+      "confidence": 69.1,
+      "direction": "down",
+      "daily_change": -0.014,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-04",
+      "predicted_price": 4546.38,
+      "confidence": 58.0,
+      "direction": "up",
+      "daily_change": 1.28,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-07",
+      "predicted_price": 4569.22,
+      "confidence": 65.7,
+      "direction": "up",
+      "daily_change": 0.502,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-08",
+      "predicted_price": 4537.13,
+      "confidence": 62.3,
+      "direction": "down",
+      "daily_change": -0.702,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-09",
+      "predicted_price": 4560.08,
+      "confidence": 65.7,
+      "direction": "up",
+      "daily_change": 0.506,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-10",
+      "predicted_price": 4647.52,
+      "confidence": 51.5,
+      "direction": "up",
+      "daily_change": 1.918,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-11",
+      "predicted_price": 4649.04,
+      "confidence": 69.6,
+      "direction": "up",
+      "daily_change": 0.033,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-14",
+      "predicted_price": 4739.51,
+      "confidence": 51.2,
+      "direction": "up",
+      "daily_change": 1.946,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-15",
+      "predicted_price": 4593.92,
+      "confidence": 45,
+      "direction": "down",
+      "daily_change": -3.072,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-16",
+      "predicted_price": 4642.54,
+      "confidence": 60.1,
+      "direction": "up",
+      "daily_change": 1.058,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-17",
+      "predicted_price": 4650.73,
+      "confidence": 69.0,
+      "direction": "up",
+      "daily_change": 0.176,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-18",
+      "predicted_price": 4637.56,
+      "confidence": 66.4,
+      "direction": "down",
+      "daily_change": -0.283,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-21",
+      "predicted_price": 4645.84,
+      "confidence": 68.9,
+      "direction": "up",
+      "daily_change": 0.179,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-22",
+      "predicted_price": 4538.38,
+      "confidence": 46.1,
+      "direction": "down",
+      "daily_change": -2.313,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-23",
+      "predicted_price": 4529.68,
+      "confidence": 67.4,
+      "direction": "down",
+      "daily_change": -0.192,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-24",
+      "predicted_price": 4552.35,
+      "confidence": 65.7,
+      "direction": "up",
+      "daily_change": 0.501,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-25",
+      "predicted_price": 4636.53,
+      "confidence": 52.3,
+      "direction": "up",
+      "daily_change": 1.849,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-28",
+      "predicted_price": 4610.87,
+      "confidence": 63.8,
+      "direction": "down",
+      "daily_change": -0.554,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-29",
+      "predicted_price": 4569.45,
+      "confidence": 60.3,
+      "direction": "down",
+      "daily_change": -0.898,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-04-30",
+      "predicted_price": 4545.23,
+      "confidence": 64.0,
+      "direction": "down",
+      "daily_change": -0.53,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-01",
+      "predicted_price": 4598.07,
+      "confidence": 59.0,
+      "direction": "up",
+      "daily_change": 1.162,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-02",
+      "predicted_price": 4619.3,
+      "confidence": 66.1,
+      "direction": "up",
+      "daily_change": 0.462,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-05",
+      "predicted_price": 4592.74,
+      "confidence": 63.6,
+      "direction": "down",
+      "daily_change": -0.575,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-06",
+      "predicted_price": 4623.97,
+      "confidence": 63.8,
+      "direction": "up",
+      "daily_change": 0.68,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-07",
+      "predicted_price": 4632.31,
+      "confidence": 68.8,
+      "direction": "up",
+      "daily_change": 0.18,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-08",
+      "predicted_price": 4689.12,
+      "confidence": 58.4,
+      "direction": "up",
+      "daily_change": 1.226,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-09",
+      "predicted_price": 4652.77,
+      "confidence": 61.6,
+      "direction": "down",
+      "daily_change": -0.775,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-12",
+      "predicted_price": 4637.3,
+      "confidence": 66.1,
+      "direction": "down",
+      "daily_change": -0.332,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-13",
+      "predicted_price": 4618.45,
+      "confidence": 65.3,
+      "direction": "down",
+      "daily_change": -0.407,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-14",
+      "predicted_price": 4540.3,
+      "confidence": 52.4,
+      "direction": "down",
+      "daily_change": -1.692,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-15",
+      "predicted_price": 4559.34,
+      "confidence": 66.4,
+      "direction": "up",
+      "daily_change": 0.419,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-16",
+      "predicted_price": 4576.68,
+      "confidence": 66.9,
+      "direction": "up",
+      "daily_change": 0.38,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-19",
+      "predicted_price": 4579.75,
+      "confidence": 69.9,
+      "direction": "up",
+      "daily_change": 0.067,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-20",
+      "predicted_price": 4569.78,
+      "confidence": 67.2,
+      "direction": "down",
+      "daily_change": -0.218,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-21",
+      "predicted_price": 4495.09,
+      "confidence": 53.0,
+      "direction": "down",
+      "daily_change": -1.634,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-22",
+      "predicted_price": 4475.28,
+      "confidence": 65.0,
+      "direction": "down",
+      "daily_change": -0.441,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-23",
+      "predicted_price": 4459.88,
+      "confidence": 65.9,
+      "direction": "down",
+      "daily_change": -0.344,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-26",
+      "predicted_price": 4419.66,
+      "confidence": 60.4,
+      "direction": "down",
+      "daily_change": -0.902,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-27",
+      "predicted_price": 4413.93,
+      "confidence": 68.1,
+      "direction": "down",
+      "daily_change": -0.13,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-28",
+      "predicted_price": 4438.16,
+      "confidence": 65.2,
+      "direction": "up",
+      "daily_change": 0.549,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-29",
+      "predicted_price": 4541.45,
+      "confidence": 47.4,
+      "direction": "up",
+      "daily_change": 2.327,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-05-30",
+      "predicted_price": 4554.02,
+      "confidence": 67.9,
+      "direction": "up",
+      "daily_change": 0.277,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-02",
+      "predicted_price": 4571.9,
+      "confidence": 66.9,
+      "direction": "up",
+      "daily_change": 0.393,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-03",
+      "predicted_price": 4571.84,
+      "confidence": 69.1,
+      "direction": "down",
+      "daily_change": -0.001,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-04",
+      "predicted_price": 4470.6,
+      "confidence": 47.0,
+      "direction": "down",
+      "daily_change": -2.215,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-05",
+      "predicted_price": 4473.11,
+      "confidence": 69.7,
+      "direction": "up",
+      "daily_change": 0.056,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-06",
+      "predicted_price": 4480.47,
+      "confidence": 69.3,
+      "direction": "up",
+      "daily_change": 0.165,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-09",
+      "predicted_price": 4616.66,
+      "confidence": 45,
+      "direction": "up",
+      "daily_change": 3.039,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-10",
+      "predicted_price": 4610.06,
+      "confidence": 67.7,
+      "direction": "down",
+      "daily_change": -0.143,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-11",
+      "predicted_price": 4630.8,
+      "confidence": 66.4,
+      "direction": "up",
+      "daily_change": 0.45,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-12",
+      "predicted_price": 4632.95,
+      "confidence": 69.6,
+      "direction": "up",
+      "daily_change": 0.046,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-13",
+      "predicted_price": 4572.26,
+      "confidence": 56.0,
+      "direction": "down",
+      "daily_change": -1.31,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-16",
+      "predicted_price": 4638.78,
+      "confidence": 56.3,
+      "direction": "up",
+      "daily_change": 1.455,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-17",
+      "predicted_price": 4684.72,
+      "confidence": 61.0,
+      "direction": "up",
+      "daily_change": 0.99,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-18",
+      "predicted_price": 4733.31,
+      "confidence": 60.5,
+      "direction": "up",
+      "daily_change": 1.037,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-19",
+      "predicted_price": 4685.82,
+      "confidence": 59.1,
+      "direction": "down",
+      "daily_change": -1.003,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-20",
+      "predicted_price": 4769.03,
+      "confidence": 53.2,
+      "direction": "up",
+      "daily_change": 1.776,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-23",
+      "predicted_price": 4692.79,
+      "confidence": 53.2,
+      "direction": "down",
+      "daily_change": -1.599,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-24",
+      "predicted_price": 4729.97,
+      "confidence": 63.0,
+      "direction": "up",
+      "daily_change": 0.792,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-25",
+      "predicted_price": 4858.46,
+      "confidence": 45,
+      "direction": "up",
+      "daily_change": 2.717,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-26",
+      "predicted_price": 4804.99,
+      "confidence": 58.1,
+      "direction": "down",
+      "daily_change": -1.101,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-27",
+      "predicted_price": 4776.78,
+      "confidence": 63.2,
+      "direction": "down",
+      "daily_change": -0.587,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    },
+    {
+      "date": "2025-06-30",
+      "predicted_price": 4786.48,
+      "confidence": 68.8,
+      "direction": "up",
+      "daily_change": 0.203,
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "features_used": [
+        "technical_indicators",
+        "volume",
+        "volatility",
+        "seasonal_patterns"
+      ]
+    }
+  ],
+  "metadata": {
+    "model_type": "Ensemble",
+    "prediction_method": "daily_forecast",
+    "total_predictions": 129,
+    "training_period": "2020-01-01 to 2024-12-31",
+    "prediction_period": "2025-01-01 to 2025-06-30",
+    "generated_at": "2025-09-03T10:21:10.016174"
+  }
+}

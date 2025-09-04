@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 Chart Rendering Verification</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .verification-container { max-width: 1200px; margin: 0 auto; }
+        .test-card { 
+            background: white; 
+            margin: 15px 0; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-card.success { border-left: 5px solid #4caf50; }
+        .test-card.error { border-left: 5px solid #f44336; }
+        .test-card.warning { border-left: 5px solid #ff9800; }
+        .chart-container { 
+            width: 100%; 
+            height: 300px; 
+            margin: 20px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-ok { background: #4caf50; }
+        .status-error { background: #f44336; }
+        .status-loading { background: #ff9800; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <h1>📊 Chart Rendering Verification System</h1>
+        <p><strong>실시간 차트 렌더링 상태 및 성능 검증</strong></p>
+
+        <!-- 1. 시스템 상태 -->
+        <div class="test-card" id="system-status">
+            <h2><span class="status-indicator status-loading" id="system-indicator"></span>시스템 상태</h2>
+            <div class="info-grid" id="system-info">
+                <div class="info-item">Chart.js 버전: <span id="chartjs-version">확인 중...</span></div>
+                <div class="info-item">API 서버: <span id="api-server">확인 중...</span></div>
+                <div class="info-item">데이터 매니저: <span id="data-manager">확인 중...</span></div>
+                <div class="info-item">컴포넌트: <span id="components">확인 중...</span></div>
+            </div>
+        </div>
+
+        <!-- 2. API 데이터 테스트 -->
+        <div class="test-card" id="api-test">
+            <h2><span class="status-indicator status-loading" id="api-indicator"></span>API 데이터 검증</h2>
+            <div id="api-data">API 연결 테스트 중...</div>
+        </div>
+
+        <!-- 3. Top 4 주식 차트 렌더링 -->
+        <div class="test-card" id="top4-test">
+            <h2><span class="status-indicator status-loading" id="top4-indicator"></span>Top 4 주식 차트 렌더링</h2>
+            <div id="top4-status">차트 생성 중...</div>
+            <div id="top4-charts" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Top 4 주식 차트들 -->
+            </div>
+        </div>
+
+        <!-- 4. S&P 500 위젯 테스트 -->
+        <div class="test-card" id="sp500-test">
+            <h2><span class="status-indicator status-loading" id="sp500-indicator"></span>S&P 500 차트 위젯</h2>
+            <div id="sp500-status">S&P 500 차트 생성 중...</div>
+            <div class="chart-container">
+                <canvas id="sp500-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- 5. 성능 메트릭 -->
+        <div class="test-card" id="performance-metrics">
+            <h2><span class="status-indicator status-loading" id="perf-indicator"></span>성능 메트릭</h2>
+            <div class="info-grid" id="performance-info">
+                <div class="info-item">총 렌더링 시간: <span id="render-time">측정 중...</span></div>
+                <div class="info-item">API 응답 시간: <span id="api-time">측정 중...</span></div>
+                <div class="info-item">차트 생성 개수: <span id="chart-count">계산 중...</span></div>
+                <div class="info-item">메모리 사용량: <span id="memory-usage">확인 중...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 로드 -->
+    <script src="js/data-manager.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/sp500-widget.js"></script>
+
+    <script>
+        class ChartVerificationSystem {
+            constructor() {
+                this.startTime = Date.now();
+                this.results = {};
+                this.chartCount = 0;
+            }
+
+            async init() {
+                console.log('🧪 Chart Verification System 시작...');
+                
+                try {
+                    await this.checkSystemStatus();
+                    await this.testAPIData();
+                    await this.testTop4Charts();
+                    await this.testSP500Widget();
+                    await this.calculatePerformanceMetrics();
+                    
+                    console.log('✅ 모든 검증 완료!', this.results);
+                } catch (error) {
+                    console.error('❌ 검증 실패:', error);
+                }
+            }
+
+            async checkSystemStatus() {
+                console.log('1️⃣ 시스템 상태 확인...');
+                
+                // Chart.js 확인
+                const chartjsVersion = window.Chart ? Chart.version : 'Not Found';
+                document.getElementById('chartjs-version').textContent = chartjsVersion;
+                
+                // API 서버 확인
+                try {
+                    const response = await fetch('http://localhost:8091/api/stocks/live', { timeout: 3000 });
+                    document.getElementById('api-server').textContent = response.ok ? '✅ 연결됨' : '❌ 오류';
+                    this.results.apiServer = response.ok;
+                } catch (error) {
+                    document.getElementById('api-server').textContent = '❌ 연결 실패';
+                    this.results.apiServer = false;
+                }
+                
+                // 데이터 매니저 확인
+                const hasDataManager = !!window.OptimizedDataManager;
+                document.getElementById('data-manager').textContent = hasDataManager ? '✅ 로드됨' : '❌ 누락';
+                this.results.dataManager = hasDataManager;
+                
+                // 컴포넌트 확인
+                const components = ['ChartManager', 'StockGrid'];
+                const allComponents = components.every(c => !!window[c]);
+                document.getElementById('components').textContent = allComponents ? '✅ 모든 컴포넌트 로드됨' : '❌ 일부 누락';
+                this.results.components = allComponents;
+                
+                // 시스템 상태 업데이트
+                const systemOk = this.results.apiServer && this.results.dataManager && this.results.components;
+                this.updateIndicator('system-indicator', systemOk);
+                document.getElementById('system-status').className = 'test-card ' + (systemOk ? 'success' : 'error');
+            }
+
+            async testAPIData() {
+                console.log('2️⃣ API 데이터 테스트...');
+                
+                try {
+                    const startTime = Date.now();
+                    const response = await fetch('http://localhost:8091/api/stocks/live');
+                    const data = await response.json();
+                    const endTime = Date.now();
+                    
+                    this.results.apiResponseTime = endTime - startTime;
+                    
+                    if (data && data.predictions && data.predictions.length > 0) {
+                        document.getElementById('api-data').innerHTML = `
+                            ✅ API 데이터 검증 성공<br>
+                            • 응답 시간: ${this.results.apiResponseTime}ms<br>
+                            • 주식 개수: ${data.predictions.length}개<br>
+                            • 시장 신뢰도: ${(data.market_summary.confidence_level * 100).toFixed(1)}%<br>
+                            • 첫 번째 주식: ${data.predictions[0].symbol} - $${data.predictions[0].current_price}
+                        `;
+                        
+                        this.results.apiData = data;
+                        this.updateIndicator('api-indicator', true);
+                        document.getElementById('api-test').className = 'test-card success';
+                    } else {
+                        throw new Error('API 데이터 형식 오류');
+                    }
+                } catch (error) {
+                    document.getElementById('api-data').textContent = `❌ API 테스트 실패: ${error.message}`;
+                    this.updateIndicator('api-indicator', false);
+                    document.getElementById('api-test').className = 'test-card error';
+                    this.results.apiData = null;
+                }
+            }
+
+            async testTop4Charts() {
+                console.log('3️⃣ Top 4 주식 차트 렌더링 테스트...');
+                
+                try {
+                    if (!this.results.apiData) {
+                        throw new Error('API 데이터가 없음');
+                    }
+                    
+                    const chartManager = new ChartManager();
+                    const top4Container = document.getElementById('top4-charts');
+                    const stocks = this.results.apiData.predictions.slice(0, 4);
+                    
+                    const chartPromises = stocks.map(async (stock, index) => {
+                        const chartDiv = document.createElement('div');
+                        chartDiv.innerHTML = `
+                            <h4>${stock.symbol}</h4>
+                            <p>현재가: $${stock.current_price} | 예측: ${stock.predicted_direction}</p>
+                            <div style="height: 200px; position: relative;">
+                                <canvas id="top4-chart-${index}"></canvas>
+                            </div>
+                        `;
+                        top4Container.appendChild(chartDiv);
+                        
+                        const canvas = document.getElementById(`top4-chart-${index}`);
+                        return await chartManager.createStockChart(canvas.getContext('2d'), stock);
+                    });
+                    
+                    const startTime = Date.now();
+                    const charts = await Promise.all(chartPromises);
+                    const endTime = Date.now();
+                    
+                    this.chartCount += charts.length;
+                    this.results.top4RenderTime = endTime - startTime;
+                    
+                    document.getElementById('top4-status').innerHTML = `
+                        ✅ Top 4 차트 렌더링 완료<br>
+                        • 생성된 차트: ${charts.length}개<br>
+                        • 렌더링 시간: ${this.results.top4RenderTime}ms<br>
+                        • 차트당 평균: ${(this.results.top4RenderTime / charts.length).toFixed(1)}ms
+                    `;
+                    
+                    this.updateIndicator('top4-indicator', true);
+                    document.getElementById('top4-test').className = 'test-card success';
+                    
+                } catch (error) {
+                    document.getElementById('top4-status').textContent = `❌ Top 4 차트 렌더링 실패: ${error.message}`;
+                    this.updateIndicator('top4-indicator', false);
+                    document.getElementById('top4-test').className = 'test-card error';
+                }
+            }
+
+            async testSP500Widget() {
+                console.log('4️⃣ S&P 500 위젯 테스트...');
+                
+                try {
+                    const canvas = document.getElementById('sp500-chart');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 모크 S&P 500 데이터 생성
+                    const sp500Data = {
+                        current: 5627.45,
+                        predicted: 5712.30,
+                        confidence: 0.87,
+                        change: 84.85,
+                        changePercent: 1.54
+                    };
+                    
+                    const startTime = Date.now();
+                    
+                    // S&P 500 차트 생성
+                    const chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: this.generateDateLabels(30),
+                            datasets: [{
+                                label: 'S&P 500',
+                                data: this.generateSP500PriceHistory(sp500Data.current, 30),
+                                borderColor: '#007bff',
+                                backgroundColor: 'rgba(0,123,255,0.1)',
+                                borderWidth: 2,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: `S&P 500 - 현재: $${sp500Data.current} | 예측: $${sp500Data.predicted}`
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    title: {
+                                        display: true,
+                                        text: '가격'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: '날짜'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    const endTime = Date.now();
+                    this.chartCount++;
+                    this.results.sp500RenderTime = endTime - startTime;
+                    
+                    document.getElementById('sp500-status').innerHTML = `
+                        ✅ S&P 500 차트 생성 완료<br>
+                        • 렌더링 시간: ${this.results.sp500RenderTime}ms<br>
+                        • 현재가: $${sp500Data.current}<br>
+                        • 예측가: $${sp500Data.predicted} (신뢰도: ${(sp500Data.confidence * 100).toFixed(1)}%)
+                    `;
+                    
+                    this.updateIndicator('sp500-indicator', true);
+                    document.getElementById('sp500-test').className = 'test-card success';
+                    
+                } catch (error) {
+                    document.getElementById('sp500-status').textContent = `❌ S&P 500 차트 실패: ${error.message}`;
+                    this.updateIndicator('sp500-indicator', false);
+                    document.getElementById('sp500-test').className = 'test-card error';
+                }
+            }
+
+            async calculatePerformanceMetrics() {
+                console.log('5️⃣ 성능 메트릭 계산...');
+                
+                const totalTime = Date.now() - this.startTime;
+                const memoryInfo = performance.memory || {};
+                
+                document.getElementById('render-time').textContent = `${totalTime}ms`;
+                document.getElementById('api-time').textContent = `${this.results.apiResponseTime || 'N/A'}ms`;
+                document.getElementById('chart-count').textContent = `${this.chartCount}개`;
+                document.getElementById('memory-usage').textContent = 
+                    `${Math.round((memoryInfo.usedJSHeapSize || 0) / 1024 / 1024)}MB`;
+                
+                this.updateIndicator('perf-indicator', true);
+                document.getElementById('performance-metrics').className = 'test-card success';
+                
+                this.results.performance = {
+                    totalTime,
+                    chartCount: this.chartCount,
+                    memoryUsage: Math.round((memoryInfo.usedJSHeapSize || 0) / 1024 / 1024)
+                };
+            }
+
+            updateIndicator(indicatorId, success) {
+                const indicator = document.getElementById(indicatorId);
+                indicator.className = 'status-indicator ' + (success ? 'status-ok' : 'status-error');
+            }
+
+            generateDateLabels(days) {
+                const labels = [];
+                for (let i = days; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    labels.push(date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }));
+                }
+                return labels;
+            }
+
+            generateSP500PriceHistory(currentPrice, days) {
+                const prices = [];
+                let price = currentPrice * 0.98; // 30일 전 시작가
+                
+                for (let i = 0; i <= days; i++) {
+                    // 랜덤 변동 (-1% ~ +1%)
+                    const change = (Math.random() - 0.5) * 0.02;
+                    price = price * (1 + change);
+                    prices.push(Math.round(price * 100) / 100);
+                }
+                
+                return prices;
+            }
+        }
+
+        // 시스템 시작
+        window.addEventListener('load', async () => {
+            const verificationSystem = new ChartVerificationSystem();
+            await verificationSystem.init();
+        });
+    </script>
+</body>
+</html>

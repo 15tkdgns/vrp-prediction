@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Overflow Debugging</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .test-container { margin: 20px 0; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stock-card-test { 
+            background: var(--bg-primary, #ffffff);
+            border: 2px solid red; /* 경계 표시 */
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 280px; /* 고정 너비 */
+            height: 300px; /* 고정 높이 */
+        }
+        .stock-chart-test {
+            height: 100px;
+            position: relative;
+            margin-top: 8px;
+            flex: 1;
+            min-height: 100px;
+            overflow: hidden;
+            padding: 2px;
+            border: 2px solid blue; /* 차트 영역 표시 */
+            background: #f0f0f0;
+        }
+        .stock-chart-test canvas {
+            width: 100% !important;
+            height: 100% !important;
+            border: 1px solid green; /* 실제 캔버스 표시 */
+        }
+        .debug-info { background: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .overflow-test { background: linear-gradient(45deg, red, orange); height: 120px; width: 120%; margin: 10px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>🚨 Chart Overflow Debugging</h1>
+    
+    <div class="test-container">
+        <h2>1. 컨테이너 크기 테스트</h2>
+        <div class="debug-info">
+            <strong>카드 크기:</strong> 280px × 300px (빨간 테두리)<br>
+            <strong>차트 영역:</strong> 100px 높이 (파란 테두리)<br>
+            <strong>캔버스:</strong> 100% × 100% (초록 테두리)
+        </div>
+        
+        <div class="stock-card-test">
+            <div style="margin-bottom: 10px;">
+                <strong>AAPL</strong> - $258.52 📈 -2.31%
+            </div>
+            <div style="margin-bottom: 10px; font-size: 12px; color: #666;">
+                예측: $252.56 | 신뢰도: 32.3%
+            </div>
+            
+            <div class="stock-chart-test">
+                <canvas id="test-chart"></canvas>
+            </div>
+            
+            <div style="margin-top: 10px; font-size: 11px; color: #999;">
+                차트 영역 밖 텍스트 - 여기가 보이면 정상
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>2. 오버플로우 테스트</h2>
+        <div class="debug-info">
+            <strong>의도적 오버플로우:</strong> 120% 너비의 요소 (빨강-오렌지 그라데이션)
+        </div>
+        
+        <div class="stock-card-test">
+            <div>오버플로우 테스트 카드</div>
+            <div class="overflow-test">
+                이 요소는 카드 밖으로 나가야 하지만 hidden으로 잘려야 함
+            </div>
+            <div>overflow: hidden이 작동하는지 확인</div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>3. 실제 차트 렌더링 테스트</h2>
+        <div id="chart-info" class="debug-info">
+            차트 생성 중...
+        </div>
+        
+        <div class="stock-card-test">
+            <div>실제 Chart.js 렌더링</div>
+            <div class="stock-chart-test">
+                <canvas id="real-chart"></canvas>
+            </div>
+            <div>차트 하단 텍스트</div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js 테스트 차트 생성
+        const ctx = document.getElementById('test-chart').getContext('2d');
+        const realCtx = document.getElementById('real-chart').getContext('2d');
+        
+        const chartData = {
+            labels: ['7월22일', '7월23일', '7월24일', '7월25일', '7월28일'],
+            datasets: [{
+                label: 'AAPL 실제',
+                data: [260, 259, 258, 259, 258],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                borderWidth: 2,
+                pointRadius: 0
+            }, {
+                label: 'AAPL 예측',
+                data: [258, 257, 256, 255, 253],
+                borderColor: '#007bff',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0
+            }]
+        };
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        boxWidth: 8,
+                        font: { size: 8, weight: 'bold' },
+                        padding: 8
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: { size: 8 },
+                        maxTicksLimit: 4
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    position: 'right',
+                    ticks: {
+                        font: { size: 7 },
+                        maxTicksLimit: 3,
+                        callback: function(value) {
+                            return '$' + Math.round(value);
+                        }
+                    },
+                    grid: { display: false }
+                }
+            }
+        };
+
+        // 두 차트 모두 생성
+        const chart1 = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        const chart2 = new Chart(realCtx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        // 차트 정보 업데이트
+        setTimeout(() => {
+            const info = document.getElementById('chart-info');
+            info.innerHTML = `
+                <strong>Chart.js 버전:</strong> ${Chart.version}<br>
+                <strong>차트 생성:</strong> 성공<br>
+                <strong>캔버스 크기:</strong> ${ctx.canvas.width}×${ctx.canvas.height} (논리픽셀)<br>
+                <strong>렌더링 모드:</strong> ${ctx.canvas.style.width} × ${ctx.canvas.style.height}
+            `;
+        }, 1000);
+
+        // 페이지 로드 후 요소 크기 정보 출력
+        window.addEventListener('load', () => {
+            const card = document.querySelector('.stock-card-test');
+            const chart = document.querySelector('.stock-chart-test');
+            const canvas = document.querySelector('.stock-chart-test canvas');
+            
+            console.log('📏 요소 크기 정보:');
+            console.log('카드:', card.offsetWidth + '×' + card.offsetHeight);
+            console.log('차트 영역:', chart.offsetWidth + '×' + chart.offsetHeight);
+            console.log('캔버스:', canvas.offsetWidth + '×' + canvas.offsetHeight);
+            console.log('스크롤 크기:', chart.scrollWidth + '×' + chart.scrollHeight);
+            
+            if (chart.scrollWidth > chart.offsetWidth || chart.scrollHeight > chart.offsetHeight) {
+                console.warn('⚠️ 차트 오버플로우 감지!');
+                document.body.innerHTML += '<div style="position:fixed;top:10px;right:10px;background:red;color:white;padding:10px;border-radius:5px;z-index:1000;">🚨 차트 오버플로우 감지!</div>';
+            } else {
+                console.log('✅ 차트 크기 정상');
+                document.body.innerHTML += '<div style="position:fixed;top:10px;right:10px;background:green;color:white;padding:10px;border-radius:5px;z-index:1000;">✅ 차트 크기 정상</div>';
+            }
+        });
+    </script>
+</body>
+</html>

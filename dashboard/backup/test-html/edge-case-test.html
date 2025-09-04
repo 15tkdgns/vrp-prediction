@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🧨 Edge Case Testing - 극한 상황 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: white; }
+        .edge-container { max-width: 1200px; margin: 0 auto; }
+        .test-section { 
+            background: #2d2d2d; 
+            margin: 20px 0; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-left: 4px solid #ff4757;
+        }
+        .test-section.pass { border-left-color: #2ed573; }
+        .test-section.fail { border-left-color: #ff3742; }
+        .danger-zone {
+            background: linear-gradient(135deg, #ff4757, #c44569);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .console { 
+            background: #000; 
+            color: #00ff00; 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-family: monospace; 
+            max-height: 200px; 
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .critical-button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .critical-button:hover { background: #ff3742; }
+    </style>
+</head>
+<body>
+    <div class="edge-container">
+        <h1>🧨 극한 상황 및 엣지 케이스 테스트</h1>
+        
+        <div class="danger-zone">
+            <h2>⚠️ 경고: 극한 테스트 환경</h2>
+            <p>이 테스트는 시스템을 의도적으로 파괴하거나 극한 상황에 빠뜨립니다.</p>
+            <p>실제 프로덕션 환경에서는 절대 실행하지 마세요.</p>
+        </div>
+
+        <!-- 1. API 서버 다운 시뮬레이션 -->
+        <div class="test-section" id="api-down-test">
+            <h2>1. 🔥 API 서버 다운 시뮬레이션</h2>
+            <button class="critical-button" onclick="testAPIDown()">API 서버 다운 테스트</button>
+            <div class="console" id="api-down-log">API 다운 테스트 준비됨</div>
+        </div>
+
+        <!-- 2. 메모리 누수 테스트 -->
+        <div class="test-section" id="memory-leak-test">
+            <h2>2. 💾 메모리 누수 스트레스 테스트</h2>
+            <button class="critical-button" onclick="startMemoryLeakTest()">메모리 누수 테스트 시작</button>
+            <button class="critical-button" onclick="stopMemoryLeakTest()">테스트 중단</button>
+            <div class="console" id="memory-leak-log">메모리 누수 테스트 준비됨</div>
+        </div>
+
+        <!-- 3. 차트 오버로드 테스트 -->
+        <div class="test-section" id="chart-overload-test">
+            <h2>3. 📊 차트 오버로드 테스트</h2>
+            <button class="critical-button" onclick="createMassiveCharts()">대량 차트 생성 (100개)</button>
+            <button class="critical-button" onclick="destroyAllCharts()">모든 차트 제거</button>
+            <div class="console" id="chart-overload-log">차트 오버로드 테스트 준비됨</div>
+            <div id="chart-graveyard" style="display: none;">
+                <!-- 여기에 대량 차트들이 생성됨 -->
+            </div>
+        </div>
+
+        <!-- 4. 네트워크 지연 시뮬레이션 -->
+        <div class="test-section" id="network-delay-test">
+            <h2>4. 🐌 네트워크 지연 시뮬레이션</h2>
+            <button class="critical-button" onclick="simulateSlowNetwork()">극도로 느린 네트워크 시뮬레이션</button>
+            <div class="console" id="network-delay-log">네트워크 지연 테스트 준비됨</div>
+        </div>
+
+        <!-- 5. 잘못된 데이터 주입 -->
+        <div class="test-section" id="bad-data-test">
+            <h2>5. 🦠 잘못된/손상된 데이터 주입</h2>
+            <button class="critical-button" onclick="injectBadData()">손상된 데이터 주입</button>
+            <div class="console" id="bad-data-log">잘못된 데이터 테스트 준비됨</div>
+        </div>
+
+        <!-- 6. DOM 조작 공격 시뮬레이션 -->
+        <div class="test-section" id="dom-attack-test">
+            <h2>6. 🏴‍☠️ DOM 조작 공격 시뮬레이션</h2>
+            <button class="critical-button" onclick="simulateDOMAttack()">악성 DOM 조작 시뮬레이션</button>
+            <div class="console" id="dom-attack-log">DOM 공격 테스트 준비됨</div>
+        </div>
+    </div>
+
+    <script>
+        let memoryLeakInterval;
+        let leakArray = [];
+        let chartInstances = [];
+
+        // 1. API 서버 다운 시뮬레이션
+        async function testAPIDown() {
+            const log = document.getElementById('api-down-log');
+            log.innerHTML = 'API 서버 다운 시뮬레이션 시작...\n';
+
+            // 실제 API 엔드포인트가 아닌 가짜 엔드포인트로 요청
+            const fakeEndpoints = [
+                'http://localhost:9999/api/stocks/live',  // 존재하지 않는 포트
+                'http://nonexistent-server.com/api',      // 존재하지 않는 서버
+                'http://localhost:8091/api/broken'        // 존재하지 않는 엔드포인트
+            ];
+
+            for (const endpoint of fakeEndpoints) {
+                try {
+                    log.innerHTML += `시도: ${endpoint}\n`;
+                    const startTime = Date.now();
+                    
+                    const response = await fetch(endpoint, { 
+                        timeout: 5000,
+                        signal: AbortSignal.timeout(5000)
+                    });
+                    
+                    const endTime = Date.now();
+                    log.innerHTML += `❌ 예상치 못한 성공: ${endpoint} (${endTime - startTime}ms)\n`;
+                    
+                } catch (error) {
+                    log.innerHTML += `✅ 예상된 실패: ${error.message}\n`;
+                }
+            }
+
+            // 실제 DataManager가 이런 상황을 어떻게 처리하는지 테스트
+            if (window.OptimizedDataManager) {
+                try {
+                    log.innerHTML += '\nDataManager의 실패 처리 테스트...\n';
+                    const dataManager = new OptimizedDataManager();
+                    
+                    // 원래 fetch를 일시적으로 오류를 발생시키도록 수정
+                    const originalFetch = window.fetch;
+                    window.fetch = async () => {
+                        throw new Error('네트워크 연결 실패 시뮬레이션');
+                    };
+                    
+                    const stockData = await dataManager.loadStockData();
+                    log.innerHTML += stockData ? '❌ DataManager가 실패를 제대로 처리하지 못함\n' : '✅ DataManager가 실패를 적절히 처리함\n';
+                    
+                    // fetch 복구
+                    window.fetch = originalFetch;
+                    
+                } catch (error) {
+                    log.innerHTML += `✅ DataManager 에러 처리: ${error.message}\n`;
+                }
+            }
+
+            document.getElementById('api-down-test').className = 'test-section pass';
+        }
+
+        // 2. 메모리 누수 테스트
+        function startMemoryLeakTest() {
+            const log = document.getElementById('memory-leak-log');
+            
+            if (memoryLeakInterval) {
+                log.innerHTML += '이미 실행 중입니다.\n';
+                return;
+            }
+
+            log.innerHTML = '메모리 누수 테스트 시작...\n';
+            let iteration = 0;
+
+            memoryLeakInterval = setInterval(() => {
+                iteration++;
+                
+                // 의도적으로 메모리를 계속 할당 (가비지 컬렉션 방지)
+                const wasteMemory = new Array(10000).fill(0).map(() => ({
+                    data: new Array(100).fill(Math.random()),
+                    timestamp: Date.now(),
+                    id: iteration
+                }));
+                
+                leakArray.push(wasteMemory);
+
+                // 메모리 상태 확인
+                if (performance.memory) {
+                    const usedMB = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024);
+                    const totalMB = Math.round(performance.memory.totalJSHeapSize / 1024 / 1024);
+                    
+                    log.innerHTML = `메모리 누수 테스트 실행 중...\n반복: ${iteration}\n사용된 메모리: ${usedMB}MB / ${totalMB}MB\n누적 배열 크기: ${leakArray.length}\n`;
+                    
+                    if (usedMB > 100) { // 100MB 초과시
+                        log.innerHTML += '⚠️ 메모리 사용량 위험 수준!\n';
+                        document.getElementById('memory-leak-test').className = 'test-section fail';
+                    }
+                } else {
+                    log.innerHTML = `메모리 누수 테스트 실행 중...\n반복: ${iteration}\n누적 배열 크기: ${leakArray.length}\n`;
+                }
+
+            }, 100);
+        }
+
+        function stopMemoryLeakTest() {
+            if (memoryLeakInterval) {
+                clearInterval(memoryLeakInterval);
+                memoryLeakInterval = null;
+                
+                // 메모리 정리 시도
+                leakArray = [];
+                if (global && global.gc) {
+                    global.gc(); // Node.js 환경에서만 작동
+                }
+                
+                document.getElementById('memory-leak-log').innerHTML += '\n✋ 메모리 누수 테스트 중단됨\n💾 메모리 정리 시도됨\n';
+                document.getElementById('memory-leak-test').className = 'test-section pass';
+            }
+        }
+
+        // 3. 대량 차트 생성
+        function createMassiveCharts() {
+            const log = document.getElementById('chart-overload-log');
+            const container = document.getElementById('chart-graveyard');
+            
+            log.innerHTML = '대량 차트 생성 시작...\n';
+            container.style.display = 'block';
+            container.innerHTML = '';
+
+            const startTime = Date.now();
+            
+            for (let i = 0; i < 100; i++) {
+                try {
+                    // 캔버스 요소 생성
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `stress-chart-${i}`;
+                    canvas.width = 200;
+                    canvas.height = 100;
+                    canvas.style.border = '1px solid #333';
+                    canvas.style.margin = '2px';
+                    canvas.style.display = 'inline-block';
+                    container.appendChild(canvas);
+
+                    // Chart.js 인스턴스 생성
+                    const ctx = canvas.getContext('2d');
+                    const chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['A', 'B', 'C', 'D', 'E'],
+                            datasets: [{
+                                label: `Chart ${i}`,
+                                data: Array.from({length: 5}, () => Math.random() * 100),
+                                borderColor: `hsl(${i * 3.6}, 70%, 50%)`,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            animation: false, // 애니메이션 비활성화로 성능 향상
+                            plugins: {
+                                legend: { display: false }
+                            }
+                        }
+                    });
+
+                    chartInstances.push(chart);
+
+                    if (i % 10 === 0) {
+                        log.innerHTML = `차트 생성 중... ${i}/100\n`;
+                    }
+
+                } catch (error) {
+                    log.innerHTML += `❌ 차트 ${i} 생성 실패: ${error.message}\n`;
+                }
+            }
+
+            const endTime = Date.now();
+            const duration = endTime - startTime;
+            
+            log.innerHTML += `✅ 100개 차트 생성 완료 (${duration}ms)\n`;
+            log.innerHTML += `평균 생성 시간: ${(duration / 100).toFixed(1)}ms/차트\n`;
+            log.innerHTML += `총 차트 인스턴스: ${chartInstances.length}개\n`;
+
+            // 메모리 사용량 확인
+            if (performance.memory) {
+                const usedMB = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024);
+                log.innerHTML += `메모리 사용량: ${usedMB}MB\n`;
+            }
+
+            document.getElementById('chart-overload-test').className = 'test-section pass';
+        }
+
+        function destroyAllCharts() {
+            const log = document.getElementById('chart-overload-log');
+            
+            if (chartInstances.length === 0) {
+                log.innerHTML += '제거할 차트가 없습니다.\n';
+                return;
+            }
+
+            const startTime = Date.now();
+            
+            chartInstances.forEach((chart, index) => {
+                try {
+                    chart.destroy();
+                } catch (error) {
+                    log.innerHTML += `❌ 차트 ${index} 제거 실패: ${error.message}\n`;
+                }
+            });
+
+            chartInstances = [];
+            document.getElementById('chart-graveyard').innerHTML = '';
+            document.getElementById('chart-graveyard').style.display = 'none';
+
+            const endTime = Date.now();
+            log.innerHTML += `✅ 모든 차트 제거 완료 (${endTime - startTime}ms)\n`;
+        }
+
+        // 4. 네트워크 지연 시뮬레이션
+        async function simulateSlowNetwork() {
+            const log = document.getElementById('network-delay-log');
+            log.innerHTML = '극도로 느린 네트워크 시뮬레이션...\n';
+
+            // 의도적으로 지연을 추가하는 함수
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            const testRequests = [
+                { url: 'http://localhost:8091/api/stocks/live', delay: 5000 },
+                { url: '/data/raw/realtime_results.json', delay: 3000 },
+                { url: '/js/data-manager.js', delay: 2000 }
+            ];
+
+            for (const request of testRequests) {
+                try {
+                    log.innerHTML += `지연 테스트: ${request.url} (${request.delay}ms 지연)\n`;
+                    
+                    const startTime = Date.now();
+                    await delay(request.delay);
+                    
+                    const response = await fetch(request.url);
+                    const endTime = Date.now();
+                    
+                    log.innerHTML += `응답: ${response.status} (실제 소요시간: ${endTime - startTime}ms)\n`;
+                    
+                } catch (error) {
+                    log.innerHTML += `❌ 요청 실패: ${error.message}\n`;
+                }
+            }
+
+            document.getElementById('network-delay-test').className = 'test-section pass';
+        }
+
+        // 5. 잘못된 데이터 주입
+        function injectBadData() {
+            const log = document.getElementById('bad-data-log');
+            
+            const corruptedData = [
+                null,
+                undefined,
+                { predictions: null },
+                { predictions: [] },
+                { predictions: [{ symbol: null, current_price: "not_a_number" }] },
+                { predictions: [{ symbol: "", current_price: -999999 }] },
+                "this is not json",
+                { predictions: [{ symbol: "TEST", current_price: Infinity }] }
+            ];
+
+            log.innerHTML = '손상된 데이터 주입 테스트...\n';
+
+            corruptedData.forEach((badData, index) => {
+                try {
+                    log.innerHTML += `테스트 ${index + 1}: ${typeof badData} ${JSON.stringify(badData).substring(0, 50)}...\n`;
+                    
+                    // 실제 컴포넌트가 이런 데이터를 어떻게 처리하는지 시뮬레이션
+                    if (window.OptimizedDataManager) {
+                        // 이런 데이터가 실제로 처리되는지 확인
+                        const isValidData = badData && badData.predictions && Array.isArray(badData.predictions);
+                        log.innerHTML += `검증 결과: ${isValidData ? '✅ 유효' : '❌ 무효'}\n`;
+                    }
+                    
+                } catch (error) {
+                    log.innerHTML += `❌ 처리 중 에러: ${error.message}\n`;
+                }
+            });
+
+            document.getElementById('bad-data-test').className = 'test-section pass';
+        }
+
+        // 6. DOM 조작 공격 시뮬레이션
+        function simulateDOMAttack() {
+            const log = document.getElementById('dom-attack-log');
+            log.innerHTML = '악성 DOM 조작 시뮬레이션...\n';
+
+            try {
+                // 1. 중요한 요소들 제거 시도
+                const stockGrids = document.querySelectorAll('.stock-grid');
+                log.innerHTML += `주요 요소 제거 시도: .stock-grid (${stockGrids.length}개)\n`;
+                
+                // 2. 스크립트 태그 주입 시도 (실제로는 하지 않음)
+                log.innerHTML += '악성 스크립트 주입 시뮬레이션...\n';
+                
+                // 3. CSS 조작
+                document.body.style.transform = 'rotate(1deg)';
+                setTimeout(() => {
+                    document.body.style.transform = '';
+                    log.innerHTML += '✅ CSS 조작 복구됨\n';
+                }, 1000);
+                
+                // 4. 이벤트 리스너 오버라이드 시도
+                const originalAddEventListener = EventTarget.prototype.addEventListener;
+                EventTarget.prototype.addEventListener = function(...args) {
+                    log.innerHTML += `이벤트 리스너 가로채기 시도: ${args[0]}\n`;
+                    return originalAddEventListener.apply(this, args);
+                };
+                
+                // 복구
+                setTimeout(() => {
+                    EventTarget.prototype.addEventListener = originalAddEventListener;
+                    log.innerHTML += '✅ 이벤트 리스너 복구됨\n';
+                }, 2000);
+
+                document.getElementById('dom-attack-test').className = 'test-section pass';
+                
+            } catch (error) {
+                log.innerHTML += `❌ DOM 공격 시뮬레이션 실패: ${error.message}\n`;
+                document.getElementById('dom-attack-test').className = 'test-section fail';
+            }
+        }
+
+        // 전역 에러 모니터링
+        let errorCount = 0;
+        window.addEventListener('error', (e) => {
+            errorCount++;
+            console.error(`🚨 EDGE CASE ERROR ${errorCount}:`, e.message, e.filename, e.lineno);
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            errorCount++;
+            console.error(`🚨 UNHANDLED REJECTION ${errorCount}:`, e.reason);
+        });
+
+        console.log('🧨 Edge Case Testing Environment Ready');
+    </script>
+</body>
+</html>

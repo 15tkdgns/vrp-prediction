@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P 500 API 테스트</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .result { padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid; }
+        .success { background: #d4edda; color: #155724; border-color: #28a745; }
+        .info { background: #d1ecf1; color: #0c5460; border-color: #17a2b8; }
+        .warning { background: #fff3cd; color: #856404; border-color: #ffc107; }
+        .error { background: #f8d7da; color: #721c24; border-color: #dc3545; }
+        .price { font-size: 2em; font-weight: bold; color: #0066cc; }
+        .details { background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 S&P 500 실제 가격 테스트</h1>
+        
+        <div class="result info">
+            <strong>목표:</strong> 사용자가 요구한 6400달러 이상의 실제 S&P 500 가격 확인
+        </div>
+        
+        <div id="test-result" class="result info">
+            🔄 API 테스트 중...
+        </div>
+
+        <div id="price-display" style="display: none;">
+            <div class="price" id="current-price">$0.00</div>
+            <div id="price-details" class="details"></div>
+        </div>
+        
+        <div id="api-raw" style="margin-top: 20px; display: none;">
+            <h3>원시 API 응답:</h3>
+            <pre id="api-response" style="background: #f4f4f4; padding: 10px; border-radius: 4px; overflow-x: auto;"></pre>
+        </div>
+    </div>
+
+    <!-- 수정된 API 서비스 로드 -->
+    <script src="js/api-service.js?v=20250902_9"></script>
+
+    <script>
+        async function testSP500API() {
+            console.log('🚀 S&P 500 API 테스트 시작...');
+            
+            try {
+                // API 서비스 초기화
+                const apiService = new APIService();
+                
+                // 직접 API 호출
+                document.getElementById('test-result').innerHTML = '🌐 로컬 API 호출 중...';
+                
+                const response = await fetch('http://localhost:8091/api/stocks/live');
+                const data = await response.json();
+                
+                console.log('Raw API Response:', data);
+                document.getElementById('api-response').textContent = JSON.stringify(data, null, 2);
+                document.getElementById('api-raw').style.display = 'block';
+                
+                // S&P 500 데이터 찾기
+                const sp500Data = data.predictions?.find(p => p.symbol === '^GSPC');
+                
+                if (sp500Data) {
+                    const price = sp500Data.current_price;
+                    const isOver6400 = price > 6400;
+                    
+                    document.getElementById('current-price').textContent = `$${price.toLocaleString()}`;
+                    document.getElementById('price-display').style.display = 'block';
+                    
+                    document.getElementById('price-details').innerHTML = `
+                        <strong>심볼:</strong> ${sp500Data.symbol}<br>
+                        <strong>섹터:</strong> ${sp500Data.sector}<br>
+                        <strong>예측 방향:</strong> ${sp500Data.predicted_direction}<br>
+                        <strong>신뢰도:</strong> ${(sp500Data.confidence * 100).toFixed(1)}%<br>
+                        <strong>가격 변화:</strong> ${(sp500Data.technical_indicators?.price_change * 100 || 0).toFixed(2)}%<br>
+                        <strong>타임스탬프:</strong> ${data.timestamp}
+                    `;
+                    
+                    document.getElementById('test-result').className = `result ${isOver6400 ? 'success' : 'warning'}`;
+                    document.getElementById('test-result').innerHTML = `
+                        <strong>${isOver6400 ? '✅ 성공!' : '⚠️ 주의'}</strong><br>
+                        S&P 500 지수: $${price.toLocaleString()}<br>
+                        ${isOver6400 ? '6400달러 초과 확인됨!' : '6400달러 미만입니다'}
+                    `;
+                    
+                    // APIService를 통한 테스트도 수행
+                    document.getElementById('test-result').innerHTML += '<hr>🔄 APIService 테스트 중...';
+                    
+                    const sp500Current = await apiService.getSP500Current();
+                    console.log('APIService Result:', sp500Current);
+                    
+                    if (sp500Current && sp500Current.current) {
+                        document.getElementById('test-result').innerHTML += `<br>✅ APIService 성공: $${sp500Current.current.toLocaleString()}`;
+                    } else {
+                        document.getElementById('test-result').innerHTML += '<br>❌ APIService 실패';
+                    }
+                    
+                } else {
+                    document.getElementById('test-result').className = 'result error';
+                    document.getElementById('test-result').innerHTML = `
+                        <strong>❌ 오류</strong><br>
+                        API 응답에 S&P 500 (^GSPC) 데이터가 없습니다.<br>
+                        사용 가능한 심볼: ${data.predictions?.map(p => p.symbol).join(', ') || '없음'}
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('API 테스트 실패:', error);
+                document.getElementById('test-result').className = 'result error';
+                document.getElementById('test-result').innerHTML = `
+                    <strong>❌ API 호출 실패</strong><br>
+                    ${error.message}
+                `;
+            }
+        }
+
+        // 페이지 로드시 자동 테스트
+        document.addEventListener('DOMContentLoaded', testSP500API);
+    </script>
+</body>
+</html>

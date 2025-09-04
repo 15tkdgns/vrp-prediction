@@ -11,31 +11,49 @@ from src.testing.validation_checker import DataValidationChecker
 from src.utils.xai_monitoring import XAIMonitoringSystem
 from src.testing.realtime_testing_system import RealTimeTestingSystem
 from src.features.llm_feature_extractor import extract_llm_features
+from src.utils.directory_manager import DirectoryManager
+from src.core.config_manager import get_config_manager
 
 import tensorflow as tf
 
 
 class SystemOrchestrator:
     def __init__(self, data_dir="data/raw"):
+        # 디렉토리 자동 생성 먼저 실행 
+        self.directory_manager = DirectoryManager()
+        self.directory_manager.ensure_directories()
+        
+        # ConfigManager 초기화
+        self.config_manager = get_config_manager()
+        
         self.data_dir = os.path.abspath(data_dir)
         self.components = {}
         self.status = {
             "validation": "not_started",
-            "xai_monitoring": "not_started",
+            "xai_monitoring": "not_started", 
             "realtime_testing": "not_started",
             "overall_health": "unknown",
+            "directories": "initialized",
         }
 
-        # 로깅 설정
+        # 로깅 설정 - 이제 logs 디렉토리가 존재함
+        log_dir = self.directory_manager.project_root / "logs/system"
+        log_file = log_dir / "system_orchestrator.log"
+        
         logging.basicConfig(
             level=logging.INFO,
             format="%(asctime)s - %(levelname)s - %(message)s",
             handlers=[
-                logging.FileHandler(f"{self.data_dir}/system_orchestrator.log"),
+                logging.FileHandler(str(log_file)),
                 logging.StreamHandler(),
             ],
         )
         self.logger = logging.getLogger(__name__)
+        
+        # 초기화 완료 로그
+        self.logger.info("🚀 시스템 오케스트레이터 초기화 시작")
+        self.logger.info(f"📁 프로젝트 루트: {self.directory_manager.project_root}")
+        
         self.check_gpu()
 
     def check_gpu(self):

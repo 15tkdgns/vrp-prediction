@@ -1,0 +1,19 @@
+{
+  "data_period": {
+    "start": "2019-12-31",
+    "end": "2025-08-29",
+    "total_days": 1424
+  },
+  "price_stats": {
+    "mean_close": 444.43311138367386,
+    "max_high": 649.47998046875,
+    "min_low": 218.25999450683597,
+    "latest_close": 645.0499877929688
+  },
+  "return_stats": {
+    "mean_daily_return": 0.00057837948300954,
+    "daily_volatility": 0.013378770071495455,
+    "max_daily_gain": 0.10501930183911301,
+    "max_daily_loss": -0.10942373540494499
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "category": "fed_policy",
+    "count": 308,
+    "percentage": 25.6
+  },
+  {
+    "category": "market_events",
+    "count": 294,
+    "percentage": 24.5
+  },
+  {
+    "category": "economic_data",
+    "count": 287,
+    "percentage": 23.9
+  },
+  {
+    "category": "corporate_news",
+    "count": 215,
+    "percentage": 17.9
+  },
+  {
+    "category": "geopolitical",
+    "count": 97,
+    "percentage": 8.1
+  }
+]

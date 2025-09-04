@@ -1,0 +1,1100 @@
+{
+  "experiment_info": {
+    "date": "2025-09-03T18:17:55.164828",
+    "baseline_accuracy": 0.99,
+    "ensemble_accuracy": 0.99,
+    "improvement": 0.0,
+    "vix_contribution": 0.0
+  },
+  "predictions": [
+    {
+      "date": "2025-01-03",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 20.621884223952332,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-06",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 24.00524861023196,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-07",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9699874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 27.634556297384325,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-08",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 23.33325678905856,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-10",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9799874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.260067239700376,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-13",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9849906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 30.573401964487843,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-14",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 28.94846677725534,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-15",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 25.976519287296917,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-16",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9449874439917505,
+      "original_confidence": 0.5,
+      "vix_value": 29.67182210419265,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-17",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 27.226404545532354,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-21",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 27.699130692834412,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-22",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 30.20384692343784,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-23",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 24.017624791594322,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-24",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.75707074903375,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-27",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 28.31229479003525,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-28",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 26.920245974592078,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-29",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 30.753747663717025,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-30",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 26.833476123970957,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-01-31",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.964187547854646,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-03",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9849874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 33.14244398766138,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-04",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9699906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 27.518326103794667,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-05",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 27.760080357606352,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-06",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 22.563652157500698,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-07",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.411464166832914,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-10",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 25.518958838014374,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-11",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 20.818902538683165,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-12",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.43863560564658,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-13",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 20.513598504826696,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-14",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9299874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 20.419454305430527,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-18",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 18.45448675039859,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-19",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 24.778714645727415,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-02-20",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 18.152046962949818,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-21",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.575,
+      "vix_value": 14.009541644718002,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-24",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 18.67080453405243,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-25",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-26",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9699906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 15.00360979906349,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-27",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-02-28",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.575,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-03",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.62,
+      "vix_value": 12.70337707588917,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-04",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 13.733390398117539,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-05",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-06",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-07",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-10",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-11",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-12",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9749906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-13",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.6,
+      "vix_value": 13.313434170995768,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-14",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-17",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-18",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 12.103809242673709,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-19",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-20",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-21",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 14.810007240925747,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-24",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 16.84361189280767,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-25",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 17.387432182792622,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-26",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.977177347423819,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-27",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 15.516978708190303,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-28",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 18.426504958478056,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-03-31",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 21.37511400600787,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-01",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 18.043439105145133,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-04-02",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 19.96206125132755,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-04-03",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.62,
+      "vix_value": 18.232516453341116,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-04-04",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 18.978665463490614,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-04-07",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 25.99296163143864,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-08",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.56,
+      "vix_value": 28.573890168620736,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-09",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.575,
+      "vix_value": 25.190377809814976,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-10",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9699874439917504,
+      "original_confidence": 0.725,
+      "vix_value": 29.259985368356254,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-11",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 28.10992970073975,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-14",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 25.789595501599763,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-15",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 29.425830413404608,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-16",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 33.482552364908585,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-17",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9799906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 29.192197053863033,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-21",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9799874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 34.32462510895648,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-22",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 21.99869719539175,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-23",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 32.44464905636478,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-24",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 30.253558456528793,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-25",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 29.001192367411726,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-28",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9849906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 29.972630505946945,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-29",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 23.429276320325073,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-04-30",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 28.326394040847916,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-01",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 29.553347056403936,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-02",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 32.32088876594275,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-05",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9549874439917505,
+      "original_confidence": 0.7,
+      "vix_value": 25.65260052816889,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-06",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 24.024467679990085,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-07",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9849906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 24.117709855197166,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-08",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 27.481626450709655,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-09",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9749874439917504,
+      "original_confidence": 0.6,
+      "vix_value": 24.783083531236187,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-12",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 21.22804495711318,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-13",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 23.347263662176456,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-14",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 21.06935255584352,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-15",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 22.64632838451189,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-05-16",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 16.599305163557585,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-19",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 16.701498985623584,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-20",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9799874439917504,
+      "original_confidence": 0.6,
+      "vix_value": 15.512133989993973,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-21",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.575,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-22",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9749906978095382,
+      "original_confidence": 0.7,
+      "vix_value": 15.702169762308959,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-23",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9999874439917504,
+      "original_confidence": 0.7,
+      "vix_value": 14.738553476131202,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-27",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.6,
+      "vix_value": 13.177443653786312,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-28",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9849874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-29",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-05-30",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9799874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-02",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-03",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-04",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9199874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-05",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-06",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 15.659400325873422,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-09",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9849906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-10",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.7,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-11",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9749874439917504,
+      "original_confidence": 0.6,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-12",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.6,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-13",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9899874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 12.0,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-16",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 12.136548656388326,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-17",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 20.004783892354087,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-06-18",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9549874439917505,
+      "original_confidence": 0.5,
+      "vix_value": 12.776754515860011,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-20",
+      "original_prediction": 0,
+      "ensemble_prediction": 0,
+      "ensemble_confidence": 0.9949874439917504,
+      "original_confidence": 0.5,
+      "vix_value": 15.068878509035168,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-23",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 14.93338658033635,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-24",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.5,
+      "vix_value": 12.458248973912845,
+      "vix_signal": 1
+    },
+    {
+      "date": "2025-06-25",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9949906978095382,
+      "original_confidence": 0.5,
+      "vix_value": 20.36300171538481,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-06-26",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.575,
+      "vix_value": 20.19361610213043,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-06-27",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9899906978095383,
+      "original_confidence": 0.575,
+      "vix_value": 21.336418713663257,
+      "vix_signal": 0
+    },
+    {
+      "date": "2025-06-30",
+      "original_prediction": 1,
+      "ensemble_prediction": 1,
+      "ensemble_confidence": 0.9999906978095383,
+      "original_confidence": 0.575,
+      "vix_value": 17.27183763561578,
+      "vix_signal": 1
+    }
+  ]
+}

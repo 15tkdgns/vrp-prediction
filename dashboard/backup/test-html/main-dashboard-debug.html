@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Dashboard Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .debug-section { background: white; margin: 15px 0; padding: 15px; border-radius: 5px; border: 1px solid #ddd; }
+        .status { padding: 8px; margin: 8px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .warning { background: #fff3cd; color: #856404; }
+        .chart-debug { border: 2px solid #007bff; background: #f8f9ff; min-height: 300px; padding: 10px; }
+        canvas { border: 1px solid #ccc; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔧 메인 대시보드 차트 디버깅</h1>
+    
+    <div id="debug-messages">
+        <div class="status info">🚀 메인 대시보드 차트 디버깅 시작...</div>
+    </div>
+
+    <div class="debug-section">
+        <h2>1. 환경 확인</h2>
+        <div id="env-status" class="status info">환경 확인 중...</div>
+        <pre id="env-details"></pre>
+    </div>
+
+    <div class="debug-section">
+        <h2>2. HTML 요소 확인</h2>
+        <div id="html-status" class="status info">HTML 요소 확인 중...</div>
+        <pre id="html-details"></pre>
+    </div>
+
+    <div class="debug-section">
+        <h2>3. JavaScript 클래스 로딩 상태</h2>
+        <div id="js-status" class="status info">JavaScript 로딩 상태 확인 중...</div>
+        <pre id="js-details"></pre>
+    </div>
+
+    <div class="debug-section">
+        <h2>4. 차트 초기화 테스트</h2>
+        <div id="chart-status" class="status info">차트 초기화 테스트 중...</div>
+        <div class="chart-debug">
+            <canvas id="sp500-30day-chart" width="800" height="400"></canvas>
+        </div>
+        <pre id="chart-details"></pre>
+    </div>
+
+    <div class="debug-section">
+        <h2>5. API 데이터 연결 테스트</h2>
+        <div id="api-status" class="status info">API 연결 테스트 중...</div>
+        <pre id="api-details"></pre>
+    </div>
+
+    <!-- Chart.js 로드 (메인 대시보드와 동일) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 메인 대시보드 JavaScript들 (동일한 순서) -->
+    <script src="js/api-service.js?v=20250902_3"></script>
+    <script src="js/data-manager.js?v=20250902_3"></script>
+    <script src="js/chart-manager.js?v=20250902_3"></script>
+    <script src="js/sp500-widget.js?v=20250902_5"></script>
+    <script src="js/xai-visualization.js?v=20250902_3"></script>
+    <script src="js/page-router.js?v=20250902_3"></script>
+    <script src="js/components.js?v=20250902_3"></script>
+    <script src="js/app.js?v=20250902_3"></script>
+
+    <script>
+        let debugLog = [];
+        
+        function addDebug(message, type = 'info') {
+            console.log(message);
+            debugLog.push({ message, type, time: new Date().toISOString() });
+            
+            const debugDiv = document.getElementById('debug-messages');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            debugDiv.appendChild(div);
+        }
+
+        function updateStatus(id, message, type = 'info') {
+            const element = document.getElementById(id);
+            if (element) {
+                element.className = `status ${type}`;
+                element.innerHTML = message;
+            }
+        }
+
+        function updateDetails(id, content) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = content;
+            }
+        }
+
+        // 1. 환경 확인
+        function checkEnvironment() {
+            const envInfo = {
+                'Chart.js': typeof Chart !== 'undefined' ? `v${Chart.version || 'unknown'}` : 'Not loaded',
+                'Location': window.location.href,
+                'User Agent': navigator.userAgent,
+                'Screen Size': `${window.innerWidth}x${window.innerHeight}`
+            };
+
+            const chartLoaded = typeof Chart !== 'undefined';
+            updateStatus('env-status', 
+                chartLoaded ? '✅ Chart.js 로드됨' : '❌ Chart.js 로드 안됨',
+                chartLoaded ? 'success' : 'error'
+            );
+            
+            updateDetails('env-details', JSON.stringify(envInfo, null, 2));
+            return chartLoaded;
+        }
+
+        // 2. HTML 요소 확인
+        function checkHTMLElements() {
+            const elements = {
+                'sp500-widget': !!document.querySelector('.sp500-widget'),
+                'sp500-30day-chart': !!document.getElementById('sp500-30day-chart'),
+                'sp500-current-price': !!document.getElementById('sp500-current-price'),
+                'sp500-price-change': !!document.getElementById('sp500-price-change'),
+                'sp500-predicted-price': !!document.getElementById('sp500-predicted-price')
+            };
+
+            const canvasElement = document.getElementById('sp500-30day-chart');
+            const hasCanvas = !!canvasElement;
+            
+            updateStatus('html-status',
+                hasCanvas ? '✅ Canvas 요소 존재' : '❌ Canvas 요소 없음',
+                hasCanvas ? 'success' : 'error'
+            );
+
+            const details = Object.entries(elements)
+                .map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`)
+                .join('\n');
+            
+            updateDetails('html-details', details);
+            return hasCanvas;
+        }
+
+        // 3. JavaScript 클래스 확인
+        function checkJavaScriptClasses() {
+            const classes = {
+                'Chart (Chart.js)': typeof Chart !== 'undefined',
+                'SP500Widget': typeof SP500Widget !== 'undefined',
+                'DashboardApp': typeof DashboardApp !== 'undefined',
+                'ChartManager': typeof ChartManager !== 'undefined',
+                'APIService': typeof APIService !== 'undefined',
+                'OptimizedDataManager': typeof OptimizedDataManager !== 'undefined'
+            };
+
+            const allLoaded = Object.values(classes).every(Boolean);
+            updateStatus('js-status',
+                allLoaded ? '✅ 모든 필수 클래스 로드됨' : '⚠️ 일부 클래스 누락',
+                allLoaded ? 'success' : 'warning'
+            );
+
+            const details = Object.entries(classes)
+                .map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`)
+                .join('\n');
+                
+            updateDetails('js-details', details);
+            return classes;
+        }
+
+        // 4. 차트 직접 생성 테스트
+        function testChartCreation() {
+            try {
+                if (typeof Chart === 'undefined') {
+                    throw new Error('Chart.js가 로드되지 않음');
+                }
+
+                const canvas = document.getElementById('sp500-30day-chart');
+                if (!canvas) {
+                    throw new Error('Canvas 요소를 찾을 수 없음');
+                }
+
+                // SP500 스타일 차트 생성
+                const labels = [];
+                const data1 = [];
+                const data2 = [];
+                
+                for (let i = 0; i < 30; i++) {
+                    labels.push(`Day ${i + 1}`);
+                    data1.push(5500 + Math.random() * 200);
+                    data2.push(5500 + Math.random() * 200);
+                }
+
+                const chart = new Chart(canvas, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: '📈 실제 주가',
+                                data: data1,
+                                borderColor: '#0D47A1',
+                                backgroundColor: 'rgba(27, 94, 32, 0.08)',
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                label: '🔮 AI 예측',
+                                data: data2,
+                                borderColor: '#FF5722',
+                                borderDash: [6, 3],
+                                borderWidth: 2,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { title: { display: true, text: '가격 ($)' } }
+                        }
+                    }
+                });
+
+                updateStatus('chart-status', '✅ 차트 직접 생성 성공!', 'success');
+                updateDetails('chart-details', `Chart instance: ${chart.constructor.name}\nCanvas: ${canvas.id}\nDatasets: ${chart.data.datasets.length}`);
+                
+                return chart;
+            } catch (error) {
+                updateStatus('chart-status', `❌ 차트 생성 실패: ${error.message}`, 'error');
+                updateDetails('chart-details', `Error: ${error.message}\nStack: ${error.stack}`);
+                return null;
+            }
+        }
+
+        // 5. API 데이터 테스트
+        async function testAPIData() {
+            try {
+                updateStatus('api-status', '🌐 API 데이터 요청 중...', 'info');
+                
+                const response = await fetch('http://localhost:8091/api/stocks/live');
+                if (!response.ok) {
+                    throw new Error(`API 응답 실패: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                updateStatus('api-status', `✅ API 데이터 수신 성공 (${data.total_predictions}개)`, 'success');
+                
+                const apiInfo = {
+                    status: data.status,
+                    total_predictions: data.total_predictions,
+                    timestamp: data.timestamp,
+                    sample_prediction: data.predictions[0] || 'No predictions'
+                };
+                
+                updateDetails('api-details', JSON.stringify(apiInfo, null, 2));
+                return data;
+            } catch (error) {
+                updateStatus('api-status', `❌ API 테스트 실패: ${error.message}`, 'error');
+                updateDetails('api-details', `Error: ${error.message}`);
+                return null;
+            }
+        }
+
+        // SP500Widget 직접 테스트
+        async function testSP500Widget() {
+            try {
+                addDebug('🧪 SP500Widget 직접 테스트 시작', 'info');
+                
+                if (typeof SP500Widget === 'undefined') {
+                    throw new Error('SP500Widget 클래스가 정의되지 않음');
+                }
+                
+                // 기존 widget 인스턴스 확인
+                if (window.sp500Widget) {
+                    addDebug('⚠️ 기존 SP500Widget 인스턴스 발견됨', 'warning');
+                }
+                
+                // 새 인스턴스 생성 및 초기화
+                const widget = new SP500Widget();
+                await widget.init();
+                
+                addDebug('✅ SP500Widget 인스턴스 생성 및 초기화 성공', 'success');
+                return widget;
+            } catch (error) {
+                addDebug(`❌ SP500Widget 테스트 실패: ${error.message}`, 'error');
+                return null;
+            }
+        }
+
+        // 모든 테스트 실행
+        async function runAllTests() {
+            addDebug('🔍 메인 대시보드 차트 디버깅 시작', 'info');
+            
+            // 순차적으로 테스트 실행
+            setTimeout(() => {
+                const chartLoaded = checkEnvironment();
+                
+                setTimeout(() => {
+                    const hasCanvas = checkHTMLElements();
+                    
+                    setTimeout(() => {
+                        const jsClasses = checkJavaScriptClasses();
+                        
+                        setTimeout(() => {
+                            if (chartLoaded && hasCanvas) {
+                                testChartCreation();
+                            }
+                            
+                            setTimeout(() => {
+                                testAPIData();
+                                
+                                // SP500Widget 테스트
+                                setTimeout(() => {
+                                    if (jsClasses.SP500Widget) {
+                                        testSP500Widget();
+                                    }
+                                }, 1000);
+                            }, 1000);
+                        }, 1000);
+                    }, 500);
+                }, 500);
+            }, 1000);
+        }
+
+        // 페이지 로드 후 테스트 시작
+        document.addEventListener('DOMContentLoaded', () => {
+            addDebug('📄 DOM 로드 완료', 'info');
+            runAllTests();
+        });
+    </script>
+</body>
+</html>

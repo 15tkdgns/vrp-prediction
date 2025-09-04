@@ -1,0 +1,58 @@
+{
+  "monthly_predictions": [
+    {
+      "month": "2025-01",
+      "predicted_price": 4850,
+      "confidence": 75,
+      "direction": "up",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199931"
+    },
+    {
+      "month": "2025-02",
+      "predicted_price": 4920,
+      "confidence": 68,
+      "direction": "up",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199934"
+    },
+    {
+      "month": "2025-03",
+      "predicted_price": 4980,
+      "confidence": 72,
+      "direction": "up",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199936"
+    },
+    {
+      "month": "2025-04",
+      "predicted_price": 5020,
+      "confidence": 65,
+      "direction": "up",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199937"
+    },
+    {
+      "month": "2025-05",
+      "predicted_price": 4950,
+      "confidence": 70,
+      "direction": "down",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199938"
+    },
+    {
+      "month": "2025-06",
+      "predicted_price": 5100,
+      "confidence": 73,
+      "direction": "up",
+      "model": "Ensemble (RF+LSTM+XGBoost)",
+      "generated_at": "2025-09-03T10:12:13.199939"
+    }
+  ],
+  "metadata": {
+    "model_type": "Ensemble",
+    "training_period": "2020-01-01 to 2024-12-31",
+    "prediction_period": "2025-01-01 to 2025-06-30",
+    "generated_at": "2025-09-03T10:12:13.199941"
+  }
+}

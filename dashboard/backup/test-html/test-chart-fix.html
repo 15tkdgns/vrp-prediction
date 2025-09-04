@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>차트 수정 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .success { background: #e8f5e8; border-color: #4caf50; }
+        .error { background: #ffebee; border-color: #f44336; }
+        .stock-card { 
+            display: inline-block; 
+            width: 300px; 
+            margin: 10px; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+        }
+        .stock-chart { 
+            height: 150px; 
+            margin-top: 10px; 
+        }
+        button { 
+            background: #007bff; 
+            color: white; 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 차트 수정 테스트</h1>
+    
+    <div class="test-section" id="api-test">
+        <h2>1. API 연결 테스트</h2>
+        <button onclick="testAPI()">API 테스트</button>
+        <div id="api-result">대기 중...</div>
+    </div>
+
+    <div class="test-section" id="chart-test">
+        <h2>2. 차트 생성 테스트</h2>
+        <button onclick="testCharts()">차트 생성</button>
+        <div id="chart-container"></div>
+    </div>
+
+    <script src="js/data-manager.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/components.js"></script>
+
+    <script>
+        // API 연결 테스트
+        async function testAPI() {
+            const resultDiv = document.getElementById('api-result');
+            const testSection = document.getElementById('api-test');
+            
+            try {
+                resultDiv.innerHTML = '🔄 API 호출 중...';
+                
+                // 새로 수정된 endpoint 테스트
+                const response = await fetch('http://localhost:8091/api/stocks/live');
+                const data = await response.json();
+                
+                if (data && data.predictions) {
+                    resultDiv.innerHTML = `
+                        ✅ API 연결 성공!<br>
+                        주식 수: ${data.predictions.length}개<br>
+                        첫 번째 주식: ${data.predictions[0].symbol} - $${data.predictions[0].current_price}
+                    `;
+                    testSection.className = 'test-section success';
+                    return data.predictions;
+                } else {
+                    throw new Error('데이터 형식이 예상과 다름');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `❌ API 연결 실패: ${error.message}`;
+                testSection.className = 'test-section error';
+                return null;
+            }
+        }
+
+        // 차트 생성 테스트
+        async function testCharts() {
+            const container = document.getElementById('chart-container');
+            const testSection = document.getElementById('chart-test');
+            
+            try {
+                // API에서 데이터 가져오기
+                const stockData = await testAPI();
+                if (!stockData) {
+                    throw new Error('API 데이터를 가져올 수 없음');
+                }
+
+                container.innerHTML = '';
+                
+                // DataManager와 ChartManager 초기화
+                const dataManager = new OptimizedDataManager();
+                const chartManager = new ChartManager();
+                
+                // 처음 4개 주식에 대해 차트 생성
+                const top4Stocks = stockData.slice(0, 4);
+                
+                for (const stock of top4Stocks) {
+                    // 주식 카드 HTML 생성
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'stock-card';
+                    cardDiv.innerHTML = `
+                        <h3>${stock.symbol}</h3>
+                        <p>현재가: $${stock.current_price}</p>
+                        <p>예측: ${stock.predicted_direction === 'up' ? '상승' : '하락'} (신뢰도: ${(stock.confidence * 100).toFixed(1)}%)</p>
+                        <div class="stock-chart">
+                            <canvas id="chart-${stock.symbol.toLowerCase()}"></canvas>
+                        </div>
+                    `;
+                    container.appendChild(cardDiv);
+
+                    // 차트 생성
+                    const canvas = document.getElementById(`chart-${stock.symbol.toLowerCase()}`);
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 실제 데이터로 차트 생성
+                    await chartManager.createStockChart(ctx, stock);
+                }
+                
+                testSection.className = 'test-section success';
+                
+            } catch (error) {
+                container.innerHTML = `❌ 차트 생성 실패: ${error.message}`;
+                testSection.className = 'test-section error';
+            }
+        }
+
+        // 페이지 로드 시 자동으로 API 테스트
+        window.addEventListener('load', () => {
+            setTimeout(testAPI, 1000);
+        });
+    </script>
+</body>
+</html>

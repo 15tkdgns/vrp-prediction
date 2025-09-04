@@ -1,94 +1,94 @@
 {
-  "timestamp": "2025-08-25T03:02:19.932032",
+  "timestamp": "2025-08-26T17:20:33.372142",
   "model_version": "Calibrated Ensemble v2.0",
   "confidence_calibrated": true,
   "predictions": [
     {
       "ticker": "AAPL",
-      "current_price": 153.9,
-      "predicted_price": 152.02,
-      "confidence": 41.9,
-      "change_percent": -1.22,
+      "current_price": 258.52,
+      "predicted_price": 252.56,
+      "confidence": 32.3,
+      "change_percent": -2.31,
       "prediction_type": "\uc815\uc0c1",
-      "risk_level": "\uc911\uac04",
-      "timestamp": "2025-08-25T03:02:19.932065"
+      "risk_level": "\ub0ae\uc74c",
+      "timestamp": "2025-08-26T17:20:33.372171"
     },
     {
       "ticker": "MSFT",
-      "current_price": 210.16,
-      "predicted_price": 210.04,
-      "confidence": 60.0,
-      "change_percent": -0.06,
-      "prediction_type": "\uc774\ubca4\ud2b8",
-      "risk_level": "\ub192\uc74c",
-      "timestamp": "2025-08-25T03:02:19.932072"
+      "current_price": 225.22,
+      "predicted_price": 227.01,
+      "confidence": 44.2,
+      "change_percent": 0.8,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-26T17:20:33.372177"
     },
     {
       "ticker": "GOOGL",
-      "current_price": 182.61,
-      "predicted_price": 178.62,
-      "confidence": 60.0,
-      "change_percent": -2.19,
-      "prediction_type": "\uc774\ubca4\ud2b8",
-      "risk_level": "\ub192\uc74c",
-      "timestamp": "2025-08-25T03:02:19.932076"
+      "current_price": 294.61,
+      "predicted_price": 292.19,
+      "confidence": 47.2,
+      "change_percent": -0.82,
+      "prediction_type": "\uc815\uc0c1",
+      "risk_level": "\uc911\uac04",
+      "timestamp": "2025-08-26T17:20:33.372182"
     },
     {
       "ticker": "AMZN",
-      "current_price": 247.09,
-      "predicted_price": 254.42,
+      "current_price": 168.9,
+      "predicted_price": 169.18,
       "confidence": 50.8,
-      "change_percent": 2.97,
+      "change_percent": 0.17,
       "prediction_type": "\uc774\ubca4\ud2b8",
       "risk_level": "\uc911\uac04",
-      "timestamp": "2025-08-25T03:02:19.932080"
+      "timestamp": "2025-08-26T17:20:33.372186"
     },
     {
       "ticker": "TSLA",
-      "current_price": 190.53,
-      "predicted_price": 190.62,
-      "confidence": 50.0,
-      "change_percent": 0.05,
-      "prediction_type": "\uc774\ubca4\ud2b8",
+      "current_price": 290.47,
+      "predicted_price": 287.39,
+      "confidence": 48.7,
+      "change_percent": -1.06,
+      "prediction_type": "\uc815\uc0c1",
       "risk_level": "\uc911\uac04",
-      "timestamp": "2025-08-25T03:02:19.932084"
+      "timestamp": "2025-08-26T17:20:33.372189"
     },
     {
       "ticker": "NVDA",
-      "current_price": 206.98,
-      "predicted_price": 206.71,
-      "confidence": 37.8,
-      "change_percent": -0.13,
+      "current_price": 163.09,
+      "predicted_price": 160.43,
+      "confidence": 40.7,
+      "change_percent": -1.63,
       "prediction_type": "\uc815\uc0c1",
       "risk_level": "\uc911\uac04",
-      "timestamp": "2025-08-25T03:02:19.932088"
+      "timestamp": "2025-08-26T17:20:33.372193"
     },
     {
       "ticker": "META",
-      "current_price": 200.67,
-      "predicted_price": 200.95,
-      "confidence": 30.0,
-      "change_percent": 0.14,
+      "current_price": 199.24,
+      "predicted_price": 197.65,
+      "confidence": 31.1,
+      "change_percent": -0.79,
       "prediction_type": "\uc815\uc0c1",
       "risk_level": "\ub0ae\uc74c",
-      "timestamp": "2025-08-25T03:02:19.932092"
+      "timestamp": "2025-08-26T17:20:33.372196"
     },
     {
       "ticker": "NFLX",
-      "current_price": 246.17,
-      "predicted_price": 246.75,
-      "confidence": 43.4,
-      "change_percent": 0.24,
+      "current_price": 201.53,
+      "predicted_price": 198.84,
+      "confidence": 33.2,
+      "change_percent": -1.33,
       "prediction_type": "\uc815\uc0c1",
-      "risk_level": "\uc911\uac04",
-      "timestamp": "2025-08-25T03:02:19.932096"
+      "risk_level": "\ub0ae\uc74c",
+      "timestamp": "2025-08-26T17:20:33.372200"
     }
   ],
   "statistics": {
-    "avg_confidence": 46.7,
-    "max_confidence": 60.0,
-    "min_confidence": 30.0,
-    "high_confidence_count": 2,
+    "avg_confidence": 41.0,
+    "max_confidence": 50.8,
+    "min_confidence": 31.1,
+    "high_confidence_count": 0,
     "total_predictions": 8,
     "model_calibration_quality": "Excellent (Brier Score: 0.055)"
   }

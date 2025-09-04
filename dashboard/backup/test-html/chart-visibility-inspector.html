@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>👁️ Chart Visibility Inspector</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #0f0f0f; color: #00ff00; }
+        .inspector-container { max-width: 1400px; margin: 0 auto; }
+        .inspection-panel { 
+            background: #1a1a1a; 
+            margin: 15px 0; 
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 2px solid #333;
+        }
+        .inspection-panel.critical { border-color: #ff4757; }
+        .inspection-panel.success { border-color: #2ed573; }
+        .inspection-panel.warning { border-color: #ffa502; }
+        .code-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 4px solid #00ff00;
+        }
+        .test-canvas {
+            border: 2px solid #00ff00;
+            margin: 10px;
+            display: inline-block;
+        }
+        .real-test-button {
+            background: #2ed573;
+            color: black;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="inspector-container">
+        <h1>👁️ Chart Visibility Inspector - 실제 렌더링 검증</h1>
+        
+        <!-- 1. Chart.js 설치 검증 -->
+        <div class="inspection-panel" id="chartjs-panel">
+            <h2>1. Chart.js 라이브러리 검증</h2>
+            <div class="code-block" id="chartjs-info">검사 중...</div>
+        </div>
+
+        <!-- 2. 메인 대시보드 상태 검사 -->
+        <div class="inspection-panel" id="main-dashboard-panel">
+            <h2>2. 메인 대시보드 DOM 구조 검사</h2>
+            <button class="real-test-button" onclick="inspectMainDashboard()">메인 대시보드 검사</button>
+            <div class="code-block" id="main-dashboard-info">검사 전...</div>
+        </div>
+
+        <!-- 3. 실제 차트 렌더링 테스트 -->
+        <div class="inspection-panel" id="chart-render-panel">
+            <h2>3. 실제 차트 렌더링 테스트</h2>
+            <button class="real-test-button" onclick="testRealChartRendering()">실제 차트 렌더링 테스트</button>
+            <div class="code-block" id="chart-render-info">테스트 전...</div>
+            <div>
+                <canvas id="test-chart-1" class="test-canvas" width="300" height="200"></canvas>
+                <canvas id="test-chart-2" class="test-canvas" width="300" height="200"></canvas>
+                <canvas id="test-chart-3" class="test-canvas" width="300" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- 4. API 데이터 기반 차트 -->
+        <div class="inspection-panel" id="api-chart-panel">
+            <h2>4. API 데이터 기반 실제 차트</h2>
+            <button class="real-test-button" onclick="createAPIBasedChart()">API 데이터로 차트 생성</button>
+            <div class="code-block" id="api-chart-info">테스트 전...</div>
+            <div>
+                <canvas id="api-chart" class="test-canvas" width="600" height="400"></canvas>
+            </div>
+        </div>
+
+        <!-- 5. 캔버스 픽셀 검사 -->
+        <div class="inspection-panel" id="pixel-panel">
+            <h2>5. 캔버스 픽셀 레벨 검사</h2>
+            <button class="real-test-button" onclick="inspectCanvasPixels()">픽셀 레벨 검사</button>
+            <div class="code-block" id="pixel-info">검사 전...</div>
+        </div>
+
+        <!-- 6. 성능 및 메모리 검사 -->
+        <div class="inspection-panel" id="performance-panel">
+            <h2>6. 성능 및 메모리 검사</h2>
+            <div class="code-block" id="performance-info">모니터링 중...</div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Chart.js 라이브러리 검증
+        function verifyChartJS() {
+            const info = document.getElementById('chartjs-info');
+            const panel = document.getElementById('chartjs-panel');
+            
+            if (window.Chart) {
+                info.innerHTML = `✅ Chart.js 라이브러리 발견
+버전: ${Chart.version || 'Unknown'}
+사용 가능한 차트 타입: ${Chart.registry ? Object.keys(Chart.registry.controllers._items).join(', ') : 'Unknown'}
+플러그인: ${Chart.registry ? Object.keys(Chart.registry.plugins._items).length : 'Unknown'}개
+등록된 스케일: ${Chart.registry ? Object.keys(Chart.registry.scales._items).length : 'Unknown'}개`;
+                panel.className = 'inspection-panel success';
+            } else {
+                info.innerHTML = '❌ Chart.js 라이브러리를 찾을 수 없습니다.';
+                panel.className = 'inspection-panel critical';
+            }
+        }
+
+        // 2. 메인 대시보드 검사
+        function inspectMainDashboard() {
+            const info = document.getElementById('main-dashboard-info');
+            const panel = document.getElementById('main-dashboard-panel');
+            
+            try {
+                // iframe으로 메인 대시보드 로드 시도
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '1px';
+                iframe.style.height = '1px';
+                iframe.style.opacity = '0';
+                iframe.src = '/index.html';
+                
+                document.body.appendChild(iframe);
+                
+                iframe.onload = function() {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        
+                        const stockGrids = iframeDoc.querySelectorAll('.stock-grid');
+                        const canvases = iframeDoc.querySelectorAll('canvas');
+                        const stockCards = iframeDoc.querySelectorAll('.stock-card');
+                        const scripts = iframeDoc.querySelectorAll('script[src*="chart"]');
+                        
+                        info.innerHTML = `📊 메인 대시보드 DOM 분석 결과:
+.stock-grid 요소: ${stockGrids.length}개
+canvas 요소: ${canvases.length}개  
+.stock-card 요소: ${stockCards.length}개
+차트 관련 스크립트: ${scripts.length}개
+
+상세 정보:`;
+
+                        stockGrids.forEach((grid, i) => {
+                            info.innerHTML += `\n  StockGrid ${i+1}: ${grid.children.length}개 자식 요소`;
+                        });
+                        
+                        canvases.forEach((canvas, i) => {
+                            info.innerHTML += `\n  Canvas ${i+1}: ${canvas.width}x${canvas.height}, ID: ${canvas.id || 'None'}`;
+                        });
+                        
+                        // JavaScript 클래스 확인
+                        const iframeWindow = iframe.contentWindow;
+                        const hasDataManager = !!iframeWindow.OptimizedDataManager;
+                        const hasChartManager = !!iframeWindow.ChartManager;
+                        const hasStockGrid = !!iframeWindow.StockGrid;
+                        
+                        info.innerHTML += `\n\nJavaScript 클래스 로딩 상태:
+OptimizedDataManager: ${hasDataManager ? '✅' : '❌'}
+ChartManager: ${hasChartManager ? '✅' : '❌'}
+StockGrid: ${hasStockGrid ? '✅' : '❌'}`;
+                        
+                        panel.className = canvases.length > 0 ? 'inspection-panel success' : 'inspection-panel warning';
+                        
+                        document.body.removeChild(iframe);
+                        
+                    } catch (error) {
+                        info.innerHTML = `❌ iframe DOM 접근 실패 (CORS/보안): ${error.message}`;
+                        panel.className = 'inspection-panel critical';
+                        document.body.removeChild(iframe);
+                    }
+                };
+                
+                iframe.onerror = function() {
+                    info.innerHTML = '❌ 메인 대시보드 로딩 실패';
+                    panel.className = 'inspection-panel critical';
+                    document.body.removeChild(iframe);
+                };
+                
+            } catch (error) {
+                info.innerHTML = `❌ 메인 대시보드 검사 실패: ${error.message}`;
+                panel.className = 'inspection-panel critical';
+            }
+        }
+
+        // 3. 실제 차트 렌더링 테스트
+        function testRealChartRendering() {
+            const info = document.getElementById('chart-render-info');
+            const panel = document.getElementById('chart-render-panel');
+            
+            try {
+                info.innerHTML = '🔄 차트 렌더링 테스트 중...\n';
+                
+                const testResults = [];
+                
+                // 테스트 1: 기본 라인 차트
+                const canvas1 = document.getElementById('test-chart-1');
+                const ctx1 = canvas1.getContext('2d');
+                
+                const chart1 = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                        datasets: [{
+                            label: 'Test Data 1',
+                            data: [12, 19, 3, 5, 2],
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: { responsive: false }
+                });
+                
+                testResults.push('✅ 라인 차트 생성 완료');
+                
+                // 테스트 2: 바 차트
+                const canvas2 = document.getElementById('test-chart-2');
+                const ctx2 = canvas2.getContext('2d');
+                
+                const chart2 = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['A', 'B', 'C', 'D'],
+                        datasets: [{
+                            label: 'Test Data 2',
+                            data: [65, 59, 80, 81],
+                            backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4']
+                        }]
+                    },
+                    options: { responsive: false }
+                });
+                
+                testResults.push('✅ 바 차트 생성 완료');
+                
+                // 테스트 3: 도넛 차트
+                const canvas3 = document.getElementById('test-chart-3');
+                const ctx3 = canvas3.getContext('2d');
+                
+                const chart3 = new Chart(ctx3, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Red', 'Blue', 'Green'],
+                        datasets: [{
+                            data: [300, 50, 100],
+                            backgroundColor: ['#ff6b6b', '#4ecdc4', '#96ceb4']
+                        }]
+                    },
+                    options: { responsive: false }
+                });
+                
+                testResults.push('✅ 도넛 차트 생성 완료');
+                
+                // 픽셀 검사로 실제 렌더링 확인
+                setTimeout(() => {
+                    const pixelTest1 = inspectPixels(ctx1, canvas1);
+                    const pixelTest2 = inspectPixels(ctx2, canvas2);
+                    const pixelTest3 = inspectPixels(ctx3, canvas3);
+                    
+                    testResults.push(`라인 차트 픽셀: ${pixelTest1.hasContent ? '✅ 렌더링됨' : '❌ 빈 캔버스'}`);
+                    testResults.push(`바 차트 픽셀: ${pixelTest2.hasContent ? '✅ 렌더링됨' : '❌ 빈 캔버스'}`);
+                    testResults.push(`도넛 차트 픽셀: ${pixelTest3.hasContent ? '✅ 렌더링됨' : '❌ 빈 캔버스'}`);
+                    
+                    info.innerHTML = testResults.join('\n');
+                    
+                    const allRendered = pixelTest1.hasContent && pixelTest2.hasContent && pixelTest3.hasContent;
+                    panel.className = allRendered ? 'inspection-panel success' : 'inspection-panel critical';
+                    
+                }, 1000);
+                
+            } catch (error) {
+                info.innerHTML = `❌ 차트 렌더링 테스트 실패: ${error.message}`;
+                panel.className = 'inspection-panel critical';
+            }
+        }
+
+        // 4. API 데이터 기반 차트
+        async function createAPIBasedChart() {
+            const info = document.getElementById('api-chart-info');
+            const panel = document.getElementById('api-chart-panel');
+            
+            try {
+                info.innerHTML = '🔄 API에서 실제 데이터 가져오는 중...\n';
+                
+                const response = await fetch('http://localhost:8091/api/stocks/live');
+                if (!response.ok) {
+                    throw new Error(`API 응답 오류: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                if (!data.predictions || data.predictions.length === 0) {
+                    throw new Error('API에서 주식 데이터를 가져올 수 없음');
+                }
+                
+                info.innerHTML += '✅ API 데이터 획득 성공\n🔄 실제 차트 생성 중...\n';
+                
+                const canvas = document.getElementById('api-chart');
+                const ctx = canvas.getContext('2d');
+                
+                // 실제 주식 데이터로 차트 생성
+                const stocks = data.predictions.slice(0, 4);
+                
+                const chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: stocks.map(s => s.symbol),
+                        datasets: [{
+                            label: 'Current Price ($)',
+                            data: stocks.map(s => s.current_price),
+                            backgroundColor: stocks.map((_, i) => 
+                                `hsla(${i * 90}, 70%, 50%, 0.7)`
+                            ),
+                            borderColor: stocks.map((_, i) => 
+                                `hsla(${i * 90}, 70%, 40%, 1)`
+                            ),
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '실제 API 데이터 기반 주식 차트'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: 'Price ($)'
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // 픽셀 검사
+                setTimeout(() => {
+                    const pixelTest = inspectPixels(ctx, canvas);
+                    
+                    info.innerHTML = `✅ API 기반 차트 생성 완료
+데이터 소스: ${data.source || 'Unknown'}
+주식 개수: ${stocks.length}
+마지막 업데이트: ${data.timestamp || 'Unknown'}
+픽셀 렌더링: ${pixelTest.hasContent ? '✅ 성공' : '❌ 실패'}
+비어있지 않은 픽셀: ${pixelTest.nonEmptyPixels}개`;
+                    
+                    panel.className = pixelTest.hasContent ? 'inspection-panel success' : 'inspection-panel critical';
+                    
+                }, 1000);
+                
+            } catch (error) {
+                info.innerHTML = `❌ API 차트 생성 실패: ${error.message}`;
+                panel.className = 'inspection-panel critical';
+            }
+        }
+
+        // 5. 픽셀 레벨 검사
+        function inspectCanvasPixels() {
+            const info = document.getElementById('pixel-info');
+            const panel = document.getElementById('pixel-panel');
+            
+            const canvases = document.querySelectorAll('canvas');
+            let results = [];
+            
+            canvases.forEach((canvas, index) => {
+                const ctx = canvas.getContext('2d');
+                const pixelTest = inspectPixels(ctx, canvas);
+                
+                results.push(`Canvas ${index + 1} (${canvas.id || 'unnamed'}):
+  크기: ${canvas.width}x${canvas.height}
+  총 픽셀: ${pixelTest.totalPixels}
+  비어있지 않은 픽셀: ${pixelTest.nonEmptyPixels}
+  렌더링 상태: ${pixelTest.hasContent ? '✅ 활성' : '❌ 빈 상태'}
+  평균 알파: ${pixelTest.averageAlpha.toFixed(2)}`);
+            });
+            
+            info.innerHTML = results.join('\n\n');
+            
+            const hasRenderedCharts = results.some(r => r.includes('✅ 활성'));
+            panel.className = hasRenderedCharts ? 'inspection-panel success' : 'inspection-panel critical';
+        }
+
+        // 픽셀 검사 유틸리티 함수
+        function inspectPixels(ctx, canvas) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            
+            let nonEmptyPixels = 0;
+            let totalAlpha = 0;
+            
+            for (let i = 0; i < pixels.length; i += 4) {
+                const r = pixels[i];
+                const g = pixels[i + 1];
+                const b = pixels[i + 2];
+                const a = pixels[i + 3];
+                
+                totalAlpha += a;
+                
+                if (r !== 0 || g !== 0 || b !== 0 || a !== 0) {
+                    nonEmptyPixels++;
+                }
+            }
+            
+            const totalPixels = pixels.length / 4;
+            const averageAlpha = totalAlpha / totalPixels;
+            
+            return {
+                totalPixels,
+                nonEmptyPixels,
+                hasContent: nonEmptyPixels > 0,
+                averageAlpha
+            };
+        }
+
+        // 6. 성능 모니터링
+        function updatePerformanceInfo() {
+            const info = document.getElementById('performance-info');
+            
+            const memory = performance.memory;
+            const chartCount = Chart.instances ? Chart.instances.length : 0;
+            
+            let memoryInfo = '';
+            if (memory) {
+                memoryInfo = `메모리 사용량: ${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB
+전체 힙 크기: ${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB
+힙 크기 제한: ${Math.round(memory.jsHeapSizeLimit / 1024 / 1024)}MB`;
+            }
+            
+            info.innerHTML = `🔄 실시간 성능 모니터링:
+활성 Chart 인스턴스: ${chartCount}개
+페이지 로드 이후 시간: ${Math.round(performance.now())}ms
+${memoryInfo}
+타이밍: ${new Date().toLocaleTimeString()}`;
+        }
+
+        // 초기화
+        window.addEventListener('load', () => {
+            verifyChartJS();
+            setInterval(updatePerformanceInfo, 2000);
+        });
+
+        console.log('👁️ Chart Visibility Inspector Ready');
+    </script>
+</body>
+</html>

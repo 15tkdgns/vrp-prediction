@@ -1,0 +1,77 @@
+{
+  "development": {
+    "api": {
+      "baseUrl": "http://localhost:8091",
+      "timeout": 10000,
+      "retryAttempts": 3,
+      "retryDelay": 1000
+    },
+    "dashboard": {
+      "refreshInterval": 30000,
+      "maxCharts": 10,
+      "cacheTimeout": 300000,
+      "animationDuration": 1000
+    },
+    "logging": {
+      "level": "debug",
+      "console": true,
+      "file": false
+    },
+    "features": {
+      "realTimeUpdates": true,
+      "chartAnimations": true,
+      "notifications": true,
+      "darkMode": true
+    }
+  },
+  "production": {
+    "api": {
+      "baseUrl": "/api",
+      "timeout": 15000,
+      "retryAttempts": 5,
+      "retryDelay": 2000
+    },
+    "dashboard": {
+      "refreshInterval": 60000,
+      "maxCharts": 20,
+      "cacheTimeout": 600000,
+      "animationDuration": 500
+    },
+    "logging": {
+      "level": "info",
+      "console": false,
+      "file": true
+    },
+    "features": {
+      "realTimeUpdates": true,
+      "chartAnimations": false,
+      "notifications": true,
+      "darkMode": true
+    }
+  },
+  "test": {
+    "api": {
+      "baseUrl": "http://localhost:8091",
+      "timeout": 5000,
+      "retryAttempts": 1,
+      "retryDelay": 500
+    },
+    "dashboard": {
+      "refreshInterval": 5000,
+      "maxCharts": 5,
+      "cacheTimeout": 60000,
+      "animationDuration": 0
+    },
+    "logging": {
+      "level": "debug",
+      "console": true,
+      "file": false
+    },
+    "features": {
+      "realTimeUpdates": false,
+      "chartAnimations": false,
+      "notifications": false,
+      "darkMode": false
+    }
+  }
+}

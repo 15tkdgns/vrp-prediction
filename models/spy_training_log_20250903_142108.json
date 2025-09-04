@@ -1,0 +1,453 @@
+{
+  "start_time": "2025-09-03T14:20:14.189004",
+  "model_configs": {
+    "RandomForest": {
+      "base_model": "RandomForestClassifier()",
+      "param_grid_size": 7
+    },
+    "GradientBoosting": {
+      "base_model": "GradientBoostingClassifier()",
+      "param_grid_size": 7
+    },
+    "LogisticRegression": {
+      "base_model": "LogisticRegression()",
+      "param_grid_size": 6
+    },
+    "SVM": {
+      "base_model": "SVC(probability=True)",
+      "param_grid_size": 5
+    },
+    "Ridge": {
+      "base_model": "RidgeClassifier()",
+      "param_grid_size": 3
+    }
+  },
+  "cross_validation_results": {
+    "RandomForest": {
+      "best_score": 0.5232040150969102,
+      "best_params": {
+        "random_state": 42,
+        "n_estimators": 200,
+        "min_samples_split": 2,
+        "min_samples_leaf": 1,
+        "max_features": null,
+        "max_depth": null,
+        "class_weight": "balanced"
+      },
+      "cv_mean": 0.5232040150969102,
+      "cv_std": 0.0470654066244355
+    },
+    "GradientBoosting": {
+      "best_score": 0.5435952757163556,
+      "best_params": {
+        "subsample": 0.8,
+        "random_state": 42,
+        "n_estimators": 300,
+        "min_samples_split": 5,
+        "min_samples_leaf": 2,
+        "max_depth": 7,
+        "learning_rate": 0.1
+      },
+      "cv_mean": 0.5435952757163556,
+      "cv_std": 0.018902446196310162
+    },
+    "LogisticRegression": {
+      "best_score": 0.548877941536718,
+      "best_params": {
+        "solver": "saga",
+        "random_state": 42,
+        "penalty": "l1",
+        "max_iter": 1000,
+        "class_weight": "balanced",
+        "C": 10
+      },
+      "cv_mean": NaN,
+      "cv_std": 0.015221197814716023
+    },
+    "SVM": {
+      "best_score": 0.5545349732350353,
+      "best_params": {
+        "random_state": 42,
+        "kernel": "linear",
+        "gamma": "scale",
+        "class_weight": "balanced",
+        "C": 1
+      },
+      "cv_mean": 0.5545349732350353,
+      "cv_std": 0.028208530480694338
+    },
+    "Ridge": {
+      "best_score": 0.5506623554814999,
+      "best_params": {
+        "random_state": 42,
+        "class_weight": "balanced",
+        "alpha": 1.0
+      },
+      "cv_mean": 0.5506623554814999,
+      "cv_std": 0.014491351458630628
+    }
+  },
+  "final_model_performance": {},
+  "feature_importance": {
+    "RandomForest": {
+      "top_features": [
+        [
+          "Volume_Change_2d",
+          0.058327596454670984
+        ],
+        [
+          "Return_Lag_1",
+          0.056781460819971305
+        ],
+        [
+          "Volume_Lag_2",
+          0.05155289677447119
+        ],
+        [
+          "Volume_Change_5d",
+          0.05058642429070308
+        ],
+        [
+          "Return_2d",
+          0.04583930249553935
+        ],
+        [
+          "Volatility_5d",
+          0.04507421549013585
+        ],
+        [
+          "Volume_SMA_5",
+          0.04170141517995931
+        ],
+        [
+          "Volume_MA_Ratio",
+          0.041689040723254474
+        ],
+        [
+          "Stoch_K",
+          0.03951801591410216
+        ],
+        [
+          "Return_5d",
+          0.038253769611437366
+        ],
+        [
+          "RSI_30",
+          0.03598283085797767
+        ],
+        [
+          "Volume_SMA_20",
+          0.03556105761967726
+        ],
+        [
+          "High_Low_Spread_10d",
+          0.03531732385082806
+        ],
+        [
+          "Volatility_20d",
+          0.03488043389066768
+        ],
+        [
+          "Williams_R",
+          0.03462842017036721
+        ],
+        [
+          "SMA_50",
+          0.033697327193925784
+        ],
+        [
+          "Volume_SMA_10",
+          0.032804684476880536
+        ],
+        [
+          "MACD_Hist",
+          0.0327091849218133
+        ],
+        [
+          "BB_Position",
+          0.03189685836207909
+        ],
+        [
+          "BB_Upper",
+          0.029314270418890148
+        ]
+      ],
+      "feature_importance_sum": 1.0
+    },
+    "GradientBoosting": {
+      "top_features": [
+        [
+          "Return_Lag_1",
+          0.0616035712892983
+        ],
+        [
+          "Volume_Lag_2",
+          0.059378610143090184
+        ],
+        [
+          "Volume_Change_2d",
+          0.05920914345023313
+        ],
+        [
+          "Volume_Change_5d",
+          0.05072355918649441
+        ],
+        [
+          "Return_2d",
+          0.04496367529125345
+        ],
+        [
+          "Return_5d",
+          0.04493432920688794
+        ],
+        [
+          "Volume_MA_Ratio",
+          0.044598119345510744
+        ],
+        [
+          "Williams_R",
+          0.0434331321072556
+        ],
+        [
+          "Volume_SMA_5",
+          0.043295043032700244
+        ],
+        [
+          "Volatility_5d",
+          0.04225934879312254
+        ],
+        [
+          "RSI_30",
+          0.038377957287248445
+        ],
+        [
+          "Price_SMA_Ratio_20",
+          0.03753922629916571
+        ],
+        [
+          "Volatility_20d",
+          0.03583145489648407
+        ],
+        [
+          "BB_Width",
+          0.03375297619916205
+        ],
+        [
+          "MACD_Hist",
+          0.03289304583721596
+        ],
+        [
+          "Price_SMA_Ratio_10",
+          0.0317054881321491
+        ],
+        [
+          "BB_Position",
+          0.029495166708023865
+        ],
+        [
+          "SMA_10",
+          0.028833133266606206
+        ],
+        [
+          "Stoch_K",
+          0.028822735197646235
+        ],
+        [
+          "High_Low_Spread_10d",
+          0.028235614014213945
+        ]
+      ],
+      "feature_importance_sum": 1.0
+    },
+    "ensemble_mean": {
+      "top_features": [
+        [
+          "Return_Lag_1",
+          0.059192516054634804
+        ],
+        [
+          "Volume_Change_2d",
+          0.058768369952452056
+        ],
+        [
+          "Volume_Lag_2",
+          0.05546575345878069
+        ],
+        [
+          "Volume_Change_5d",
+          0.05065499173859875
+        ],
+        [
+          "Return_2d",
+          0.0454014888933964
+        ],
+        [
+          "Volatility_5d",
+          0.043666782141629196
+        ],
+        [
+          "Volume_MA_Ratio",
+          0.04314358003438261
+        ],
+        [
+          "Volume_SMA_5",
+          0.04249822910632978
+        ],
+        [
+          "Return_5d",
+          0.041594049409162656
+        ],
+        [
+          "Williams_R",
+          0.03903077613881141
+        ],
+        [
+          "RSI_30",
+          0.03718039407261306
+        ],
+        [
+          "Volatility_20d",
+          0.03535594439357588
+        ],
+        [
+          "Stoch_K",
+          0.0341703755558742
+        ],
+        [
+          "Price_SMA_Ratio_20",
+          0.03286547640960391
+        ],
+        [
+          "MACD_Hist",
+          0.032801115379514634
+        ],
+        [
+          "High_Low_Spread_10d",
+          0.031776468932521
+        ],
+        [
+          "Volume_SMA_20",
+          0.030726836891769242
+        ],
+        [
+          "BB_Position",
+          0.030696012535051477
+        ],
+        [
+          "Price_SMA_Ratio_10",
+          0.030403539523287088
+        ],
+        [
+          "BB_Width",
+          0.03031363018285832
+        ]
+      ],
+      "feature_importance_sum": 1.0
+    }
+  },
+  "validation_performance": {
+    "RandomForest": {
+      "accuracy": 0.4748201438848921,
+      "precision": 0.46808205609425496,
+      "recall": 0.4748201438848921,
+      "f1": 0.41234836117301155,
+      "roc_auc": 0.5268227009113504
+    },
+    "GradientBoosting": {
+      "accuracy": 0.45323741007194246,
+      "precision": 0.4406883095673999,
+      "recall": 0.45323741007194246,
+      "f1": 0.4081611715974814,
+      "roc_auc": 0.48342999171499584
+    },
+    "LogisticRegression": {
+      "accuracy": 0.48201438848920863,
+      "precision": 0.45610265034725467,
+      "recall": 0.48201438848920863,
+      "f1": 0.3523851687880465,
+      "roc_auc": 0.45567522783761394
+    },
+    "SVM": {
+      "accuracy": 0.48201438848920863,
+      "precision": 0.40767386091127095,
+      "recall": 0.48201438848920863,
+      "f1": 0.33035193466848145,
+      "roc_auc": 0.4591963545981773
+    },
+    "Ridge": {
+      "accuracy": 0.48201438848920863,
+      "precision": 0.45610265034725467,
+      "recall": 0.48201438848920863,
+      "f1": 0.3523851687880465
+    }
+  },
+  "ensemble_performance": {
+    "component_models": [
+      "RandomForest",
+      "GradientBoosting",
+      "SVM"
+    ],
+    "metrics": {
+      "accuracy": 0.460431654676259,
+      "precision": 0.4480894049239373,
+      "recall": 0.460431654676259,
+      "f1": 0.40806115899560697,
+      "roc_auc": 0.4881938690969345
+    }
+  },
+  "final_test_performance": {
+    "model_type": "ensemble",
+    "metrics": {
+      "accuracy": 0.4460431654676259,
+      "precision": 0.40905542178568605,
+      "recall": 0.4460431654676259,
+      "f1": 0.39014653661686033,
+      "roc_auc": 0.45384894134700005
+    },
+    "classification_report": {
+      "0": {
+        "precision": 0.47085201793721976,
+        "recall": 0.7446808510638298,
+        "f1-score": 0.5769230769230769,
+        "support": 141.0
+      },
+      "1": {
+        "precision": 0.34545454545454546,
+        "recall": 0.1386861313868613,
+        "f1-score": 0.19791666666666666,
+        "support": 137.0
+      },
+      "accuracy": 0.4460431654676259,
+      "macro avg": {
+        "precision": 0.4081532816958826,
+        "recall": 0.44168349122534556,
+        "f1-score": 0.38741987179487175,
+        "support": 278.0
+      },
+      "weighted avg": {
+        "precision": 0.40905542178568605,
+        "recall": 0.4460431654676259,
+        "f1-score": 0.39014653661686033,
+        "support": 278.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        105,
+        36
+      ],
+      [
+        118,
+        19
+      ]
+    ],
+    "test_period": "2024-07-22 00:00:00 to 2025-08-28 00:00:00",
+    "test_samples": 278
+  },
+  "end_time": "2025-09-03T14:21:08.965843",
+  "saved_files": {
+    "models": "models/spy_best_models_20250903_142108.pkl",
+    "ensemble": "models/spy_ensemble_model_20250903_142108.pkl",
+    "pipeline": "models/spy_pipeline_20250903_142108.pkl"
+  }
+}

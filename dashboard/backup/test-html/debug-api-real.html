@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🔍 실제 API 강제 호출 테스트</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace;
+            background: #0d1117; 
+            color: #c9d1d9; 
+            margin: 20px; 
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: #161b22;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+        .status {
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border-left: 4px solid #238636;
+            background: rgba(35, 134, 54, 0.1);
+        }
+        .error { 
+            border-left-color: #f85149; 
+            background: rgba(248, 81, 73, 0.1);
+        }
+        .warning { 
+            border-left-color: #d29922; 
+            background: rgba(210, 153, 34, 0.1);
+        }
+        .info { 
+            border-left-color: #58a6ff; 
+            background: rgba(88, 166, 255, 0.1);
+        }
+        pre { 
+            background: #0d1117; 
+            padding: 12px; 
+            border-radius: 4px; 
+            overflow-x: auto;
+            border: 1px solid #21262d;
+            font-size: 12px;
+        }
+        .test-btn {
+            background: linear-gradient(135deg, #238636 0%, #1a6f2b 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .test-btn:hover { background: linear-gradient(135deg, #2ea043 0%, #238636 100%); }
+        .test-btn:disabled { 
+            background: #6c757d; 
+            cursor: not-allowed; 
+        }
+        .logs {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 실제 API 강제 호출 테스트</h1>
+        <p>S&P 500 API가 실제로 호출되는지 확인하고 로그를 추적합니다.</p>
+        
+        <div>
+            <button class="test-btn" onclick="testDirectYahooAPI()" id="yahooBtn">📊 Yahoo Finance API 직접 테스트</button>
+            <button class="test-btn" onclick="testCORSProxies()" id="corsBtn">🌐 CORS 프록시 테스트</button>
+            <button class="test-btn" onclick="testSP500Widget()" id="widgetBtn">🎨 위젯 API 호출 테스트</button>
+            <button class="test-btn" onclick="clearLogs()">🗑️ 로그 지우기</button>
+        </div>
+        
+        <div class="logs" id="logs">
+            실제 API 테스트 도구 준비됨... 버튼을 클릭해서 테스트를 시작하세요.
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <!-- API 스크립트 로드 -->
+    <script src="js/api-service.js"></script>
+    <script>
+        const logsDiv = document.getElementById('logs');
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `<strong>[${time}]</strong> ${message}`;
+            logsDiv.appendChild(div);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+            console.log(`[${time}] ${message}`);
+        }
+        
+        function clearLogs() {
+            logsDiv.innerHTML = '로그가 지워졌습니다...';
+            resultsDiv.innerHTML = '';
+        }
+        
+        function showData(data, title) {
+            resultsDiv.innerHTML = `
+                <div style="background: #161b22; border: 1px solid #30363d; padding: 15px; border-radius: 6px; margin-top: 15px;">
+                    <h3>${title}</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
+        }
+        
+        // 1. Yahoo Finance API 직접 테스트
+        async function testDirectYahooAPI() {
+            const btn = document.getElementById('yahooBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ 테스트 중...';
+            
+            log('🌐 Yahoo Finance API 직접 호출 시작...', 'info');
+            
+            try {
+                // 직접 호출 시도
+                const url = 'https://query1.finance.yahoo.com/v8/finance/chart/^GSPC?interval=1d&range=1d';
+                log(`📡 직접 호출 URL: ${url}`, 'info');
+                
+                try {
+                    const response = await fetch(url, { 
+                        mode: 'cors',
+                        headers: {
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        log('✅ 직접 호출 성공!', 'info');
+                        
+                        if (data.chart && data.chart.result && data.chart.result[0]) {
+                            const result = data.chart.result[0];
+                            const meta = result.meta;
+                            const quotes = result.indicators.quote[0];
+                            const latestPrice = quotes.close[quotes.close.length - 1];
+                            
+                            const sp500Data = {
+                                current: parseFloat(latestPrice.toFixed(2)),
+                                change: parseFloat((meta.regularMarketChangePercent || 0).toFixed(2)),
+                                volume: parseInt(meta.regularMarketVolume || 0),
+                                timestamp: new Date().toISOString(),
+                                source: 'Yahoo Finance (Direct)'
+                            };
+                            
+                            log(`📊 S&P 500 현재가: $${sp500Data.current}`, 'info');
+                            log(`📈 변동률: ${sp500Data.change}%`, 'info');
+                            log(`📦 거래량: ${sp500Data.volume.toLocaleString()}`, 'info');
+                            
+                            showData(sp500Data, '✅ Yahoo Finance API 직접 호출 성공');
+                        }
+                    } else {
+                        log(`❌ 직접 호출 HTTP 오류: ${response.status}`, 'error');
+                    }
+                } catch (directError) {
+                    log(`❌ 직접 호출 실패 (예상됨): ${directError.message}`, 'warning');
+                    log('🔄 CORS 프록시로 재시도...', 'info');
+                    
+                    // CORS 프록시 사용
+                    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+                    log(`🌐 프록시 URL: ${proxyUrl}`, 'info');
+                    
+                    const proxyResponse = await fetch(proxyUrl);
+                    if (proxyResponse.ok) {
+                        const data = await proxyResponse.json();
+                        log('✅ CORS 프록시 호출 성공!', 'info');
+                        
+                        if (data.chart && data.chart.result && data.chart.result[0]) {
+                            const result = data.chart.result[0];
+                            const meta = result.meta;
+                            const quotes = result.indicators.quote[0];
+                            const latestPrice = quotes.close[quotes.close.length - 1];
+                            
+                            const sp500Data = {
+                                current: parseFloat(latestPrice.toFixed(2)),
+                                change: parseFloat((meta.regularMarketChangePercent || 0).toFixed(2)),
+                                volume: parseInt(meta.regularMarketVolume || 0),
+                                timestamp: new Date().toISOString(),
+                                source: 'Yahoo Finance (via Proxy)'
+                            };
+                            
+                            log(`📊 S&P 500 현재가: $${sp500Data.current}`, 'info');
+                            log(`📈 변동률: ${sp500Data.change}%`, 'info');
+                            log(`📦 거래량: ${sp500Data.volume.toLocaleString()}`, 'info');
+                            
+                            showData(sp500Data, '✅ Yahoo Finance API (CORS 프록시) 성공');
+                        }
+                    } else {
+                        log(`❌ 프록시 호출도 실패: ${proxyResponse.status}`, 'error');
+                    }
+                }
+                
+            } catch (error) {
+                log(`💥 전체 테스트 실패: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '📊 Yahoo Finance API 직접 테스트';
+            }
+        }
+        
+        // 2. CORS 프록시들 테스트
+        async function testCORSProxies() {
+            const btn = document.getElementById('corsBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ 테스트 중...';
+            
+            log('🌐 CORS 프록시 서버들 테스트 시작...', 'info');
+            
+            const proxies = [
+                'https://api.allorigins.win/raw?url=',
+                'https://cors-proxy.fringe.zone/',
+                'https://api.codetabs.com/v1/proxy?quest=',
+                'https://corsproxy.io/?'
+            ];
+            
+            const testUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/^GSPC?interval=1d&range=1d';
+            
+            for (let i = 0; i < proxies.length; i++) {
+                const proxy = proxies[i];
+                log(`🔄 프록시 ${i+1} 테스트: ${proxy}`, 'info');
+                
+                try {
+                    const proxyUrl = proxy + encodeURIComponent(testUrl);
+                    const startTime = Date.now();
+                    
+                    const response = await Promise.race([
+                        fetch(proxyUrl),
+                        new Promise((_, reject) => 
+                            setTimeout(() => reject(new Error('15초 타임아웃')), 15000)
+                        )
+                    ]);
+                    
+                    const elapsed = Date.now() - startTime;
+                    
+                    if (response.ok) {
+                        log(`✅ 프록시 ${i+1} 성공 (${elapsed}ms)`, 'info');
+                        
+                        // 첫 번째 성공한 프록시로 실제 데이터 파싱
+                        if (i === 0) {
+                            const data = await response.json();
+                            if (data.chart && data.chart.result && data.chart.result[0]) {
+                                const result = data.chart.result[0];
+                                const meta = result.meta;
+                                log(`📊 프록시로 받은 S&P 500: $${meta.regularMarketPrice}`, 'info');
+                            }
+                        }
+                    } else {
+                        log(`❌ 프록시 ${i+1} HTTP 오류: ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    log(`❌ 프록시 ${i+1} 실패: ${error.message}`, 'error');
+                }
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '🌐 CORS 프록시 테스트';
+        }
+        
+        // 3. S&P 500 위젯 API 호출 테스트
+        async function testSP500Widget() {
+            const btn = document.getElementById('widgetBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ 테스트 중...';
+            
+            log('🎨 S&P 500 위젯 API 호출 테스트...', 'info');
+            
+            try {
+                // API 서비스 초기화
+                if (!window.apiService) {
+                    log('🔧 APIService 초기화...', 'info');
+                    window.apiService = new APIService();
+                }
+                
+                // S&P 500 데이터 호출
+                log('📊 S&P 500 데이터 요청...', 'info');
+                const sp500Data = await window.apiService.getSP500Current();
+                
+                if (sp500Data && sp500Data.current > 0) {
+                    log('✅ 위젯 API 호출 성공!', 'info');
+                    log(`📊 현재가: $${sp500Data.current}`, 'info');
+                    log(`📈 변동률: ${sp500Data.change}%`, 'info');
+                    log(`🎯 데이터 소스: ${sp500Data.source}`, 'info');
+                    
+                    showData(sp500Data, '✅ S&P 500 위젯 API 호출 성공');
+                } else {
+                    log('❌ 위젯 API 호출 실패 - null 또는 유효하지 않은 데이터', 'error');
+                    showData(sp500Data, '❌ S&P 500 위젯 API 호출 실패');
+                }
+                
+            } catch (error) {
+                log(`💥 위젯 API 테스트 실패: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🎨 위젯 API 호출 테스트';
+            }
+        }
+        
+        // 자동 시작
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🚀 실제 API 테스트 도구 로드됨', 'info');
+            log('💡 각 버튼을 클릭해서 API 연결 상태를 확인하세요', 'info');
+            
+            // 3초 후 자동으로 첫 번째 테스트 실행
+            setTimeout(() => {
+                log('🤖 자동 테스트 시작...', 'info');
+                testDirectYahooAPI();
+            }, 3000);
+        });
+        
+    </script>
+</body>
+</html>

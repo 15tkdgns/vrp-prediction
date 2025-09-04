@@ -1,0 +1,32 @@
+[
+  {
+    "source": "Reuters",
+    "count": 290,
+    "percentage": 24.1
+  },
+  {
+    "source": "Bloomberg",
+    "count": 289,
+    "percentage": 24.1
+  },
+  {
+    "source": "WSJ",
+    "count": 245,
+    "percentage": 20.4
+  },
+  {
+    "source": "MarketWatch",
+    "count": 174,
+    "percentage": 14.5
+  },
+  {
+    "source": "CNBC",
+    "count": 136,
+    "percentage": 11.3
+  },
+  {
+    "source": "Yahoo Finance",
+    "count": 67,
+    "percentage": 5.6
+  }
+]

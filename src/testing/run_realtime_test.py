@@ -21,6 +21,7 @@ class RealTimePredictor:
     def __init__(self, data_dir="data/raw"):
         self.data_dir = data_dir
         self.models = {}
+        self.scaler = None
         self.test_results = []
 
         # 로깅 설정
@@ -30,29 +31,53 @@ class RealTimePredictor:
         self.logger = logging.getLogger(__name__)
 
     def load_best_model(self):
-        """최고 성능 모델 로드"""
+        """최고 성능 모델 및 스케일러 로드"""
         try:
             # 성능 정보 로드
             with open(f"{self.data_dir}/model_performance.json", "r") as f:
-                performance = json.load(f)
+                data = json.load(f)
+            
+            # 데이터 구조 확인 및 정규화
+            if isinstance(data, str):
+                performance = json.loads(data)
+            else:
+                performance = data
+            
+            # 성능 데이터에서 모델별 정보 추출
+            model_scores = {}
+            for key, value in performance.items():
+                if isinstance(value, dict) and ("test_accuracy" in value or "test_score" in value):
+                    score = value.get("test_accuracy", value.get("test_score", 0))
+                    model_scores[key] = score
+            
+            if not model_scores:
+                raise ValueError("유효한 모델 성능 데이터를 찾을 수 없습니다")
 
             # 최고 성능 모델 찾기
-            best_model_name = max(
-                performance.keys(), key=lambda x: performance[x]["test_score"]
-            )
-            best_score = performance[best_model_name]["test_score"]
+            best_model_name = max(model_scores.keys(), key=lambda x: model_scores[x])
+            best_score = model_scores[best_model_name]
 
             # 모델 로드
-            model_path = f"{self.data_dir}/{best_model_name}_model.pkl"
+            model_path = f"data/models/{best_model_name}_model.pkl"
             if os.path.exists(model_path):
                 self.models[best_model_name] = joblib.load(model_path)
                 self.logger.info(
                     f"✅ 최고 성능 모델 로드 완료: {best_model_name} (테스트 정확도: {best_score:.4f})"
                 )
-                return True
             else:
                 self.logger.error(f"❌ 모델 파일 없음: {model_path}")
                 return False
+                
+            # 스케일러 로드
+            scaler_path = "data/models/scaler.pkl"
+            if os.path.exists(scaler_path):
+                self.scaler = joblib.load(scaler_path)
+                self.logger.info(f"✅ 스케일러 로드 완료 (특성 수: {self.scaler.n_features_in_})")
+            else:
+                self.logger.error("❌ 스케일러 파일 없음: data/models/scaler.pkl")
+                return False
+                
+            return True
 
         except Exception as e:
             self.logger.error(f"❌ 모델 로드 실패: {e}")
@@ -117,29 +142,16 @@ class RealTimePredictor:
                 (volumes[-1] - volumes[-2]) / volumes[-2] if len(volumes) >= 2 else 0
             )
 
-            # 특성 벡터
+            # 특성 벡터 - 실제 훈련된 모델이 기대하는 7개 특성만 사용
+            # ['Open', 'High', 'Low', 'Close', 'Volume', 'unusual_volume', 'price_spike']
             features = [
                 latest["Open"],
-                latest["High"],
+                latest["High"], 
                 latest["Low"],
                 latest["Close"],
                 latest["Volume"],
-                sma_20,
-                sma_50,
-                rsi,
-                0,  # MACD (간단히 0으로 설정)
-                sma_20 + 2 * volatility,  # BB Upper
-                sma_20 - 2 * volatility,  # BB Lower
-                volatility,  # ATR
-                volatility,
-                0,  # OBV (간단히 0으로 설정)
-                price_change,
-                volume_change,
                 1 if volume_change > 2 else 0,  # unusual_volume
                 1 if abs(price_change) > 0.05 else 0,  # price_spike
-                0,  # news_sentiment
-                0,  # news_polarity
-                0,  # news_count
             ]
 
             return features
@@ -151,14 +163,22 @@ class RealTimePredictor:
     def make_prediction(self, features):
         """예측 수행"""
         try:
+            # 특성을 numpy 배열로 변환
             X = np.array(features).reshape(1, -1)
+            
+            # 스케일러가 로드되어 있다면 특성 스케일링
+            if self.scaler is not None:
+                X_scaled = self.scaler.transform(X)
+            else:
+                X_scaled = X
+                self.logger.warning("⚠️ 스케일러 없음, 원본 특성 사용")
 
             predictions = {}
             for model_name, model in self.models.items():
                 try:
                     # 예측 확률
-                    pred_proba = model.predict_proba(X)[0]
-                    pred_class = model.predict(X)[0]
+                    pred_proba = model.predict_proba(X_scaled)[0]
+                    pred_class = model.predict(X_scaled)[0]
 
                     predictions[model_name] = {
                         "prediction": int(pred_class),

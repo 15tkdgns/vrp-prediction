@@ -1,0 +1,35 @@
+{
+  "experiment_date": "2025-09-03 18:20:10",
+  "training_period": "2020-2023",
+  "test_period": "2024",
+  "models_tested": {
+    "original": {
+      "test_accuracy": 0.4722222222222222,
+      "features_count": 4
+    },
+    "vix_enhanced": {
+      "test_accuracy": 0.49603174603174605,
+      "features_count": 7
+    },
+    "ensemble": {
+      "test_accuracy": 0.4801587301587302,
+      "features_count": 16
+    }
+  },
+  "improvements": {
+    "vix_enhanced": {
+      "absolute_improvement": 0.023809523809523836,
+      "relative_improvement": 5.042016806722695
+    },
+    "ensemble": {
+      "absolute_improvement": 0.007936507936507964,
+      "relative_improvement": 1.6806722689075688
+    }
+  },
+  "recommendations": [
+    "Best performing model: vix_enhanced (49.6%)",
+    "VIX integration shows potential for market regime awareness",
+    "Ensemble methods provide stability over single models",
+    "Feature engineering with lagged returns improves predictability"
+  ]
+}

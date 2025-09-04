@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Chart Fix Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        
+        /* 메인 대시보드 스타일 복사 */
+        .sp500-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+        
+        .sp500-container { width: 100%; }
+        
+        .sp500-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        
+        .sp500-chart-section {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .sp500-price-info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .sp500-current-price, .sp500-prediction {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        canvas { width: 100% !important; height: 100% !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 메인 대시보드 차트 수정 최종 테스트</h1>
+        
+        <div id="test-messages">
+            <div class="status info">🚀 최종 수정사항 테스트 시작...</div>
+        </div>
+
+        <div class="section">
+            <h2>수정 사항 요약</h2>
+            <div class="status info">
+                ✅ SP500Widget 초기화 지연 로직 추가 (Chart.js 로딩 대기)<br>
+                ✅ 로딩 메시지가 전체 위젯을 덮어쓰지 않도록 차트 섹션만 교체<br>  
+                ✅ 차트 섹션 복원 기능 추가 (ensureChartSection)<br>
+                ✅ 캐시 버스팅 버전 업데이트 (v=20250902_7)
+            </div>
+        </div>
+
+        <!-- 메인 대시보드와 동일한 구조 -->
+        <div class="section">
+            <h2>메인 대시보드 SP500 위젯 복제 테스트</h2>
+            <div id="widget-status" class="status info">위젯 테스트 중...</div>
+            
+            <section class="sp500-widget" style="grid-column: 1 / -1; margin-bottom: 2rem">
+                <div class="sp500-container">
+                    <div class="sp500-header">
+                        <h3>S&P 500 실시간 가격 & 예측</h3>
+                        <span id="sp500-last-update" class="last-update"></span>
+                    </div>
+                    
+                    <!-- 메인 차트 섹션 -->
+                    <div class="sp500-chart-section">
+                        <canvas
+                            id="sp500-30day-chart"
+                            width="800"
+                            height="400"
+                        ></canvas>
+                    </div>
+                    
+                    <!-- 가격 정보 섹션 -->
+                    <div class="sp500-price-info-section">
+                        <div class="sp500-current-price">
+                            <span class="price-label">현재 가격</span>
+                            <span id="sp500-current-price" class="price-value">$5,527.45</span>
+                            <span id="sp500-price-change" class="price-change positive">+84.85 (+1.54%)</span>
+                        </div>
+                        <div class="sp500-prediction">
+                            <span class="prediction-label">AI 예측</span>
+                            <span id="sp500-predicted-price" class="prediction-value">$5,612.30</span>
+                            <span id="sp500-prediction-confidence" class="confidence">신뢰도: 87%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Chart.js 로드 (메인 대시보드와 동일) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 최신 SP500Widget만 로드 -->
+    <script src="js/sp500-widget.js?v=20250902_7"></script>
+
+    <script>
+        function addMessage(message, type = 'info') {
+            console.log(message);
+            const messageDiv = document.getElementById('test-messages');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            messageDiv.appendChild(div);
+        }
+
+        function updateStatus(id, message, type = 'info') {
+            const element = document.getElementById(id);
+            if (element) {
+                element.className = `status ${type}`;
+                element.innerHTML = message;
+            }
+        }
+
+        // 메인 대시보드 시뮬레이션 테스트
+        async function testMainDashboardFix() {
+            addMessage('🔧 메인 대시보드 차트 수정사항 테스트 시작', 'info');
+            
+            // 1. Chart.js 로딩 확인
+            if (typeof Chart === 'undefined') {
+                addMessage('❌ Chart.js 로드 실패', 'error');
+                updateStatus('widget-status', '❌ Chart.js 로드 실패', 'error');
+                return;
+            }
+            addMessage('✅ Chart.js 로드 성공', 'success');
+
+            // 2. SP500Widget 클래스 확인
+            if (typeof SP500Widget === 'undefined') {
+                addMessage('❌ SP500Widget 클래스 로드 실패', 'error');
+                updateStatus('widget-status', '❌ SP500Widget 클래스 로드 실패', 'error');
+                return;
+            }
+            addMessage('✅ SP500Widget 클래스 로드 성공', 'success');
+
+            // 3. 위젯 요소 확인
+            const widgetElement = document.querySelector('.sp500-widget');
+            const canvasElement = document.getElementById('sp500-30day-chart');
+            
+            if (!widgetElement || !canvasElement) {
+                addMessage('❌ 필요한 HTML 요소 없음', 'error');
+                updateStatus('widget-status', '❌ HTML 요소 누락', 'error');
+                return;
+            }
+            addMessage('✅ HTML 요소 확인 완료', 'success');
+
+            // 4. 수동으로 SP500Widget 초기화 (실제 메인 대시보드 시뮬레이션)
+            try {
+                updateStatus('widget-status', '🚀 SP500Widget 초기화 중...', 'info');
+                addMessage('🚀 SP500Widget 인스턴스 생성 중...', 'info');
+                
+                const widget = new SP500Widget();
+                window.testWidget = widget; // 디버깅용
+                
+                addMessage('✅ SP500Widget 인스턴스 생성 완료', 'success');
+                
+                // 위젯 초기화
+                await widget.init();
+                
+                addMessage('✅ SP500Widget 초기화 완료', 'success');
+                updateStatus('widget-status', '✅ 위젯 초기화 성공! 차트가 표시되어야 함', 'success');
+                
+                // 차트 상태 확인
+                setTimeout(() => {
+                    if (widget.chart && widget.chart.canvas) {
+                        addMessage('✅ 차트 객체 생성 확인됨', 'success');
+                        addMessage('🎉 메인 대시보드 차트 수정 완료!', 'success');
+                    } else {
+                        addMessage('⚠️ 차트 객체가 생성되지 않음', 'warning');
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addMessage(`❌ SP500Widget 초기화 실패: ${error.message}`, 'error');
+                updateStatus('widget-status', `❌ 초기화 실패: ${error.message}`, 'error');
+                console.error('Widget 초기화 오류:', error);
+            }
+        }
+
+        // 페이지 로드 후 테스트 시작
+        document.addEventListener('DOMContentLoaded', () => {
+            addMessage('📄 DOM 로드 완료', 'info');
+            
+            // Chart.js 로딩을 위해 잠시 대기
+            setTimeout(() => {
+                testMainDashboardFix();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

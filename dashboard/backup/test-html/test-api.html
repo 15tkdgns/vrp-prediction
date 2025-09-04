@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실제 API 연동 테스트</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 2rem; 
+            background: #f5f6fa;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin: 2rem 0; 
+            padding: 1rem; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        .result { 
+            background: #f8f9fa; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-radius: 4px; 
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .btn { 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 0.5rem;
+        }
+        .btn:hover { background: #0056b3; }
+        .stats { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 1rem; 
+            margin: 1rem 0;
+        }
+        .stat-card { 
+            background: #f8f9fa; 
+            padding: 1rem; 
+            border-radius: 4px; 
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 실제 API 연동 테스트</h1>
+        <p>Mock/Random 데이터에서 실제 API 데이터로의 전환 테스트</p>
+        
+        <div class="stats" id="api-stats">
+            <div class="stat-card">
+                <h3>APIService 상태</h3>
+                <div id="api-service-status">로딩 중...</div>
+            </div>
+            <div class="stat-card">
+                <h3>Yahoo Finance API</h3>
+                <div id="yahoo-api-status">테스트 대기</div>
+            </div>
+            <div class="stat-card">
+                <h3>총 API 호출</h3>
+                <div id="api-call-count">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>성공률</h3>
+                <div id="success-rate">0%</div>
+            </div>
+        </div>
+
+        <!-- S&P 500 API 테스트 -->
+        <div class="test-section">
+            <h2>📈 S&P 500 실제 데이터 테스트</h2>
+            <button class="btn" onclick="testSP500API()">S&P 500 데이터 가져오기</button>
+            <button class="btn" onclick="testMultipleStocks()">주요 종목 데이터 가져오기</button>
+            <div id="sp500-result" class="result">결과가 여기에 표시됩니다...</div>
+        </div>
+
+        <!-- 주식 데이터 테스트 -->
+        <div class="test-section">
+            <h2>📊 주식 데이터 API 테스트</h2>
+            <button class="btn" onclick="testStockData()">실제 주식 데이터 로드</button>
+            <button class="btn" onclick="testDataManager()">DataManager API 테스트</button>
+            <div id="stock-result" class="result">결과가 여기에 표시됩니다...</div>
+        </div>
+
+        <!-- 뉴스 데이터 테스트 -->
+        <div class="test-section">
+            <h2>📰 뉴스 데이터 API 테스트</h2>
+            <button class="btn" onclick="testNewsData()">실제 뉴스 데이터 로드</button>
+            <div id="news-result" class="result">결과가 여기에 표시됩니다...</div>
+        </div>
+
+        <!-- 성능 테스트 -->
+        <div class="test-section">
+            <h2>⚡ API 성능 테스트</h2>
+            <button class="btn" onclick="performanceTest()">성능 측정 (10회 호출)</button>
+            <div id="performance-result" class="result">결과가 여기에 표시됩니다...</div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/api-service.js"></script>
+    <script src="js/data-manager.js"></script>
+    
+    <script>
+        let apiCallCount = 0;
+        let successCount = 0;
+        
+        // 통계 업데이트
+        function updateStats() {
+            document.getElementById('api-call-count').textContent = apiCallCount;
+            const successRate = apiCallCount > 0 ? Math.round((successCount / apiCallCount) * 100) : 0;
+            document.getElementById('success-rate').textContent = successRate + '%';
+        }
+        
+        // API 호출 추적
+        function trackAPICall(success) {
+            apiCallCount++;
+            if (success) successCount++;
+            updateStats();
+        }
+        
+        // APIService 상태 확인
+        async function checkAPIServiceStatus() {
+            const statusEl = document.getElementById('api-service-status');
+            const yahooEl = document.getElementById('yahoo-api-status');
+            
+            if (window.apiService) {
+                statusEl.textContent = '✅ 로드됨';
+                statusEl.className = 'success';
+                
+                try {
+                    const status = await window.apiService.checkAPIStatus();
+                    yahooEl.textContent = status.yahooFinance ? '✅ 연결됨' : '❌ 오류';
+                    yahooEl.className = status.yahooFinance ? 'success' : 'error';
+                } catch (error) {
+                    yahooEl.textContent = '❌ 테스트 실패';
+                    yahooEl.className = 'error';
+                }
+            } else {
+                statusEl.textContent = '❌ 로드 실패';
+                statusEl.className = 'error';
+                yahooEl.textContent = '❌ 불가능';
+                yahooEl.className = 'error';
+            }
+        }
+        
+        // S&P 500 API 테스트
+        async function testSP500API() {
+            const resultEl = document.getElementById('sp500-result');
+            resultEl.textContent = '🔄 S&P 500 데이터 로딩 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const startTime = Date.now();
+                const sp500Data = await window.apiService.getSP500Current();
+                const endTime = Date.now();
+                
+                trackAPICall(true);
+                
+                resultEl.textContent = `✅ S&P 500 데이터 로드 성공! (${endTime - startTime}ms)
+                
+현재 가격: $${sp500Data.current}
+변동률: ${sp500Data.change}%
+거래량: ${sp500Data.volume?.toLocaleString() || 'N/A'}
+타임스탬프: ${new Date().toLocaleString()}
+데이터 소스: Yahoo Finance API`;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                trackAPICall(false);
+                resultEl.textContent = `❌ S&P 500 API 호출 실패:
+                
+에러: ${error.message}
+시간: ${new Date().toLocaleString()}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // 여러 주식 데이터 테스트
+        async function testMultipleStocks() {
+            const resultEl = document.getElementById('sp500-result');
+            resultEl.textContent = '🔄 주요 종목 데이터 로딩 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const startTime = Date.now();
+                const stockData = await window.apiService.getRealStockData(['AAPL', 'MSFT', 'GOOGL', 'AMZN']);
+                const endTime = Date.now();
+                
+                trackAPICall(true);
+                
+                let resultText = `✅ 주요 종목 데이터 로드 성공! (${endTime - startTime}ms)
+로드된 종목 수: ${stockData.length}
+
+`;
+                
+                stockData.forEach(stock => {
+                    resultText += `${stock.ticker}: $${stock.current_price} (${stock.change_percent.toFixed(2)}%) [${stock.data_source}]
+`;
+                });
+                
+                resultEl.textContent = resultText;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                trackAPICall(false);
+                resultEl.textContent = `❌ 주식 데이터 API 호출 실패:
+                
+에러: ${error.message}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // 주식 데이터 테스트
+        async function testStockData() {
+            const resultEl = document.getElementById('stock-result');
+            resultEl.textContent = '🔄 주식 데이터 매니저 테스트 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const startTime = Date.now();
+                const dataManager = new OptimizedDataManager();
+                const stockData = await dataManager.loadStockData();
+                const endTime = Date.now();
+                
+                trackAPICall(true);
+                
+                resultEl.textContent = `✅ DataManager 주식 데이터 로드 성공! (${endTime - startTime}ms)
+
+로드된 데이터: ${stockData.length}개
+첫 번째 종목: ${stockData[0]?.ticker || 'N/A'} - $${stockData[0]?.current_price || 'N/A'}
+데이터 소스: ${stockData[0]?.data_source || 'Unknown'}
+신뢰도: ${stockData[0]?.confidence || 'N/A'}%`;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                trackAPICall(false);
+                resultEl.textContent = `❌ 주식 데이터 로드 실패:
+                
+에러: ${error.message}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // DataManager 전체 테스트
+        async function testDataManager() {
+            const resultEl = document.getElementById('stock-result');
+            resultEl.textContent = '🔄 DataManager 전체 기능 테스트 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const startTime = Date.now();
+                const dataManager = new OptimizedDataManager();
+                const allData = await dataManager.loadAllData();
+                const endTime = Date.now();
+                
+                trackAPICall(true);
+                
+                resultEl.textContent = `✅ DataManager 전체 테스트 성공! (${endTime - startTime}ms)
+
+주식 데이터: ${allData.stocks.length}개
+뉴스 데이터: ${allData.news.length}개  
+성능 지표: ${allData.metrics.accuracy ? '로드됨' : '없음'}
+차트 데이터: ${Object.keys(allData.charts).length}개`;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                trackAPICall(false);
+                resultEl.textContent = `❌ DataManager 테스트 실패:
+                
+에러: ${error.message}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // 뉴스 데이터 테스트
+        async function testNewsData() {
+            const resultEl = document.getElementById('news-result');
+            resultEl.textContent = '🔄 뉴스 데이터 로딩 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const startTime = Date.now();
+                const newsData = await window.apiService.getRealNewsData();
+                const endTime = Date.now();
+                
+                trackAPICall(true);
+                
+                resultEl.textContent = `✅ 뉴스 데이터 로드 성공! (${endTime - startTime}ms)
+
+감정 점수: ${newsData[0].sentiment_score}
+전체 감정: ${newsData[0].overall_sentiment}
+신뢰도: ${(newsData[0].confidence * 100).toFixed(1)}%
+뉴스 수: ${newsData[0].news_count}개
+기사 수: ${newsData[0].articles.length}개`;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                trackAPICall(false);
+                resultEl.textContent = `❌ 뉴스 데이터 로드 실패:
+                
+에러: ${error.message}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // 성능 테스트
+        async function performanceTest() {
+            const resultEl = document.getElementById('performance-result');
+            resultEl.textContent = '🔄 성능 테스트 실행 중...';
+            resultEl.className = 'result warning';
+            
+            try {
+                const testCount = 10;
+                const times = [];
+                let successfulCalls = 0;
+                
+                for (let i = 0; i < testCount; i++) {
+                    const startTime = Date.now();
+                    try {
+                        await window.apiService.getSP500Current();
+                        const endTime = Date.now();
+                        times.push(endTime - startTime);
+                        successfulCalls++;
+                        trackAPICall(true);
+                    } catch (error) {
+                        trackAPICall(false);
+                    }
+                    
+                    // 0.5초 지연 (API 제한 방지)
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                const avgTime = times.length > 0 ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : 0;
+                const minTime = times.length > 0 ? Math.min(...times) : 0;
+                const maxTime = times.length > 0 ? Math.max(...times) : 0;
+                const successRate = Math.round((successfulCalls / testCount) * 100);
+                
+                resultEl.textContent = `✅ 성능 테스트 완료!
+
+총 호출: ${testCount}회
+성공: ${successfulCalls}회 (${successRate}%)
+평균 응답 시간: ${avgTime}ms
+최소 응답 시간: ${minTime}ms
+최대 응답 시간: ${maxTime}ms`;
+                resultEl.className = 'result success';
+                
+            } catch (error) {
+                resultEl.textContent = `❌ 성능 테스트 실패:
+                
+에러: ${error.message}`;
+                resultEl.className = 'result error';
+            }
+        }
+        
+        // 초기화
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🧪 API 테스트 페이지 로드됨');
+            
+            // APIService 로드 대기
+            let attempts = 0;
+            while (!window.apiService && attempts < 50) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            // 상태 확인
+            await checkAPIServiceStatus();
+            
+            // 5초마다 상태 업데이트
+            setInterval(checkAPIServiceStatus, 5000);
+        });
+    </script>
+</body>
+</html>
