@@ -1,0 +1,24 @@
+{
+  "individual_models": {
+    "RandomForest": {
+      "train_accuracy": 0.978688524590164,
+      "training_time": 0.610695,
+      "n_features": 101
+    },
+    "GradientBoosting": {
+      "train_accuracy": 1.0,
+      "training_time": 0.657446,
+      "n_features": 101
+    },
+    "XGBoost": {
+      "train_accuracy": 0.9978142076502732,
+      "training_time": 0.244016,
+      "n_features": 101
+    }
+  },
+  "ensemble": {
+    "train_accuracy": 0.9989071038251366,
+    "training_time": 1.47558,
+    "n_models": 3
+  }
+}

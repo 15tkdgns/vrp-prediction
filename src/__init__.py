@@ -1,26 +1,29 @@
 """
-AI Stock Prediction System - Source Package
-S&P500 주식 이벤트 탐지 및 예측을 위한 AI 시스템
+Refactored Stock Prediction System
+
+A comprehensive, modular stock prediction system with clean architecture.
+
+Key Features:
+- Modular design with separation of concerns
+- Configuration management
+- Structured logging
+- Comprehensive error handling  
+- Advanced feature engineering
+- Multiple ensemble methods
+- Model factory pattern
+- Type hints and documentation
+
+Architecture:
+- core/: Configuration, logging, exceptions
+- data/: Data loading and preprocessing
+- features/: Feature engineering and selection
+- models/: Model creation and ensemble methods
+- training/: Complete training pipeline
 """
 
-__version__ = "1.0.0"
-__author__ = "AI Stock Prediction Team"
-__description__ = "AI-powered S&P500 stock event detection and prediction system"
+__version__ = "2.0.0"
+__author__ = "Stock Prediction AI System"
+__description__ = "Modular stock prediction system with advanced ML techniques"
 
-# 패키지 레벨 임포트 (선택적)
-try:
-    from .utils.system_orchestrator import SystemOrchestrator
-    from .models.model_training import SP500EventDetectionModel
-    from .core.data_collection_pipeline import SP500DataCollector
-    
-    __all__ = [
-        'SystemOrchestrator', 
-        'SP500EventDetectionModel', 
-        'SP500DataCollector',
-        '__version__',
-        '__author__',
-        '__description__'
-    ]
-except ImportError:
-    # 의존성이 없을 경우 패키지만 정의
-    __all__ = ['__version__', '__author__', '__description__']
+# Core imports for easy access (avoid circular imports)
+__all__ = ['__version__', '__author__', '__description__']

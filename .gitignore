@@ -118,9 +118,27 @@ lerna-debug.log*
 .yarn-integrity
 .parcel-cache
 
-# Generated dashboard directories
-dashboard/data/
-dashboard/src/
+# Project specific data and models
+data/raw/*.json
+data/processed/
+data/models/*.pkl
+data/models/*.h5
+data/models/*.joblib
+
+# Performance profiling
+*.prof
+*.lprof
+*.mprof
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+test-results/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
 
 # Virtual environment
 new_venv/

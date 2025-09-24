@@ -1,0 +1,182 @@
+# 기본 설정 파일 - 모든 환경의 공통 설정
+app:
+  name: "SP500 Volatility Prediction System"
+  version: "2.0.0"
+  description: "변동성 예측 AI 시스템"
+
+# 데이터 관련 설정
+data:
+  # 기본 데이터 소스
+  symbol: "SPY"
+  period: "5y"
+  interval: "1d"
+
+  # 디렉토리 구조
+  directories:
+    raw: "data/raw"
+    processed: "data/processed"
+    models: "data/models"
+    results: "data/results"
+    config: "data/config"
+
+  # 데이터 검증
+  validation:
+    enable_leak_detection: true
+    strict_mode: true
+    max_missing_ratio: 0.05
+    min_samples: 100
+
+  # 특성 엔지니어링
+  features:
+    technical_indicators:
+      - "sma_20"
+      - "sma_50"
+      - "rsi"
+      - "macd"
+      - "bollinger_bands"
+      - "atr"
+      - "volatility"
+
+    lookback_window: 20
+    volatility_window: 20
+    use_advanced_features: true
+
+# 모델 관련 설정
+models:
+  # 지원 모델 타입
+  supported_types:
+    - "random_forest"
+    - "gradient_boosting"
+    - "xgboost"
+    - "lstm"
+    - "ensemble"
+
+  # 기본 모델 설정
+  default_config:
+    random_forest:
+      n_estimators: 300
+      max_depth: 15
+      min_samples_split: 5
+      min_samples_leaf: 2
+      random_state: 42
+
+    gradient_boosting:
+      n_estimators: 200
+      learning_rate: 0.1
+      max_depth: 8
+      subsample: 0.8
+      random_state: 42
+
+    xgboost:
+      n_estimators: 300
+      max_depth: 8
+      learning_rate: 0.1
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+
+    lstm:
+      hidden_size: 128
+      num_layers: 3
+      dropout: 0.3
+      sequence_length: 20
+      batch_size: 64
+      epochs: 100
+
+  # 앙상블 설정
+  ensemble:
+    voting_strategy: "soft"
+    stacking_cv: 5
+    meta_learner_hidden_size: 64
+    use_neural_meta_learner: true
+
+# 훈련 관련 설정
+training:
+  # 교차 검증
+  validation:
+    method: "time_series_split"
+    n_splits: 5
+    test_size: 0.2
+    purged_window: 5  # 데이터 누출 방지
+
+  # GPU 설정
+  gpu:
+    enable: true
+    device_id: 0
+    mixed_precision: false
+
+  # 최적화
+  optimization:
+    enable_hyperparameter_tuning: false
+    early_stopping_patience: 20
+    max_epochs: 1000
+
+  # 성능 메트릭
+  metrics:
+    primary: "f1_score"
+    secondary: ["accuracy", "precision", "recall", "roc_auc"]
+    regression: ["mse", "mae", "r2_score"]
+
+# 평가 및 검증
+evaluation:
+  # 백테스팅
+  backtesting:
+    start_date: "2020-01-01"
+    end_date: "2024-12-31"
+    rebalance_frequency: "monthly"
+
+  # 통계적 유의성
+  statistical_tests:
+    enable: true
+    significance_level: 0.05
+    multiple_testing_correction: "bonferroni"
+
+  # 성능 임계값
+  performance_thresholds:
+    min_accuracy: 0.45
+    min_f1_score: 0.40
+    max_overfitting_ratio: 0.1
+
+# 로깅 설정
+logging:
+  level: "INFO"
+  format: "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
+  file_handler:
+    enable: true
+    filename: "logs/app.log"
+    max_bytes: 10485760  # 10MB
+    backup_count: 5
+
+  console_handler:
+    enable: true
+    colorize: true
+
+# 시스템 설정
+system:
+  # 경고 및 에러
+  warnings:
+    filter_warnings: true
+    treat_warnings_as_errors: false
+
+  # 재현성
+  reproducibility:
+    random_seed: 42
+    deterministic: true
+
+  # 성능
+  performance:
+    multiprocessing: true
+    n_jobs: -1
+    memory_limit: "8GB"
+
+# 보안 설정
+security:
+  # API 키 (환경 변수에서 로드)
+  api_keys:
+    newsapi: "${NEWSAPI_KEY}"
+    yfinance_proxy: "${YFINANCE_PROXY}"
+
+  # 데이터 보호
+  data_protection:
+    encrypt_sensitive_data: false
+    anonymize_results: false

@@ -1,0 +1,55 @@
+# 1. 데이터 유출 없는 노이즈 제거 및 피처 엔지니어링 파이프라인
+from sklearn.pipeline import Pipeline
+
+# VMD_Denoise: 훈련 데이터에만 fit하고 test 데이터는 transform만 수행하는 커스텀 클래스
+# Feature_Engineering: 기술적 지표, 뉴스/소셜미디어 감성 등 대체 데이터 추가
+pipeline = Pipeline(
+    ('feature_generator', Feature_Engineering()) # 대체 데이터 통합 [3, 4])
+
+# 훈련 데이터로 파이프라인 학습 및 변환
+X_train_processed = pipeline.fit_transform(X_train)
+# 테스트 데이터는 학습된 파이프라인으로 변환만 수행
+X_test_processed = pipeline.transform(X_test)
+# 2. 서로 다른 강점을 가진 베이스 모델 3가지 선택
+base_models = {
+    'lstm': LSTMModel(),              # 시계열 순차 패턴 학습 [5, 6]
+    'transformer': TransformerModel(),  # 전역적 장기 패턴 인식 [5, 7]
+    'xgboost': XGBoostClassifier()    # 피처 간 비선형 상호작용 포착 [8]
+}
+# 3. 데이터 유출을 막는 가장 엄격한 튜닝: 중첩 교차 검증 (Nested CV)
+from sklearn.model_selection import GridSearchCV, cross_val_score
+
+# PurgedKFold: 금융 시계열 데이터 유출을 막기 위해 Purging과 Embargo가 적용된 CV 분할기 [9, 10]
+
+# 내부 루프: 훈련 데이터 내에서 최적 하이퍼파라미터 탐색
+inner_cv = PurgedKFold(n_splits=5, purge_size=5, embargo_size=5)
+grid_search = GridSearchCV(estimator=XGBoostClassifier(), param_grid=params, cv=inner_cv, scoring='neg_log_loss')
+
+# 외부 루프: 모델의 최종 성능을 객관적으로 평가
+outer_cv = PurgedKFold(n_splits=10, purge_size=5, embargo_size=5)
+
+# grid_search 객체 자체를 평가하여, 튜닝 과정이 최종 평가에 영향을 주지 않도록 함
+# 이 결과는 튜닝이 완료된 모델의 '진짜' 성능 추정치임
+final_scores = cross_val_score(grid_search, X=X_train_processed, y=y_train, cv=outer_cv)
+# 4. 동적 앙상블 및 최종 강건성 검증
+
+# 4-1. 최근 성과 기반 동적 가중치 부여 (의사 코드)
+def get_dynamic_weights(models, recent_data):
+    # 최근 50일간 각 모델의 로그 손실(Log Loss) 계산 [11]
+    losses = {name: log_loss(model.predict(recent_data)) for name, model in models.items()}
+    # 손실이 낮을수록 높은 가중치 부여 (Softmax) [12]
+    weights = softmax([1 / loss for loss in losses.values()])
+    return weights
+
+# 4-2. 조합 교차 검증(CPCV)으로 다수의 백테스트 경로 생성
+from skfolio.model_selection import CombinatorialPurgedCV
+
+# 10개 그룹 중 8개를 테스트셋으로 사용하는 조합으로 수많은 경로 생성 [13, 14, 10, 15]
+cpvc = CombinatorialPurgedCV(n_folds=10, n_test_folds=8, purged_size=5, embargo_size=5)
+
+# backtester는 거래 비용과 슬리피지를 반드시 포함해야 함 [16, 17, 18, 19, 20, 21]
+# 최종 모델(앙상블)을 CPCV로 평가하여 샤프 비율의 '분포'를 얻음
+sharpe_ratios_distribution = backtester(ensemble_model, X, y, cv=cpvc)
+
+# 최종 선택 기준: 분포의 하위 5% 샤프 비율 > 0 이고, DSR이 유의미한 모델 [22]
+print(f"샤프 비율 분포 (95% 신뢰구간): {np.percentile(sharpe_ratios_distribution, )}")

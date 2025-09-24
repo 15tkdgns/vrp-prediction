@@ -1,10 +1,24 @@
-# AI 주식 예측 시스템 (S&P500 이벤트 탐지)
+# 🚀 SPY Analysis - Advanced Stock Prediction System
+
+[![CI/CD Pipeline](https://github.com/your-repo/spy-analysis/workflows/CI/badge.svg)](https://github.com/your-repo/spy-analysis/actions)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## 📊 프로젝트 개요
 
-이 프로젝트는 S&P500에 포함된 주식의 가격, 거래량, 변동성 등 다양한 데이터를 분석하여 주가에 영향을 미칠 수 있는 **주요 이벤트를 실시간으로 탐지하고 예측**하는 머신러닝 시스템입니다.
+**완전히 재설계된 고성능 주식 분석 시스템**으로, 유지보수성, 확장성, 안정성을 대폭 향상시킨 엔터프라이즈급 솔루션입니다. S&P500 주식의 고급 분석과 실시간 예측을 제공합니다.
 
 단순한 모델 개발을 넘어, **데이터 수집, 전처리, 모델 훈련, 실시간 테스트, 결과 분석 및 리포팅**에 이르는 전체 파이프라인을 자동화하고 체계적으로 관리하는 것을 목표로 합니다.
+
+### 🎯 현재 프로젝트 상태 (v8.0)
+
+**Kaggle Safe Ensemble v8.0 구현 완료** - Kaggle 2024 상위권 기법 기반 앙상블 시스템
+- **핵심 성능**: Direction Accuracy 56.0%, MAE 0.62%
+- **구현된 기법**: Multi-Level Stacking, Time-Aware Blending, K-Fold Ensemble, Advanced CV Strategy
+- **안전성**: 엄격한 데이터 누수 방지 시스템 적용
+- **특성 수**: 7-14개 (모델별 상이, 보수적 선택)
+- **검증 데이터**: 1,208개 예측 (2020-2024, 5년간 SPY 데이터)
 
 ### ✨ 주요 기능 및 특징
 
@@ -24,6 +38,104 @@
   - **데이터 수집**: yfinance, NewsAPI
   - **시각화**: Matplotlib, Seaborn, Plotly, Chart.js
   - **기타**: TA (Technical Analysis), TextBlob, SHAP, LIME
+
+## ⚠️ 개발 가이드라인 및 필수 규칙
+
+### 🚫 절대 금지 사항
+
+#### 1. 하드코딩 금지 (No Hardcoding)
+```python
+# ❌ 금지: 하드코딩된 값들
+accuracy = 89.2  # 실제 계산 없이 고정값 사용
+model_name = "XGBoost Model (3.27% MAPE)"  # 가짜 성능 표시
+chart_data = [1.2, 1.5, 1.8, 2.1]  # 임의의 차트 데이터
+
+# ✅ 권장: 동적 계산 및 실제 데이터 사용
+accuracy = calculate_model_accuracy(predictions, actual)
+model_name = f"{best_model.name} ({best_model.performance:.2f}% MAE)"
+chart_data = load_real_performance_data()
+```
+
+#### 2. Random 사용 금지 (No Random Data)
+```python
+# ❌ 금지: 무작위 데이터 생성
+price = 450 + random.random() * 10  # 가짜 주가 데이터
+volume = random.randint(100000, 1000000)  # 임의 거래량
+performance = random.uniform(0.8, 0.95)  # 가짜 성능 지표
+
+# ✅ 권장: 실제 데이터 및 결정론적 방법 사용
+price = fetch_real_stock_price(symbol, date)
+volume = get_actual_trading_volume(symbol, date)
+performance = calculate_actual_model_performance(model, test_data)
+```
+
+#### 3. 데이터 누출 금지 (No Data Leakage)
+```python
+# ❌ 금지: 미래 정보 사용 (데이터 누수)
+features['future_price'] = df['Close'].shift(-1)  # 미래 가격 정보
+features['target_derived'] = df['Returns'] * 0.5  # 타겟 변수 기반 특성
+rsi = calculate_rsi(df['Close'])  # 현재 시점 포함 계산
+
+# ✅ 권장: 과거 정보만 사용 (시점 t-1 기준)
+features['price_lag1'] = df['Close'].shift(1)  # 과거 가격만 사용
+features['volume_lag1'] = df['Volume'].shift(1)  # 과거 거래량만 사용
+rsi = calculate_rsi(df['Close'].shift(1))  # t-1 시점까지만 계산
+```
+
+### 📋 데이터 누수 방지 체크리스트
+
+#### Time Series 특성 생성 규칙
+- ✅ 모든 features는 t-1 시점 이하의 데이터만 사용
+- ✅ Technical indicators는 현재 시점 제외하고 계산
+- ✅ Moving averages, volatility 등 rolling 계산 시 현재 시점 제외
+- ✅ Cross-validation 시 TimeSeriesSplit 사용 (무작위 split 금지)
+
+#### 모델 검증 규칙
+- ✅ Walk-Forward Validation 적용
+- ✅ Test set은 시간 순서상 가장 최근 데이터
+- ✅ Feature selection도 각 fold 내부에서 수행
+- ✅ Hyperparameter tuning 시 미래 정보 사용 금지
+
+### 🎯 품질 보증 방법
+
+#### 1. 코드 검증
+```bash
+# 하드코딩 검출
+grep -r "accuracy.*=" src/ | grep -v "calculate\|compute"
+grep -r "performance.*=" src/ | grep -v "evaluate\|measure"
+
+# Random 사용 검출
+grep -r "random\." src/
+grep -r "np\.random" src/
+
+# 데이터 누수 의심 패턴 검출
+grep -r "shift(-" src/  # 미래 정보 shift
+grep -r "\.iloc\[.*:\]" src/  # 잘못된 인덱싱
+```
+
+#### 2. 성능 지표 현실성 검증
+- **Direction Accuracy**: 50-95% (일일 수익률 예측 현실적 범위)
+- **R²**: -0.8 ~ 0.8
+
+#### 3. 대시보드 데이터 검증
+- ✅ 모든 성능 지표는 실제 계산된 값 사용
+- ✅ Chart 데이터는 실제 모델 결과에서 로드
+- ✅ Mock 데이터는 개발/테스트 목적으로만 사용
+
+### 🔍 리뷰 가이드라인
+
+**Pull Request 전 체크사항:**
+1. [ ] 하드코딩된 성능 값 없음
+2. [ ] Random 함수 사용 없음 (시드 고정 제외)
+3. [ ] 모든 features가 t-1 이하 시점 데이터 사용
+4. [ ] TimeSeriesSplit 검증 적용
+5. [ ] 현실적인 성능 지표 범위 내
+6. [ ] 실제 데이터 기반 대시보드 업데이트
+
+**코드 리뷰 시 확인사항:**
+- 성능 지표가 비현실적으로 높지 않은가? (99%+ 정확도 의심)
+- Feature engineering에서 미래 정보 사용하지 않았는가?
+- Mock 데이터가 production 코드에 포함되지 않았는가?
 
 ## 🚀 설치 및 실행 방법
 
@@ -73,60 +185,4 @@ python3 -m http.server 8080
 
 ```bash
 python src/models/model_training.py
-```
-
-## 📂 프로젝트 구조
-
-```
-/
-├── config/               # 프로젝트 설정 파일 (requirements.txt)
-├── dashboard/            # 실시간 웹 대시보드
-│   ├── index.html        # 메인 대시보드 페이지
-│   ├── styles.css        # CSS 스타일시트
-│   ├── dashboard.js      # JavaScript 로직
-│   └── README.md         # 대시보드 문서
-├── data/                 # 원본, 전처리, 모델 파일
-├── docs/                 # 프로젝트 문서 및 리포트
-│   ├── reports/          # 모델 분석, 테스트 결과 리포트
-│   └── specifications/   # 데이터 명세 등
-├── results/              # 분석 결과 시각화 자료
-├── src/                  # 핵심 소스 코드
-│   ├── analysis/         # 결과 분석 및 리포트 생성
-│   ├── core/             # 데이터 수집, 전처리 등 핵심 기능
-│   ├── models/           # 모델 훈련 및 관리
-│   ├── testing/          # 모델 테스트 및 검증
-│   └── utils/            # 시스템 총괄, 유틸리티
-└── tests/                # 단위 테스트 코드 (추가 예정)
-```
-
-## 📈 결과 요약
-
-### 모델 성능 비교
-
-- **Gradient Boosting** 모델이 테스트 정확도 1.0, 오버피팅 지표 0.0으로 가장 우수한 성능을 보였습니다.
-- 모든 모델이 97% 이상의 높은 테스트 정확도를 달성했습니다.
-
-![모델 성능 분석](results/analysis/comprehensive_model_analysis.png)
-
-### 특성 중요도
-
-- **`volatility` (변동성)**, **`volume` (거래량)**, **`price_spike` (가격 급등)** 등이 이벤트 예측에 가장 중요한 영향을 미치는 특성으로 나타났습니다.
-
-![특성 중요도](results/analysis/feature_importance.png)
-
-## 🖥️ 실시간 대시보드
-
-웹 기반 실시간 대시보드는 다음 기능들을 제공합니다:
-
-- **시스템 상태 모니터링**: 모델 정확도, 처리 속도, 활성 모델 수 등 실시간 지표
-- **예측 결과 표시**: 주요 종목들의 실시간 예측 결과 및 신뢰도
-- **성능 추이 차트**: Chart.js 기반 인터랙티브 차트로 모델 성능 추이 시각화
-- **시스템 로그**: 실시간 시스템 로그 스트리밍
-- **특성 중요도**: 모델이 사용하는 특성들의 중요도 시각화
-
-## 🔮 향후 개선 방향
-
-- ✅ **실시간 대시보드**: Chart.js 기반 반응형 웹 대시보드 완료
-- **모델 최적화**: 하이퍼파라미터 튜닝 및 최신 딥러닝 아키텍처(e.g., Transformer) 도입
-- **WebSocket 연결**: 실시간 데이터 스트리밍을 위한 WebSocket 서버 구현
-- **단위 테스트 코드**: 코드의 안정성 확보를 위한 `tests` 디렉토리 내 테스트 케이스 추가
+``

@@ -6,7 +6,11 @@ from transformers import pipeline
 # Using a small, instruction-tuned model for demonstration.
 # For production, consider a larger, more capable model like 'google/flan-t5-large' or 'meta-llama/Llama-2-7b-chat-hf'
 # (requires authentication and sufficient resources).
-generator = pipeline("text2text-generation", model="google/flan-t5-small")
+try:
+    generator = pipeline("text2text-generation", model="google/flan-t5-small")
+except Exception as e:
+    print(f"⚠️ Warning: LLM feature extractor initialization failed - {e}")
+    generator = None
 
 
 def extract_llm_features(news_df: pd.DataFrame) -> pd.DataFrame:

@@ -5,25 +5,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development Commands
+시니어 개발자, AI교수 입장에서 코딩.
+자만 금지, 비판적이고 객관적으로.
+3대 금기사항 : 데이터 하드코딩, Random 데이터 임의 삽입, 데이터누출로 인한 성능 95%이상.
+설명은 항상 한글로.
+감정적이거나 추상적인 말 하지말고, 논리적이고 명확한 단어 및 표현.
+
+**Static Mode (Recommended - No API Required):**
 ```bash
-# Run the complete AI stock prediction pipeline
-python src/utils/system_orchestrator.py
+# Run the complete static analysis system
+PYTHONPATH=/root/workspace python3 src/utils/system_orchestrator.py
 
-# Train models individually  
-python src/models/model_training.py
-
-# Run realtime testing
-python src/testing/run_realtime_test.py
-
-# Start dashboard server
-cd dashboard && python server.py
-# or use npm commands:
+# Start static dashboard (no server required)
 cd dashboard && npm run dev
-cd dashboard && npm start
+
+# View static dashboard in browser
+open http://localhost:8080/index.html
+
+# Quick system status check
+PYTHONPATH=/root/workspace python3 -c "
+from src.utils.system_orchestrator import SystemOrchestrator
+orchestrator = SystemOrchestrator()
+result = orchestrator.initialize_components()
+print(f'System Status: {\"Ready\" if result else \"Error\"}')"
+```
+
+**Model Training (if needed):**
+```bash
+# Train models individually  
+PYTHONPATH=/root/workspace python3 src/models/model_training.py
 
 # Install Python dependencies
 pip install -r config/requirements.txt
+```
 
+**Code Quality:**
+```bash
 # Code formatting and linting
 black .
 ruff .
@@ -69,50 +86,60 @@ npm run format     # Format with Prettier
 
 ## Architecture Overview
 
-This is an AI stock prediction system for S&P500 event detection with the following key components:
+This is a **Static AI Analysis System** for S&P500 event detection that works entirely with pre-processed data. **No API keys or real-time data feeds required.**
 
-### Core System Architecture
+### System Mode: Static Analysis
+- ✅ **No External APIs Required** - All analysis uses existing datasets
+- ✅ **Pre-trained Models** - Gradient Boosting (0.91% MAPE), Random Forest, Ensemble
+- ✅ **Static HTML Dashboard** - Self-contained, works without servers
+- ✅ **2025 H1 Data Analysis** - Complete analysis of SPY performance through June 2025
+- ✅ **Comprehensive Reports** - Feature importance, model performance, news impact analysis
 
-- **`src/core/`**: Core data collection and preprocessing pipeline
-  - `data_collection_pipeline.py`: Automated S&P500 data collection
-  - `advanced_preprocessing.py`: Advanced feature engineering and preprocessing techniques
-  - `api_config.py`: API configuration management
+### Core System Architecture (Static Mode)
 
-- **`src/models/`**: Machine learning model training and management
-  - `model_training.py`: Main model training class (SP500EventDetectionModel)
-  - Supports Random Forest, Gradient Boosting, LSTM, and XGBoost models
-  - Models are saved to `data/models/` directory
+- **`src/core/`**: Data validation and preprocessing
+  - ⚠️ `data_collection_pipeline.py`: Legacy (not used in static mode)
+  - ✅ `advanced_preprocessing.py`: Feature engineering (pre-processed data available)
+  - ✅ `api_config.py`: Static mode stub (prevents import errors)
 
-- **`src/testing/`**: Real-time testing and validation systems
-  - `realtime_testing_system.py`: Real-time prediction testing
-  - `validation_checker.py`: Data validation and quality checks
-  - `run_realtime_test.py`: Standalone realtime test runner
+- **`src/models/`**: Pre-trained model management
+  - ✅ `model_training.py`: Model training class (models already trained)
+  - ✅ **Available Models**: Gradient Boosting (Best: 0.91% MAPE), Random Forest, Ensemble
+  - ✅ **Model Files**: Stored in `data/models/` directory (ready to use)
 
-- **`src/analysis/`**: Result analysis and reporting
-  - Generates comprehensive model performance reports
-  - Creates visualizations and performance metrics
-  - XAI (Explainable AI) monitoring with SHAP/LIME
+- **`src/testing/`**: Static data validation systems
+  - ✅ `validation_checker.py`: Data quality checks and validation
+  - ⚠️ `realtime_testing_system.py`: Legacy (static mode uses existing results)
+  - ✅ **Static Results**: Available in `data/raw/realtime_results.json`
 
-- **`src/utils/`**: System orchestration and utilities
-  - `system_orchestrator.py`: Main system coordinator that runs the full pipeline
-  - Handles GPU detection and resource management
-  - Coordinates all system components
+- **`src/analysis/`**: Pre-generated analysis reports
+  - ✅ **Performance Reports**: `data/raw/model_performance.json`
+  - ✅ **Feature Analysis**: `data/raw/feature_analysis_enhanced.json`
+  - ✅ **XAI Results**: SHAP/LIME analysis completed
 
-### Dashboard Architecture
+- **`src/utils/`**: Static system orchestration
+  - ✅ `system_orchestrator.py`: Static mode coordinator
+  - ✅ **GPU Detection**: Automatic hardware detection
+  - ✅ **Component Management**: Validates existing data and models
 
-- **Single Page Application (SPA)** with client-side routing
-- **Real-time monitoring** dashboard with Chart.js visualizations
-- **Modular JavaScript architecture** in `dashboard/src/` with components pattern
-- **Python Flask server** (`dashboard/server.py`) for API endpoints
-- **Responsive design** with CSS Grid/Flexbox
+### Dashboard Architecture (Static Mode)
 
-### Data Pipeline
+- ✅ **Static HTML Dashboard** (`dashboard/index.html`) - No server required
+- ✅ **Self-contained Visualization** - All data embedded in JavaScript
+- ✅ **3-Tab Analysis Interface**:
+  - **Price Predictions**: SPY price vs AI model predictions
+  - **Feature Impact**: SHAP-based feature importance analysis  
+  - **News Impact**: Sentiment analysis and market impact correlation
+- ✅ **Responsive Design** - Bootstrap 5 + Chart.js + FontAwesome
+- ✅ **No Backend Dependencies** - Pure client-side application
 
-1. **Data Collection**: Automated S&P500 stock data collection via yfinance
-2. **Feature Engineering**: Technical indicators, volatility metrics, price spikes
-3. **Model Training**: Multiple ML models trained on historical event data
-4. **Real-time Testing**: Live prediction testing with performance monitoring
-5. **Dashboard Visualization**: Real-time results displayed in web interface
+### Static Data Pipeline
+
+1. ✅ **Historical Data**: 2025 H1 SPY data (41 data points) pre-processed
+2. ✅ **Feature Engineering**: Technical indicators, volatility, sentiment analysis completed
+3. ✅ **Model Training**: 3 optimized models trained and evaluated
+4. ✅ **Performance Analysis**: Comprehensive model comparison and validation
+5. ✅ **Static Dashboard**: All results visualized in standalone HTML
 
 ### Key Data Paths
 
@@ -130,17 +157,19 @@ This is an AI stock prediction system for S&P500 event detection with the follow
 - **Models**: Random Forest, Gradient Boosting, LSTM, XGBoost
 - **Visualization**: Chart.js (frontend), matplotlib/plotly (backend)
 
-### System Entry Points
+### System Entry Points (Static Mode)
 
-- **Full Pipeline**: Run `system_orchestrator.py` for complete automated execution
-- **Model Training Only**: Run `model_training.py` for training models
-- **Dashboard**: Start `dashboard/server.py` for web interface
-- **Real-time Testing**: Run `run_realtime_test.py` for live predictions
+- ✅ **Static Analysis**: `PYTHONPATH=/root/workspace python3 src/utils/system_orchestrator.py`
+- ✅ **Dashboard**: `cd dashboard && npm run dev` → `http://localhost:8080/index.html`
+- ✅ **Model Training** (optional): `python3 src/models/model_training.py`
+- ⚠️ **Legacy Real-time** (not needed): API-dependent components disabled
 
-### Important Notes
+### Important Notes (Static Mode)
 
-- GPU detection is automatically handled by the system orchestrator
-- System generates comprehensive logs in `data/raw/` directory
-- Dashboard connects to data files in `../data/raw/` for real-time updates
-- All models support both batch and real-time prediction modes
-- The system includes data validation and quality checking mechanisms
+- ✅ **No API Keys Required** - System works entirely with existing data
+- ✅ **GPU Detection** - Automatically handled by system orchestrator  
+- ✅ **Pre-processed Data** - All analysis results available in `data/raw/`
+- ✅ **Static Dashboard** - Self-contained HTML, no server dependencies
+- ✅ **Model Performance** - Best model: Gradient Boosting (0.91% MAPE)
+- ✅ **Data Validation** - Comprehensive quality checking included
+- ⚠️ **API Warnings** - Expected and harmless (system works without APIs)

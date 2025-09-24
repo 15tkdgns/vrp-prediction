@@ -1,0 +1,93 @@
+# 개발 환경 설정 - default.yaml을 상속받아 개발용 설정 오버라이드
+
+# 개발용 데이터 설정
+data:
+  # 개발시 작은 데이터셋 사용
+  period: "1y"  # 기본값 5y에서 1y로 단축
+  sample_size: 1000  # 개발용 샘플 크기 제한
+
+  # 개발용 디렉토리
+  directories:
+    raw: "data/dev/raw"
+    processed: "data/dev/processed"
+    models: "data/dev/models"
+    results: "data/dev/results"
+
+  # 완화된 검증
+  validation:
+    strict_mode: false
+    max_missing_ratio: 0.1
+    min_samples: 50
+
+# 개발용 모델 설정 (빠른 훈련을 위해 축소)
+models:
+  default_config:
+    random_forest:
+      n_estimators: 50  # 300 → 50
+      max_depth: 10     # 15 → 10
+
+    gradient_boosting:
+      n_estimators: 50  # 200 → 50
+      max_depth: 6      # 8 → 6
+
+    xgboost:
+      n_estimators: 50  # 300 → 50
+      max_depth: 6      # 8 → 6
+
+    lstm:
+      hidden_size: 64   # 128 → 64
+      num_layers: 2     # 3 → 2
+      epochs: 20        # 100 → 20
+      batch_size: 32    # 64 → 32
+
+# 개발용 훈련 설정
+training:
+  validation:
+    n_splits: 3       # 5 → 3
+    test_size: 0.3    # 0.2 → 0.3
+
+  optimization:
+    early_stopping_patience: 5  # 20 → 5
+    max_epochs: 50               # 1000 → 50
+
+# 개발용 로깅 (더 상세한 로그)
+logging:
+  level: "DEBUG"
+  console_handler:
+    enable: true
+    colorize: true
+  file_handler:
+    enable: true
+    filename: "logs/dev.log"
+
+# 개발용 성능 설정
+system:
+  performance:
+    multiprocessing: false  # 디버깅 편의
+    n_jobs: 2              # CPU 사용량 제한
+
+# 개발용 평가 설정
+evaluation:
+  performance_thresholds:
+    min_accuracy: 0.40     # 0.45 → 0.40 (개발용 완화)
+    min_f1_score: 0.35     # 0.40 → 0.35
+    max_overfitting_ratio: 0.15  # 0.1 → 0.15
+
+# 개발 도구
+development:
+  # 디버깅
+  debug:
+    enable_profiling: true
+    save_intermediate_results: true
+    plot_training_curves: true
+
+  # 실험 추적
+  experiment_tracking:
+    enable: true
+    save_experiments: true
+    track_hyperparameters: true
+
+  # 테스트 데이터
+  test_data:
+    generate_synthetic: true
+    use_mock_apis: true

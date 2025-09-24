@@ -98,15 +98,16 @@ def assess_model_overall(analysis):
     training = analysis["training_results"]
     realtime = analysis["realtime_results"]
 
-    # 훈련 성능 평가
-    if training["test_accuracy"] >= 0.95:
-        training_grade = "A"
-    elif training["test_accuracy"] >= 0.90:
-        training_grade = "B"
-    elif training["test_accuracy"] >= 0.80:
-        training_grade = "C"
+    # 훈련 성능 평가 (시장 예측 기준 조정)
+    # S&P500 예측은 50% 이상이면 의미있음 (무작위보다 좋음)
+    if training["test_accuracy"] >= 0.75:
+        training_grade = "A"  # 매우 우수
+    elif training["test_accuracy"] >= 0.65:
+        training_grade = "B"  # 우수
+    elif training["test_accuracy"] >= 0.55:
+        training_grade = "C"  # 양호
     else:
-        training_grade = "D"
+        training_grade = "D"  # 개선 필요
 
     # 오버피팅 평가
     if training["overfitting_gap"] <= 0.05:
@@ -147,7 +148,7 @@ def get_model_strengths(analysis):
     training = analysis["training_results"]
     realtime = analysis["realtime_results"]
 
-    if training["test_accuracy"] >= 0.95:
+    if training["test_accuracy"] >= 0.75:
         strengths.append("높은 예측 정확도")
 
     if training["overfitting_gap"] <= 0.05:
@@ -171,7 +172,7 @@ def get_model_weaknesses(analysis):
     if training["overfitting_gap"] > 0.1:
         weaknesses.append("오버피팅 가능성")
 
-    if training["test_accuracy"] < 0.90:
+    if training["test_accuracy"] < 0.55:
         weaknesses.append("낮은 예측 정확도")
 
     if not realtime["tested"]:
@@ -196,7 +197,7 @@ def get_model_recommendations(analysis):
     if not realtime["tested"]:
         recommendations.append("실시간 성능 테스트 필요")
 
-    if training["test_accuracy"] < 0.90:
+    if training["test_accuracy"] < 0.65:
         recommendations.append("하이퍼파라미터 튜닝")
         recommendations.append("특성 엔지니어링 개선")
 
