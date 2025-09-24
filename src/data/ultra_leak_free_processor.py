@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 🔒 Ultra Leak-Free Data Processor
-완전한 데이터 유출 제거를 위한 초강력 처리기
+100% 데이터 유출 차단을 위한 Ultra-Safe 처리기
 """
 
 import numpy as np
@@ -44,7 +44,7 @@ class UltraLeakFreeProcessor:
         return df_clean
 
     def create_ultra_safe_returns(self, df):
-        """완전히 안전한 수익률 계산"""
+        """Ultra-safe 수익률 계산"""
         print("🔒 안전한 수익률 계산...")
 
         # pct_change()는 첫 번째 행을 NaN으로 만듦 (올바름)
@@ -57,8 +57,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_moving_averages(self, df):
-        """완전히 안전한 이동평균 생성"""
-        print("🔒 완전히 안전한 이동평균 생성...")
+        """Ultra-safe 이동평균 생성"""
+        print("🔒 Ultra-safe 이동평균 생성...")
 
         windows = [5, 10, 20, 50]
 
@@ -85,8 +85,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_rsi(self, df):
-        """완전히 안전한 RSI 생성"""
-        print("🔒 완전히 안전한 RSI 생성...")
+        """Ultra-safe RSI 생성"""
+        print("🔒 Ultra-safe RSI 생성...")
 
         window = 14
 
@@ -110,8 +110,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_bollinger_bands(self, df):
-        """완전히 안전한 볼린저밴드 생성"""
-        print("🔒 완전히 안전한 볼린저밴드 생성...")
+        """Ultra-safe 볼린저밴드 생성"""
+        print("🔒 Ultra-safe 볼린저밴드 생성...")
 
         window = 20
 
@@ -139,8 +139,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_volatility(self, df):
-        """완전히 안전한 변동성 지표"""
-        print("🔒 완전히 안전한 변동성 지표 생성...")
+        """Ultra-safe 변동성 지표"""
+        print("🔒 Ultra-safe 변동성 지표 생성...")
 
         windows = [5, 10, 20]
 
@@ -161,8 +161,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_volume_features(self, df):
-        """완전히 안전한 거래량 특징"""
-        print("🔒 완전히 안전한 거래량 특징 생성...")
+        """Ultra-safe 거래량 특징"""
+        print("🔒 Ultra-safe 거래량 특징 생성...")
 
         windows = [10, 20]
 
@@ -185,8 +185,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_atr(self, df):
-        """완전히 안전한 ATR 생성"""
-        print("🔒 완전히 안전한 ATR 생성...")
+        """Ultra-safe ATR 생성"""
+        print("🔒 Ultra-safe ATR 생성...")
 
         window = 14
 
@@ -209,8 +209,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_momentum(self, df):
-        """완전히 안전한 모멘텀 특징"""
-        print("🔒 완전히 안전한 모멘텀 특징 생성...")
+        """Ultra-safe 모멘텀 특징"""
+        print("🔒 Ultra-safe 모멘텀 특징 생성...")
 
         periods = [5, 10]
 
@@ -228,8 +228,8 @@ class UltraLeakFreeProcessor:
         return df
 
     def create_ultra_safe_lag_features(self, df):
-        """완전히 안전한 Lag 특징들"""
-        print("🔒 완전히 안전한 Lag 특징 생성...")
+        """Ultra-safe Lag 특징들"""
+        print("🔒 Ultra-safe Lag 특징 생성...")
 
         # Lag를 적용할 기본 특징들
         base_features = ['Returns', 'RSI', 'Volatility_20', 'BB_position']
@@ -242,7 +242,7 @@ class UltraLeakFreeProcessor:
             for lag in range(1, max_lag + 1):
                 lag_col = f"{base_feature}_lag_{lag}"
 
-                # 완전히 안전한 lag 적용
+                # Ultra-safe lag 적용
                 df[lag_col] = df[base_feature].shift(lag)
 
                 # 초강력 검증
@@ -256,7 +256,7 @@ class UltraLeakFreeProcessor:
                 # 최종 검증: 첫 lag개 행은 반드시 NaN
                 assert df[lag_col].iloc[:lag].isna().all(), f"{lag_col} 첫 {lag}행이 NaN이 아님!"
 
-                self.feature_log.append(f"{lag_col}: 완전한 시간적 분리 확인")
+                self.feature_log.append(f"{lag_col}: 100% 시간적 분리 확인")
 
         return df
 
@@ -348,7 +348,7 @@ class UltraLeakFreeProcessor:
 
         # 결과 출력
         if len(issues) == 0:
-            print("   ✅ 모든 검증 통과! 완전한 데이터 무결성 달성!")
+            print("   ✅ 모든 검증 통과! 100% 데이터 무결성 달성!")
         else:
             print(f"   ❌ {len(issues)}개 이슈 발견:")
             for issue in issues:
@@ -383,7 +383,7 @@ class UltraLeakFreeProcessor:
         validation_passed = self.ultra_validation_check(df_final)
 
         if validation_passed:
-            print("\\n🎉 완전한 데이터 무결성 달성!")
+            print("\\n🎉 100% 데이터 무결성 달성!")
         else:
             print("\\n⚠️ 일부 검증 실패 - 추가 수정 필요")
 

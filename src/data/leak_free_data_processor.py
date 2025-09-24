@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 class LeakFreeDataProcessor:
     def __init__(self):
-        """완전히 누출 없는 데이터 처리기"""
+        """Leak-free 데이터 처리기"""
         self.feature_creation_log = []
 
     def create_safe_lag_features(self, df, columns, max_lag=5):
@@ -140,8 +140,8 @@ class LeakFreeDataProcessor:
         return df
 
     def create_completely_safe_dataset(self, input_file, output_file):
-        """완전히 안전한 데이터셋 생성"""
-        print("🔒 완전히 누출 없는 데이터셋 생성 시작...")
+        """Ultra-safe 데이터셋 생성"""
+        print("🔒 Leak-free 데이터셋 생성 시작...")
 
         # 1. 원시 데이터 로드
         df = pd.read_csv(input_file)

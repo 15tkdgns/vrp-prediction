@@ -2,7 +2,7 @@
 """
 궁극의 안전한 성능 향상 시스템
 모든 캐글 우승자 기법을 통합한 마스터 시스템
-CLAUDE.md 기준 완전 준수하며 최고 성능 달성
+CLAUDE.md 기준 100% 준수하며 최적 성능 달성
 """
 
 import sys
@@ -315,7 +315,7 @@ class UltimateSafePerformanceSystem:
         logger.info(f"{'='*100}")
         for criterion, status in claude_compliance.items():
             logger.info(f"{criterion}: {'✅' if status else '❌'}")
-        logger.info(f"전체 CLAUDE.md 준수: {'✅ 완전 준수' if all_compliant else '❌ 위반'}")
+        logger.info(f"전체 CLAUDE.md 준수: {'✅ 100% 준수' if all_compliant else '❌ 위반'}")
 
         # 8. 최종 결과 정리
         final_success = final_results['all_safe'] and all_compliant
@@ -323,7 +323,7 @@ class UltimateSafePerformanceSystem:
         logger.info(f"\n{'='*100}")
         logger.info(f"🎯 궁극의 시스템 최종 결과")
         logger.info(f"{'='*100}")
-        logger.info(f"최종 성공: {'✅ 완전 성공' if final_success else '❌ 실패'}")
+        logger.info(f"최종 성공: {'✅ 100% 성공' if final_success else '❌ 실패'}")
 
         return {
             'final_performance': final_results,
@@ -401,10 +401,10 @@ def main():
         print(f"   총 특징 수: {results['total_features']}개")
 
         print(f"\n🛡️ 안전성: {'✅ 통과' if final_perf['all_safe'] else '❌ 실패'}")
-        print(f"📋 CLAUDE.md 준수: {'✅ 완전 준수' if all(results['claude_compliance'].values()) else '❌ 위반'}")
+        print(f"📋 CLAUDE.md 준수: {'✅ 100% 준수' if all(results['claude_compliance'].values()) else '❌ 위반'}")
 
         if results['final_success']:
-            print(f"\n🎉 대성공: 궁극의 안전한 성능 향상 시스템 완전 구축!")
+            print(f"\n🎉 성공: Ultimate-safe 성능 향상 시스템 100% 구축!")
             print(f"🏆 캐글 우승자 기법을 모두 안전하게 통합한 마스터피스!")
         else:
             print(f"\n⚠️ 주의: 일부 기준 미달 - 시스템이 너무 보수적일 수 있음")
