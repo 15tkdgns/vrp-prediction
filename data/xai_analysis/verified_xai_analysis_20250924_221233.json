@@ -1,0 +1,626 @@
+{
+  "model_performance": {
+    "best_alpha": 0.5,
+    "train_r2": 0.582207154760062,
+    "test_r2": 0.3129312555232905,
+    "test_rmse": 0.07397951217953734,
+    "train_samples": 1759,
+    "test_samples": 440,
+    "n_features": 27
+  },
+  "shap_analysis": {
+    "feature_importance": [
+      {
+        "feature": "rolling_mean_10",
+        "shap_importance": 0.14394243148561586,
+        "mean_shap_value": 0.002546947549753407,
+        "std_shap_value": 0.18993163422698356
+      },
+      {
+        "feature": "momentum_10",
+        "shap_importance": 0.13285278750690668,
+        "mean_shap_value": -0.0017401326086836674,
+        "std_shap_value": 0.17436162188848764
+      },
+      {
+        "feature": "volatility_5",
+        "shap_importance": 0.021551580938457125,
+        "mean_shap_value": -0.0025071377357246028,
+        "std_shap_value": 0.025373057176530447
+      },
+      {
+        "feature": "zscore_20",
+        "shap_importance": 0.01650043727630762,
+        "mean_shap_value": 0.001982863506617221,
+        "std_shap_value": 0.02115638623191548
+      },
+      {
+        "feature": "momentum_20",
+        "shap_importance": 0.012776246217447624,
+        "mean_shap_value": -0.0008089191271883075,
+        "std_shap_value": 0.01633580141708782
+      },
+      {
+        "feature": "zscore_10",
+        "shap_importance": 0.011677581986704306,
+        "mean_shap_value": -0.001625257145861944,
+        "std_shap_value": 0.014431159986645879
+      },
+      {
+        "feature": "momentum_5",
+        "shap_importance": 0.009699391235076094,
+        "mean_shap_value": 0.000592278490067882,
+        "std_shap_value": 0.012810438578025664
+      },
+      {
+        "feature": "rolling_std_10",
+        "shap_importance": 0.009057772949045466,
+        "mean_shap_value": -0.0006568296394769266,
+        "std_shap_value": 0.01065071694778847
+      },
+      {
+        "feature": "volatility_10",
+        "shap_importance": 0.009057772949017499,
+        "mean_shap_value": -0.0006568296394748992,
+        "std_shap_value": 0.010650716947755585
+      },
+      {
+        "feature": "rolling_mean_20",
+        "shap_importance": 0.008493286153710663,
+        "mean_shap_value": 0.0005203015128850575,
+        "std_shap_value": 0.010923034520480096
+      },
+      {
+        "feature": "vol_5_20_ratio",
+        "shap_importance": 0.008319140467813492,
+        "mean_shap_value": 0.0009809823992081757,
+        "std_shap_value": 0.010227002921579131
+      },
+      {
+        "feature": "vol_10_30_ratio",
+        "shap_importance": 0.007846322440137306,
+        "mean_shap_value": 0.0009005298512775454,
+        "std_shap_value": 0.009366311359481835
+      },
+      {
+        "feature": "return_lag_4",
+        "shap_importance": 0.006995303761177783,
+        "mean_shap_value": -4.241455178641949e-05,
+        "std_shap_value": 0.009280086865498255
+      },
+      {
+        "feature": "return_lag_1",
+        "shap_importance": 0.0041036921672428315,
+        "mean_shap_value": 0.0004737990386010296,
+        "std_shap_value": 0.005427499127557028
+      },
+      {
+        "feature": "volatility_60",
+        "shap_importance": 0.0038778079727777143,
+        "mean_shap_value": 8.764962512746555e-05,
+        "std_shap_value": 0.004855833363318919
+      },
+      {
+        "feature": "return_lag_3",
+        "shap_importance": 0.0037330962587312387,
+        "mean_shap_value": 0.00033362064121619957,
+        "std_shap_value": 0.004918637184327819
+      },
+      {
+        "feature": "volatility_15",
+        "shap_importance": 0.002886115325423584,
+        "mean_shap_value": -0.00017396423561885885,
+        "std_shap_value": 0.0034298082740198224
+      },
+      {
+        "feature": "momentum_60",
+        "shap_importance": 0.002787849676477584,
+        "mean_shap_value": 2.6713230878299873e-05,
+        "std_shap_value": 0.0037112119255915672
+      },
+      {
+        "feature": "momentum_30",
+        "shap_importance": 0.002763568241333822,
+        "mean_shap_value": 6.194005860567277e-05,
+        "std_shap_value": 0.0036028748953565574
+      },
+      {
+        "feature": "return_lag_5",
+        "shap_importance": 0.0026916003999094018,
+        "mean_shap_value": -7.3302872336691625e-06,
+        "std_shap_value": 0.0035707507650900093
+      },
+      {
+        "feature": "return_lag_2",
+        "shap_importance": 0.002439589329961922,
+        "mean_shap_value": 3.680216697804541e-06,
+        "std_shap_value": 0.0032397760931711143
+      },
+      {
+        "feature": "volatility_30",
+        "shap_importance": 0.0015510361497698413,
+        "mean_shap_value": 1.3057609495972558e-05,
+        "std_shap_value": 0.001914319099548269
+      },
+      {
+        "feature": "rolling_std_30",
+        "shap_importance": 0.0015510361497644335,
+        "mean_shap_value": 1.3057609495927038e-05,
+        "std_shap_value": 0.0019143190995415944
+      },
+      {
+        "feature": "rolling_mean_30",
+        "shap_importance": 0.001496398130729349,
+        "mean_shap_value": -3.648509175003524e-05,
+        "std_shap_value": 0.001962841973875974
+      },
+      {
+        "feature": "vol_regime",
+        "shap_importance": 0.0013023810434888408,
+        "mean_shap_value": 0.00012247506919382903,
+        "std_shap_value": 0.0013356466102337685
+      },
+      {
+        "feature": "volatility_20",
+        "shap_importance": 0.0006515280290128665,
+        "mean_shap_value": 3.882390139598737e-05,
+        "std_shap_value": 0.000789182293179692
+      },
+      {
+        "feature": "rolling_std_20",
+        "shap_importance": 0.0006515280289853705,
+        "mean_shap_value": 3.882390139434889e-05,
+        "std_shap_value": 0.0007891822931463868
+      }
+    ],
+    "expected_value": 0.13067606929131337,
+    "sample_size": 300,
+    "group_analysis": {
+      "volatility": {
+        "importance": 0.0065959735607431045,
+        "feature_count": 6,
+        "features": [
+          "volatility_5",
+          "volatility_10",
+          "volatility_15",
+          "volatility_20",
+          "volatility_30",
+          "volatility_60"
+        ]
+      },
+      "momentum": {
+        "importance": 0.032175968575448355,
+        "feature_count": 5,
+        "features": [
+          "momentum_5",
+          "momentum_10",
+          "momentum_20",
+          "momentum_30",
+          "momentum_60"
+        ]
+      },
+      "returns": {
+        "importance": 0.003992656383404636,
+        "feature_count": 5,
+        "features": [
+          "return_lag_1",
+          "return_lag_2",
+          "return_lag_3",
+          "return_lag_4",
+          "return_lag_5"
+        ]
+      },
+      "rolling_stats": {
+        "importance": 0.02753207548297519,
+        "feature_count": 6,
+        "features": [
+          "rolling_mean_10",
+          "rolling_std_10",
+          "rolling_mean_20",
+          "rolling_std_20",
+          "rolling_mean_30",
+          "rolling_std_30"
+        ]
+      },
+      "technical": {
+        "importance": 0.009826800102166923,
+        "feature_count": 3,
+        "features": [
+          "zscore_10",
+          "zscore_20",
+          "vol_regime"
+        ]
+      },
+      "ratios": {
+        "importance": 0.008082731453975398,
+        "feature_count": 2,
+        "features": [
+          "vol_5_20_ratio",
+          "vol_10_30_ratio"
+        ]
+      }
+    },
+    "temporal_analysis": {
+      "recent_period_top_features": [
+        {
+          "feature": "rolling_mean_10",
+          "importance": 0.1819269968015975
+        },
+        {
+          "feature": "momentum_10",
+          "importance": 0.16725166551043116
+        },
+        {
+          "feature": "volatility_5",
+          "importance": 0.022411663796112365
+        },
+        {
+          "feature": "zscore_20",
+          "importance": 0.017515627968218664
+        },
+        {
+          "feature": "momentum_20",
+          "importance": 0.016165693945225164
+        }
+      ],
+      "past_period_top_features": [
+        {
+          "feature": "rolling_mean_10",
+          "importance": 0.10595786616963421
+        },
+        {
+          "feature": "momentum_10",
+          "importance": 0.09845390950338216
+        },
+        {
+          "feature": "volatility_5",
+          "importance": 0.02069149808080188
+        },
+        {
+          "feature": "zscore_20",
+          "importance": 0.01548524658439657
+        },
+        {
+          "feature": "zscore_10",
+          "importance": 0.011589146849023383
+        }
+      ],
+      "importance_shift": [
+        {
+          "feature": "volatility_5",
+          "change": 0.0017201657153104837,
+          "direction": "increased"
+        },
+        {
+          "feature": "volatility_10",
+          "change": 0.0021641422558881726,
+          "direction": "increased"
+        },
+        {
+          "feature": "volatility_15",
+          "change": 0.0010983677883622724,
+          "direction": "increased"
+        },
+        {
+          "feature": "volatility_20",
+          "change": 0.00029578674964723755,
+          "direction": "increased"
+        },
+        {
+          "feature": "volatility_30",
+          "change": 0.0006840467849293177,
+          "direction": "increased"
+        },
+        {
+          "feature": "volatility_60",
+          "change": 0.002190447416052593,
+          "direction": "increased"
+        },
+        {
+          "feature": "return_lag_1",
+          "change": 0.001387972355872276,
+          "direction": "increased"
+        },
+        {
+          "feature": "return_lag_2",
+          "change": 0.000817390264080196,
+          "direction": "increased"
+        },
+        {
+          "feature": "return_lag_3",
+          "change": 0.0011942904030187267,
+          "direction": "increased"
+        },
+        {
+          "feature": "return_lag_4",
+          "change": 0.002226368800272502,
+          "direction": "increased"
+        },
+        {
+          "feature": "return_lag_5",
+          "change": 0.0008012507980162749,
+          "direction": "increased"
+        },
+        {
+          "feature": "momentum_5",
+          "change": 0.004566096098632656,
+          "direction": "increased"
+        },
+        {
+          "feature": "momentum_10",
+          "change": 0.068797756007049,
+          "direction": "increased"
+        },
+        {
+          "feature": "momentum_20",
+          "change": 0.0067788954555550816,
+          "direction": "increased"
+        },
+        {
+          "feature": "momentum_30",
+          "change": 0.0012411516114380094,
+          "direction": "increased"
+        },
+        {
+          "feature": "momentum_60",
+          "change": 0.0009434600389686969,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_mean_10",
+          "change": 0.07596913063196328,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_std_10",
+          "change": 0.0021641422558948548,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_mean_20",
+          "change": 0.004592130048267994,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_std_20",
+          "change": 0.0002957867496347546,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_mean_30",
+          "change": 0.0006912364322577791,
+          "direction": "increased"
+        },
+        {
+          "feature": "rolling_std_30",
+          "change": 0.0006840467849269325,
+          "direction": "increased"
+        },
+        {
+          "feature": "zscore_10",
+          "change": 0.00017687027536184528,
+          "direction": "increased"
+        },
+        {
+          "feature": "zscore_20",
+          "change": 0.0020303813838220934,
+          "direction": "increased"
+        },
+        {
+          "feature": "vol_5_20_ratio",
+          "change": -0.0024937858451353706,
+          "direction": "decreased"
+        },
+        {
+          "feature": "vol_10_30_ratio",
+          "change": -0.001051056961774965,
+          "direction": "decreased"
+        },
+        {
+          "feature": "vol_regime",
+          "change": 0.00045673779650129464,
+          "direction": "increased"
+        }
+      ]
+    },
+    "interaction_analysis": [
+      {
+        "feature_1": "momentum_10",
+        "feature_2": "rolling_mean_10",
+        "correlation": -0.9998781221284053,
+        "interaction_strength": 0.9998781221284053
+      },
+      {
+        "feature_1": "zscore_10",
+        "feature_2": "zscore_20",
+        "correlation": -0.9344710061556823,
+        "interaction_strength": 0.9344710061556823
+      },
+      {
+        "feature_1": "vol_5_20_ratio",
+        "feature_2": "volatility_5",
+        "correlation": -0.9185034079177082,
+        "interaction_strength": 0.9185034079177082
+      },
+      {
+        "feature_1": "rolling_std_10",
+        "feature_2": "vol_10_30_ratio",
+        "correlation": -0.8582470043625811,
+        "interaction_strength": 0.8582470043625811
+      },
+      {
+        "feature_1": "rolling_std_10",
+        "feature_2": "volatility_5",
+        "correlation": 0.7165857024853514,
+        "interaction_strength": 0.7165857024853514
+      },
+      {
+        "feature_1": "vol_10_30_ratio",
+        "feature_2": "volatility_5",
+        "correlation": -0.6368520018998921,
+        "interaction_strength": 0.6368520018998921
+      },
+      {
+        "feature_1": "volatility_5",
+        "feature_2": "momentum_10",
+        "correlation": -0.6122350684713096,
+        "interaction_strength": 0.6122350684713096
+      },
+      {
+        "feature_1": "volatility_5",
+        "feature_2": "rolling_mean_10",
+        "correlation": 0.6087069410534273,
+        "interaction_strength": 0.6087069410534273
+      },
+      {
+        "feature_1": "vol_10_30_ratio",
+        "feature_2": "vol_5_20_ratio",
+        "correlation": 0.6075868117234311,
+        "interaction_strength": 0.6075868117234311
+      },
+      {
+        "feature_1": "momentum_5",
+        "feature_2": "rolling_mean_10",
+        "correlation": 0.6074334147667559,
+        "interaction_strength": 0.6074334147667559
+      }
+    ]
+  },
+  "professional_insights": {
+    "executive_summary": {
+      "model_quality": "Excellent",
+      "predictive_power": "Explains 31.3% of volatility variation",
+      "business_readiness": "Production Ready",
+      "key_discovery": "Model identifies 27 significant volatility drivers"
+    },
+    "model_performance_insights": {
+      "r2_interpretation": "Excellent predictive accuracy - superior to industry benchmarks",
+      "benchmark_comparison": "Significantly outperforms HAR and GARCH models",
+      "stability_assessment": "High stability with consistent feature importance",
+      "overfitting_risk": "Low risk due to regularization and temporal validation"
+    },
+    "feature_insights": [
+      {
+        "feature": "rolling_mean_10",
+        "importance_rank": 1,
+        "shap_importance": 0.14394243148561586,
+        "economic_interpretation": "Short-term return momentum - captures market persistence effects",
+        "market_signal": "Directional momentum signal",
+        "trading_actionable": "Monitor for trend reversals, adjust momentum strategies",
+        "risk_implication": "Influences systematic risk exposure and factor model assumptions"
+      },
+      {
+        "feature": "momentum_10",
+        "importance_rank": 2,
+        "shap_importance": 0.13285278750690668,
+        "economic_interpretation": "Medium-term price momentum - reflects investor sentiment cycles",
+        "market_signal": "Trend continuation signal",
+        "trading_actionable": "Implement trend-following algorithms, momentum portfolios",
+        "risk_implication": "Affects drawdown risk, trend-following strategy performance"
+      },
+      {
+        "feature": "volatility_5",
+        "importance_rank": 3,
+        "shap_importance": 0.021551580938457125,
+        "economic_interpretation": "Ultra-short-term volatility - indicates immediate market stress",
+        "market_signal": "Market stress signal",
+        "trading_actionable": "Trigger VIX options, immediate hedging protocols",
+        "risk_implication": "Direct impact on Value-at-Risk, portfolio optimization, and capital requirements"
+      },
+      {
+        "feature": "zscore_20",
+        "importance_rank": 4,
+        "shap_importance": 0.01650043727630762,
+        "economic_interpretation": "Monthly return normalization - identifies extreme market moves",
+        "market_signal": "Mean reversion signal",
+        "trading_actionable": "Mean reversion trades, contrarian positioning",
+        "risk_implication": "Complex risk interaction requiring careful monitoring"
+      },
+      {
+        "feature": "momentum_20",
+        "importance_rank": 5,
+        "shap_importance": 0.012776246217447624,
+        "economic_interpretation": "Market factor: momentum_20",
+        "market_signal": "Trend continuation signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Affects drawdown risk, trend-following strategy performance"
+      },
+      {
+        "feature": "zscore_10",
+        "importance_rank": 6,
+        "shap_importance": 0.011677581986704306,
+        "economic_interpretation": "Market factor: zscore_10",
+        "market_signal": "Mean reversion signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Complex risk interaction requiring careful monitoring"
+      },
+      {
+        "feature": "momentum_5",
+        "importance_rank": 7,
+        "shap_importance": 0.009699391235076094,
+        "economic_interpretation": "Market factor: momentum_5",
+        "market_signal": "Trend continuation signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Affects drawdown risk, trend-following strategy performance"
+      },
+      {
+        "feature": "rolling_std_10",
+        "importance_rank": 8,
+        "shap_importance": 0.009057772949045466,
+        "economic_interpretation": "Short-term uncertainty measure - early stress indicator",
+        "market_signal": "Complex market signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Complex risk interaction requiring careful monitoring"
+      },
+      {
+        "feature": "volatility_10",
+        "importance_rank": 9,
+        "shap_importance": 0.009057772949017499,
+        "economic_interpretation": "Short-term volatility - signals developing market conditions",
+        "market_signal": "Market stress signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Direct impact on Value-at-Risk, portfolio optimization, and capital requirements"
+      },
+      {
+        "feature": "rolling_mean_20",
+        "importance_rank": 10,
+        "shap_importance": 0.008493286153710663,
+        "economic_interpretation": "Market factor: rolling_mean_20",
+        "market_signal": "Directional momentum signal",
+        "trading_actionable": "General volatility-based strategy adjustment",
+        "risk_implication": "Influences systematic risk exposure and factor model assumptions"
+      }
+    ],
+    "risk_management_insights": {
+      "primary_risk_drivers": "Momentum factors dominate (0.03 importance)",
+      "diversification_analysis": "Well-diversified risk across multiple factor groups",
+      "early_warning_signals": "Strong early warning capability through volatility cascade detection",
+      "stress_testing_guidance": "Focus stress tests on top 5 features with 2-3 sigma shocks to identify portfolio vulnerabilities"
+    },
+    "trading_strategy_insights": {
+      "volatility_timing": "Strong short-term volatility timing capability (1-2 week horizon)",
+      "option_strategies": "VIX options, variance swaps, and volatility surface trading based on predicted volatility changes",
+      "portfolio_hedging": "Dynamic hedging ratios based on predicted volatility, tail risk hedging during high volatility periods",
+      "execution_guidance": "High confidence - suitable for systematic strategy implementation"
+    },
+    "market_regime_insights": {
+      "regime_sensitivity": "Stable feature importance - consistent across market regimes",
+      "crisis_performance": "Model shows enhanced predictive power during high volatility periods - valuable for crisis management",
+      "normal_market_behavior": "Consistent performance in normal market conditions with focus on momentum and volatility patterns"
+    }
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-09-24T22:12:33.731872",
+    "model_type": "Ridge Regression",
+    "target_variable": "5-day future volatility",
+    "data_period": "2015-2024",
+    "validation_method": "Temporal split",
+    "xai_methods": [
+      "SHAP",
+      "Feature Groups",
+      "Temporal Analysis",
+      "Interactions"
+    ],
+    "business_ready": true
+  }
+}

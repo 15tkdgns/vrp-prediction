@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPY Volatility Prediction - Performance Analysis Report</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #708090;
+            --accent-color: #4472C4;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .report-header {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            padding: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        .chart-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(45deg, #f8f9fa, white);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .metric-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .summary-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .summary-table th {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+        }
+
+        .summary-table td {
+            padding: 0.8rem 1rem;
+            border-color: var(--border-color);
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .generation-info {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container img {
+                max-width: 100%;
+            }
+
+            .section-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Chart Grid */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Navigation Pills */
+        .nav-pills .nav-link {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#top">
+                <i class="fas fa-chart-line me-2"></i>
+                SPY Volatility Prediction Analysis
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text">
+                    <i class="fas fa-calendar me-1"></i>
+                    Generated: {{ generation_date }}
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="container mt-4" id="top">
+        <div class="report-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-3">
+                        <i class="fas fa-chart-bar text-primary me-3"></i>
+                        Performance Analysis Report
+                    </h1>
+                    <p class="lead mb-0">
+                        Comprehensive analysis of Ridge Regression Volatility Predictor performance
+                        based on numerical metrics and statistical validation.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="generation-info">
+                        <strong>Report Info:</strong><br>
+                        Generated: {{ generation_timestamp }}<br>
+                        Total Charts: {{ total_charts }}<br>
+                        Model: Ridge Regression<br>
+                        Data: SPY ETF (2015-2024)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Pills -->
+        <ul class="nav nav-pills justify-content-center mb-4" id="sectionNav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#model-performance">
+                    <i class="fas fa-tachometer-alt me-1"></i>Model Performance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#feature-analysis">
+                    <i class="fas fa-search me-1"></i>Feature Analysis
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#economic-analysis">
+                    <i class="fas fa-dollar-sign me-1"></i>Economic Analysis
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#validation-results">
+                    <i class="fas fa-check-circle me-1"></i>Validation Results
+                </a>
+            </li>
+        </ul>
+
+        <!-- Key Metrics Summary -->
+        <div class="section-card mb-4">
+            <h2 class="section-header">
+                <i class="fas fa-key me-2"></i>Key Performance Metrics
+            </h2>
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-value">{{ r2_score }}</div>
+                            <div class="metric-label">R² Score</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-value">{{ rmse }}</div>
+                            <div class="metric-label">RMSE</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-value">{{ annual_return }}</div>
+                            <div class="metric-label">Annual Return</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-value">{{ volatility_reduction }}</div>
+                            <div class="metric-label">Volatility Reduction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Performance Section -->
+        <div class="section-card" id="model-performance">
+            <h2 class="section-header">
+                <i class="fas fa-chart-line me-2"></i>Model Performance Analysis
+            </h2>
+            <div class="section-content">
+                <div class="chart-grid">
+                    {% for chart in model_performance_charts %}
+                    <div class="chart-container">
+                        <div class="chart-title">{{ chart.title }}</div>
+                        <img src="{{ chart.path }}" alt="{{ chart.title }}" loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Analysis Section -->
+        <div class="section-card" id="feature-analysis">
+            <h2 class="section-header">
+                <i class="fas fa-microscope me-2"></i>Feature Analysis
+            </h2>
+            <div class="section-content">
+                <div class="chart-grid">
+                    {% for chart in feature_analysis_charts %}
+                    <div class="chart-container">
+                        <div class="chart-title">{{ chart.title }}</div>
+                        <img src="{{ chart.path }}" alt="{{ chart.title }}" loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Economic Analysis Section -->
+        <div class="section-card" id="economic-analysis">
+            <h2 class="section-header">
+                <i class="fas fa-coins me-2"></i>Economic Analysis
+            </h2>
+            <div class="section-content">
+                <div class="chart-grid">
+                    {% for chart in economic_analysis_charts %}
+                    <div class="chart-container">
+                        <div class="chart-title">{{ chart.title }}</div>
+                        <img src="{{ chart.path }}" alt="{{ chart.title }}" loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Results Section -->
+        <div class="section-card" id="validation-results">
+            <h2 class="section-header">
+                <i class="fas fa-clipboard-check me-2"></i>Validation Results
+            </h2>
+            <div class="section-content">
+                <div class="chart-grid">
+                    {% for chart in validation_results_charts %}
+                    <div class="chart-container">
+                        <div class="chart-title">{{ chart.title }}</div>
+                        <img src="{{ chart.path }}" alt="{{ chart.title }}" loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Summary Section -->
+        <div class="section-card">
+            <h2 class="section-header">
+                <i class="fas fa-database me-2"></i>Data Summary
+            </h2>
+            <div class="section-content">
+                <table class="table summary-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Model Performance Data</td>
+                            <td>
+                                <span class="status-badge {{ 'status-success' if model_performance_available else 'status-warning' }}">
+                                    {{ 'Available' if model_performance_available else 'Limited' }}
+                                </span>
+                            </td>
+                            <td>{{ samples }} samples, {{ features }} features</td>
+                        </tr>
+                        <tr>
+                            <td>XAI Analysis Data</td>
+                            <td>
+                                <span class="status-badge {{ 'status-success' if xai_analysis_available else 'status-warning' }}">
+                                    {{ 'Available' if xai_analysis_available else 'Limited' }}
+                                </span>
+                            </td>
+                            <td>SHAP feature importance analysis</td>
+                        </tr>
+                        <tr>
+                            <td>Economic Metrics</td>
+                            <td>
+                                <span class="status-badge {{ 'status-success' if economic_metrics_available else 'status-warning' }}">
+                                    {{ 'Available' if economic_metrics_available else 'Limited' }}
+                                </span>
+                            </td>
+                            <td>Backtest results with transaction costs</td>
+                        </tr>
+                        <tr>
+                            <td>Cross-Validation</td>
+                            <td>
+                                <span class="status-badge status-success">Validated</span>
+                            </td>
+                            <td>Purged K-Fold CV (5-fold, purge=5, embargo=5)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5><i class="fas fa-info-circle me-2"></i>Report Information</h5>
+                    <p class="mb-0">
+                        This report was automatically generated by the SPY Volatility Prediction System's
+                        numerical performance visualization module. All metrics are based on actual market
+                        data and validated using financial machine learning best practices.
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-0">
+                        <strong>Generated:</strong> {{ generation_timestamp }}<br>
+                        <strong>System:</strong> Ridge Regression Volatility Predictor<br>
+                        <strong>Data Period:</strong> 2015-2024 SPY ETF
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('div[id]');
+            const navLinks = document.querySelectorAll('#sectionNav .nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop <= 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Print functionality
+        function printReport() {
+            window.print();
+        }
+
+        // Add print button to navbar (optional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar .navbar-nav');
+            const printBtn = document.createElement('button');
+            printBtn.className = 'btn btn-outline-light btn-sm ms-3';
+            printBtn.innerHTML = '<i class="fas fa-print me-1"></i>Print';
+            printBtn.onclick = printReport;
+            navbar.appendChild(printBtn);
+        });
+    </script>
+</body>
+</html>

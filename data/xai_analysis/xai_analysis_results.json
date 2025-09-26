@@ -1,0 +1,254 @@
+{
+  "data_info": {
+    "samples": 981,
+    "features": 12,
+    "feature_names": [
+      "vol_5",
+      "vol_10",
+      "vol_20",
+      "return_lag_1",
+      "return_lag_2",
+      "return_lag_3",
+      "zscore_10",
+      "zscore_20",
+      "momentum_10",
+      "momentum_20",
+      "vol_5_20_ratio",
+      "vol_regime"
+    ]
+  },
+  "model_performance": {
+    "test_r2": -0.42427723507897563,
+    "test_rmse": 0.04860483627079001,
+    "train_samples": 784,
+    "test_samples": 197
+  },
+  "shap_analysis": {
+    "feature_importance": [
+      {
+        "feature": "vol_5",
+        "importance": 0.035169335519411586
+      },
+      {
+        "feature": "vol_5_20_ratio",
+        "importance": 0.018767477590318132
+      },
+      {
+        "feature": "momentum_10",
+        "importance": 0.015452897558854258
+      },
+      {
+        "feature": "zscore_20",
+        "importance": 0.014387015313924901
+      },
+      {
+        "feature": "return_lag_1",
+        "importance": 0.009928073272478376
+      },
+      {
+        "feature": "vol_10",
+        "importance": 0.009792888292949086
+      },
+      {
+        "feature": "zscore_10",
+        "importance": 0.005637696743105311
+      },
+      {
+        "feature": "momentum_20",
+        "importance": 0.005044215514465149
+      },
+      {
+        "feature": "return_lag_2",
+        "importance": 0.0035110353819083747
+      },
+      {
+        "feature": "vol_regime",
+        "importance": 0.0033896676299343103
+      },
+      {
+        "feature": "return_lag_3",
+        "importance": 0.002989410057600756
+      },
+      {
+        "feature": "vol_20",
+        "importance": 0.0026462248970335026
+      }
+    ],
+    "expected_value": 0.17954916823876912,
+    "sample_size": 500
+  },
+  "coefficient_analysis": [
+    {
+      "feature": "vol_5",
+      "coefficient": 0.07879173923302972,
+      "abs_importance": 0.07879173923302972
+    },
+    {
+      "feature": "vol_5_20_ratio",
+      "coefficient": -0.025625355449760304,
+      "abs_importance": 0.025625355449760304
+    },
+    {
+      "feature": "momentum_10",
+      "coefficient": -0.02466345824042957,
+      "abs_importance": 0.02466345824042957
+    },
+    {
+      "feature": "vol_10",
+      "coefficient": 0.02251271846295349,
+      "abs_importance": 0.02251271846295349
+    },
+    {
+      "feature": "zscore_20",
+      "coefficient": -0.0180283609330513,
+      "abs_importance": 0.0180283609330513
+    },
+    {
+      "feature": "return_lag_1",
+      "coefficient": -0.016806707674226564,
+      "abs_importance": 0.016806707674226564
+    },
+    {
+      "feature": "momentum_20",
+      "coefficient": -0.007809137029923521,
+      "abs_importance": 0.007809137029923521
+    },
+    {
+      "feature": "zscore_10",
+      "coefficient": 0.0068892815441108915,
+      "abs_importance": 0.0068892815441108915
+    },
+    {
+      "feature": "vol_20",
+      "coefficient": 0.006135908470254719,
+      "abs_importance": 0.006135908470254719
+    },
+    {
+      "feature": "return_lag_2",
+      "coefficient": -0.005958375102261432,
+      "abs_importance": 0.005958375102261432
+    },
+    {
+      "feature": "return_lag_3",
+      "coefficient": -0.005095354179755226,
+      "abs_importance": 0.005095354179755226
+    },
+    {
+      "feature": "vol_regime",
+      "coefficient": -0.003261377103793404,
+      "abs_importance": 0.003261377103793404
+    }
+  ],
+  "permutation_analysis": [
+    {
+      "feature": "vol_5_20_ratio",
+      "importance_mean": 0.5364576505612624,
+      "importance_std": 0.027163813591980713
+    },
+    {
+      "feature": "vol_5",
+      "importance_mean": 0.36001163060227576,
+      "importance_std": 0.054723744710277654
+    },
+    {
+      "feature": "zscore_20",
+      "importance_mean": 0.21716667898029035,
+      "importance_std": 0.06117406033389376
+    },
+    {
+      "feature": "zscore_10",
+      "importance_mean": 0.08358461406582748,
+      "importance_std": 0.02155415938642457
+    },
+    {
+      "feature": "momentum_10",
+      "importance_mean": 0.06937136937606522,
+      "importance_std": 0.042046995907389195
+    },
+    {
+      "feature": "momentum_20",
+      "importance_mean": 0.010742973566136316,
+      "importance_std": 0.01199789936830971
+    },
+    {
+      "feature": "return_lag_3",
+      "importance_mean": 0.002444582289009789,
+      "importance_std": 0.005342370764726837
+    },
+    {
+      "feature": "return_lag_1",
+      "importance_mean": -0.0013308696160883482,
+      "importance_std": 0.028992957960659888
+    },
+    {
+      "feature": "return_lag_2",
+      "importance_mean": -0.0020669070405694434,
+      "importance_std": 0.010934788241198626
+    },
+    {
+      "feature": "vol_regime",
+      "importance_mean": -0.002140750660636481,
+      "importance_std": 0.0019364903679336683
+    },
+    {
+      "feature": "vol_20",
+      "importance_mean": -0.012048837416479951,
+      "importance_std": 0.005508216766792363
+    },
+    {
+      "feature": "vol_10",
+      "importance_mean": -0.022558169045769193,
+      "importance_std": 0.02012452800986141
+    }
+  ],
+  "financial_insights": {
+    "model_performance": {
+      "r2_score": -0.42427723507897563,
+      "level": "\uac1c\uc120 \ud544\uc694",
+      "business_value": "\ucd94\uac00 \uc5f0\uad6c \ud544\uc694"
+    },
+    "feature_insights": [
+      {
+        "feature": "vol_5",
+        "category": "volatility",
+        "financial_meaning": "\ub2e8\uae30 \ubcc0\ub3d9\uc131 - \ucd5c\uadfc 5\uc77c \uc2dc\uc7a5 \ubd88\ud655\uc2e4\uc131",
+        "trading_application": "VIX \uc635\uc158 \uac70\ub798, \ub2e8\uae30 \ud5e4\uc9d5"
+      },
+      {
+        "feature": "vol_5_20_ratio",
+        "category": "volatility",
+        "financial_meaning": "vol_5_20_ratio\uc758 \uc2dc\uc7a5 \uc601\ud5a5",
+        "trading_application": "\uc77c\ubc18\uc801 \uac70\ub798 \uc804\ub7b5 \ud65c\uc6a9"
+      },
+      {
+        "feature": "momentum_10",
+        "category": "momentum",
+        "financial_meaning": "10\uc77c \ubaa8\uba58\ud140 - \uc911\uae30 \uac00\uaca9 \ucd94\uc138",
+        "trading_application": "\ucd94\uc138 \ucd94\uc885 \uc804\ub7b5"
+      },
+      {
+        "feature": "zscore_20",
+        "category": "technical",
+        "financial_meaning": "zscore_20\uc758 \uc2dc\uc7a5 \uc601\ud5a5",
+        "trading_application": "\uc77c\ubc18\uc801 \uac70\ub798 \uc804\ub7b5 \ud65c\uc6a9"
+      },
+      {
+        "feature": "return_lag_1",
+        "category": "returns",
+        "financial_meaning": "\uc804\uc77c \uc218\uc775\ub960 - \ub2e8\uae30 \ubaa8\uba58\ud140/\uc5ed\ubaa8\uba58\ud140 \ud6a8\uacfc",
+        "trading_application": "\uc77c\uc911 \uac70\ub798, \ub2e8\uae30 \ubc18\uc804 \uc804\ub7b5"
+      }
+    ],
+    "risk_insights": {
+      "volatility_focus": 0.4,
+      "return_focus": 0.2,
+      "primary_risk_factor": "Volatility"
+    }
+  },
+  "metadata": {
+    "analysis_date": "2025-09-24T22:09:20.032522",
+    "model_type": "Ridge Regression",
+    "target": "5-day future volatility",
+    "features_count": 12
+  }
+}

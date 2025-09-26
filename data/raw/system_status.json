@@ -1,120 +1,14 @@
 {
-  "timestamp": "2025-09-23T12:00:00.000000",
+  "timestamp": "2025-09-25T08:39:50.219623",
   "status": {
-    "validation": "complete_verified",
-    "data_leakage_elimination": "fully_eliminated",
-    "comprehensive_analysis": "single_ridge_model_verified",
-    "overall_health": "excellent",
-    "directories": "initialized",
-    "model_type": "ridge_regression_volatility_predictor",
-    "paradigm_shift": "volatility_prediction_proven_viable"
+    "validation": "passed",
+    "xai_monitoring": "active_static",
+    "realtime_testing": "static_validated",
+    "overall_health": "degraded",
+    "directories": "initialized"
   },
-  "main_model": {
-    "type": "volatility_prediction",
-    "architecture": "Ridge Regression (alpha=1.0)",
-    "target": "target_vol_5d (5-day Future Volatility)",
-    "r2_score": 0.3113,
-    "r2_std": 0.1756,
-    "goal_achievement": "211% above target (R² > 0.1)",
-    "samples": 2445,
-    "features": 31,
-    "framework": "scikit-learn",
-    "data_leakage_status": "COMPLETELY_ELIMINATED",
-    "status": "production_ready_verified",
-    "validation_method": "Purged K-Fold CV (5-fold, purge=5, embargo=5)"
-  },
-  "verified_model": {
-    "ridge_regression_volatility_predictor": {
-      "r2": 0.3113,
-      "r2_std": 0.1756,
-      "mse": 0.6887,
-      "rmse": 0.8298,
-      "mae": 0.4573,
-      "status": "PRODUCTION_READY_VERIFIED",
-      "target": "5-day Future Volatility",
-      "temporal_separation": "Complete: features ≤ t, targets ≥ t+1",
-      "data_source": "Real SPY ETF 2015-2024",
-      "benchmark_performance": "35x better than HAR model"
-    }
-  },
-  "benchmark_comparison": {
-    "har_model": {
-      "r2": 0.0088,
-      "performance_ratio": "35x worse than our model"
-    },
-    "our_model_ridge": {
-      "r2": 0.3113,
-      "performance_advantage": "3,438.6% improvement over HAR"
-    }
-  },
-  "economic_validation": {
-    "backtest_verified": true,
-    "strategy_annual_return": 0.141,
-    "benchmark_annual_return": 0.2271,
-    "volatility_reduction": 0.008,
-    "strategy_volatility": 0.1224,
-    "benchmark_volatility": 0.1304,
-    "sharpe_ratio": 0.989,
-    "max_drawdown": -0.1081,
-    "transaction_costs": 0.0474,
-    "core_value": "Risk management through volatility reduction"
-  },
-  "data_integrity": {
-    "temporal_overlap": "0% (complete separation)",
-    "feature_time_range": "t-4 to t (past 5 days)",
-    "target_time_range": "t+1 to t+5 (future 5 days)",
-    "gap": "1 day minimum",
-    "manual_verification": "100% accuracy match",
-    "purged_cv_applied": true,
-    "real_data_validation": "SPY ETF 2015-2024"
-  },
-  "key_features": [
-    "volatility_5 (coefficient=0.356, highest importance)",
-    "volatility_10",
-    "volatility_20",
-    "return_lag_1",
-    "vol_ratio_5_20"
-  ],
-  "model_parameters": {
-    "alpha": 1.0,
-    "random_state": 42,
-    "scaler": "StandardScaler",
-    "cv_method": "PurgedKFold(n_splits=5, purge_length=5, embargo_length=5)"
-  },
-  "achievement_highlights": {
-    "goal_achievement": "R² > 0.1 달성 (211% above goal)",
-    "data_integrity": "완전한 데이터 누출 제거",
-    "real_data_validation": "실제 SPY 데이터 검증",
-    "benchmark_superiority": "HAR 모델 대비 35배 성능",
-    "economic_value": "변동성 0.8% 감소 실증",
-    "academic_contribution": "금융 ML 방법론 혁신"
-  },
-  "economic_impact": {
-    "volatility_reduction": "0.8% proven reduction",
-    "annual_return": "14.1% with transaction costs",
-    "risk_management_value": "high",
-    "practical_applications": [
-      "VIX options trading",
-      "Dynamic hedging",
-      "Portfolio risk management",
-      "Risk budgeting"
-    ]
-  },
-  "quality_assurance": {
-    "data_leakage_audit": "complete_elimination",
-    "temporal_validation": "strict_separation_verified",
-    "purged_cv_applied": "financial_ml_standard",
-    "real_data_tested": "spy_etf_2015_2024",
-    "benchmark_compared": "har_model_35x_better",
-    "economic_backtest": "transaction_costs_included",
-    "reproducibility": "complete_specification_provided"
-  },
-  "final_verification": {
-    "data_leakage_check": "PASSED - Zero temporal overlap",
-    "real_data_validation": "PASSED - SPY ETF 2015-2024",
-    "benchmark_comparison": "PASSED - 35x better than HAR",
-    "economic_value": "PASSED - Volatility reduction proven",
-    "reproducibility": "PASSED - Complete specification provided",
-    "academic_standard": "PASSED - Purged K-Fold CV applied"
+  "components": {
+    "xai_analyzer": "XAIAnalyzer",
+    "enhanced_llm_extractor": "EnhancedLLMFeatureExtractor"
   }
 }
