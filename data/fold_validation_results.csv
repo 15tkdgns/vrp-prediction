@@ -1,0 +1,21 @@
+﻿Model,Fold,CV_R2_Score,Above_Baseline,Above_Target
+HAR Benchmark,1,0.2839,Yes,No
+HAR Benchmark,2,0.4899,Yes,Yes
+HAR Benchmark,3,0.1844,No,No
+HAR Benchmark,4,-0.0383,No,No
+Ridge Volatility,1,0.4666,Yes,Yes
+Ridge Volatility,2,0.4474,Yes,Yes
+Ridge Volatility,3,0.3754,Yes,Yes
+Ridge Volatility,4,-0.1371,No,No
+Lasso 0.001,1,0.4161,Yes,Yes
+Lasso 0.001,2,0.4777,Yes,Yes
+Lasso 0.001,3,0.3622,Yes,Yes
+Lasso 0.001,4,0.0932,No,No
+ElasticNet,1,0.4657,Yes,Yes
+ElasticNet,2,0.5247,Yes,Yes
+ElasticNet,3,0.357,Yes,Yes
+ElasticNet,4,0.0302,No,No
+Random Forest,1,0.2441,Yes,No
+Random Forest,2,0.2538,Yes,No
+Random Forest,3,0.1713,No,No
+Random Forest,4,0.0161,No,No

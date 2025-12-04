@@ -1,0 +1,22 @@
+{
+  "dataset_info": {
+    "samples": 2428,
+    "features": 44,
+    "start_date": "2015-05-01 04:00:00",
+    "end_date": "2024-12-20 05:00:00",
+    "creation_date": "2025-09-26 13:00:36"
+  },
+  "data_sources": {
+    "ohlcv": "SPY ETF via yfinance",
+    "fred_indicators": "Synthetic economic indicators",
+    "sentiment": "Synthetic news sentiment features"
+  },
+  "target_variables": [
+    "target_return_1d",
+    "target_return_5d",
+    "target_direction_1d",
+    "target_direction_5d",
+    "target_price_1d",
+    "target_price_5d"
+  ]
+}

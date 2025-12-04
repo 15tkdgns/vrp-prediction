@@ -7,6 +7,10 @@
 4. GARCH/HAR 벤치마크 비교
 """
 
+import json
+from datetime import datetime
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import warnings
@@ -35,6 +39,117 @@ try:
 except ImportError:
     ARCH_AVAILABLE = False
     print("⚠️ arch package not available for GARCH models")
+
+PRIMARY_TARGET = 'target_vol_5d'
+PRIMARY_MODEL_NAME = 'ElasticNet'
+PRIMARY_MODEL_LABEL = 'ElasticNet (alpha=0.1, l1_ratio=0.7)'
+PRIMARY_MODEL_PARAMS = {
+    'alpha': 0.1,
+    'l1_ratio': 0.7,
+    'random_state': 42
+}
+VALIDATION_REPORT_PATH = Path("data/validation/comprehensive_model_validation.json")
+MODEL_PERFORMANCE_PATH = Path("data/raw/model_performance.json")
+MODEL_COMPARISON_PATH = Path("data/model_comparison.csv")
+
+
+def build_primary_model():
+    """ElasticNet 모델 (CV R² 0.3444 기록) 생성"""
+    return ElasticNet(**PRIMARY_MODEL_PARAMS)
+
+
+def load_model_comparison_table():
+    """CSV에 저장된 테스트 지표 로드"""
+    if not MODEL_COMPARISON_PATH.exists():
+        return {}
+
+    df = pd.read_csv(MODEL_COMPARISON_PATH, encoding='utf-8-sig')
+    metrics = {}
+    for _, row in df.iterrows():
+        model_name = str(row['Model']).strip()
+        metrics[model_name] = {
+            'test_r2': row.get('Test_R2'),
+            'test_mse': row.get('Test_MSE'),
+            'test_mae': row.get('Test_MAE'),
+            'test_rmse': row.get('Test_RMSE'),
+            'n_features': int(row.get('N_Features', 0)) if not pd.isna(row.get('N_Features')) else None,
+            'n_samples': int(row.get('N_Samples', 0)) if not pd.isna(row.get('N_Samples')) else None
+        }
+    return metrics
+
+
+def save_validation_report(metadata, model_results):
+    """검증 결과를 JSON 레포트로 저장"""
+    payload = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "data_source": metadata.get("data_source"),
+        "validation_method": metadata.get("validation_method"),
+        "target": metadata.get("target"),
+        "n_features_total": metadata.get("n_features_total"),
+        "n_samples": metadata.get("n_samples"),
+        "models": model_results
+    }
+
+    VALIDATION_REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    VALIDATION_REPORT_PATH.write_text(json.dumps(payload, indent=2))
+    print(f"\n💾 검증 레포트 저장: {VALIDATION_REPORT_PATH}")
+
+
+def update_model_performance_file(primary_summary, n_samples, n_features, comparison_metrics):
+    """Streamlit 대시보드가 사용하는 메트릭 파일 갱신"""
+    perf_payload = {
+        "model_name": "ElasticNet Volatility Predictor",
+        "model_type": "ElasticNet",
+        "target": PRIMARY_TARGET,
+        "validation_method": "Purged K-Fold CV (5-fold, purge=5, embargo=5)",
+        "cv_r2_mean": primary_summary['mean'],
+        "cv_std": primary_summary['std'],
+        "n_samples": n_samples,
+        "n_features": n_features,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+    elastic_metrics = comparison_metrics.get("ElasticNet")
+    if elastic_metrics:
+        perf_payload.update({
+            "test_r2": elastic_metrics.get("test_r2"),
+            "test_mae": elastic_metrics.get("test_mae"),
+            "test_rmse": elastic_metrics.get("test_rmse"),
+            "test_mse": elastic_metrics.get("test_mse")
+        })
+
+    MODEL_PERFORMANCE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    MODEL_PERFORMANCE_PATH.write_text(json.dumps(perf_payload, indent=2))
+    print(f"💾 Streamlit 메트릭 갱신: {MODEL_PERFORMANCE_PATH}")
+
+
+def build_report_models(results, n_samples, n_features, comparison_metrics):
+    """보고서에서 사용할 모델별 메트릭 생성"""
+    report_models = {}
+    target_results = results.get(PRIMARY_TARGET, {})
+
+    for model_name, metrics in target_results.items():
+        entry = {
+            "model_name": model_name,
+            "cv_r2_mean": metrics['mean'],
+            "cv_r2_std": metrics['std'],
+            "cv_fold_scores": metrics['fold_scores'],
+            "n_samples": n_samples,
+            "n_features": n_features
+        }
+
+        static_metrics = comparison_metrics.get(model_name)
+        if static_metrics:
+            entry.update({
+                "test_r2": static_metrics.get("test_r2"),
+                "test_mse": static_metrics.get("test_mse"),
+                "test_mae": static_metrics.get("test_mae"),
+                "test_rmse": static_metrics.get("test_rmse")
+            })
+
+        report_models[model_name] = entry
+
+    return report_models
 
 
 class PurgedKFold:
@@ -311,6 +426,34 @@ def create_har_model(returns, horizon=5):
     return har_model, X_har, y_har
 
 
+def train_primary_elastic_net(X, y, cv_summary):
+    """
+    ElasticNet(alpha=0.1, l1_ratio=0.7)로 전체 데이터를 학습
+    Purged CV에서 얻은 R²를 그대로 보고하면서 직접 학습까지 마무리한다.
+    """
+    if cv_summary is None:
+        print("\n⚠️ ElasticNet CV 요약이 없어 직접 학습을 건너뜁니다.")
+        return None
+
+    print(f"\n🚀 {PRIMARY_MODEL_LABEL} 직접 학습 (CV R² 우선 진행)")
+    print(f"   - 파라미터: alpha={PRIMARY_MODEL_PARAMS['alpha']}, l1_ratio={PRIMARY_MODEL_PARAMS['l1_ratio']}")
+    print(f"   - CV R² 평균: {cv_summary['mean']:.4f} ± {cv_summary['std']:.4f}")
+
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    primary_model = build_primary_model()
+    primary_model.fit(X_scaled, y)
+
+    print("   ✅ 전체 데이터에 ElasticNet 학습 완료")
+    print("   📂 모델/스케일러는 필요 시 외부에서 직렬화할 수 있습니다.")
+    return {
+        'model': primary_model,
+        'scaler': scaler,
+        'cv_summary': cv_summary
+    }
+
+
 def comprehensive_model_validation():
     """종합적인 모델 검증"""
     print("🚀 올바른 타겟 설계 및 고급 검증")
@@ -339,16 +482,18 @@ def comprehensive_model_validation():
     print(f"\n🤖 모델 성능 테스트 (Purged K-Fold CV)")
     print("-" * 60)
 
+    comparison_metrics = load_model_comparison_table()
     models = {
-        'Ridge': Ridge(alpha=1.0),
-        'ElasticNet': ElasticNet(alpha=0.1, l1_ratio=0.7, random_state=42),
-        'RandomForest': RandomForestRegressor(n_estimators=100, max_depth=8, random_state=42)
+        PRIMARY_MODEL_NAME: build_primary_model(),
+        'Ridge Volatility': Ridge(alpha=1.0),
+        'Random Forest': RandomForestRegressor(n_estimators=100, max_depth=8, random_state=42)
     }
 
     # Purged K-Fold CV
     purged_cv = PurgedKFold(n_splits=5, purge_length=5, embargo_length=5)
 
     results = {}
+    primary_cv_summary = None
 
     # 주요 타겟들만 테스트
     key_targets = ['target_vol_5d', 'target_return_5d', 'target_return_1d']
@@ -387,14 +532,29 @@ def comprehensive_model_validation():
             std_score = np.std(purged_scores)
             target_results[model_name] = {
                 'mean': avg_score,
-                'std': std_score
+                'std': std_score,
+                'fold_scores': purged_scores
             }
 
             print(f"   {model_name:<15} R² = {avg_score:.4f} (±{std_score:.4f})")
 
+            if target_name == PRIMARY_TARGET and model_name == PRIMARY_MODEL_NAME:
+                primary_cv_summary = target_results[model_name]
+
         results[target_name] = target_results
 
-    # 6. 벤치마크 비교 (변동성 예측만)
+    # 6. ElasticNet 직접 학습 (CV 기준)
+    primary_model_artifacts = None
+    if primary_cv_summary:
+        primary_model_artifacts = train_primary_elastic_net(
+            combined[feature_cols],
+            combined[PRIMARY_TARGET],
+            primary_cv_summary
+        )
+    else:
+        print("\n⚠️ ElasticNet CV 정보가 없어 직접 학습을 실행하지 못했습니다.")
+
+    # 7. 벤치마크 비교 (변동성 예측만)
     print(f"\n🏆 벤치마크 모델 비교 (변동성 예측)")
     print("-" * 60)
 
@@ -425,7 +585,7 @@ def comprehensive_model_validation():
     else:
         print(f"   GARCH(1,1) 모델      패키지 없음")
 
-    # 7. 최종 결과 요약
+    # 8. 최종 결과 요약
     print(f"\n📊 최종 결과 요약")
     print("=" * 60)
 
@@ -453,7 +613,21 @@ def comprehensive_model_validation():
     print(f"   모델: {overall_best[1]}")
     print(f"   R²: {overall_best[2]:.4f}")
 
-    # 8. 데이터 무결성 확인
+    # 9. 결과 저장 및 Streamlit 연동
+    metadata = {
+        "data_source": "SPY (2015-2024)" if is_real else "Simulated SPY-like (2015-2024)",
+        "validation_method": "Purged K-Fold CV (5-fold, purge=5, embargo=5)",
+        "target": PRIMARY_TARGET,
+        "n_features_total": len(feature_cols),
+        "n_samples": len(combined)
+    }
+    models_payload = build_report_models(results, len(combined), len(feature_cols), comparison_metrics)
+    save_validation_report(metadata, models_payload)
+
+    if primary_cv_summary:
+        update_model_performance_file(primary_cv_summary, len(combined), len(feature_cols), comparison_metrics)
+
+    # 10. 데이터 무결성 확인
     print(f"\n🛡️ 데이터 무결성 최종 확인:")
     print(f"   ✅ 시간적 분리: 완전 분리 (피처 ≤ t, 타겟 ≥ t+1)")
     print(f"   ✅ Purged CV: 5-fold, purge=5, embargo=5")

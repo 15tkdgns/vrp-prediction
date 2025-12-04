@@ -39,7 +39,10 @@ try:
 except ImportError:
     get_config_manager = None
 
-import tensorflow as tf
+try:
+    import tensorflow as tf
+except ImportError:
+    tf = None
 
 
 class SystemOrchestrator:
@@ -100,6 +103,10 @@ class SystemOrchestrator:
 
     def check_gpu(self):
         """GPU 사용 가능 여부 확인"""
+        if tf is None:
+            self.logger.info("⚠️ TensorFlow 미설치. GPU 확인 건너뜀 (Static Mode)")
+            return
+
         gpus = tf.config.list_physical_devices("GPU")
         if gpus:
             self.logger.info(f"✅ GPU 장치 감지: {gpus}")

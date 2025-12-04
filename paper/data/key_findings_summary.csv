@@ -1,0 +1,19 @@
+Finding,Category,Metric,Value,Comparison,Interpretation
+Ridge Volatility Performance,Main Result,CV R²,0.3030,HAR: 0.2146,1.41x better than benchmark
+HAR Instability,Main Result,Test R²,-0.0473,CV: 0.2146,Performance collapse on test set
+Ridge Stability,Main Result,CV-Test Gap,0.0000,HAR: 0.2619,Complete stability vs benchmark
+Return Prediction Failure,EMH Evidence,Ridge R²,-0.0632,Volatility: 0.3030,EMH confirmed for returns
+LSTM Return Failure,EMH Evidence,LSTM R²,0.0041,Random: 0.0000,No improvement over random
+TFT Return Failure,EMH Evidence,TFT R²,0.0017,Random: 0.0000,No improvement over random
+Volatility Autocorrelation,Predictability,Lag-1 ACF,0.931,Returns: -0.117,High persistence enables prediction
+Return Autocorrelation,Predictability,Lag-1 ACF,-0.117,Volatility: 0.931,No persistence (EMH)
+Lasso Overfitting,Validation,CV-WF Gap,0.9885,Ridge: 0.0000,Severe overfitting detected
+ElasticNet Overfitting,Validation,CV-WF Gap,0.9958,Ridge: 0.0000,Severe overfitting detected
+Random Forest Overfitting,Validation,CV-WF Gap,1.3304,Ridge: 0.0000,Worst overfitting (most complex)
+GARCH Overfitting,Validation,CV-WF Gap,0.9878,Ridge: 0.0000,Severe overfitting despite domain knowledge
+Feature Count HAR,Complexity,N Features,3,Ridge: 31,Too simple (underfitting)
+Feature Count Ridge,Complexity,N Features,31,HAR: 3; GARCH: 50,Optimal zone (25-40)
+Feature Count GARCH,Complexity,N Features,50,Ridge: 31,Too complex (overfitting)
+CV Threshold Ridge,Warning Sign,CV R²,0.3030,Threshold: 0.45,Safe (below threshold)
+CV Threshold Lasso,Warning Sign,CV R²,0.4556,Threshold: 0.45,Warning (above threshold)
+CV Threshold GARCH,Warning Sign,CV R²,0.4578,Threshold: 0.45,Warning (above threshold)

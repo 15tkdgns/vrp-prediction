@@ -1,0 +1,310 @@
+{
+  "model_type": "Lasso",
+  "alpha": 0.0005,
+  "max_iter": 1000,
+  "feature_names": [
+    "vix_level",
+    "intraday_vol_5",
+    "intraday_vol_10",
+    "ewm_vol_10",
+    "ewm_vol_5",
+    "vix_ma_5",
+    "volatility_10",
+    "realized_vol_10",
+    "realized_vol_5",
+    "volatility_5",
+    "ewm_vol_20",
+    "garman_klass_5",
+    "garman_klass_10",
+    "vol_lag_1",
+    "vix_std_20",
+    "vix_level_x_intraday_vol_5",
+    "vix_level_x_intraday_vol_10",
+    "vix_level_x_ewm_vol_10",
+    "vix_level_x_ewm_vol_5",
+    "vix_level_x_vix_ma_5",
+    "vix_level_x_volatility_10",
+    "vix_level_x_realized_vol_10",
+    "intraday_vol_5_x_intraday_vol_10",
+    "intraday_vol_5_x_ewm_vol_10",
+    "intraday_vol_5_x_ewm_vol_5",
+    "intraday_vol_5_x_vix_ma_5",
+    "intraday_vol_5_x_volatility_10",
+    "intraday_vol_5_x_realized_vol_10",
+    "intraday_vol_10_x_ewm_vol_10",
+    "intraday_vol_10_x_ewm_vol_5",
+    "intraday_vol_10_x_vix_ma_5",
+    "intraday_vol_10_x_volatility_10",
+    "intraday_vol_10_x_realized_vol_10",
+    "ewm_vol_10_x_ewm_vol_5",
+    "ewm_vol_10_x_vix_ma_5",
+    "ewm_vol_10_x_volatility_10",
+    "ewm_vol_10_x_realized_vol_10",
+    "ewm_vol_5_x_vix_ma_5",
+    "ewm_vol_5_x_volatility_10",
+    "ewm_vol_5_x_realized_vol_10",
+    "vix_ma_5_x_volatility_10",
+    "vix_ma_5_x_realized_vol_10",
+    "volatility_10_x_realized_vol_10",
+    "vix_level_div_intraday_vol_5",
+    "vix_level_div_intraday_vol_10",
+    "vix_level_div_ewm_vol_10",
+    "vix_level_div_ewm_vol_5",
+    "vix_level_div_vix_ma_5",
+    "intraday_vol_5_div_intraday_vol_10",
+    "intraday_vol_5_div_ewm_vol_10",
+    "intraday_vol_5_div_ewm_vol_5",
+    "intraday_vol_5_div_vix_ma_5",
+    "intraday_vol_10_div_ewm_vol_10",
+    "intraday_vol_10_div_ewm_vol_5",
+    "intraday_vol_10_div_vix_ma_5",
+    "ewm_vol_10_div_ewm_vol_5",
+    "ewm_vol_10_div_vix_ma_5",
+    "ewm_vol_5_div_vix_ma_5"
+  ],
+  "feature_count": 58,
+  "training_samples": 1992,
+  "test_samples": 498,
+  "performance": {
+    "r2_score": 0.09880239571258298,
+    "mae": 0.0022873947530012923,
+    "mse": 9.16365876905348e-06,
+    "rmse": 0.003027153575399418
+  },
+  "feature_importance": [
+    {
+      "feature": "vix_level",
+      "importance": 0.0018280997407317248
+    },
+    {
+      "feature": "intraday_vol_10",
+      "importance": 0.0012101150759337234
+    },
+    {
+      "feature": "intraday_vol_5",
+      "importance": 0.001143742888646397
+    },
+    {
+      "feature": "vix_level_div_vix_ma_5",
+      "importance": 0.0008815472209559163
+    },
+    {
+      "feature": "vix_level_x_ewm_vol_5",
+      "importance": 0.0008384205490882177
+    },
+    {
+      "feature": "vix_std_20",
+      "importance": 0.0005007164821436813
+    },
+    {
+      "feature": "ewm_vol_5",
+      "importance": 0.00010696379912771622
+    },
+    {
+      "feature": "vix_ma_5_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "volatility_10_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_ma_5_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_5_x_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_5_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_5_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_x_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_div_intraday_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_div_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_div_intraday_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_div_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_div_intraday_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_div_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_div_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_div_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_div_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_div_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_div_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_div_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_div_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10_x_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_x_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_x_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "realized_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "volatility_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_20",
+      "importance": 0.0
+    },
+    {
+      "feature": "garman_klass_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "garman_klass_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vol_lag_1",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_intraday_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_intraday_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "vix_level_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_intraday_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_ewm_vol_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_vix_ma_5",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_volatility_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_5_x_realized_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "intraday_vol_10_x_ewm_vol_10",
+      "importance": 0.0
+    },
+    {
+      "feature": "ewm_vol_5_div_vix_ma_5",
+      "importance": 0.0
+    }
+  ],
+  "trained_date": "2025-09-30T14:50:12.867706",
+  "data_period": "2015-01-01 to 2024-12-31"
+}

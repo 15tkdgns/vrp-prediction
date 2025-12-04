@@ -1,0 +1,77 @@
+{
+  "analysis_timestamp": "2025-09-30T15:46:47.625504",
+  "model_development_phases": {
+    "phase_1_baseline": {
+      "description": "V2 Lite - \ub370\uc774\ud130 \ud655\uc7a5 \ubc0f \uacbd\uc81c\uc9c0\ud45c \ucd94\uac00",
+      "r2_achieved": 0.4555551934843853,
+      "improvement_vs_original": 361.08825251456,
+      "key_features": [
+        "vix_level",
+        "vix_treasury_spread",
+        "intraday_vol_5",
+        "intraday_vol_10",
+        "ewm_vol_10"
+      ]
+    },
+    "phase_2_garch": {
+      "description": "GARCH Enhanced - \uc870\uac74\ubd80 \uc774\ubd84\uc0b0\uc131 \ubaa8\ub378\ub9c1",
+      "r2_achieved": 0.45778718422874903,
+      "improvement_vs_v2_lite": 0.48006677540584464,
+      "garch_library": "approximation"
+    },
+    "phase_3_validation": {
+      "description": "Walk-Forward - \uc2e4\uc81c \uac70\ub798 \ud658\uacbd \uac80\uc99d",
+      "validation_type": "Walk-Forward",
+      "folds": 32,
+      "best_wf_r2": -0.5279340939139021
+    }
+  },
+  "critical_findings": {
+    "severe_overfitting_detected": true,
+    "cv_vs_wf_gap": {
+      "average_gap": -1.0729979978501865,
+      "worst_gap": -1.3303783550913981
+    },
+    "real_world_performance": "FAILED - \ubaa8\ub4e0 \ubaa8\ub378\uc774 \uc2e4\uc81c \uac70\ub798\uc5d0\uc11c \uc74c\uc758 R\u00b2 \uae30\ub85d",
+    "reliability_assessment": "UNRELIABLE - \uad50\ucc28\uac80\uc99d \uacb0\uacfc\ub97c \uc2e0\ub8b0\ud560 \uc218 \uc5c6\uc74c"
+  },
+  "root_cause_analysis": {
+    "data_leakage_risk": "HIGH - \uc2dc\uac04\uc801 \ubd84\ub9ac \ubd88\uc644\uc804 \uac00\ub2a5\uc131",
+    "feature_stability": "LOW - VIX \uad00\ub828 \ud2b9\uc131\uc758 \uc2dc\uac04\uc801 \ubd88\uc548\uc815\uc131",
+    "model_complexity": "EXCESSIVE - \ub2e8\uc21c\ud55c \uc120\ud615 \ubaa8\ub378\ub3c4 \uacfc\uc801\ud569",
+    "validation_methodology": "INADEQUATE - \uad50\ucc28\uac80\uc99d\ub9cc\uc73c\ub85c\ub294 \ubd88\ucda9\ubd84"
+  },
+  "recommended_actions": [
+    "1. \uc989\uc2dc \uc870\uce58: \ubaa8\ub4e0 \ubaa8\ub378 \uc6b4\uc6a9 \uc911\ub2e8",
+    "2. \ub370\uc774\ud130 \uac10\uc0ac: \uc2dc\uac04\uc801 \ubd84\ub9ac \uc7ac\uac80\uc99d",
+    "3. \ud2b9\uc131 \uc7ac\uc124\uacc4: \ub354 \uc548\uc815\uc801\uc778 \ud2b9\uc131\uc73c\ub85c \uad50\uccb4",
+    "4. \uac80\uc99d \uac15\ud654: Walk-Forward\ub97c \uae30\ubcf8 \uac80\uc99d\uc73c\ub85c \ucc44\ud0dd",
+    "5. \ubaa8\ub378 \ub2e8\uc21c\ud654: \uc815\uaddc\ud654 \uac15\ud654 \ubc0f \ubcf5\uc7a1\uc131 \uac10\uc18c"
+  ],
+  "detailed_overfitting_analysis": {
+    "Lasso_0001": {
+      "cv_r2": 0.4555551934843853,
+      "wf_r2": -0.5329070679823029,
+      "gap": -0.9884622614666883,
+      "overfitting_ratio": 2.1697969326313236
+    },
+    "Lasso_0005": {
+      "cv_r2": 0.4493529393996927,
+      "wf_r2": -0.5279340939139021,
+      "gap": -0.9772870333135948,
+      "overfitting_ratio": 2.174876244537732
+    },
+    "ElasticNet": {
+      "cv_r2": 0.45362532383924686,
+      "wf_r2": -0.5422390176898176,
+      "gap": -0.9958643415290644,
+      "overfitting_ratio": 2.195345562061198
+    },
+    "RandomForest": {
+      "cv_r2": 0.4555551934843853,
+      "wf_r2": -0.8748231616070128,
+      "gap": -1.3303783550913981,
+      "overfitting_ratio": 2.9203450517505702
+    }
+  }
+}

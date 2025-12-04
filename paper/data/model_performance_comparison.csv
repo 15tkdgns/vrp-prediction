@@ -1,0 +1,10 @@
+Model,Task,CV_R2_Mean,CV_R2_Std,Test_R2,MAE,RMSE,N_Features,N_Samples,Validation_Method,Status
+HAR Benchmark,Volatility,0.2146,0.1651,-0.0473,0.0025,0.0032,3,2402,Purged K-Fold CV,Unstable
+Ridge Volatility,Volatility,0.3030,0.1975,0.3030,0.0033,0.0053,31,2460,Purged K-Fold CV,Stable
+Ridge Return,Return,-0.0632,0.0352,-0.0632,0.0033,0.0047,31,2460,Purged K-Fold CV,Failed (EMH)
+LSTM Bidirectional,Return,0.0041,0.0053,0.0041,0.0032,0.0046,54,2354,Purged K-Fold CV,Failed (EMH)
+TFT Quantile,Return,0.0017,0.0360,0.0017,0.0032,0.0046,70,2353,Purged K-Fold CV,Failed (EMH)
+Lasso (0.001),Volatility,0.4556,N/A,-0.5329,N/A,N/A,31,N/A,CV + Walk-Forward,Overfitting
+ElasticNet,Volatility,0.4536,N/A,-0.5422,N/A,N/A,31,N/A,CV + Walk-Forward,Overfitting
+Random Forest,Volatility,0.4556,N/A,-0.8748,N/A,N/A,31,N/A,CV + Walk-Forward,Overfitting
+GARCH Enhanced,Volatility,0.4578,N/A,-0.5300,N/A,N/A,50,N/A,CV + Walk-Forward,Overfitting

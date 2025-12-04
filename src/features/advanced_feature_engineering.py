@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
+"""
+고급 특성 엔지니어링 구현
+변동성 예측 성능 개선을 위한 정교한 특성 생성
+"""
 
-import pandas as pd
 import numpy as np
-import talib
-from sklearn.preprocessing import StandardScaler
-import logging
+import pandas as pd
+import yfinance as yf
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import Ridge, Lasso, ElasticNet
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.model_selection import TimeSeriesSplit
+import warnings
+import os
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+warnings.filterwarnings('ignore')
 
-class AdvancedFeatureEngineer:
-    """
-    Phase 3: Advanced Feature Engineering for S&P 500 Event Detection
-    
-    Adds sophisticated technical indicators, volatility measures, and time-series features
-    to improve model performance from 95.1% to 98%+ target.
-    """
-    
-    def __init__(self):
-        self.scaler = StandardScaler()
+def load_enhanced_spy_data():
         
     def create_advanced_technical_indicators(self, data):
         """Create advanced technical indicators beyond basic RSI/MACD"""

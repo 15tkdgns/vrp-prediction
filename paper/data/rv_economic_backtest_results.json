@@ -1,0 +1,49 @@
+{
+  "experiment": "RV Economic Backtest",
+  "date": "2025-10-02T18:10:30.949067",
+  "period": {
+    "start": "2015-04-01",
+    "end": "2024-12-20",
+    "days": 2449
+  },
+  "strategy": {
+    "target_volatility": 0.15,
+    "transaction_cost": 0.001,
+    "position_range": [
+      0.5,
+      2.0
+    ]
+  },
+  "results": {
+    "buy_hold": {
+      "total_return": 1.9072496899784905,
+      "annual_return": 0.11607128538611211,
+      "volatility": 0.17769772286431407,
+      "sharpe": 0.5406444372923673,
+      "max_drawdown": -0.35745887901259793,
+      "win_rate": 0.5479787668436097
+    },
+    "v0_strategy": {
+      "total_return": 1.6437099703484561,
+      "annual_return": 0.10521161116364186,
+      "volatility": 0.16568607155451906,
+      "sharpe": 0.5142955612632951,
+      "max_drawdown": -0.27645232687339905,
+      "win_rate": 0.5455287872601061
+    },
+    "rv_strategy": {
+      "total_return": 2.1624257269054716,
+      "annual_return": 0.1257751647613896,
+      "volatility": 0.2032333055626999,
+      "sharpe": 0.5204617642198253,
+      "max_drawdown": -0.3291574555858626,
+      "win_rate": 0.54593711719069
+    }
+  },
+  "comparison": {
+    "rv_vs_bh_return": 0.009703879375277502,
+    "rv_vs_bh_vol": 0.025535582698385823,
+    "rv_vs_bh_sharpe": -0.020182673072542068,
+    "rv_vs_v0_sharpe": 0.006166202956530142
+  }
+}

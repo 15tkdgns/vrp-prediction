@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-11-29T07:30:32.326276",
+  "data_source": "SPY (2015-2024)",
+  "validation_method": "Purged K-Fold CV (5-fold, purge=5, embargo=5)",
+  "target": "target_vol_5d",
+  "n_features_total": 31,
+  "n_samples": 2445,
+  "models": {
+    "ElasticNet": {
+      "model_name": "ElasticNet",
+      "cv_r2_mean": -0.1773410054492169,
+      "cv_r2_std": 0.07825587790842144,
+      "cv_fold_scores": [
+        -0.11436228826667572,
+        -0.2206771214366927,
+        -0.062042453879553205,
+        -0.21033506068710572,
+        -0.2792881029760572
+      ],
+      "n_samples": 2445,
+      "n_features": 31,
+      "test_r2": 0.0254,
+      "test_mse": 9.909706e-06,
+      "test_mae": 0.002385,
+      "test_rmse": 0.003148
+    },
+    "Ridge Volatility": {
+      "model_name": "Ridge Volatility",
+      "cv_r2_mean": 0.31125834582101775,
+      "cv_r2_std": 0.1756318250139966,
+      "cv_fold_scores": [
+        0.36120415217937607,
+        0.3883833688188222,
+        0.4873219801927998,
+        0.34522572278451225,
+        -0.02584349487042137
+      ],
+      "n_samples": 2445,
+      "n_features": 31,
+      "test_r2": -0.1429,
+      "test_mse": 1.162174e-05,
+      "test_mae": 0.002581,
+      "test_rmse": 0.003409
+    },
+    "Random Forest": {
+      "model_name": "Random Forest",
+      "cv_r2_mean": 0.2437005372130366,
+      "cv_r2_std": 0.09482848053022011,
+      "cv_fold_scores": [
+        0.2868824920127262,
+        0.281198303353809,
+        0.2831554751150489,
+        0.31192697159197547,
+        0.055339443991623494
+      ],
+      "n_samples": 2445,
+      "n_features": 31,
+      "test_r2": 0.0233,
+      "test_mse": 9.931408e-06,
+      "test_mae": 0.002336,
+      "test_rmse": 0.003151
+    }
+  }
+}

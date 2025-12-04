@@ -1,0 +1,4 @@
+Strategy,Annual_Return,Volatility,Sharpe_Ratio,Max_Drawdown,Win_Rate,Total_Trades,Transaction_Cost,Net_Profit
+Ridge Volatility Strategy,14.10%,12.24%,0.989,-10.81%,N/A,N/A,Included,Positive
+Buy & Hold Benchmark,22.71%,13.04%,1.588,-10.15%,N/A,0,None,Higher
+Volatility Reduction Effect,N/A,-0.80%,N/A,-0.66%,N/A,N/A,N/A,Risk Management

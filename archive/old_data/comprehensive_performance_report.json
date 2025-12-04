@@ -1,0 +1,98 @@
+{
+  "evaluation_date": "2025-09-26 13:06:56",
+  "summary": {
+    "total_models": 3,
+    "avg_r2": -1.7333008139881751,
+    "best_r2": 0.0,
+    "avg_direction_accuracy": 0.48285322359396426,
+    "best_direction_accuracy": 0.5740740740740741,
+    "models_above_random": 1
+  },
+  "detailed_analysis": {
+    "arima_target_return_1d": {
+      "statistical_metrics": {
+        "r2_score": -0.007770042078459216,
+        "mse": 6.43869909251705e-05,
+        "rmse": 0.008024150479967988,
+        "direction_accuracy": 0.5740740740740741,
+        "information_ratio": 0
+      },
+      "financial_metrics": {
+        "buy_hold_annual_return": 0.13278283444023775,
+        "annual_volatility": 0.17768391887693455,
+        "sharpe_ratio": 0.634738557957809,
+        "max_drawdown": -0.33717273021782923,
+        "win_rate": 0.5475896168108776,
+        "var_95": -0.0169825585679111,
+        "calmar_ratio": 0.3938124959110835,
+        "predicted_alpha": 0,
+        "predicted_annual_return": 0.13278283444023775,
+        "adjusted_alpha": 0
+      },
+      "interpretation": {
+        "overall_performance": "매우 낮음 (베이스라인 대비 성능 저하)",
+        "direction_prediction": "우수 (거래 신호로 활용 가능)",
+        "practical_usage": "검토 필요"
+      }
+    },
+    "xgboost_reg_target_return_1d": {
+      "statistical_metrics": {
+        "r2_score": -5.192132399886066,
+        "mse": 0.00039561879793195747,
+        "rmse": 0.019890168373645243,
+        "direction_accuracy": 0.43004115226337447,
+        "information_ratio": 0
+      },
+      "financial_metrics": {
+        "buy_hold_annual_return": 0.13278283444023775,
+        "annual_volatility": 0.17768391887693455,
+        "sharpe_ratio": 0.634738557957809,
+        "max_drawdown": -0.33717273021782923,
+        "win_rate": 0.5475896168108776,
+        "var_95": -0.0169825585679111,
+        "calmar_ratio": 0.3938124959110835,
+        "predicted_alpha": 0,
+        "predicted_annual_return": 0.13278283444023775,
+        "adjusted_alpha": 0
+      },
+      "interpretation": {
+        "overall_performance": "매우 낮음 (베이스라인 대비 성능 저하)",
+        "direction_prediction": "부족 (실용성 제한)",
+        "practical_usage": "제한적"
+      }
+    },
+    "xgboost_clf_target_direction_1d": {
+      "statistical_metrics": {
+        "r2_score": 0,
+        "mse": 0,
+        "rmse": 0.0,
+        "direction_accuracy": 0.4444444444444444,
+        "information_ratio": 0
+      },
+      "financial_metrics": {
+        "buy_hold_annual_return": 0.13278283444023775,
+        "annual_volatility": 0.17768391887693455,
+        "sharpe_ratio": 0.634738557957809,
+        "max_drawdown": -0.33717273021782923,
+        "win_rate": 0.5475896168108776,
+        "var_95": -0.0169825585679111,
+        "calmar_ratio": 0.3938124959110835,
+        "predicted_alpha": 0,
+        "predicted_annual_return": 0.13278283444023775,
+        "adjusted_alpha": 0
+      },
+      "interpretation": {
+        "overall_performance": "낮음 (예측력 제한적)",
+        "direction_prediction": "부족 (실용성 제한)",
+        "practical_usage": "제한적"
+      }
+    }
+  },
+  "recommendations": [
+    "ARIMA 모델: 전통적 시계열 방법론이지만 성능 제한적",
+    "XGBoost: 특성 중요도 분석을 통한 인사이트 제공",
+    "분류 vs 회귀: 방향성 예측이 절대값 예측보다 안정적",
+    "다음 단계: LSTM, Transformer 등 딥러닝 모델 검토 필요",
+    "리스크 관리: 모든 모델이 금융 시장의 효율성으로 인해 제한적 성능"
+  ]
+}

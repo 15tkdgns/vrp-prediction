@@ -1,0 +1,34 @@
+{
+  "model": "Ridge(alpha=1.0)",
+  "target": "target_return_1d",
+  "n_samples_train": 1976,
+  "n_samples_test": 495,
+  "n_features": 14,
+  "train_metrics": {
+    "r2_score": 0.0366190352049115,
+    "mse": 0.0001346354038884171,
+    "rmse": 0.011603249712404586,
+    "mae": 0.007591238871673973
+  },
+  "test_metrics": {
+    "r2_score": -0.042409635015882685,
+    "mse": 6.77235531019835e-05,
+    "rmse": 0.008229432125121606,
+    "mae": 0.0063420215104157225
+  },
+  "har_benchmark": {
+    "r2_score": -0.008296042205500065,
+    "features": "1-day, 5-day, 22-day lags"
+  },
+  "comparison": {
+    "volatility_model_r2": 0.3113,
+    "price_model_r2": -0.042409635015882685,
+    "difference": 0.3537096350158827
+  },
+  "metadata": {
+    "experiment": "news_sentiment_price_prediction",
+    "hypothesis": "LLM \uac10\uc131 \uc9c0\ud45c\ub85c \uc8fc\uac00 \uc218\uc775\ub960 \uc608\uce21 \ubd88\uac00\ub2a5",
+    "date": "2025-10-02 11:33:50",
+    "dataset": "data/training/spy_news_sentiment_dataset.csv"
+  }
+}

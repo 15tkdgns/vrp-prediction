@@ -1,0 +1,7 @@
+Method,Reliability,Conservatism,Leak_Prevention,Real_World_Accuracy,Computational_Speed,Recommended_For
+CV Only,Low,Low,Poor,Poor,Fast,Quick prototyping only
+Purged K-Fold CV,High,High,Excellent,Good,Medium,Financial ML (recommended)
+Walk-Forward,Very High,Very High,Perfect,Excellent,Slow,Final validation
+TimeSeriesSplit,Medium,Medium,Good,Medium,Fast,Non-financial time series
+BlockedCV,Medium,Medium,Fair,Fair,Medium,Weakly dependent data
+Standard K-Fold,Very Low,Very Low,None,Very Poor,Fast,Never use for time series

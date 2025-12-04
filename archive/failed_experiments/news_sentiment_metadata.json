@@ -1,0 +1,35 @@
+{
+  "dataset_info": {
+    "ticker": "SPY",
+    "samples": 2471,
+    "features": 23,
+    "start_date": "2015-03-02 00:00:00",
+    "end_date": "2024-12-20 00:00:00",
+    "creation_date": "2025-10-02 11:32:29"
+  },
+  "data_sources": {
+    "price": "SPY via yfinance",
+    "news": "yfinance news API or VIX-based proxy",
+    "sentiment_analysis": "TextBlob polarity score"
+  },
+  "target_variables": [
+    "target_return_1d",
+    "target_return_5d",
+    "target_direction_1d",
+    "target_price_1d"
+  ],
+  "temporal_separation": "Complete (t features \u2192 t+1 target)",
+  "sentiment_features": [
+    "sentiment_mean",
+    "sentiment_std",
+    "sentiment_min",
+    "sentiment_max",
+    "news_count",
+    "sentiment_range",
+    "sentiment_ma_5",
+    "sentiment_ma_20",
+    "sentiment_momentum",
+    "news_volume_ma_10",
+    "news_volume_ratio"
+  ]
+}

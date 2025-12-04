@@ -1,0 +1,6 @@
+﻿Model,CV_R2,CV_Grade,Test_R2,Test_Grade,Stability,Generalization,Overfitting_Risk,Recommended
+ElasticNet,0.3444,Success (≥0.30),0.0254,Weak (0-0.20),0.1911,Good,High,Yes
+Lasso 0.001,0.3373,Success (≥0.30),0.0879,Weak (0-0.20),0.1467,Good,Low,Yes
+Ridge Volatility,0.2881,Marginal (0.20-0.30),-0.1429,Failure (<0),0.2478,Poor,High,No
+HAR Benchmark,0.23,Marginal (0.20-0.30),-0.0431,Failure (<0),0.1901,Poor,High,No
+Random Forest,0.1713,Weak (0-0.20),0.0233,Weak (0-0.20),0.0951,Good,Low,No

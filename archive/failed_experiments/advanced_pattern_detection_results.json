@@ -1,0 +1,387 @@
+{
+  "return_regression": {
+    "mean_r2": -0.15400433478330527,
+    "std_r2": 0.08428824438364887,
+    "mean_rmse": 0.011516669043869337,
+    "mean_mae": 0.008026496817208155,
+    "cv_scores": [
+      {
+        "r2": -0.2657015533927052,
+        "rmse": 0.007818479234293628,
+        "mae": 0.005298935517604047
+      },
+      {
+        "r2": -0.23629513234047517,
+        "rmse": 0.009830757646524284,
+        "mae": 0.00681796608518434
+      },
+      {
+        "r2": -0.12944226941136172,
+        "rmse": 0.018273390285575033,
+        "mae": 0.011314979401306371
+      },
+      {
+        "r2": -0.09496844296308682,
+        "rmse": 0.013829576547944162,
+        "mae": 0.010735799453891299
+      },
+      {
+        "r2": -0.04361427580889754,
+        "rmse": 0.007831141505009593,
+        "mae": 0.00596480362805472
+      }
+    ]
+  },
+  "return_feature_importance": [
+    {
+      "feature": "returns",
+      "importance": 0.06738041341304779
+    },
+    {
+      "feature": "intraday_volatility",
+      "importance": 0.06318392604589462
+    },
+    {
+      "feature": "sentiment_twitter",
+      "importance": 0.05933620408177376
+    },
+    {
+      "feature": "sentiment_intraday",
+      "importance": 0.057388968765735626
+    },
+    {
+      "feature": "extreme_negative_ratio",
+      "importance": 0.057149551808834076
+    },
+    {
+      "feature": "volume_surge",
+      "importance": 0.05203596502542496
+    },
+    {
+      "feature": "sentiment_news",
+      "importance": 0.049967724829912186
+    },
+    {
+      "feature": "virality_surge",
+      "importance": 0.047185976058244705
+    },
+    {
+      "feature": "sentiment_max",
+      "importance": 0.045567382127046585
+    },
+    {
+      "feature": "sentiment_strength_mean",
+      "importance": 0.044653553515672684
+    },
+    {
+      "feature": "virality_max",
+      "importance": 0.04427734762430191
+    },
+    {
+      "feature": "sentiment_acceleration",
+      "importance": 0.04392298310995102
+    },
+    {
+      "feature": "sentiment_momentum_3d",
+      "importance": 0.043838173151016235
+    },
+    {
+      "feature": "sentiment_change",
+      "importance": 0.04349206015467644
+    },
+    {
+      "feature": "virality_mean",
+      "importance": 0.04315884783864021
+    },
+    {
+      "feature": "sentiment_premarket",
+      "importance": 0.04259917885065079
+    },
+    {
+      "feature": "sentiment_postmarket",
+      "importance": 0.04077192395925522
+    },
+    {
+      "feature": "sentiment_min",
+      "importance": 0.036678921431303024
+    },
+    {
+      "feature": "sentiment_strength_max",
+      "importance": 0.036269985139369965
+    },
+    {
+      "feature": "sentiment_std",
+      "importance": 0.03407285362482071
+    },
+    {
+      "feature": "sentiment_mean",
+      "importance": 0.03141837194561958
+    },
+    {
+      "feature": "extreme_positive_ratio",
+      "importance": 0.015649670735001564
+    },
+    {
+      "feature": "news_count",
+      "importance": 0.0
+    },
+    {
+      "feature": "news_count_high_impact",
+      "importance": 0.0
+    }
+  ],
+  "direction_classification": {
+    "mean_accuracy": 0.5105263157894738,
+    "std_accuracy": 0.012254783229536546,
+    "cv_scores": [
+      {
+        "accuracy": 0.5095693779904307
+      },
+      {
+        "accuracy": 0.5119617224880383
+      },
+      {
+        "accuracy": 0.5311004784688995
+      },
+      {
+        "accuracy": 0.49282296650717705
+      },
+      {
+        "accuracy": 0.507177033492823
+      }
+    ]
+  },
+  "direction_feature_importance": [
+    {
+      "feature": "sentiment_strength_max",
+      "importance": 0.0526001937687397
+    },
+    {
+      "feature": "virality_mean",
+      "importance": 0.05081794410943985
+    },
+    {
+      "feature": "sentiment_news",
+      "importance": 0.04982380568981171
+    },
+    {
+      "feature": "volume_surge",
+      "importance": 0.04971297085285187
+    },
+    {
+      "feature": "sentiment_intraday",
+      "importance": 0.04929467663168907
+    },
+    {
+      "feature": "returns",
+      "importance": 0.04923753812909126
+    },
+    {
+      "feature": "sentiment_change",
+      "importance": 0.0480915829539299
+    },
+    {
+      "feature": "sentiment_postmarket",
+      "importance": 0.04774346947669983
+    },
+    {
+      "feature": "virality_max",
+      "importance": 0.047698937356472015
+    },
+    {
+      "feature": "sentiment_strength_mean",
+      "importance": 0.0474817268550396
+    },
+    {
+      "feature": "sentiment_premarket",
+      "importance": 0.04746364802122116
+    },
+    {
+      "feature": "sentiment_acceleration",
+      "importance": 0.04693678393959999
+    },
+    {
+      "feature": "virality_surge",
+      "importance": 0.04646942764520645
+    },
+    {
+      "feature": "sentiment_max",
+      "importance": 0.045787692070007324
+    },
+    {
+      "feature": "sentiment_momentum_3d",
+      "importance": 0.04575958847999573
+    },
+    {
+      "feature": "intraday_volatility",
+      "importance": 0.045593686401844025
+    },
+    {
+      "feature": "sentiment_std",
+      "importance": 0.045145146548748016
+    },
+    {
+      "feature": "sentiment_min",
+      "importance": 0.0450369194149971
+    },
+    {
+      "feature": "sentiment_twitter",
+      "importance": 0.04450111463665962
+    },
+    {
+      "feature": "sentiment_mean",
+      "importance": 0.04272209480404854
+    },
+    {
+      "feature": "extreme_positive_ratio",
+      "importance": 0.035512812435626984
+    },
+    {
+      "feature": "extreme_negative_ratio",
+      "importance": 0.016568226739764214
+    },
+    {
+      "feature": "news_count",
+      "importance": 0.0
+    },
+    {
+      "feature": "news_count_high_impact",
+      "importance": 0.0
+    }
+  ],
+  "extreme_classification": {
+    "mean_accuracy": 0.7765550239234449,
+    "std_accuracy": 0.11806262513073211,
+    "cv_scores": [
+      {
+        "accuracy": 0.9090909090909091
+      },
+      {
+        "accuracy": 0.8397129186602871
+      },
+      {
+        "accuracy": 0.6889952153110048
+      },
+      {
+        "accuracy": 0.5909090909090909
+      },
+      {
+        "accuracy": 0.854066985645933
+      }
+    ]
+  },
+  "extreme_feature_importance": [
+    {
+      "feature": "sentiment_mean",
+      "importance": 0.08224834501743317
+    },
+    {
+      "feature": "sentiment_intraday",
+      "importance": 0.07352645695209503
+    },
+    {
+      "feature": "intraday_volatility",
+      "importance": 0.05971978232264519
+    },
+    {
+      "feature": "sentiment_twitter",
+      "importance": 0.05729379504919052
+    },
+    {
+      "feature": "sentiment_min",
+      "importance": 0.05103595182299614
+    },
+    {
+      "feature": "sentiment_max",
+      "importance": 0.050599105656147
+    },
+    {
+      "feature": "sentiment_news",
+      "importance": 0.04557082802057266
+    },
+    {
+      "feature": "returns",
+      "importance": 0.04462099075317383
+    },
+    {
+      "feature": "sentiment_strength_mean",
+      "importance": 0.04316484183073044
+    },
+    {
+      "feature": "sentiment_premarket",
+      "importance": 0.042474038898944855
+    },
+    {
+      "feature": "sentiment_strength_max",
+      "importance": 0.04070502519607544
+    },
+    {
+      "feature": "sentiment_change",
+      "importance": 0.040400903671979904
+    },
+    {
+      "feature": "sentiment_postmarket",
+      "importance": 0.03971456363797188
+    },
+    {
+      "feature": "sentiment_std",
+      "importance": 0.039632782340049744
+    },
+    {
+      "feature": "virality_max",
+      "importance": 0.039246171712875366
+    },
+    {
+      "feature": "volume_surge",
+      "importance": 0.039226651191711426
+    },
+    {
+      "feature": "virality_surge",
+      "importance": 0.03910113126039505
+    },
+    {
+      "feature": "virality_mean",
+      "importance": 0.0389934703707695
+    },
+    {
+      "feature": "sentiment_acceleration",
+      "importance": 0.0387178473174572
+    },
+    {
+      "feature": "extreme_negative_ratio",
+      "importance": 0.0386267825961113
+    },
+    {
+      "feature": "sentiment_momentum_3d",
+      "importance": 0.03845817595720291
+    },
+    {
+      "feature": "extreme_positive_ratio",
+      "importance": 0.016922349110245705
+    },
+    {
+      "feature": "news_count_high_impact",
+      "importance": 0.0
+    },
+    {
+      "feature": "news_count",
+      "importance": 0.0
+    }
+  ],
+  "microstructure_patterns": {
+    "premarket_correlation": -0.011119355333155372,
+    "twitter_news_diff_correlation": -0.020194250429216853,
+    "virality_extreme_vs_normal": {
+      "extreme": 92.29432167017009,
+      "normal": 75.35559669807388,
+      "difference": 16.93872497209621
+    }
+  },
+  "metadata": {
+    "experiment": "advanced_pattern_detection",
+    "dataset": "data/training/advanced_news_twitter_dataset.csv",
+    "n_samples": 2510,
+    "n_features": 24,
+    "date": "2025-10-02 12:16:09"
+  }
+}
