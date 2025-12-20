@@ -240,27 +240,68 @@ st.markdown("""
 본 연구에서 사용하는 핵심 변수들의 정의는 다음과 같다.
 """)
 
-# 수식 정의
+# 수식 정의 1: 실현 변동성
 st.latex(r'''
 \textbf{Definition 1 (Realized Volatility):} \quad
 RV_{t,n} = \sqrt{\frac{252}{n} \sum_{i=0}^{n-1} r_{t-i}^2} \times 100
 ''')
 
-st.markdown("여기서 $r_t$는 일일 로그 수익률, $n$은 측정 기간(일)이다.")
+st.markdown("""
+**변수 설명:**
+- $r_t = \ln(P_t / P_{t-1})$: t일의 로그 수익률 (종가 기준)
+- $n$: 변동성 측정 기간 (본 연구에서는 22 거래일 = 약 1개월)
+- $252$: 연간 거래일 수 (연율화 계수)
+- $\\times 100$: 백분율 변환
 
+**해석:**  
+실현 변동성(RV)은 **과거에 실제로 발생한** 주가 변동의 크기를 측정합니다.
+예를 들어, RV = 20%는 해당 기간 동안 주가가 연율화 기준으로 약 20%의 표준편차로 움직였음을 의미합니다.
+""")
+
+st.markdown("---")
+
+# 수식 정의 2: VRP
 st.latex(r'''
 \textbf{Definition 2 (Volatility Risk Premium):} \quad
 VRP_t = IV_t - E_t[RV_{t,t+n}]
 ''')
 
-st.markdown("여기서 $IV_t$는 t시점의 내재 변동성(VIX), $E_t[RV_{t,t+n}]$은 t시점에서 예측한 미래 n일간의 실현 변동성이다.")
+st.markdown("""
+**변수 설명:**
+- $IV_t$: t시점의 **내재 변동성** (Implied Volatility) - 옵션 가격에서 역산
+- $E_t[RV_{t,t+n}]$: t시점에서의 **미래 실현 변동성 기대값**
+- $VRP_t$: t시점의 변동성 위험 프리미엄
 
+**해석:**  
+VRP는 시장 참여자들이 미래 변동성에 대해 지불하는 **"공포 프리미엄"**입니다.
+- $VRP > 0$: 시장이 변동성을 과대평가 → 변동성 매도자에게 유리
+- $VRP < 0$: 시장이 변동성을 과소평가 → 변동성 매수자에게 유리
+
+역사적으로 VRP는 **평균적으로 양수**입니다 (평균 5-7%). 
+이는 투자자들이 "보험료"를 지불하며 변동성 위험을 회피하려 하기 때문입니다.
+""")
+
+st.markdown("---")
+
+# 수식 정의 3: 간접 예측
 st.latex(r'''
 \textbf{Definition 3 (Indirect Prediction):} \quad
 \hat{VRP}_t = VIX_t - \hat{RV}_{t+22}
 ''')
 
-st.markdown("본 연구는 VRP를 직접 예측하지 않고, 먼저 22일 후 RV를 예측한 뒤 VIX에서 차감하는 **간접 예측 방식**을 사용한다.")
+st.markdown("""
+**변수 설명:**
+- $VIX_t$: t시점의 VIX 지수 (S&P 500 옵션에서 추출한 30일 내재 변동성)
+- $\hat{RV}_{t+22}$: 모델이 예측한 22일 후 실현 변동성
+- $\hat{VRP}_t$: 예측된 VRP
+
+**간접 예측 방식을 사용하는 이유:**
+1. **직접 예측의 문제**: VRP를 직접 예측하면 R² = 0.02 (매우 낮음)
+2. **RV 예측의 장점**: RV는 자기상관이 강하여 예측하기 쉬움 (R² = 0.19)
+3. **VIX 활용**: VIX는 실시간으로 관측 가능하므로, RV만 예측하면 VRP를 계산 가능
+
+이 방식으로 **예측력이 약 10배 향상**됩니다.
+""")
 
 st.markdown("---")
 
@@ -271,15 +312,37 @@ st.latex(r'''
 \hat{RV}_{t+22} = \beta_0 + \sum_{j=1}^{p} \beta_j X_{j,t} + \epsilon_t
 ''')
 
+st.markdown("""
+**변수 설명:**
+- $\hat{RV}_{t+22}$: 22일 후 실현 변동성 예측값
+- $\\beta_0$: 절편 (intercept)
+- $\\beta_j$: j번째 특성의 회귀 계수
+- $X_{j,t}$: t시점의 j번째 특성 변수 (총 12개)
+- $\\epsilon_t$: 오차항
+
+**해석:**  
+선형 회귀 모델로, 12개의 특성 변수를 사용하여 22일 후의 실현 변동성을 예측합니다.
+""")
+
 st.latex(r'''
 \min_{\beta} \left\{ \frac{1}{2N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 
 + \lambda \left( \alpha \|\beta\|_1 + \frac{1-\alpha}{2} \|\beta\|_2^2 \right) \right\}
 ''')
 
 st.markdown(r"""
-- $\lambda$: 정규화 강도 (regularization strength)
-- $\alpha$: L1/L2 비율 ($\alpha=1$: Lasso, $\alpha=0$: Ridge)
-- 본 연구에서는 $\alpha=0.5$, $\lambda$ 교차검증으로 결정
+**목적 함수 분해:**
+- $\frac{1}{2N} \sum (y_i - \hat{y}_i)^2$: **MSE (Mean Squared Error)** - 예측 오차 최소화
+- $\lambda \alpha \|\beta\|_1$: **L1 정규화 (Lasso)** - 불필요한 특성의 계수를 0으로 만듦
+- $\frac{\lambda(1-\alpha)}{2} \|\beta\|_2^2$: **L2 정규화 (Ridge)** - 계수의 크기를 축소
+
+**하이퍼파라미터:**
+- $\lambda$ = 0.01 (정규화 강도) - 5-fold 교차검증으로 결정
+- $\alpha$ = 0.5 (L1/L2 균형) - Lasso와 Ridge의 중간
+
+**ElasticNet을 사용하는 이유:**
+1. 특성 간 다중공선성(multicollinearity) 문제 해결
+2. 자동 특성 선택 (L1)과 안정적 추정 (L2)의 장점 결합
+3. 과적합 방지
 """)
 
 st.markdown("---")
