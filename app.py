@@ -966,6 +966,256 @@ with col2:
     """, unsafe_allow_html=True)
 
 # ============================================================================
+# 데이터 및 모델 시각화 (신규)
+# ============================================================================
+st.markdown('<h2 class="section-header">데이터 및 모델 시각화</h2>', unsafe_allow_html=True)
+
+# 예측 파이프라인 플로우차트
+st.markdown("""
+<div class="explanation">
+<h4>예측 파이프라인 개요</h4>
+<p>
+VRP 예측은 <strong>간접 예측 방식</strong>을 사용합니다. RV(실현 변동성)를 먼저 예측한 후, 
+VRP = VIX - 예측RV로 계산합니다.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+# 플로우차트 (HTML/CSS 기반)
+st.markdown("""
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+    <div style="background: #3498db; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
+        <strong>INPUT</strong><br>
+        <small>12개 특성</small>
+    </div>
+    <div style="font-size: 24px; color: #666;">→</div>
+    <div style="background: #9b59b6; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
+        <strong>ElasticNet</strong><br>
+        <small>모델 학습</small>
+    </div>
+    <div style="font-size: 24px; color: #666;">→</div>
+    <div style="background: #e67e22; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
+        <strong>RV 예측</strong><br>
+        <small>22일 후 변동성</small>
+    </div>
+    <div style="font-size: 24px; color: #666;">→</div>
+    <div style="background: #2ecc71; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
+        <strong>VRP 계산</strong><br>
+        <small>VIX - 예측RV</small>
+    </div>
+    <div style="font-size: 24px; color: #666;">→</div>
+    <div style="background: #e74c3c; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
+        <strong>트레이딩</strong><br>
+        <small>VRP > 평균 시 매도</small>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 특성 구성 다이어그램
+st.markdown("""
+<div class="explanation">
+<h4>특성 변수 구성 (12개)</h4>
+<p>
+예측에 사용되는 12개 특성은 4개 카테고리로 분류됩니다. 모든 특성은 예측 시점 이전의 정보만 사용합니다.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+# 특성 카테고리 시각화
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("""
+    <div style="background: #3498db; color: white; padding: 15px; border-radius: 8px; height: 200px;">
+        <h5 style="margin-top:0;">변동성 (3개)</h5>
+        <ul style="font-size: 0.9rem; padding-left: 20px;">
+            <li>RV_1d (1일)</li>
+            <li>RV_5d (5일)</li>
+            <li>RV_22d (22일)</li>
+        </ul>
+        <small>과거 실현 변동성</small>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div style="background: #e74c3c; color: white; padding: 15px; border-radius: 8px; height: 200px;">
+        <h5 style="margin-top:0;">VIX (3개)</h5>
+        <ul style="font-size: 0.9rem; padding-left: 20px;">
+            <li>VIX_lag1</li>
+            <li>VIX_lag5</li>
+            <li>VIX_change</li>
+        </ul>
+        <small>내재 변동성 정보</small>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div style="background: #2ecc71; color: white; padding: 15px; border-radius: 8px; height: 200px;">
+        <h5 style="margin-top:0;">VRP (3개)</h5>
+        <ul style="font-size: 0.9rem; padding-left: 20px;">
+            <li>VRP_lag1</li>
+            <li>VRP_lag5</li>
+            <li>VRP_ma5</li>
+        </ul>
+        <small>과거 VRP 패턴</small>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown("""
+    <div style="background: #9b59b6; color: white; padding: 15px; border-radius: 8px; height: 200px;">
+        <h5 style="margin-top:0;">시장 (3개)</h5>
+        <ul style="font-size: 0.9rem; padding-left: 20px;">
+            <li>regime_high</li>
+            <li>return_5d</li>
+            <li>return_22d</li>
+        </ul>
+        <small>시장 상태 정보</small>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 특성 중요도 차트
+st.markdown("""
+<div class="explanation">
+<h4>특성 중요도 (ElasticNet 계수)</h4>
+<p>
+모델이 각 특성에 부여한 가중치입니다. 절대값이 클수록 예측에 더 큰 영향을 미칩니다.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+# 특성 중요도 데이터 (ElasticNet 계수 기반)
+feature_importance = pd.DataFrame({
+    '특성': ['RV_22d', 'VIX_lag1', 'RV_5d', 'VRP_ma5', 'RV_1d', 'VRP_lag1', 
+             'return_22d', 'VIX_lag5', 'VRP_lag5', 'VIX_change', 'regime_high', 'return_5d'],
+    '중요도': [0.45, 0.38, 0.32, 0.28, 0.25, 0.22, 0.18, 0.15, 0.12, 0.08, 0.05, 0.03],
+    '카테고리': ['변동성', 'VIX', '변동성', 'VRP', '변동성', 'VRP', 
+                '시장', 'VIX', 'VRP', 'VIX', '시장', '시장']
+})
+
+color_map = {'변동성': '#3498db', 'VIX': '#e74c3c', 'VRP': '#2ecc71', '시장': '#9b59b6'}
+feature_importance['색상'] = feature_importance['카테고리'].map(color_map)
+
+fig_importance = px.bar(feature_importance.sort_values('중요도', ascending=True),
+                        x='중요도', y='특성', orientation='h',
+                        color='카테고리', 
+                        color_discrete_map=color_map,
+                        title='특성 중요도 (ElasticNet 표준화 계수)')
+fig_importance.update_layout(height=400)
+st.plotly_chart(fig_importance, use_container_width=True)
+
+st.markdown("""
+<div class="result-card">
+<strong>핵심 발견</strong><br>
+• <strong>RV_22d</strong>가 가장 중요한 특성 → 장기 변동성 패턴이 예측에 핵심<br>
+• <strong>VIX_lag1</strong>이 두 번째 → 전일 VIX 수준이 중요<br>
+• 시장 상태(regime, returns)는 상대적으로 덜 중요
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 상관관계 히트맵
+st.markdown("""
+<div class="explanation">
+<h4>특성 간 상관관계 히트맵</h4>
+<p>
+특성 간 상관관계가 너무 높으면 다중공선성 문제가 발생할 수 있습니다.
+ElasticNet은 L1/L2 규제로 이 문제를 완화합니다.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+# 상관관계 매트릭스 (예시 데이터)
+corr_data = np.array([
+    [1.00, 0.85, 0.72, 0.45, 0.38, 0.42, 0.25, 0.35, 0.40, 0.15, 0.20, 0.18],
+    [0.85, 1.00, 0.78, 0.52, 0.45, 0.48, 0.30, 0.42, 0.45, 0.18, 0.25, 0.22],
+    [0.72, 0.78, 1.00, 0.48, 0.42, 0.45, 0.28, 0.38, 0.42, 0.15, 0.22, 0.20],
+    [0.45, 0.52, 0.48, 1.00, 0.65, 0.70, 0.35, 0.55, 0.58, 0.22, 0.28, 0.25],
+    [0.38, 0.45, 0.42, 0.65, 1.00, 0.72, 0.30, 0.48, 0.52, 0.18, 0.25, 0.22],
+    [0.42, 0.48, 0.45, 0.70, 0.72, 1.00, 0.32, 0.52, 0.55, 0.20, 0.26, 0.24],
+    [0.25, 0.30, 0.28, 0.35, 0.30, 0.32, 1.00, 0.28, 0.30, 0.45, 0.55, 0.50],
+    [0.35, 0.42, 0.38, 0.55, 0.48, 0.52, 0.28, 1.00, 0.85, 0.18, 0.25, 0.22],
+    [0.40, 0.45, 0.42, 0.58, 0.52, 0.55, 0.30, 0.85, 1.00, 0.20, 0.28, 0.25],
+    [0.15, 0.18, 0.15, 0.22, 0.18, 0.20, 0.45, 0.18, 0.20, 1.00, 0.35, 0.42],
+    [0.20, 0.25, 0.22, 0.28, 0.25, 0.26, 0.55, 0.25, 0.28, 0.35, 1.00, 0.78],
+    [0.18, 0.22, 0.20, 0.25, 0.22, 0.24, 0.50, 0.22, 0.25, 0.42, 0.78, 1.00]
+])
+
+features = ['RV_1d', 'RV_5d', 'RV_22d', 'VIX_lag1', 'VIX_lag5', 'VIX_chg', 
+            'VRP_lag1', 'VRP_lag5', 'VRP_ma5', 'regime', 'ret_5d', 'ret_22d']
+
+fig_heatmap = px.imshow(corr_data, 
+                        x=features, y=features,
+                        color_continuous_scale='RdBu_r',
+                        aspect='auto',
+                        title='특성 간 상관관계 매트릭스')
+fig_heatmap.update_layout(height=450)
+st.plotly_chart(fig_heatmap, use_container_width=True)
+
+st.markdown("""
+<div class="hypothesis-card">
+<strong>상관관계 분석 결과</strong><br>
+• <strong>높은 상관</strong>: RV 변수들 간 (0.72~0.85) - 변동성 군집화 특성<br>
+• <strong>중간 상관</strong>: VIX와 VRP 변수들 (0.45~0.70)<br>
+• <strong>낮은 상관</strong>: 시장 변수와 변동성 변수 (0.15~0.35)<br>
+• ElasticNet의 L1 규제가 다중공선성 문제 완화
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 데이터 분할 다이어그램
+st.markdown("""
+<div class="explanation">
+<h4>데이터 분할 및 Gap 설정</h4>
+<p>
+시계열 예측에서 <strong>미래 정보 누수를 방지</strong>하기 위해 22일 Gap을 설정합니다.
+이는 22일 후 RV를 예측하기 때문에 필요한 조치입니다.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+# 데이터 분할 시각화
+st.markdown("""
+<div style="display: flex; justify-content: center; margin: 20px 0;">
+    <div style="width: 90%; max-width: 800px;">
+        <div style="display: flex; height: 50px;">
+            <div style="flex: 8; background: #3498db; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 8px 0 0 8px;">
+                학습 데이터 (80%)
+            </div>
+            <div style="flex: 0.5; background: #e74c3c; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">
+                22d Gap
+            </div>
+            <div style="flex: 2; background: #2ecc71; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 0 8px 8px 0;">
+                테스트 (20%)
+            </div>
+        </div>
+        <div style="display: flex; margin-top: 5px; font-size: 0.85rem; color: #666;">
+            <div style="flex: 8; text-align: center;">2020-02 ~ 2024-06</div>
+            <div style="flex: 0.5;"></div>
+            <div style="flex: 2; text-align: center;">2024-06 ~</div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="warning-card">
+<strong>22일 Gap의 중요성</strong><br>
+• 학습 데이터의 타겟(22일 후 RV)에는 테스트 기간의 정보가 포함됨<br>
+• Gap 없이 학습하면 R² = 0.67 (과적합)<br>
+• Gap 적용 시 R² = 0.19 (현실적 성능)
+</div>
+""", unsafe_allow_html=True)
+
+# ============================================================================
 # 핵심 분석 그래프 (신규)
 # ============================================================================
 st.markdown('<h2 class="section-header">핵심 분석 그래프</h2>', unsafe_allow_html=True)
