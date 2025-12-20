@@ -946,10 +946,19 @@ st.markdown('<h2 class="section-header">💰 거래 비용 분석</h2>', unsafe_
 if TRANSACTION_COSTS:
     st.markdown("""
     <div class="explanation">
-    <h4>현실적 비용 반영</h4>
+    <h4>왜 거래 비용 분석이 중요한가?</h4>
     <p>
-    학술 연구에서 보고되는 수익률은 종종 거래 비용을 무시합니다. 
-    실제 투자에서는 슬리피지와 수수료가 발생하므로, 비용을 반영한 순수익률을 분석했습니다.
+    학술 연구에서 보고되는 수익률은 종종 <strong>거래 비용을 무시</strong>합니다. 
+    하지만 실제 투자에서는 다음과 같은 비용이 발생합니다:
+    </p>
+    <ul>
+        <li><strong>수수료 (Commission)</strong>: 브로커에 지불하는 거래 수수료</li>
+        <li><strong>슬리피지 (Slippage)</strong>: 주문가와 체결가의 차이</li>
+        <li><strong>스프레드 (Bid-Ask Spread)</strong>: 매수/매도 호가 차이</li>
+    </ul>
+    <p>
+    본 분석은 다양한 비용 시나리오(5~50 bps)에서 전략의 <strong>수익성이 유지되는지</strong> 검증합니다.
+    일반적으로 기관 투자자는 5-10 bps, 개인 투자자는 20-30 bps 정도의 비용을 예상합니다.
     </p>
     </div>
     """, unsafe_allow_html=True)
@@ -961,8 +970,8 @@ if TRANSACTION_COSTS:
         short_name = scenario.split('(')[0].strip()
         cost_data.append({
             '시나리오': short_name,
-            '순수익률 (%)': data['total_return'],
-            '승률 (%)': data['win_rate'] * 100
+            '순수익률 (%)': round(data['total_return'], 1),
+            '승률 (%)': round(data['win_rate'] * 100, 1)
         })
     
     if cost_data:
@@ -984,14 +993,28 @@ if TRANSACTION_COSTS:
             
             st.markdown(f"""
             <div class="result-card">
-            <strong>📊 거래 비용 분석 결과</strong><br><br>
-            • <strong>손익분기 비용</strong>: {breakeven} bps<br>
+            <strong>📊 핵심 지표</strong><br><br>
+            • <strong>손익분기 비용</strong>: {breakeven} bps (2%)<br>
             • <strong>연간 회전율</strong>: {turnover:.1f}회<br>
-            • <strong>10bps 적용 시</strong>: +800.7% (비용 없음 대비 -0.4%)<br>
-            • <strong>30bps 적용 시</strong>: +794.7% (비용 없음 대비 -1.1%)<br><br>
-            <em>→ 현실적 비용에서도 전략 수익성 유지</em>
+            • <strong>포지션 변경</strong>: 37회/275일<br>
             </div>
             """, unsafe_allow_html=True)
+    
+    # 인사이트 섹션
+    st.markdown("""
+    <div class="key-point">
+    <strong>💡 핵심 인사이트</strong><br><br>
+    <strong>1. 전략의 경제적 실현 가능성 확인</strong><br>
+    • 손익분기 비용이 200 bps(2%)로 매우 높음 → 현실적 비용(10-30 bps)에서 충분한 마진 확보<br><br>
+    
+    <strong>2. 기관 투자자에게 적합</strong><br>
+    • 기관 투자자 비용(5-10 bps) 적용 시 순수익률 800% 이상 유지<br>
+    • 개인 투자자 비용(30 bps) 적용 시에도 795% 수익 달성<br><br>
+    
+    <strong>3. 낮은 회전율</strong><br>
+    • 연간 33.9회 거래로 빈번한 매매 불필요 → 거래 비용 최소화
+    </div>
+    """, unsafe_allow_html=True)
 else:
     st.info("거래 비용 분석 결과를 로드할 수 없습니다. `python src/transaction_cost_analysis.py` 실행 필요")
 
@@ -1003,10 +1026,14 @@ st.markdown('<h2 class="section-header">🔍 구조적 변화 검정</h2>', unsa
 if STRUCTURAL_BREAKS:
     st.markdown("""
     <div class="explanation">
-    <h4>COVID-19 영향 분석</h4>
+    <h4>왜 구조적 변화 검정이 필요한가?</h4>
     <p>
-    2020-2025 데이터에는 COVID-19 팬데믹이 포함되어 있습니다. 
-    Chow Test를 통해 시장 구조가 변화했는지 검정했습니다.
+    2020-2025 데이터에는 <strong>COVID-19 팬데믹</strong>이 포함되어 있습니다.
+    이 기간 동안 시장의 변동성 구조가 근본적으로 변화했을 가능성이 있습니다.
+    </p>
+    <p>
+    <strong>Chow Test</strong>는 특정 시점을 기준으로 회귀 계수가 변화했는지 검정하는 통계 기법입니다.
+    F-통계량이 높고 p-value가 낮으면 해당 시점에서 "구조적 변화"가 있었음을 의미합니다.
     </p>
     </div>
     """, unsafe_allow_html=True)
@@ -1060,6 +1087,58 @@ if STRUCTURAL_BREAKS:
             • 모델 예측력이 시간에 따라 변동적
             </div>
             """, unsafe_allow_html=True)
+    
+    # 기간별 해석
+    st.markdown("""
+    <div class="explanation">
+    <h4>📅 주요 시점 해석</h4>
+    <table style="width:100%; border-collapse: collapse;">
+        <tr style="background-color:#f8f9fa;">
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">시점</th>
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">시장 상황</th>
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">모델 영향</th>
+        </tr>
+        <tr>
+            <td style="padding:8px;">2020-03 (COVID 시작)</td>
+            <td style="padding:8px;">VIX 80 돌파, 역사적 변동성</td>
+            <td style="padding:8px;">극단적 상황에서 모델 불안정</td>
+        </tr>
+        <tr>
+            <td style="padding:8px;">2020-12 (COVID 1차 종료)</td>
+            <td style="padding:8px;">백신 개발, 변동성 진정</td>
+            <td style="padding:8px;">모델 예측력 회복 시작</td>
+        </tr>
+        <tr>
+            <td style="padding:8px;">2022-01 (금리인상)</td>
+            <td style="padding:8px;">Fed 금리 인상 시작</td>
+            <td style="padding:8px;">새로운 변동성 레짐 진입</td>
+        </tr>
+        <tr>
+            <td style="padding:8px;">2023-01 (정상화)</td>
+            <td style="padding:8px;">시장 안정화</td>
+            <td style="padding:8px;">모델 예측력 정상 수준 회복</td>
+        </tr>
+    </table>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 시사점
+    st.markdown("""
+    <div class="key-point">
+    <strong>💡 핵심 시사점</strong><br><br>
+    <strong>1. 모델의 한계 인식</strong><br>
+    • 극단적 시장 상황(VIX > 40)에서는 모델 예측력이 저하될 수 있음<br>
+    • 위기 상황에서는 추가적인 리스크 관리 필요<br><br>
+    
+    <strong>2. 적응적 접근 필요</strong><br>
+    • 시장 구조가 변화하면 모델 재학습 고려<br>
+    • 롤링 윈도우 학습으로 최신 패턴 반영<br><br>
+    
+    <strong>3. 긍정적 신호</strong><br>
+    • 2023년 이후 모델 예측력 안정화<br>
+    • 정상적인 시장 환경에서 전략 유효성 확인
+    </div>
+    """, unsafe_allow_html=True)
 else:
     st.info("구조적 변화 분석 결과를 로드할 수 없습니다.")
 
@@ -1071,11 +1150,39 @@ st.markdown('<h2 class="section-header">📊 VIX-Beta 이론 확장 (9개 자산
 if VIX_BETA:
     st.markdown("""
     <div class="explanation">
-    <h4>다자산 검증</h4>
+    <h4>VIX-Beta 이론이란?</h4>
     <p>
-    VIX-Beta 이론을 9개 자산에 대해 검증했습니다. 
-    이론에 따르면, VIX와 상관관계가 낮은 자산일수록 VRP 예측력이 높아야 합니다.
+    <strong>VIX-Beta 이론</strong>은 본 연구에서 새롭게 제안하는 프레임워크입니다.
     </p>
+    <p>
+    <strong>핵심 아이디어:</strong> VIX는 S&P 500 옵션에서 추출한 내재 변동성이므로,
+    S&P 500과 <strong>상관관계가 높은 자산</strong>일수록 VIX가 해당 자산의 변동성을 더 잘 반영합니다.
+    </p>
+    <p>
+    반대로, S&P 500과 <strong>상관관계가 낮은 자산</strong>(예: 금, 채권)은 VIX가 해당 자산의 변동성을
+    제대로 반영하지 못합니다. 이 "오차"가 바로 <strong>예측 가능한 VRP</strong>입니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 자산 분류 설명
+    st.markdown("""
+    <div class="hypothesis-card">
+    <strong>📋 분석 대상 자산 (9개)</strong><br><br>
+    <table style="width:100%;">
+        <tr>
+            <td><strong>주식</strong>: SPY (S&P 500), QQQ (NASDAQ), IWM (소형주)</td>
+        </tr>
+        <tr>
+            <td><strong>섹터</strong>: XLF (금융), XLE (에너지)</td>
+        </tr>
+        <tr>
+            <td><strong>국제</strong>: EEM (신흥국)</td>
+        </tr>
+        <tr>
+            <td><strong>대안자산</strong>: TLT (채권), GLD (금), USO (원유)</td>
+        </tr>
+    </table>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1098,6 +1205,7 @@ if VIX_BETA:
         asset_df = pd.DataFrame(asset_data)
         
         # 자산 데이터 테이블 표시
+        st.markdown("#### 📊 자산별 성능 비교")
         st.dataframe(
             asset_df[['자산', '설명', 'VIX-RV 상관', 'R²', '방향정확도 (%)', '승률 (%)']].sort_values('R²', ascending=False),
             hide_index=True,
@@ -1142,6 +1250,26 @@ if VIX_BETA:
         • 최고 예측력: <strong>{best_asset['자산']}</strong> (R² = {best_asset['R²']:.4f}, 방향정확도 = {best_asset['방향정확도 (%)']:.1f}%)<br>
         • 최저 예측력: <strong>{worst_asset['자산']}</strong> (R² = {worst_asset['R²']:.4f})<br>
         • <em>VIX와 상관관계가 낮은 자산(TLT, GLD)에서 예측력이 더 높음</em>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # 투자 시사점
+        st.markdown("""
+        <div class="explanation">
+        <h4>💡 투자 시사점</h4>
+        <p>
+        <strong>1. 자산 선택 전략</strong><br>
+        VIX 기반 VRP 전략은 <strong>TLT(채권), GLD(금)</strong> 같은 대안자산에서 가장 효과적입니다.
+        SPY, QQQ 같은 미국 주식에서는 VIX가 이미 변동성을 잘 반영하므로 예측 가치가 낮습니다.
+        </p>
+        <p>
+        <strong>2. 포트폴리오 다각화</strong><br>
+        VIX 기반 전략과 자산 특화 전략(GVZ, OVX 등)을 조합하면 더 높은 성과 기대 가능합니다.
+        </p>
+        <p>
+        <strong>3. 크로스 애셋 차익거래</strong><br>
+        VIX가 금 변동성을 과대평가할 때 금 VRP 매도 포지션 구축 가능합니다.
+        </p>
         </div>
         """, unsafe_allow_html=True)
 else:
