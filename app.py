@@ -1321,12 +1321,8 @@ st.markdown("""
 # ============================================================================
 st.markdown('<h2 class="section-header">핵심 분석 그래프</h2>', unsafe_allow_html=True)
 
-# SPY 데이터 로드 (캐시 사용)
-@st.cache_data
-def get_spy_data():
-    return load_spy_data()
-
-spy_data = get_spy_data()
+# SPY 데이터 로드
+spy_data = load_spy_data()
 
 if spy_data is not None and len(spy_data) > 0:
     
