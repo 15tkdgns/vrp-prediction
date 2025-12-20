@@ -1019,47 +1019,24 @@ if STRUCTURAL_BREAKS:
             short_name = period.split('(')[0].strip()
             chow_data.append({
                 '시점': short_name,
-                'F-통계량': round(data.get('f_statistic', 0), 2),
+                'F-통계량': data.get('f_statistic', 0),
                 'p-value': data.get('p_value', 1),
                 '유의성': '✅ 유의' if data.get('significant', False) else '❌ 미유의'
             })
         
         chow_df = pd.DataFrame(chow_data)
-        
-        col1, col2 = st.columns([1, 1])
-        
-        with col1:
-            st.dataframe(chow_df, hide_index=True, use_container_width=True)
-        
-        with col2:
-            # F-통계량 바 차트
-            fig_chow = px.bar(chow_df, x='시점', y='F-통계량', 
-                             color='F-통계량', color_continuous_scale='Reds',
-                             title='구조적 변화 시점별 F-통계량')
-            fig_chow.update_layout(height=300, xaxis_tickangle=-45)
-            st.plotly_chart(fig_chow, use_container_width=True)
+        st.dataframe(chow_df, hide_index=True, use_container_width=True)
         
         rolling = STRUCTURAL_BREAKS.get('rolling_analysis', {})
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown(f"""
-            <div class="warning-card">
-            <strong>⚠️ 구조적 변화 감지</strong><br><br>
-            • 5개 시점 모두 통계적으로 유의 (p < 0.001)<br>
-            • COVID-19 팬데믹이 변동성 예측에 영향
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            st.markdown(f"""
-            <div class="result-card">
-            <strong>📊 롤링 R² 분석</strong><br><br>
-            • 평균 R²: {rolling.get('r2_mean', 0):.4f}<br>
-            • 범위: {rolling.get('r2_min', 0):.4f} ~ {rolling.get('r2_max', 0):.4f}<br>
-            • 모델 예측력이 시간에 따라 변동적
-            </div>
-            """, unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="warning-card">
+        <strong>⚠️ 구조적 변화 감지</strong><br><br>
+        • 5개 시점 모두 통계적으로 유의한 구조적 변화 확인 (p < 0.001)<br>
+        • COVID-19가 변동성 예측 모델에 영향을 미쳤음<br>
+        • 롤링 R² 범위: {rolling.get('r2_min', 0):.4f} ~ {rolling.get('r2_max', 0):.4f}<br>
+        • 모델 예측력이 시간에 따라 변동적
+        </div>
+        """, unsafe_allow_html=True)
 else:
     st.info("구조적 변화 분석 결과를 로드할 수 없습니다.")
 
@@ -1084,64 +1061,47 @@ if VIX_BETA:
     if assets:
         asset_data = []
         for ticker, data in assets.items():
-            r2_val = data.get('r2_indirect', 0)
             asset_data.append({
                 '자산': ticker,
                 '설명': data.get('description', ''),
-                'VIX-RV 상관': round(data.get('vix_rv_correlation', 0), 3),
-                'R²': round(r2_val, 4),
-                'R² (표시용)': max(r2_val, -0.5),  # 차트용 - 극단값 제한
-                '방향정확도 (%)': round(data.get('direction_accuracy', 0) * 100, 1),
-                '승률 (%)': round(data.get('win_rate', 0) * 100, 1)
+                'VIX-RV 상관': data.get('vix_rv_correlation', 0),
+                'R² (간접)': data.get('r2_indirect', 0),
+                '방향정확도 (%)': data.get('direction_accuracy', 0) * 100,
+                '승률 (%)': data.get('win_rate', 0) * 100
             })
         
         asset_df = pd.DataFrame(asset_data)
         
-        # 자산 데이터 테이블 표시
-        st.dataframe(
-            asset_df[['자산', '설명', 'VIX-RV 상관', 'R²', '방향정확도 (%)', '승률 (%)']].sort_values('R²', ascending=False),
-            hide_index=True,
-            use_container_width=True
-        )
-        
         col1, col2 = st.columns(2)
         
         with col1:
-            # 방향정확도 차트 (더 해석하기 쉬움)
-            fig_dir = px.bar(asset_df.sort_values('방향정확도 (%)', ascending=True), 
-                            x='방향정확도 (%)', y='자산', orientation='h',
-                            color='VIX-RV 상관', color_continuous_scale='RdYlBu_r',
-                            title='자산별 방향 예측 정확도')
-            fig_dir.add_vline(x=50, line_dash="dash", line_color="red", 
-                             annotation_text="랜덤 (50%)")
-            fig_dir.update_layout(height=400, xaxis_range=[30, 90])
-            st.plotly_chart(fig_dir, use_container_width=True)
+            fig_assets = px.bar(asset_df.sort_values('R² (간접)', ascending=True), 
+                               x='R² (간접)', y='자산', orientation='h',
+                               color='VIX-RV 상관', color_continuous_scale='RdYlBu_r',
+                               title='자산별 VRP 예측력 (R²)')
+            fig_assets.add_vline(x=0, line_dash="dash", line_color="gray")
+            fig_assets.update_layout(height=400)
+            st.plotly_chart(fig_assets, use_container_width=True)
         
         with col2:
-            # VIX 상관 vs 방향정확도 산점도
-            fig_scatter = px.scatter(asset_df, x='VIX-RV 상관', y='방향정확도 (%)',
-                                    text='자산', size=[40]*len(asset_df),
-                                    color='R²', color_continuous_scale='RdYlGn',
-                                    title='VIX 상관 vs 방향정확도')
-            fig_scatter.add_hline(y=50, line_dash="dash", line_color="red")
-            fig_scatter.update_traces(textposition='top center', textfont_size=10)
+            fig_scatter = px.scatter(asset_df, x='VIX-RV 상관', y='R² (간접)',
+                                    text='자산', size=[30]*len(asset_df),
+                                    title='VIX 상관 vs R² (VIX-Beta 이론)')
+            fig_scatter.add_hline(y=0, line_dash="dash", line_color="gray")
+            fig_scatter.update_traces(textposition='top center')
             fig_scatter.update_layout(height=400)
             st.plotly_chart(fig_scatter, use_container_width=True)
         
         analysis = VIX_BETA.get('vix_beta_analysis', {})
         vix_r2_corr = analysis.get('vix_rv_vs_r2_correlation', 0)
         
-        # 최고/최저 자산
-        best_asset = asset_df.loc[asset_df['R²'].idxmax()]
-        worst_asset = asset_df.loc[asset_df['R²'].idxmin()]
-        
         st.markdown(f"""
         <div class="key-point">
-        <strong>✅ VIX-Beta 이론 검증 결과</strong><br><br>
-        • VIX-RV 상관 vs R² 상관계수: <strong>{vix_r2_corr:.3f}</strong> (음의 상관 → 이론 지지)<br>
-        • 최고 예측력: <strong>{best_asset['자산']}</strong> (R² = {best_asset['R²']:.4f}, 방향정확도 = {best_asset['방향정확도 (%)']:.1f}%)<br>
-        • 최저 예측력: <strong>{worst_asset['자산']}</strong> (R² = {worst_asset['R²']:.4f})<br>
-        • <em>VIX와 상관관계가 낮은 자산(TLT, GLD)에서 예측력이 더 높음</em>
+        <strong>✅ VIX-Beta 이론 지지</strong><br><br>
+        • VIX-RV 상관 vs R² 상관계수: <strong>{vix_r2_corr:.3f}</strong> (음의 상관)<br>
+        • 저상관 그룹 (TLT, GLD, USO, EEM) 평균 R²: {analysis.get('low_corr_avg_r2', 0):.4f}<br>
+        • 고상관 그룹 (SPY, QQQ, IWM, XLF, XLE) 평균 R²: {analysis.get('high_corr_avg_r2', 0):.4f}<br>
+        • <strong>TLT (채권)</strong>가 R² = 0.022로 가장 높은 예측력
         </div>
         """, unsafe_allow_html=True)
 else:
