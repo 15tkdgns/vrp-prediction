@@ -276,10 +276,10 @@ st.latex(r'''
 + \lambda \left( \alpha \|\beta\|_1 + \frac{1-\alpha}{2} \|\beta\|_2^2 \right) \right\}
 ''')
 
-st.markdown("""
-- $\\lambda$: 정규화 강도 (regularization strength)
-- $\\alpha$: L1/L2 비율 ($\\alpha=1$: Lasso, $\\alpha=0$: Ridge)
-- 본 연구에서는 $\\alpha=0.5$, $\\lambda$ 교차검증으로 결정
+st.markdown(r"""
+- $\lambda$: 정규화 강도 (regularization strength)
+- $\alpha$: L1/L2 비율 ($\alpha=1$: Lasso, $\alpha=0$: Ridge)
+- 본 연구에서는 $\alpha=0.5$, $\lambda$ 교차검증으로 결정
 """)
 
 st.markdown("---")
