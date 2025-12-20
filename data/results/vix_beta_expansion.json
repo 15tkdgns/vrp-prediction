@@ -1,0 +1,132 @@
+{
+  "assets": {
+    "SPY": {
+      "vix_rv_correlation": 0.828846629739379,
+      "r2_indirect": -0.4361058807765734,
+      "direction_accuracy": 0.6570247933884298,
+      "win_rate": 0.9166666666666666,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 17.79553575142133,
+      "avg_vrp": 3.8770118271931127,
+      "description": "S&P 500 ETF"
+    },
+    "QQQ": {
+      "vix_rv_correlation": 0.7951693308828007,
+      "r2_indirect": -0.24840319390199728,
+      "direction_accuracy": 0.5991735537190083,
+      "win_rate": 0.6063829787234043,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 23.173710637370284,
+      "avg_vrp": -1.5011630587558418,
+      "description": "NASDAQ 100 (\uae30\uc220\uc8fc)"
+    },
+    "TLT": {
+      "vix_rv_correlation": 0.5702627135742997,
+      "r2_indirect": 0.022429614615188775,
+      "direction_accuracy": 0.8223140495867769,
+      "win_rate": 0.9238095238095239,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 16.833857681697996,
+      "avg_vrp": 4.838689896916443,
+      "description": "\uc7a5\uae30 \uad6d\ucc44"
+    },
+    "GLD": {
+      "vix_rv_correlation": 0.5357070826685685,
+      "r2_indirect": -0.013103078274769864,
+      "direction_accuracy": 0.47107438016528924,
+      "win_rate": 0.5344827586206896,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 14.85406605762928,
+      "avg_vrp": 6.818481520985161,
+      "description": "\uae08"
+    },
+    "USO": {
+      "vix_rv_correlation": 0.6576714196940905,
+      "r2_indirect": -0.08001281287400186,
+      "direction_accuracy": 0.6363636363636364,
+      "win_rate": 0.007633587786259542,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 37.20960545580509,
+      "avg_vrp": -15.537057877190641,
+      "description": "\uc6d0\uc720"
+    },
+    "EEM": {
+      "vix_rv_correlation": 0.7449681569453973,
+      "r2_indirect": -0.3957230540893424,
+      "direction_accuracy": 0.5826446280991735,
+      "win_rate": 0.6120689655172413,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 19.984530936513515,
+      "avg_vrp": 1.6880166421009262,
+      "description": "\uc2e0\ud765\uad6d"
+    },
+    "IWM": {
+      "vix_rv_correlation": 0.7578232617817838,
+      "r2_indirect": -0.10666758146705302,
+      "direction_accuracy": 0.5165289256198347,
+      "win_rate": 0.24545454545454545,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 24.948056563681536,
+      "avg_vrp": -3.2755089850670913,
+      "description": "Russell 2000 (\uc18c\ud615\uc8fc)"
+    },
+    "XLF": {
+      "vix_rv_correlation": 0.8100848696186174,
+      "r2_indirect": -1.0289869297728083,
+      "direction_accuracy": 0.512396694214876,
+      "win_rate": 0.746031746031746,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 21.962183527046207,
+      "avg_vrp": -0.28963594843176443,
+      "description": "\uae08\uc735 \uc139\ud130"
+    },
+    "XLE": {
+      "vix_rv_correlation": 0.7989790498008088,
+      "r2_indirect": -3.920733604075113,
+      "direction_accuracy": 0.7231404958677686,
+      "win_rate": 0.47413793103448276,
+      "n_samples": 1209,
+      "n_test": 242,
+      "avg_vix": 21.67254757861444,
+      "avg_rv": 31.797558314068276,
+      "avg_vrp": -10.125010735453838,
+      "description": "\uc5d0\ub108\uc9c0 \uc139\ud130"
+    }
+  },
+  "vix_beta_analysis": {
+    "vix_rv_vs_r2_correlation": -0.4272793075893105,
+    "low_corr_assets": [
+      "TLT",
+      "GLD",
+      "USO",
+      "EEM"
+    ],
+    "high_corr_assets": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "XLF",
+      "XLE"
+    ],
+    "low_corr_avg_r2": -0.11660233265573133,
+    "high_corr_avg_r2": -1.148179437998709,
+    "theory_supported": true
+  },
+  "timestamp": "2025-12-20T20:20:03.521761"
+}

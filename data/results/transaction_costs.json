@@ -1,0 +1,57 @@
+{
+  "cost_scenarios": {
+    "0 bps (\ube44\uc6a9 \uc5c6\uc74c)": {
+      "n_trades": 154,
+      "total_return": 803.7405147042841,
+      "avg_return": 5.219094251326521,
+      "win_rate": 0.8701298701298701,
+      "position_changes": 37
+    },
+    "5 bps (\ub099\uad00\uc801)": {
+      "n_trades": 154,
+      "total_return": 802.2405147042841,
+      "avg_return": 5.20935399158626,
+      "win_rate": 0.8701298701298701,
+      "position_changes": 37
+    },
+    "10 bps (\ubcf4\ud1b5)": {
+      "n_trades": 154,
+      "total_return": 800.7405147042841,
+      "avg_return": 5.199613731846001,
+      "win_rate": 0.8701298701298701,
+      "position_changes": 37
+    },
+    "20 bps (\ubcf4\uc218\uc801)": {
+      "n_trades": 154,
+      "total_return": 797.7405147042841,
+      "avg_return": 5.180133212365481,
+      "win_rate": 0.8701298701298701,
+      "position_changes": 37
+    },
+    "30 bps (\ub9e4\uc6b0 \ubcf4\uc218\uc801)": {
+      "n_trades": 154,
+      "total_return": 794.7405147042841,
+      "avg_return": 5.160652692884962,
+      "win_rate": 0.8701298701298701,
+      "position_changes": 37
+    },
+    "50 bps (\ub192\uc740 \ube44\uc6a9)": {
+      "n_trades": 154,
+      "total_return": 788.7405147042841,
+      "avg_return": 5.121691653923923,
+      "win_rate": 0.8636363636363636,
+      "position_changes": 37
+    }
+  },
+  "breakeven_cost_bps": 200,
+  "turnover": {
+    "position_changes": 37,
+    "annual_turnover": 33.905454545454546
+  },
+  "test_period": {
+    "start": "2024-06-25",
+    "end": "2025-07-30",
+    "n_samples": 275
+  },
+  "timestamp": "2025-12-20T20:14:40.941536"
+}
