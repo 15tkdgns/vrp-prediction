@@ -20,7 +20,7 @@ import json
 # 페이지 설정
 st.set_page_config(
     page_title="VRP 예측 연구 발표",
-    page_icon="📈",
+    page_icon="",
     layout="wide"
 )
 
@@ -941,7 +941,7 @@ with col2:
 # ============================================================================
 # 신규) 거래 비용 분석
 # ============================================================================
-st.markdown('<h2 class="section-header">💰 거래 비용 분석</h2>', unsafe_allow_html=True)
+st.markdown('<h2 class="section-header"> 거래 비용 분석</h2>', unsafe_allow_html=True)
 
 if TRANSACTION_COSTS:
     st.markdown("""
@@ -993,7 +993,7 @@ if TRANSACTION_COSTS:
             
             st.markdown(f"""
             <div class="result-card">
-            <strong>📊 핵심 지표</strong><br><br>
+            <strong> 핵심 지표</strong><br><br>
             • <strong>손익분기 비용</strong>: {breakeven} bps (2%)<br>
             • <strong>연간 회전율</strong>: {turnover:.1f}회<br>
             • <strong>포지션 변경</strong>: 37회/275일<br>
@@ -1003,7 +1003,7 @@ if TRANSACTION_COSTS:
     # 인사이트 섹션
     st.markdown("""
     <div class="key-point">
-    <strong>💡 핵심 인사이트</strong><br><br>
+    <strong> 핵심 인사이트</strong><br><br>
     <strong>1. 전략의 경제적 실현 가능성 확인</strong><br>
     • 손익분기 비용이 200 bps(2%)로 매우 높음 → 현실적 비용(10-30 bps)에서 충분한 마진 확보<br><br>
     
@@ -1021,7 +1021,7 @@ else:
 # ============================================================================
 # 신규) 구조적 변화 검정
 # ============================================================================
-st.markdown('<h2 class="section-header">🔍 구조적 변화 검정</h2>', unsafe_allow_html=True)
+st.markdown('<h2 class="section-header"> 구조적 변화 검정</h2>', unsafe_allow_html=True)
 
 if STRUCTURAL_BREAKS:
     st.markdown("""
@@ -1048,7 +1048,7 @@ if STRUCTURAL_BREAKS:
                 '시점': short_name,
                 'F-통계량': round(data.get('f_statistic', 0), 2),
                 'p-value': data.get('p_value', 1),
-                '유의성': '✅ 유의' if data.get('significant', False) else '❌ 미유의'
+                '유의성': ' 유의' if data.get('significant', False) else ' 미유의'
             })
         
         chow_df = pd.DataFrame(chow_data)
@@ -1072,7 +1072,7 @@ if STRUCTURAL_BREAKS:
         with col1:
             st.markdown(f"""
             <div class="warning-card">
-            <strong>⚠️ 구조적 변화 감지</strong><br><br>
+            <strong> 구조적 변화 감지</strong><br><br>
             • 5개 시점 모두 통계적으로 유의 (p < 0.001)<br>
             • COVID-19 팬데믹이 변동성 예측에 영향
             </div>
@@ -1081,7 +1081,7 @@ if STRUCTURAL_BREAKS:
         with col2:
             st.markdown(f"""
             <div class="result-card">
-            <strong>📊 롤링 R² 분석</strong><br><br>
+            <strong> 롤링 R² 분석</strong><br><br>
             • 평균 R²: {rolling.get('r2_mean', 0):.4f}<br>
             • 범위: {rolling.get('r2_min', 0):.4f} ~ {rolling.get('r2_max', 0):.4f}<br>
             • 모델 예측력이 시간에 따라 변동적
@@ -1091,7 +1091,7 @@ if STRUCTURAL_BREAKS:
     # 기간별 해석
     st.markdown("""
     <div class="explanation">
-    <h4>📅 주요 시점 해석</h4>
+    <h4> 주요 시점 해석</h4>
     <table style="width:100%; border-collapse: collapse;">
         <tr style="background-color:#f8f9fa;">
             <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">시점</th>
@@ -1125,7 +1125,7 @@ if STRUCTURAL_BREAKS:
     # 시사점
     st.markdown("""
     <div class="key-point">
-    <strong>💡 핵심 시사점</strong><br><br>
+    <strong> 핵심 시사점</strong><br><br>
     <strong>1. 모델의 한계 인식</strong><br>
     • 극단적 시장 상황(VIX > 40)에서는 모델 예측력이 저하될 수 있음<br>
     • 위기 상황에서는 추가적인 리스크 관리 필요<br><br>
@@ -1145,7 +1145,7 @@ else:
 # ============================================================================
 # 신규) VIX-Beta 확장 (9개 자산)
 # ============================================================================
-st.markdown('<h2 class="section-header">📊 VIX-Beta 이론 확장 (9개 자산)</h2>', unsafe_allow_html=True)
+st.markdown('<h2 class="section-header"> VIX-Beta 이론 확장 (9개 자산)</h2>', unsafe_allow_html=True)
 
 if VIX_BETA:
     st.markdown("""
@@ -1168,7 +1168,7 @@ if VIX_BETA:
     # 자산 분류 설명
     st.markdown("""
     <div class="hypothesis-card">
-    <strong>📋 분석 대상 자산 (9개)</strong><br><br>
+    <strong> 분석 대상 자산 (9개)</strong><br><br>
     <table style="width:100%;">
         <tr>
             <td><strong>주식</strong>: SPY (S&P 500), QQQ (NASDAQ), IWM (소형주)</td>
@@ -1205,7 +1205,7 @@ if VIX_BETA:
         asset_df = pd.DataFrame(asset_data)
         
         # 자산 데이터 테이블 표시
-        st.markdown("#### 📊 자산별 성능 비교")
+        st.markdown("####  자산별 성능 비교")
         st.dataframe(
             asset_df[['자산', '설명', 'VIX-RV 상관', 'R²', '방향정확도 (%)', '승률 (%)']].sort_values('R²', ascending=False),
             hide_index=True,
@@ -1245,7 +1245,7 @@ if VIX_BETA:
         
         st.markdown(f"""
         <div class="key-point">
-        <strong>✅ VIX-Beta 이론 검증 결과</strong><br><br>
+        <strong> VIX-Beta 이론 검증 결과</strong><br><br>
         • VIX-RV 상관 vs R² 상관계수: <strong>{vix_r2_corr:.3f}</strong> (음의 상관 → 이론 지지)<br>
         • 최고 예측력: <strong>{best_asset['자산']}</strong> (R² = {best_asset['R²']:.4f}, 방향정확도 = {best_asset['방향정확도 (%)']:.1f}%)<br>
         • 최저 예측력: <strong>{worst_asset['자산']}</strong> (R² = {worst_asset['R²']:.4f})<br>
@@ -1256,7 +1256,7 @@ if VIX_BETA:
         # 투자 시사점
         st.markdown("""
         <div class="explanation">
-        <h4>💡 투자 시사점</h4>
+        <h4> 투자 시사점</h4>
         <p>
         <strong>1. 자산 선택 전략</strong><br>
         VIX 기반 VRP 전략은 <strong>TLT(채권), GLD(금)</strong> 같은 대안자산에서 가장 효과적입니다.
