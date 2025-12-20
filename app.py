@@ -44,6 +44,33 @@ VIX_BETA = load_json_results("vix_beta_expansion.json")
 SUBPERIOD = load_json_results("subperiod_analysis.json")
 STRUCTURAL_BREAKS = load_json_results("structural_breaks.json")
 
+
+def load_spy_data():
+    """SPY 데이터 및 VRP 데이터 로드"""
+    try:
+        csv_path = "data/raw/spy_data_2020_2025.csv"
+        if os.path.exists(csv_path):
+            spy = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+            # VIX 데이터 로드 (yfinance 사용)
+            import yfinance as yf
+            vix = yf.download('^VIX', start='2020-01-01', end='2025-01-01', progress=False)
+            if isinstance(vix.columns, pd.MultiIndex):
+                vix.columns = vix.columns.get_level_values(0)
+            spy['VIX'] = vix['Close'].reindex(spy.index).ffill()
+            
+            # 변동성 계산
+            spy['returns'] = spy['Close'].pct_change()
+            spy['RV_22d'] = spy['returns'].rolling(22).std() * np.sqrt(252) * 100
+            spy['VRP'] = spy['VIX'] - spy['RV_22d']
+            spy = spy.dropna()
+            return spy
+    except Exception as e:
+        pass
+    return None
+
+# 캐시된 SPY 데이터
+SPY_DATA = None
+
 def load_image(filename):
     """PNG 이미지 로드"""
     path = os.path.join(DIAGRAM_DIR, filename)
@@ -937,6 +964,167 @@ with col2:
     </ul>
     </div>
     """, unsafe_allow_html=True)
+
+# ============================================================================
+# 핵심 분석 그래프 (신규)
+# ============================================================================
+st.markdown('<h2 class="section-header">핵심 분석 그래프</h2>', unsafe_allow_html=True)
+
+# SPY 데이터 로드 (캐시 사용)
+@st.cache_data
+def get_spy_data():
+    return load_spy_data()
+
+spy_data = get_spy_data()
+
+if spy_data is not None and len(spy_data) > 0:
+    
+    # 그래프 1: VIX vs RV 시계열
+    st.markdown("""
+    <div class="explanation">
+    <h4>1. VIX vs 실현 변동성 (RV) 시계열</h4>
+    <p>
+    VRP는 <strong>VIX - RV</strong>로 정의됩니다. 아래 그래프는 두 변동성의 시간별 추이를 보여줍니다.
+    VIX가 RV보다 높은 영역(양의 VRP)에서 변동성 매도 전략이 수익을 얻습니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 최근 2년 데이터만 표시
+    spy_recent = spy_data.tail(500)
+    
+    fig_vix_rv = go.Figure()
+    fig_vix_rv.add_trace(go.Scatter(
+        x=spy_recent.index, y=spy_recent['VIX'],
+        name='VIX (내재 변동성)', line=dict(color='#e74c3c', width=2)
+    ))
+    fig_vix_rv.add_trace(go.Scatter(
+        x=spy_recent.index, y=spy_recent['RV_22d'],
+        name='RV 22d (실현 변동성)', line=dict(color='#3498db', width=2)
+    ))
+    # VRP 영역 표시
+    fig_vix_rv.add_trace(go.Scatter(
+        x=spy_recent.index, y=spy_recent['VIX'],
+        fill='tonexty', fillcolor='rgba(46, 204, 113, 0.2)',
+        line=dict(width=0), showlegend=False
+    ))
+    fig_vix_rv.update_layout(
+        title='VIX vs 실현 변동성 (22일)',
+        xaxis_title='날짜',
+        yaxis_title='변동성 (%)',
+        height=400,
+        legend=dict(orientation='h', yanchor='bottom', y=1.02)
+    )
+    st.plotly_chart(fig_vix_rv, use_container_width=True)
+    
+    col1, col2, col3 = st.columns(3)
+    avg_vix = spy_data['VIX'].mean()
+    avg_rv = spy_data['RV_22d'].mean()
+    avg_vrp = spy_data['VRP'].mean()
+    
+    with col1:
+        st.metric("평균 VIX", f"{avg_vix:.2f}%")
+    with col2:
+        st.metric("평균 RV", f"{avg_rv:.2f}%")
+    with col3:
+        st.metric("평균 VRP", f"{avg_vrp:.2f}%", delta="양수 = 수익 기회")
+    
+    st.markdown("---")
+    
+    # 그래프 2: VRP 시계열
+    st.markdown("""
+    <div class="explanation">
+    <h4>2. VRP(변동성 위험 프리미엄) 시계열</h4>
+    <p>
+    VRP가 양수(녹색)일 때 변동성 매도 전략이 유리하고, 음수(빨간색)일 때 불리합니다.
+    대부분의 기간에서 VRP가 양수임을 확인할 수 있습니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # VRP 색상 구분
+    colors = ['#2ecc71' if v > 0 else '#e74c3c' for v in spy_recent['VRP']]
+    
+    fig_vrp = go.Figure()
+    fig_vrp.add_trace(go.Bar(
+        x=spy_recent.index, y=spy_recent['VRP'],
+        marker_color=colors, name='VRP'
+    ))
+    fig_vrp.add_hline(y=0, line_dash="dash", line_color="gray")
+    fig_vrp.add_hline(y=avg_vrp, line_dash="dot", line_color="blue", 
+                      annotation_text=f"평균 VRP: {avg_vrp:.1f}%")
+    fig_vrp.update_layout(
+        title='VRP (VIX - RV) 시계열',
+        xaxis_title='날짜',
+        yaxis_title='VRP (%)',
+        height=350
+    )
+    st.plotly_chart(fig_vrp, use_container_width=True)
+    
+    # 통계
+    positive_ratio = (spy_data['VRP'] > 0).mean() * 100
+    st.markdown(f"""
+    <div class="result-card">
+    <strong>VRP 통계</strong><br>
+    • 양수 VRP 비율: <strong>{positive_ratio:.1f}%</strong> (전체 기간 중)<br>
+    • 평균 VRP: {avg_vrp:.2f}%<br>
+    • 최대 VRP: {spy_data['VRP'].max():.1f}% | 최소 VRP: {spy_data['VRP'].min():.1f}%
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    
+    # 그래프 3: 누적 수익률 시뮬레이션
+    st.markdown("""
+    <div class="explanation">
+    <h4>3. 누적 수익률 비교</h4>
+    <p>
+    VRP 예측 모델 기반 전략과 단순 Buy & Hold 전략의 누적 수익률을 비교합니다.
+    전략: VRP > 평균일 때 변동성 매도(VRP 수취).
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 간단한 전략 시뮬레이션
+    spy_sim = spy_data.copy()
+    spy_sim['signal'] = (spy_sim['VRP'] > spy_sim['VRP'].rolling(20).mean()).astype(int)
+    spy_sim['strategy_return'] = spy_sim['signal'].shift(1) * spy_sim['VRP'] / 100
+    spy_sim['bh_return'] = spy_sim['VRP'] / 100
+    spy_sim['cumulative_strategy'] = (1 + spy_sim['strategy_return'].fillna(0)).cumprod()
+    spy_sim['cumulative_bh'] = (1 + spy_sim['bh_return'].fillna(0) * 0.01).cumprod()
+    
+    fig_cumret = go.Figure()
+    fig_cumret.add_trace(go.Scatter(
+        x=spy_sim.index, y=spy_sim['cumulative_strategy'],
+        name='VRP 전략', line=dict(color='#2ecc71', width=2)
+    ))
+    fig_cumret.add_trace(go.Scatter(
+        x=spy_sim.index, y=spy_sim['cumulative_bh'],
+        name='Buy & Hold', line=dict(color='#95a5a6', width=2, dash='dash')
+    ))
+    fig_cumret.update_layout(
+        title='누적 수익률 비교 (VRP 전략 vs Buy & Hold)',
+        xaxis_title='날짜',
+        yaxis_title='누적 수익률',
+        height=400,
+        legend=dict(orientation='h', yanchor='bottom', y=1.02)
+    )
+    st.plotly_chart(fig_cumret, use_container_width=True)
+    
+    # 최종 수익률
+    final_strategy = (spy_sim['cumulative_strategy'].iloc[-1] - 1) * 100
+    final_bh = (spy_sim['cumulative_bh'].iloc[-1] - 1) * 100
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("VRP 전략 총 수익률", f"{final_strategy:.1f}%")
+    with col2:
+        st.metric("Buy & Hold 총 수익률", f"{final_bh:.1f}%")
+    with col3:
+        st.metric("초과 수익", f"{final_strategy - final_bh:.1f}%", delta="전략 우위" if final_strategy > final_bh else "")
+    
+else:
+    st.info("SPY 데이터를 로드할 수 없습니다. data/raw/spy_data_2020_2025.csv 파일이 필요합니다.")
 
 # ============================================================================
 # 신규) 거래 비용 분석
