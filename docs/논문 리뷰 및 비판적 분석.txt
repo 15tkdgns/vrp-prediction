@@ -1,0 +1,180 @@
+﻿기계학습을 활용한 변동성 위험 프리미엄(VRP) 예측 연구에 대한 종합 분석 및 비평 보고서
+1. 서론: 금융 시장의 공포와 예측 가능성
+금융 시장에서 '공포(Fear)'는 단순한 감정이 아닌 거래 가능한 자산 클래스로 진화했다. 옵션 가격에 내재된 내재 변동성(Implied Volatility, IV)과 실제 시장에서 관측되는 실현 변동성(Realized Volatility, RV)의 차이로 정의되는 변동성 위험 프리미엄(Volatility Risk Premium, 이하 VRP)은 현대 자산 가격 결정 모형의 핵심 요소로 자리 잡았다. VRP는 투자자들이 시장의 불확실성과 급격한 가격 변동 위험을 회피하기 위해 지불하는 일종의 '보험료' 성격을 띠며, 이는 역사적으로 양(+)의 값을 유지하며 변동성 매도 포지션을 취하는 투자자들에게 구조적인 초과 수익을 제공해 왔다.1
+본 보고서는 2025년 12월 20일 발표된 연구 논문인 "머신러닝을 활용한 변동성 위험 프리미엄(VRP) 예측 연구(Machine Learning Approach to VRP Prediction)"를 심층적으로 분석하고 비평한다. 해당 연구는 2020년부터 2025년까지의 SPY ETF(S&P 500 추종) 데이터를 바탕으로, VRP가 무작위적인 노이즈가 아니라 예측 가능한 시계열 특성을 가지고 있다는 가설을 검증한다. 특히, 전통적인 계량경제학적 방법론인 HAR-RV 모형과 현대적인 기계학습(Machine Learning) 알고리즘을 비교 분석함으로써, 금융 시계열 데이터의 특성에 부합하는 최적의 예측 모델링 방법론을 제안하고 있다.1
+본 분석은 단순히 논문의 결과를 요약하는 것을 넘어, 연구가 수행된 데이터의 구조적 특성(COVID-19 팬데믹 기간의 포함), 사용된 모델링 방법론의 타당성(선형 모델 대 비선형 모델의 성과 차이), 그리고 제시된 트레이딩 전략의 현실성(거래 비용의 부재)을 다각도로 해부한다. 특히 논문 내에서 발견된 R-squared($R^2$) 값의 불일치성과 'VIX-Beta 이론'의 함의를 집중적으로 파헤쳐, 이 연구가 학계와 실무에 던지는 시사점을 객관적으로 도출하고자 한다.
+2. 이론적 배경 및 문헌 연구
+2.1 변동성 위험 프리미엄(VRP)의 경제학적 의미
+VRP는 경제학적으로 리스크 회피 성향(Risk Aversion)과 밀접한 관련이 있다. 효율적 시장 가설 하에서 자산의 가격은 미래 현금 흐름의 기대치에 의해 결정되지만, 실제 시장에서는 투자자들의 심리와 불확실성에 대한 공포가 가격에 프리미엄을 얹는다. 수식적으로 VRP는 위험 중립 확률(Risk-Neutral Measure, Q) 하에서의 기대 변동성과 실제 확률(Physical Measure, P) 하에서의 기대 변동성의 차이로 정의된다.3
+
+
+$$VRP_t = E^Q_t[\text{Var}_{t, t+k}] - E^P_t[\text{Var}_{t, t+k}] \approx VIX^2_t - E_t$$
+여기서 $VIX^2_t$는 옵션 시장에서 관측되는 내재 분산이며, $E_t$는 미래 실현 분산에 대한 합리적 기대치다. Bollerslev, Tauchen, and Zhou(2009)의 선구적인 연구는 VRP가 주식 시장의 미래 수익률을 예측하는 강력한 변수임을 입증했다.4 그러나 본 검토 대상 논문은 'VRP가 수익률을 예측하는가'가 아닌, **'VRP 자체를 예측할 수 있는가'**라는 역방향의 질문을 던진다는 점에서 차별성을 갖는다.
+2.2 변동성 예측의 벤치마크: HAR-RV 모형
+금융 변동성 예측 문헌에서 가장 널리 사용되는 벤치마크는 Corsi(2009)가 제안한 이질적 자기회귀(Heterogeneous Autoregressive, HAR-RV) 모형이다.6 이 모형은 시장 참여자들이 서로 다른 시간 지평(일일, 주간, 월간)을 가지고 거래한다는 '이질적 시장 가설(Heterogeneous Market Hypothesis)'에 기반한다.
+
+
+$$RV_{t+1} = \beta_0 + \beta_d RV_t + \beta_w RV_{t-5, t} + \beta_m RV_{t-22, t} + \epsilon_{t+1}$$
+HAR-RV 모형은 장기 기억(Long Memory) 특성을 가진 변동성을 단순한 선형 결합으로 설명하면서도 높은 예측력을 보여주는 것으로 정평이 나 있다. 본 논문에서도 HAR-RV는 머신러닝 모델의 성능을 평가하기 위한 핵심 대조군(Control Group)으로 설정되었다. 기존 연구들에 따르면 HAR-RV 모형은 일반적으로 실현 변동성 예측에서 0.3~0.5 수준의 $R^2$를 기록한다.8 따라서 본 논문에서 제시된 머신러닝 모델들이 이 강력한 벤치마크를 넘어설 수 있는지는 연구의 유효성을 판단하는 중요한 척도가 된다.
+2.3 기계학습과 금융 시계열의 난제
+최근 금융 공학 분야에서는 선형 모형의 한계를 극복하기 위해 랜덤 포레스트(Random Forest), 그라디언트 부스팅(Gradient Boosting), LSTM 등 비선형 머신러닝 기법을 도입하려는 시도가 활발하다.10 그러나 금융 데이터는 신호 대 잡음비(Signal-to-Noise Ratio)가 매우 낮아, 복잡한 모델일수록 훈련 데이터의 무작위적인 노이즈까지 학습해버리는 과적합(Overfitting) 문제가 빈번하게 발생한다.11
+논문은 이러한 학계의 논쟁적 상황 속에서, 과도하게 복잡한 비선형 모델보다는 규제(Regularization)가 적용된 선형 모델이 VRP 예측에 더 효과적이라는 실증적 증거를 제시하고 있다. 이는 금융 데이터의 특수성을 고려할 때 매우 중요한 시사점이며, 단순히 최신 알고리즘을 적용하는 것이 능사가 아님을 보여준다.
+________________
+3. 연구 방법론 및 데이터 분석
+본 연구의 신뢰성을 평가하기 위해서는 데이터의 구성, 전처리 방식, 그리고 모델링 전략에 대한 정밀한 검증이 필요하다.
+3.1 데이터셋의 구조적 특성: COVID-19의 그림자
+연구는 2020년부터 2025년까지의 5년 기간, 총 1,375 거래일의 데이터를 사용하였다.1 이 기간 설정은 연구 결과 해석에 있어 가장 결정적인 변수이자 잠재적인 한계점으로 작용한다.
+1. 구조적 변화(Structural Break): 2020년 3월의 COVID-19 팬데믹 발발은 금융 시장 역사상 가장 급격한 변동성 폭발을 기록한 시기이다. 선행 연구들은 팬데믹 기간 동안 주식 시장과 변동성 간의 관계에 구조적 단절이 발생했음을 지적한다.13 중앙은행의 전례 없는 유동성 공급과 시장의 공포가 뒤섞인 이 시기의 데이터는 일반적인 시장 상황(Normal Regime)과는 확연히 다른 통계적 특성을 보인다.
+2. 데이터 편향의 위험: 전체 표본의 상당 부분이 고변동성 국면(High Volatility Regime)에 포함됨에 따라, 모델이 학습한 변동성 군집(Clustering) 현상이 과대평가되었을 가능성이 있다. 즉, 2020년과 같은 위기 상황에서 변동성이 변동성을 부르는 자기회귀적 성향이 강해지는데, 모델이 이를 일반적인 법칙으로 학습했을 경우 평온한 시장에서의 예측력은 저하될 수 있다.
+3.2 '간접 예측(Indirect Prediction)' 전략의 타당성
+이 논문의 가장 독창적이고 효과적인 방법론적 선택은 VRP를 직접 예측하는 대신, RV를 예측하여 VRP를 도출하는 방식을 채택한 것이다.
+* 직접 예측 ($y = VRP_t$): VRP는 $VIX - RV$라는 차분 값으로, 두 변수 간의 스프레드다. 스프레드 데이터는 일반적으로 평균 회귀 성향이 강하지만 노이즈가 심해 방향성 예측이 어렵다.
+* 간접 예측 ($y = VIX_t - \widehat{RV}_t$): 시점 $t$에서 $VIX_t$는 이미 시장에서 관측 가능한 확정된 값이다. 따라서 VRP 예측의 불확실성은 오로지 미래의 실현 변동성($RV_t$)에 달려 있다. RV는 강한 자기상관성을 가지므로 머신러닝으로 예측하기 훨씬 용이한 대상이다.
+논문은 이 간접 예측 방식을 통해 예측의 난이도를 낮추고 정확도를 높이는 성과를 거두었다. 이는 VRP 트레이딩의 본질이 결국 "현재의 공포(VIX)가 미래의 실제 위험(RV)보다 과대평가되었는가?"를 판단하는 것임을 정확히 꿰뚫은 접근이다.
+3.3 변수 선정 및 중요도 분석
+모델에 투입된 특성(Feature) 중요도 분석 결과는 금융 시계열의 전형적인 특성을 반영한다.1
+순위
+	특성 변수
+	계수 (Coefficient)
+	해석
+	1
+	VIX_lag1
+	5.77
+	전일의 내재 변동성이 가장 강력한 예측 변수임. 변동성의 지속성을 반영.
+	2
+	VIX_lag5
+	5.47
+	주간 단위의 변동성 추세가 중요함을 시사.
+	3
+	RV_22d
+	4.25
+	최근 한 달(22 거래일) 간의 실현 변동성. HAR-RV의 월간 성분과 유사.
+	4
+	VRP_lag5
+	2.36
+	과거 VRP의 패턴이 미래 VRP에 영향을 줌.
+	5
+	VRP_ma5
+	1.88
+	VRP의 단기 이동평균.
+	상위 변수들이 모두 변동성의 시차(Lag) 변수라는 점은, VRP 예측이 펀더멘털 분석보다는 시계열의 자기상관성(Autocorrelation)과 모멘텀에 기반하고 있음을 보여준다. 이는 머신러닝 모델이 사실상 정교화된 형태의 기술적 분석을 수행하고 있음을 의미한다.
+________________
+4. 모델 성능 평가 및 결과의 강건성
+논문은 다양한 모델의 성능을 $R^2$와 방향성 정확도, 그리고 통계적 검정을 통해 비교 분석하였다. 이 섹션에서는 제시된 수치의 의미와 그 이면에 숨겨진 함의를 분석한다.
+4.1 선형 모델의 압승과 트리의 몰락
+가장 눈에 띄는 결과는 단순 선형 모델인 ElasticNet과 Ridge가 복잡한 트리 기반 모델(XGBoost, LightGBM)을 압도했다는 점이다.1
+* ElasticNet / Ridge ($R^2 \approx 0.19$): 규제(Regularization) 항을 포함한 선형 회귀는 불필요한 변수의 영향력을 줄이고(L1), 계수의 크기를 억제(L2)하여 노이즈가 많은 금융 데이터에서 일반화 성능을 극대화했다.
+* Tree Models ($R^2 < 0$): LightGBM(-0.097), XGBoost(-0.393), GradientBoost(-1.404)는 모두 음수의 $R^2$를 기록했다. 이는 모델의 예측이 단순히 역사적 평균을 사용하는 것보다 못했음을 의미한다. 이는 전형적인 과적합(Overfitting) 징후이다. 트리 모델은 데이터의 미세한 패턴과 노이즈까지 학습하려다 보니, 훈련 데이터 내의 특수한 상황(예: 코로나 팬데믹 당시의 일시적 가격 변동)을 일반 법칙으로 오인했을 가능성이 크다.15
+이 결과는 "금융 시계열 예측, 특히 변동성 예측에서는 신호 대 잡음비가 낮아 복잡한 비선형 모델보다 파라미터 수가 적은 선형 모델이 우월하다"는 기존 연구12와 일치한다.
+4.2 R-squared (0.191)의 해석과 논란
+논문은 ElasticNet 모델이 **$R^2 = 0.191$**을 달성했다고 보고했다. 금융 시계열, 특히 수익률 예측에서 $R^2$가 1~2%만 나와도 유의미하다고 평가받는 점18을 고려할 때, 19.1%라는 수치는 이례적으로 높다.
+그러나 여기서 주의할 점은 예측 대상이 VRP라는 '스프레드' 그 자체가 아니라, 간접 방식에 의해 도출된 값이라는 점이다. $VRP = VIX - \widehat{RV}$ 구조에서, $VIX$는 상수이고 모델은 $RV$를 예측한다. $RV$는 자기상관성이 매우 높아(어제의 변동성이 높으면 오늘도 높을 확률이 큼) 예측이 상대적으로 쉽다. 따라서 0.191의 $R^2$는 VRP라는 추상적 개념을 예측한 능력이라기보다는, 실현 변동성(RV)의 높은 지속성을 모델이 잘 포착한 결과로 해석하는 것이 타당하다.
+4.3 섹션 간 데이터 불일치: 0.191 vs 0.02
+보고서 내에서 치명적인 수치적 불일치가 발견된다.
+* 섹션 2.1 (모델 성능): SPY에 대한 VRP 예측 $R^2$가 0.191로 보고됨.
+* 섹션 5 (VIX-Beta 이론): SPY에 대한 $R^2$가 0.02로, 금(GLD)의 0.37과 대조됨.1
+이 불일치는 연구의 신뢰성을 저해할 수 있는 요소이나, 다음과 같이 추론해 볼 수 있다.
+1. 평가 방식의 차이: 섹션 2.1의 0.191은 '간접 예측($VIX - \widehat{RV}$)' 방식의 결과일 가능성이 높고, 섹션 5의 0.02는 VRP 자체를 타겟으로 한 '직접 예측' 방식의 결과이거나, 혹은 VIX-Beta 이론을 설명하기 위해 VIX와 RV의 상관관계가 너무 높아 예측의 초과 이익(Alpha)을 낼 여지가 없음을 강조하기 위한 별도의 통계치일 수 있다.
+2. 데이터 분할의 차이: 0.191은 전체 기간 혹은 검증 세트(Validation Set)에서의 성능이고, 0.02는 완전히 독립된 테스트 세트(Test Set) 혹은 특정 구간에서의 성능일 수 있다.
+이 불일치에 대한 명확한 설명이 논문 내에 부재한 것은 아쉬운 부분이며, 독자는 0.191이라는 높은 수치를 액면 그대로 받아들이기보다 0.02라는 보수적인 수치가 SPY VRP 예측의 본질적인 한계일 수 있음을 인지해야 한다.
+________________
+5. VIX-Beta 이론과 자산 간 교차 차익거래
+본 논문의 가장 흥미로운 발견 중 하나는 'VIX-Beta 이론'으로 명명된 자산 간 예측력의 차이이다.
+5.1 이론적 메커니즘
+VIX 지수는 S&P 500 옵션 가격을 기반으로 산출된다. 따라서 VIX는 태생적으로 SPY(S&P 500 ETF)의 미래 변동성을 설명하는 데 최적화되어 있다. 이는 역설적으로 VIX와 SPY의 실현 변동성 간의 상관관계가 너무 높아($\rho = 0.83$), 그 차이인 VRP에 예측 가능한 '괴리'나 '비효율성'이 거의 남지 않음을 의미한다(SPY $R^2 = 0.02$).
+반면, 금(GLD)과 같은 타 자산 클래스는 VIX와의 상관관계가 낮다($\rho = 0.51$). VIX는 주식 시장의 공포를 반영하지만, 금 시장의 리스크는 주식 시장의 공포와 다르게 움직일 때가 많다. 연구 결과에 따르면, 이 '미스매치'가 오히려 예측의 기회를 제공하며, GLD에 대한 VRP 예측력($R^2 = 0.37$)이 SPY보다 월등히 높게 나타났다.1
+5.2 투자 전략적 함의
+이 발견은 **교차 자산 변동성 차익거래(Cross-Asset Volatility Arbitrage)**의 가능성을 시사한다.
+* 전략: 주식 시장의 공포지수(VIX)를 활용하여 금이나 원자재 등 비주식 자산의 변동성 고평가/저평가 여부를 판단한다.
+* 근거: 주식 시장이 패닉에 빠져 VIX가 치솟을 때, 금 시장의 실제 변동성은 그만큼 상승하지 않을 수 있다. 이때 금 옵션의 내재 변동성이 VIX에 연동되어 과도하게 상승한다면, 금 변동성을 매도하여 높은 프리미엄을 취할 수 있다.
+* 확장: 이는 단순히 SPY 하나만 보는 것이 아니라, 상관관계가 낮은 다양한 자산군으로 VRP 전략을 확장할 때 더 높은 알파를 창출할 수 있음을 의미한다.
+________________
+6. 트레이딩 전략의 성과와 현실적 한계
+논문은 예측 모델을 기반으로 한 트레이딩 전략이 승률 77.7%, **누적 수익률 697.27%**를 기록했다고 주장한다. 그러나 이 수치는 "Gross Return(총 수익)"이며, 실제 거래 환경에서의 비용을 고려하지 않은 결과다.
+6.1 거래 비용의 치명적 누락
+VRP 전략은 본질적으로 옵션 매도(Short Volatility) 포지션을 취하거나, VIX 선물을 거래하는 구조를 가진다.
+* 슬리피지(Slippage)와 스프레드: 옵션과 변동성 파생상품은 주식 현물에 비해 호가 스프레드(Bid-Ask Spread)가 넓다. 특히 시장 변동성이 확대되는 구간에서는 스프레드가 급격히 벌어지며 거래 비용이 급증한다.20
+* 회전율(Turnover): 논문의 전략이 일별 데이터를 사용하여 빈번하게 포지션을 조정한다면, 누적된 거래 비용은 수익의 상당 부분을 잠식할 것이다. 일반적인 퀀트 전략에서 거래 비용을 10bp(0.1%)로만 가정해도, 연간 수백 번의 거래가 발생하면 수십 퍼센트의 수익률 차감 효과가 발생한다.22
+* 현실적 추정: 승률 77.7%는 높은 수치이나, VRP 전략은 "작게 자주 벌고, 크게 한 번 잃는(Eating like a bird, pooping like an elephant)" 특성을 가진다. 거래 당 평균 수익이 3.09%로 보고되었으나, 비용을 반영할 경우 이 수치는 급격히 줄어들거나 마이너스로 전환될 위험이 있다.
+6.2 꼬리 위험(Tail Risk)과 승률의 함정
+높은 승률(77.7%)은 투자자에게 심리적 안정감을 주지만, 이는 VRP 전략의 구조적 특성일 뿐이다. 평상시에는 내재 변동성이 실현 변동성보다 높아 꾸준히 프리미엄을 수취할 수 있기 때문이다. 그러나 나머지 22.3%의 손실 거래 중 단 한 번의 '블랙 스완' 이벤트가 발생하면, 그동안 쌓아올린 수익을 모두 반납하고 파산에 이를 수 있다.
+논문은 MDD(Maximum Drawdown)에 대한 구체적인 수치를 강조하지 않았으나, 2020년 3월과 같은 구간에서 전략이 어떤 손실폭을 기록했는지 확인하는 것은 필수적이다. 수익률 그래프가 우상향하더라도, 그 과정에서 감내해야 했던 레버리지 위험이나 마진콜 위험은 백테스트 결과에 드러나지 않는다.
+________________
+7. 결론 및 제언
+7.1 종합 평가
+"머신러닝을 활용한 VRP 예측 연구"는 금융 시계열 분석에 있어 **'단순함의 미학(Parsimony)'**을 재확인시켜 준 의미 있는 시도다. 복잡한 딥러닝이나 트리 모델이 만능이 아니며, 노이즈가 심한 변동성 데이터에서는 규제된 선형 모델(ElasticNet)이 더 우수한 예측력을 보인다는 점을 실증적으로 규명했다. 또한, RV 예측을 통한 간접적인 VRP 산출 방식의 효율성과 VIX-Beta 이론을 통한 타 자산군으로의 확장 가능성을 제시한 점은 학문적으로나 실무적으로 높은 가치를 지닌다.
+7.2 한계점 요약
+1. 비용 미반영 수익률: 거래 비용을 고려하지 않은 +697%의 수익률은 현실성이 결여되어 있으며, 과도한 낙관을 줄 수 있다.
+2. 데이터 기간의 특수성: COVID-19라는 특수한 고변동성 구간이 학습 데이터에 포함되어 있어, 모델이 평범한 시장 상황(Low Volatility Regime)에서도 동일한 성능을 낼지 불확실하다.
+3. 수치적 불일치: 논문 내 SPY 예측력($R^2$)에 대한 상충되는 수치(0.19 vs 0.02)는 연구의 정합성을 위해 명확한 해명이 필요하다.
+7.3 향후 연구 및 실무 적용을 위한 제언
+본 연구의 결과를 실전 트레이딩이나 후속 연구에 활용하기 위해서는 다음과 같은 보완이 필요하다.
+* 거래 비용을 포함한 백테스트: 최소 5~10bp 수준의 슬리피지와 수수료를 반영하여 '순수익률(Net Return)'을 다시 산출해야 한다.
+* 자산군 확장: VIX-Beta 이론이 시사하는 바에 따라, 금(GLD) 뿐만 아니라 원유(USO), 채권(TLT), 외환 등 VIX와의 상관관계가 낮은 자산들로 VRP 전략을 다변화하여 포트폴리오의 안정성을 높여야 한다.
+* 국면별 분석(Regime Analysis): 전체 기간을 팬데믹 위기(2020), 강세장, 약세장 등으로 세분화하여, 모델이 특정 국면에만 과적합되지 않았는지 검증해야 한다.
+* 앙상블 기법의 활용: 비록 개별 트리 모델은 실패했으나, ElasticNet의 안정성과 HAR-RV의 장기 기억 반영 능력을 결합한 선형 앙상블 모델은 더 견고한 예측력을 제공할 가능성이 있다.
+결론적으로, VRP는 예측 가능하다. 하지만 그것을 수익화하는 것은 예측력 그 자체보다 리스크 관리와 비용 통제에 달려 있다. 본 연구는 그 가능성의 문을 열었으나, 그 문을 통과하여 수익을 실현하기 위해서는 훨씬 더 엄격한 현실적 검증이 수반되어야 한다.
+________________
+주요 데이터 요약 테이블
+모델명
+	방법론
+	R2 (SPY)
+	특징 및 평가
+	ElasticNet
+	규제 선형 회귀
+	0.191
+	노이즈 제거 탁월, 최고 성능, 통계적 유의성 확보
+	Ridge
+	L2 규제 회귀
+	0.191
+	ElasticNet과 유사하나 변수 선택 기능 부재
+	HAR-RV
+	시계열 벤치마크
+	0.103
+	전통적 강자, 머신러닝과 통계적 차이 미미함
+	LightGBM
+	부스팅 트리
+	-0.097
+	과적합 발생, 예측력 상실
+	XGBoost
+	부스팅 트리
+	-0.393
+	심각한 과적합, 금융 노이즈 학습
+	
+
+자산
+	VIX-RV 상관계수
+	R2 (VRP 예측력)
+	시사점
+	SPY (S&P 500)
+	0.83 (High)
+	0.02 (Low)
+	시장 효율성 높음, 예측 어려움 (섹션 5 기준)
+	GLD (Gold)
+	0.51 (Low)
+	0.37 (High)
+	비효율성 존재, 높은 초과 수익 기회
+	1
+참고 자료
+1. 새 텍스트 문서.txt
+2. Understanding the Volatility Risk Premium - AQR Capital Management, 12월 20, 2025에 액세스, https://www.aqr.com/-/media/AQR/Documents/Whitepapers/Understanding-the-Volatility-Risk-Premium.pdf
+3. Exploring the Variance Risk Premium Across Assets - American Economic Association, 12월 20, 2025에 액세스, https://www.aeaweb.org/conference/2024/program/paper/hiTeT8SE
+4. Expected Stock Returns and Variance Risk Premia - Duke Economics, 12월 20, 2025에 액세스, https://public.econ.duke.edu/~boller/Published_Papers/rfs_09.pdf
+5. Expected Stock Returns and Variance Risk Premia - Federal Reserve Board, 12월 20, 2025에 액세스, https://www.federalreserve.gov/pubs/feds/2007/200711/200711pap.pdf
+6. HAR-RV-CARMA: A Kalman Filter-Weighted Hybrid Model for Enhanced Volatility Forecasting - MDPI, 12월 20, 2025에 액세스, https://www.mdpi.com/2227-9091/13/11/223
+7. A journey in Realized Variance: modeling, forecasting and Variance Risk Premium, 12월 20, 2025에 액세스, https://tesi.luiss.it/29939/1/712401_NOPOR_FABIO.pdf
+8. Full article: Revolutionizing agricultural stock volatility forecasting: a comparative study of machine learning and HAR-RV models - Taylor & Francis Online, 12월 20, 2025에 액세스, https://www.tandfonline.com/doi/full/10.1080/15140326.2025.2454081
+9. Volatility Forecasting: HAR Model - Portfolio Optimizer, 12월 20, 2025에 액세스, https://portfoliooptimizer.io/blog/volatility-forecasting-har-model/
+10. Forecasting Realized Volatility: An Automatic System Using Many Features and Machine Learning Algorithms - Financial Management Association, 12월 20, 2025에 액세스, https://fmai.memberclicks.net/assets/docs/Derivatives2021/VolatilityML_Tang.pdf
+11. Linear regression vs Regression trees - how would you approach choosing which to use?, 12월 20, 2025에 액세스, https://www.reddit.com/r/datascience/comments/1ayvccw/linear_regression_vs_regression_trees_how_would/
+12. Why do we use Linear Models when tree based models often work better than linear models? - Stats StackExchange, 12월 20, 2025에 액세스, https://stats.stackexchange.com/questions/635642/why-do-we-use-linear-models-when-tree-based-models-often-work-better-than-linear
+13. Structural breaks in interactive effects panels and the stock market reaction to COVID-19 - Pure, 12월 20, 2025에 액세스, https://pure-oai.bham.ac.uk/ws/portalfiles/portal/169754647/karaviasay2022structural.pdf
+14. Structural Breaks in Interactive Effects Panels and the Stock Market Reaction to COVID-19, 12월 20, 2025에 액세스, https://www.tandfonline.com/doi/full/10.1080/07350015.2022.2053690
+15. Notes on Parameter Tuning — xgboost 3.1.1 documentation, 12월 20, 2025에 액세스, https://xgboost.readthedocs.io/en/stable/tutorials/param_tuning.html
+16. Popular Machine Learning Models Prone to Overfitting and Why It Happens - Medium, 12월 20, 2025에 액세스, https://medium.com/@post.gourang/popular-machine-learning-models-prone-to-overfitting-and-why-it-happens-8050e9c3a944
+17. Regression Machine Learning Models for the Short-Time Prediction of Genetic Algorithm Results in a Vehicle Routing Problem - MDPI, 12월 20, 2025에 액세스, https://www.mdpi.com/2032-6653/15/7/308
+18. [D] What is a Good R-Squared Value? : r/statistics - Reddit, 12월 20, 2025에 액세스, https://www.reddit.com/r/statistics/comments/i2wnzu/d_what_is_a_good_rsquared_value/
+19. Volatility Risk Premia and Future Commodity Returns - Banco Central do Brasil, 12월 20, 2025에 액세스, https://www.bcb.gov.br/pec/wps/ingl/wps455.pdf
+20. S&P 500 Index Options - Cboe Global Markets, 12월 20, 2025에 액세스, https://www.cboe.com/tradable-products/sp-500/spx-options/
+21. Bid-Ask Spread Volatility Explained [Case Study] - Option Alpha, 12월 20, 2025에 액세스, https://optionalpha.com/blog/bid-ask-spread-volatility
+22. Full article: Transaction Costs of Factor-Investing Strategies - Taylor & Francis Online, 12월 20, 2025에 액세스, https://www.tandfonline.com/doi/full/10.1080/0015198X.2019.1567190
