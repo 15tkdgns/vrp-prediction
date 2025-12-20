@@ -136,6 +136,8 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 **발견 1**: 선형 모델(ElasticNet, Ridge)이 비선형 모델보다 우수
 **발견 2**: RV 예측 후 VRP 계산 방식이 VRP 직접 예측보다 효과적
 
+> **Figure 1** 참조: 모델별 VRP 예측 R² 비교 (`diagrams/figures/figure1_model_comparison.png`)
+
 ### 4.4 특성 중요도
 
 | 특성 | 계수 | 중요도 순위 |
@@ -148,6 +150,8 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 
 **발견**: VIX 래그 변수가 가장 강력한 예측자
 
+> **Figure 2** 참조: 특성 중요도 시각화 (`diagrams/figures/figure2_feature_importance.png`)
+
 ### 4.5 강건성 검증
 
 #### 4.5.1 Bootstrap 신뢰구간
@@ -155,6 +159,8 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 | 지표 | 점추정 | 95% CI |
 |------|--------|--------|
 | R² | 0.1347 | [0.0677, 0.2003] |
+
+> **Figure 5** 참조: Bootstrap 95% 신뢰구간 (`diagrams/figures/figure5_bootstrap_ci.png`)
 
 #### 4.5.2 Regime별 성능
 
@@ -173,6 +179,9 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 | 재현율 | 84.4% |
 | F1 Score | 0.79 |
 
+> **Figure 3** 참조: 방향 예측 성능 메트릭 (`diagrams/figures/figure3_direction_metrics.png`)
+> **Figure 6** 참조: Regime별 성능 분석 (`diagrams/figures/figure6_regime_analysis.png`)
+
 ### 4.6 트레이딩 시뮬레이션
 
 **전략**: 예측 VRP > 평균일 때 변동성 매도
@@ -185,6 +194,8 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 | 승률 | 77.7% | - |
 
 **초과 수익**: +3.09%/거래 (Buy & Hold 대비)
+
+> **Figure 4** 참조: 트레이딩 전략 성과 비교 (`diagrams/figures/figure4_trading_performance.png`)
 
 ---
 
