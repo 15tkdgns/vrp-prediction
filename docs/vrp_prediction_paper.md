@@ -162,7 +162,32 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 
 > **Figure 5** 참조: Bootstrap 95% 신뢰구간 (`diagrams/figures/figure5_bootstrap_ci.png`)
 
-#### 4.5.2 Regime별 성능
+#### 4.5.2 통계적 유의성 검정
+
+**Diebold-Mariano Test** (ElasticNet vs 다른 모델, H₀: 예측력 차이 없음):
+
+| 비교 모델 | DM 통계량 | p-value | 결과 |
+|-----------|-----------|---------|------|
+| HAR-RV | -0.477 | 0.6332 | 차이 없음 |
+| Ridge | -2.147 | 0.0318** | ElasticNet 우수 |
+| GradientBoosting | -1.425 | 0.1543 | 차이 없음 |
+| XGBoost | -1.271 | 0.2038 | 차이 없음 |
+| LightGBM | -8.000 | <0.001*** | ElasticNet 우수 |
+
+**Bootstrap R² 유의성 검정** (H₀: R² = 0):
+
+| 모델 | R² | p-value | 유의성 |
+|------|-----|---------|--------|
+| **ElasticNet** | **0.144** | **<0.001** | ✅ |
+| HAR-RV | 0.103 | <0.001 | ✅ |
+| Ridge | 0.123 | <0.001 | ✅ |
+| GradientBoosting | -1.404 | <0.001 | 과적합 |
+| XGBoost | -0.393 | 0.133 | ❌ |
+| LightGBM | -0.097 | <0.001 | 과적합 |
+
+**발견**: 선형 모델(ElasticNet, Ridge, HAR-RV)만 통계적으로 유의한 양의 R²를 보임
+
+#### 4.5.3 Regime별 성능
 
 | Regime | 샘플 | R² | 방향 정확도 |
 |--------|------|-----|------------|
@@ -170,7 +195,7 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 | Normal (20≤VIX<25) | 21 | - | 90.5% |
 | High Vol | 3 | 샘플 부족 | - |
 
-#### 4.5.3 방향 예측 메트릭
+#### 4.5.4 방향 예측 메트릭
 
 | 지표 | 값 |
 |------|-----|

@@ -1,0 +1,85 @@
+{
+  "diebold_mariano": {
+    "HAR-RV": {
+      "dm_statistic": -0.477247053554829,
+      "p_value": 0.6331862084983797,
+      "significant_at_5pct": false,
+      "better_model": "ElasticNet"
+    },
+    "Ridge": {
+      "dm_statistic": -2.146820865110854,
+      "p_value": 0.03180754556776422,
+      "significant_at_5pct": true,
+      "better_model": "ElasticNet"
+    },
+    "GradientBoosting": {
+      "dm_statistic": -1.4246065812281514,
+      "p_value": 0.15427095656535128,
+      "significant_at_5pct": false,
+      "better_model": "ElasticNet"
+    },
+    "XGBoost": {
+      "dm_statistic": -1.2707316531113768,
+      "p_value": 0.20382413076356043,
+      "significant_at_5pct": false,
+      "better_model": "ElasticNet"
+    },
+    "LightGBM": {
+      "dm_statistic": -7.999635116457418,
+      "p_value": 1.3322676295501878e-15,
+      "significant_at_5pct": true,
+      "better_model": "ElasticNet"
+    }
+  },
+  "bootstrap_r2": {
+    "HAR-RV": {
+      "r2": 0.10271001720064932,
+      "p_value": 0.0,
+      "ci_lower": -0.08101342454938498,
+      "ci_upper": 0.23251309048868107,
+      "significant": true
+    },
+    "ElasticNet": {
+      "r2": 0.14430491428413827,
+      "p_value": 0.0,
+      "ci_lower": 0.0864042335384192,
+      "ci_upper": 0.20840553256243585,
+      "significant": true
+    },
+    "Ridge": {
+      "r2": 0.1229159208503331,
+      "p_value": 0.0,
+      "ci_lower": 0.05543186346037532,
+      "ci_upper": 0.18823885013991193,
+      "significant": true
+    },
+    "GradientBoosting": {
+      "r2": -1.4040097949916213,
+      "p_value": 0.0,
+      "ci_lower": -2.6100314795959045,
+      "ci_upper": -0.6131061860981649,
+      "significant": true
+    },
+    "XGBoost": {
+      "r2": -0.3929937530798566,
+      "p_value": 0.133,
+      "ci_lower": -0.8119474963332641,
+      "ci_upper": -0.10138904218979355,
+      "significant": false
+    },
+    "LightGBM": {
+      "r2": -0.09743985259376986,
+      "p_value": 0.0,
+      "ci_lower": -0.32718816165147924,
+      "ci_upper": 0.05118333225620696,
+      "significant": true
+    }
+  },
+  "summary": {
+    "best_model": "ElasticNet",
+    "significant_dm_tests": 2,
+    "total_dm_tests": 5,
+    "models_with_significant_r2": 5
+  },
+  "timestamp": "2025-12-20T18:08:33.007292"
+}
