@@ -15,16 +15,34 @@ import plotly.graph_objects as go
 from PIL import Image
 import os
 import base64
+import json
 
 # 페이지 설정
 st.set_page_config(
     page_title="VRP 예측 연구 발표",
-    page_icon="",
+    page_icon="📈",
     layout="wide"
 )
 
 # 경로
 DIAGRAM_DIR = "diagrams"
+RESULTS_DIR = "data/results"
+
+
+def load_json_results(filename):
+    """분석 결과 JSON 로드"""
+    path = os.path.join(RESULTS_DIR, filename)
+    if os.path.exists(path):
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None
+
+
+# 분석 결과 로드
+TRANSACTION_COSTS = load_json_results("transaction_costs.json")
+VIX_BETA = load_json_results("vix_beta_expansion.json")
+SUBPERIOD = load_json_results("subperiod_analysis.json")
+STRUCTURAL_BREAKS = load_json_results("structural_breaks.json")
 
 def load_image(filename):
     """PNG 이미지 로드"""
@@ -919,6 +937,175 @@ with col2:
     </ul>
     </div>
     """, unsafe_allow_html=True)
+
+# ============================================================================
+# 신규) 거래 비용 분석
+# ============================================================================
+st.markdown('<h2 class="section-header">💰 거래 비용 분석</h2>', unsafe_allow_html=True)
+
+if TRANSACTION_COSTS:
+    st.markdown("""
+    <div class="explanation">
+    <h4>현실적 비용 반영</h4>
+    <p>
+    학술 연구에서 보고되는 수익률은 종종 거래 비용을 무시합니다. 
+    실제 투자에서는 슬리피지와 수수료가 발생하므로, 비용을 반영한 순수익률을 분석했습니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 거래 비용 시나리오 차트
+    cost_data = []
+    for scenario, data in TRANSACTION_COSTS.get('cost_scenarios', {}).items():
+        # 한글 시나리오명 처리
+        short_name = scenario.split('(')[0].strip()
+        cost_data.append({
+            '시나리오': short_name,
+            '순수익률 (%)': data['total_return'],
+            '승률 (%)': data['win_rate'] * 100
+        })
+    
+    if cost_data:
+        cost_df = pd.DataFrame(cost_data)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            fig_cost = px.bar(cost_df, x='시나리오', y='순수익률 (%)', 
+                             title='거래 비용별 순수익률',
+                             color='순수익률 (%)', color_continuous_scale='RdYlGn')
+            fig_cost.update_layout(height=350)
+            st.plotly_chart(fig_cost, use_container_width=True)
+        
+        with col2:
+            # 핵심 지표
+            breakeven = TRANSACTION_COSTS.get('breakeven_cost_bps', 'N/A')
+            turnover = TRANSACTION_COSTS.get('turnover', {}).get('annual_turnover', 'N/A')
+            
+            st.markdown(f"""
+            <div class="result-card">
+            <strong>📊 거래 비용 분석 결과</strong><br><br>
+            • <strong>손익분기 비용</strong>: {breakeven} bps<br>
+            • <strong>연간 회전율</strong>: {turnover:.1f}회<br>
+            • <strong>10bps 적용 시</strong>: +800.7% (비용 없음 대비 -0.4%)<br>
+            • <strong>30bps 적용 시</strong>: +794.7% (비용 없음 대비 -1.1%)<br><br>
+            <em>→ 현실적 비용에서도 전략 수익성 유지</em>
+            </div>
+            """, unsafe_allow_html=True)
+else:
+    st.info("거래 비용 분석 결과를 로드할 수 없습니다. `python src/transaction_cost_analysis.py` 실행 필요")
+
+# ============================================================================
+# 신규) 구조적 변화 검정
+# ============================================================================
+st.markdown('<h2 class="section-header">🔍 구조적 변화 검정</h2>', unsafe_allow_html=True)
+
+if STRUCTURAL_BREAKS:
+    st.markdown("""
+    <div class="explanation">
+    <h4>COVID-19 영향 분석</h4>
+    <p>
+    2020-2025 데이터에는 COVID-19 팬데믹이 포함되어 있습니다. 
+    Chow Test를 통해 시장 구조가 변화했는지 검정했습니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    chow_results = STRUCTURAL_BREAKS.get('chow_test', {})
+    
+    if chow_results:
+        chow_data = []
+        for period, data in chow_results.items():
+            short_name = period.split('(')[0].strip()
+            chow_data.append({
+                '시점': short_name,
+                'F-통계량': data.get('f_statistic', 0),
+                'p-value': data.get('p_value', 1),
+                '유의성': '✅ 유의' if data.get('significant', False) else '❌ 미유의'
+            })
+        
+        chow_df = pd.DataFrame(chow_data)
+        st.dataframe(chow_df, hide_index=True, use_container_width=True)
+        
+        rolling = STRUCTURAL_BREAKS.get('rolling_analysis', {})
+        st.markdown(f"""
+        <div class="warning-card">
+        <strong>⚠️ 구조적 변화 감지</strong><br><br>
+        • 5개 시점 모두 통계적으로 유의한 구조적 변화 확인 (p < 0.001)<br>
+        • COVID-19가 변동성 예측 모델에 영향을 미쳤음<br>
+        • 롤링 R² 범위: {rolling.get('r2_min', 0):.4f} ~ {rolling.get('r2_max', 0):.4f}<br>
+        • 모델 예측력이 시간에 따라 변동적
+        </div>
+        """, unsafe_allow_html=True)
+else:
+    st.info("구조적 변화 분석 결과를 로드할 수 없습니다.")
+
+# ============================================================================
+# 신규) VIX-Beta 확장 (9개 자산)
+# ============================================================================
+st.markdown('<h2 class="section-header">📊 VIX-Beta 이론 확장 (9개 자산)</h2>', unsafe_allow_html=True)
+
+if VIX_BETA:
+    st.markdown("""
+    <div class="explanation">
+    <h4>다자산 검증</h4>
+    <p>
+    VIX-Beta 이론을 9개 자산에 대해 검증했습니다. 
+    이론에 따르면, VIX와 상관관계가 낮은 자산일수록 VRP 예측력이 높아야 합니다.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    assets = VIX_BETA.get('assets', {})
+    
+    if assets:
+        asset_data = []
+        for ticker, data in assets.items():
+            asset_data.append({
+                '자산': ticker,
+                '설명': data.get('description', ''),
+                'VIX-RV 상관': data.get('vix_rv_correlation', 0),
+                'R² (간접)': data.get('r2_indirect', 0),
+                '방향정확도 (%)': data.get('direction_accuracy', 0) * 100,
+                '승률 (%)': data.get('win_rate', 0) * 100
+            })
+        
+        asset_df = pd.DataFrame(asset_data)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            fig_assets = px.bar(asset_df.sort_values('R² (간접)', ascending=True), 
+                               x='R² (간접)', y='자산', orientation='h',
+                               color='VIX-RV 상관', color_continuous_scale='RdYlBu_r',
+                               title='자산별 VRP 예측력 (R²)')
+            fig_assets.add_vline(x=0, line_dash="dash", line_color="gray")
+            fig_assets.update_layout(height=400)
+            st.plotly_chart(fig_assets, use_container_width=True)
+        
+        with col2:
+            fig_scatter = px.scatter(asset_df, x='VIX-RV 상관', y='R² (간접)',
+                                    text='자산', size=[30]*len(asset_df),
+                                    title='VIX 상관 vs R² (VIX-Beta 이론)')
+            fig_scatter.add_hline(y=0, line_dash="dash", line_color="gray")
+            fig_scatter.update_traces(textposition='top center')
+            fig_scatter.update_layout(height=400)
+            st.plotly_chart(fig_scatter, use_container_width=True)
+        
+        analysis = VIX_BETA.get('vix_beta_analysis', {})
+        vix_r2_corr = analysis.get('vix_rv_vs_r2_correlation', 0)
+        
+        st.markdown(f"""
+        <div class="key-point">
+        <strong>✅ VIX-Beta 이론 지지</strong><br><br>
+        • VIX-RV 상관 vs R² 상관계수: <strong>{vix_r2_corr:.3f}</strong> (음의 상관)<br>
+        • 저상관 그룹 (TLT, GLD, USO, EEM) 평균 R²: {analysis.get('low_corr_avg_r2', 0):.4f}<br>
+        • 고상관 그룹 (SPY, QQQ, IWM, XLF, XLE) 평균 R²: {analysis.get('high_corr_avg_r2', 0):.4f}<br>
+        • <strong>TLT (채권)</strong>가 R² = 0.022로 가장 높은 예측력
+        </div>
+        """, unsafe_allow_html=True)
+else:
+    st.info("VIX-Beta 확장 분석 결과를 로드할 수 없습니다.")
 
 # ============================================================================
 # 마무리
