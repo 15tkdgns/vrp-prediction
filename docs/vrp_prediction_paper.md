@@ -234,6 +234,15 @@ $$\widehat{VRP}_t = VIX_t - \widehat{RV}_{t+22}$$
 
 실험에 사용된 전체 코드는 GitHub 저장소에서 확인 가능:
 
-- `paper/vrp_final.py`: 최종 모델
-- `paper/vrp_validation.py`: 검증 코드
-- `paper/vrp_eda.py`: 탐색적 분석
+**GitHub**: https://github.com/15tkdgns/vrp-prediction
+
+| 파일 | 설명 |
+|------|------|
+| `src/vrp_prediction_research.py` | 핵심 VRP 예측 모델 |
+| `src/vrp_validation.py` | Bootstrap, Regime, 트레이딩 시뮬레이션 검증 |
+| `src/vrp_eda.py` | 탐색적 데이터 분석 |
+| `src/vrp_improvement.py` | 모델 개선 실험 |
+| `src/vrp_max_performance.py` | 최대 성능 도달 실험 |
+| `app.py` | Streamlit 대시보드 (발표용) |
+| `data/raw/spy_data_2020_2025.csv` | SPY ETF 원본 데이터 |
+| `data/results/*.json` | 실험 결과 파일 |
