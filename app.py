@@ -1255,14 +1255,29 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 특성 중요도 데이터 (ElasticNet 계수 기반)
-feature_importance = pd.DataFrame({
-    '특성': ['RV_22d', 'VIX_lag1', 'RV_5d', 'VRP_ma5', 'RV_1d', 'VRP_lag1', 
-             'return_22d', 'VIX_lag5', 'VRP_lag5', 'VIX_change', 'regime_high', 'return_5d'],
-    '중요도': [0.45, 0.38, 0.32, 0.28, 0.25, 0.22, 0.18, 0.15, 0.12, 0.08, 0.05, 0.03],
-    '카테고리': ['변동성', 'VIX', '변동성', 'VRP', '변동성', 'VRP', 
-                '시장', 'VIX', 'VRP', 'VIX', '시장', '시장']
-})
+# 특성 중요도 데이터 (JSON에서 로드)
+VALIDATION_DATA = load_json_results("vrp_validation_results.json")
+if VALIDATION_DATA and 'feature_importance' in VALIDATION_DATA:
+    fi_data = VALIDATION_DATA['feature_importance']
+    # 카테고리 매핑
+    category_map = {
+        'RV_1d': '변동성', 'RV_5d': '변동성', 'RV_22d': '변동성',
+        'VIX_lag1': 'VIX', 'VIX_lag5': 'VIX', 'VIX_change': 'VIX',
+        'VRP_lag1': 'VRP', 'VRP_lag5': 'VRP', 'VRP_ma5': 'VRP',
+        'regime_high': '시장', 'return_5d': '시장', 'return_22d': '시장'
+    }
+    feature_importance = pd.DataFrame({
+        '특성': [f['feature'] for f in fi_data],
+        '중요도': [abs(f['coefficient']) for f in fi_data],
+        '카테고리': [category_map.get(f['feature'], '기타') for f in fi_data]
+    })
+else:
+    # 폴백: 기본값
+    feature_importance = pd.DataFrame({
+        '특성': ['VIX_lag1', 'VIX_lag5', 'RV_22d'],
+        '중요도': [5.77, 5.47, 4.25],
+        '카테고리': ['VIX', 'VIX', '변동성']
+    })
 
 color_map = {'변동성': '#3498db', 'VIX': '#e74c3c', 'VRP': '#2ecc71', '시장': '#9b59b6'}
 feature_importance['색상'] = feature_importance['카테고리'].map(color_map)
@@ -1297,24 +1312,16 @@ ElasticNet은 L1/L2 규제로 이 문제를 완화합니다.
 </div>
 """, unsafe_allow_html=True)
 
-# 상관관계 매트릭스 (예시 데이터)
-corr_data = np.array([
-    [1.00, 0.85, 0.72, 0.45, 0.38, 0.42, 0.25, 0.35, 0.40, 0.15, 0.20, 0.18],
-    [0.85, 1.00, 0.78, 0.52, 0.45, 0.48, 0.30, 0.42, 0.45, 0.18, 0.25, 0.22],
-    [0.72, 0.78, 1.00, 0.48, 0.42, 0.45, 0.28, 0.38, 0.42, 0.15, 0.22, 0.20],
-    [0.45, 0.52, 0.48, 1.00, 0.65, 0.70, 0.35, 0.55, 0.58, 0.22, 0.28, 0.25],
-    [0.38, 0.45, 0.42, 0.65, 1.00, 0.72, 0.30, 0.48, 0.52, 0.18, 0.25, 0.22],
-    [0.42, 0.48, 0.45, 0.70, 0.72, 1.00, 0.32, 0.52, 0.55, 0.20, 0.26, 0.24],
-    [0.25, 0.30, 0.28, 0.35, 0.30, 0.32, 1.00, 0.28, 0.30, 0.45, 0.55, 0.50],
-    [0.35, 0.42, 0.38, 0.55, 0.48, 0.52, 0.28, 1.00, 0.85, 0.18, 0.25, 0.22],
-    [0.40, 0.45, 0.42, 0.58, 0.52, 0.55, 0.30, 0.85, 1.00, 0.20, 0.28, 0.25],
-    [0.15, 0.18, 0.15, 0.22, 0.18, 0.20, 0.45, 0.18, 0.20, 1.00, 0.35, 0.42],
-    [0.20, 0.25, 0.22, 0.28, 0.25, 0.26, 0.55, 0.25, 0.28, 0.35, 1.00, 0.78],
-    [0.18, 0.22, 0.20, 0.25, 0.22, 0.24, 0.50, 0.22, 0.25, 0.42, 0.78, 1.00]
-])
-
-features = ['RV_1d', 'RV_5d', 'RV_22d', 'VIX_lag1', 'VIX_lag5', 'VIX_chg', 
-            'VRP_lag1', 'VRP_lag5', 'VRP_ma5', 'regime', 'ret_5d', 'ret_22d']
+# 상관관계 매트릭스 (실제 데이터에서 계산)
+CORRELATION_DATA = load_json_results("correlation_matrix.json")
+if CORRELATION_DATA:
+    corr_data = np.array(CORRELATION_DATA['correlation_matrix'])
+    features = CORRELATION_DATA['features']
+else:
+    # 폴백: 기본값 사용
+    corr_data = np.eye(12)
+    features = ['RV_1d', 'RV_5d', 'RV_22d', 'VIX_lag1', 'VIX_lag5', 'VIX_change', 
+                'VRP_lag1', 'VRP_lag5', 'VRP_ma5', 'regime_high', 'return_5d', 'return_22d']
 
 fig_heatmap = px.imshow(corr_data, 
                         x=features, y=features,
