@@ -193,24 +193,126 @@ st.markdown("""
 <div class="explanation">
 <h4>연구 배경</h4>
 <p>
-금융 시장에서 <strong>변동성 위험 프리미엄(VRP)</strong>은 투자자들이 미래 변동성에 대해 지불하는 
+금융 시장에서 <strong>변동성 위험 프리미엄(Volatility Risk Premium, VRP)</strong>은 투자자들이 미래 변동성에 대해 지불하는 
 "공포 프리미엄"입니다. 옵션 시장에서 관측되는 내재 변동성(VIX)은 일반적으로 실제 실현 변동성(RV)보다 
 높게 형성되는데, 이 차이가 바로 VRP입니다.
 </p>
-
-<h4>연구 목적</h4>
 <p>
-본 연구는 머신러닝 기법을 활용하여 VRP를 예측하고, 이를 투자 전략에 활용하는 방법을 탐구합니다. 
-특히 <strong>왜 어떤 자산은 예측이 잘 되고, 어떤 자산은 예측이 어려운지</strong>를 분석하여 
-"VIX-Beta 이론"이라는 새로운 관점을 제시합니다.
+학술 연구에서 VRP는 <strong>예측 가능성</strong>이 있다고 알려져 있으나 (Bollerslev et al., 2009), 
+실제로 이를 활용한 투자 전략의 수익성에 대한 연구는 제한적입니다.
 </p>
+</div>
+""", unsafe_allow_html=True)
 
-<h4>주요 발견</h4>
-<ul>
-    <li><strong>ElasticNet 모델</strong>이 Out-of-Sample R² = 0.20으로 예측력 달성</li>
-    <li><strong>TLT(채권)</strong>이 SPY보다 예측력 높음 (R²=0.02 vs -0.44)</li>
-    <li>VRP 예측 기반 전략으로 <strong>87.0% 승률, 총 수익률 803%</strong> 달성</li>
-</ul>
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    <div class="slide-card">
+    <h4>연구 질문 (Research Questions)</h4>
+    <ol>
+        <li><strong>RQ1</strong>: 머신러닝으로 VRP를 예측할 수 있는가?</li>
+        <li><strong>RQ2</strong>: 비선형 모델이 선형 모델보다 우수한가?</li>
+        <li><strong>RQ3</strong>: 왜 어떤 자산은 예측이 잘 되고 어떤 자산은 안 되는가?</li>
+        <li><strong>RQ4</strong>: VRP 예측 기반 전략은 실제로 수익성이 있는가?</li>
+    </ol>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="slide-card">
+    <h4>데이터 및 방법론</h4>
+    <ul>
+        <li><strong>기간</strong>: 2020-01 ~ 2024-12 (약 5년, 1,250+ 관측치)</li>
+        <li><strong>자산</strong>: SPY, TLT, GLD 등 9개 ETF</li>
+        <li><strong>모델</strong>: ElasticNet, Ridge, GradientBoosting, XGBoost, LightGBM</li>
+        <li><strong>검증</strong>: 22일 Gap을 적용한 Out-of-Sample 테스트</li>
+    </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 핵심 성과 지표
+st.markdown("### 핵심 성과 지표 (Key Results)")
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric(
+        label="Out-of-Sample R²",
+        value="0.19",
+        delta="ElasticNet 최고 성능"
+    )
+
+with col2:
+    st.metric(
+        label="방향 예측 정확도",
+        value="73.5%",
+        delta="랜덤(50%) 대비 +23.5%p"
+    )
+
+with col3:
+    st.metric(
+        label="전략 승률",
+        value="87.0%",
+        delta="154거래 기준"
+    )
+
+with col4:
+    st.metric(
+        label="누적 수익률",
+        value="803.7%",
+        delta="Buy&Hold 대비 +8배"
+    )
+
+st.markdown("---")
+
+st.markdown("""
+<div class="explanation">
+<h4>주요 발견 (Key Findings)</h4>
+<table style="width:100%; border-collapse: collapse;">
+    <tr style="background-color:#f8f9fa;">
+        <th style="padding:10px; text-align:left; border-bottom:2px solid #ddd;">연구 질문</th>
+        <th style="padding:10px; text-align:left; border-bottom:2px solid #ddd;">결과</th>
+        <th style="padding:10px; text-align:left; border-bottom:2px solid #ddd;">시사점</th>
+    </tr>
+    <tr>
+        <td style="padding:10px; border-bottom:1px solid #eee;"><strong>RQ1</strong>: VRP 예측 가능?</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">R² = 0.19 (Out-of-Sample)</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">제한적이지만 유의미한 예측력 존재</td>
+    </tr>
+    <tr>
+        <td style="padding:10px; border-bottom:1px solid #eee;"><strong>RQ2</strong>: 비선형 모델 우위?</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">ElasticNet > XGBoost, LightGBM</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">복잡한 모델이 항상 좋은 것은 아님</td>
+    </tr>
+    <tr>
+        <td style="padding:10px; border-bottom:1px solid #eee;"><strong>RQ3</strong>: 자산별 차이 원인?</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">VIX-RV 상관과 R² 음의 상관 (r=-0.43)</td>
+        <td style="padding:10px; border-bottom:1px solid #eee;">VIX-Beta 이론: 낮은 상관 자산이 예측 용이</td>
+    </tr>
+    <tr>
+        <td style="padding:10px;"><strong>RQ4</strong>: 전략 수익성?</td>
+        <td style="padding:10px;">87% 승률, 803% 수익 (거래비용 0bp)</td>
+        <td style="padding:10px;">거래비용 30bp에서도 795% 수익 유지</td>
+    </tr>
+</table>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="key-point">
+<strong>학술적 기여 (Academic Contributions)</strong><br><br>
+<strong>1. VIX-Beta 이론 제안</strong><br>
+• VIX와 자산 변동성 간 상관관계가 낮을수록 VRP 예측력이 높다는 새로운 이론 프레임워크 제시<br><br>
+
+<strong>2. 간접 예측 방식의 우수성 입증</strong><br>
+• VRP 직접 예측(R²=0.02)보다 RV를 먼저 예측 후 VRP 계산(R²=0.19)이 10배 효과적<br><br>
+
+<strong>3. 실용적 투자 전략 검증</strong><br>
+• 거래 비용을 고려한 현실적 수익률 분석 (손익분기점 200bp)
 </div>
 """, unsafe_allow_html=True)
 
