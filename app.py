@@ -207,9 +207,9 @@ st.markdown("""
 
 <h4>주요 발견</h4>
 <ul>
-    <li><strong>MLP 신경망</strong>이 R-squared = 0.44로 가장 높은 예측력 달성</li>
-    <li><strong>금(GLD)</strong>이 S&P 500(SPY)보다 18배 높은 예측력 (0.37 vs 0.02)</li>
-    <li>VRP 예측 기반 전략으로 <strong>91.3% 승률, Sharpe Ratio 22.76</strong> 달성</li>
+    <li><strong>ElasticNet 모델</strong>이 Out-of-Sample R² = 0.20으로 예측력 달성</li>
+    <li><strong>TLT(채권)</strong>이 SPY보다 예측력 높음 (R²=0.02 vs -0.44)</li>
+    <li>VRP 예측 기반 전략으로 <strong>87.0% 승률, 총 수익률 803%</strong> 달성</li>
 </ul>
 </div>
 """, unsafe_allow_html=True)
@@ -226,8 +226,9 @@ with st.expander("발표 스크립트 (Speaker Notes) - 프로젝트 개요"):
     본 연구의 핵심 질문은 '머신러닝으로 VRP를 예측할 수 있는가?', 그리고 
     '왜 어떤 자산은 예측이 잘 되고 어떤 자산은 안 되는가?'입니다.
     
-    결론부터 말씀드리면, 신경망 모델로 R-squared 0.44를 달성했고, 
-    금(Gold)이 S&P 500보다 훨씬 예측하기 쉽다는 것을 발견했습니다."
+    결론부터 말씀드리면, ElasticNet 모델로 Out-of-Sample R² 0.20을 달성했고, 
+    채권(TLT)이 S&P 500보다 예측하기 쉽다는 것을 발견했습니다. 
+    또한 VRP 전략으로 87% 승률, 803% 누적 수익률을 달성했습니다."
     </div>
     """, unsafe_allow_html=True)
 
@@ -354,7 +355,7 @@ st.markdown("**Table 1: SPY 데이터 기초 통계량 (2020-01 ~ 2024-12)**")
 
 summary_stats = pd.DataFrame({
     'Variable': ['VIX', 'RV (22d)', 'VRP', 'Return (22d)'],
-    'Mean': [21.34, 15.87, 5.47, 0.42],
+    'Mean': [21.67, 17.80, 3.88, 0.42],
     'Std': [8.52, 7.23, 6.18, 4.35],
     'Min': [11.75, 5.32, -28.45, -15.23],
     'Max': [82.69, 78.34, 38.21, 18.67],
