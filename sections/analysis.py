@@ -25,35 +25,23 @@ VRP = VIX - 예측RV로 계산합니다.
 </div>
 """, unsafe_allow_html=True)
     
-    # 플로우차트 (HTML/CSS 기반)
-    st.markdown("""
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
-    <div style="background: #3498db; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
-        <strong>INPUT</strong><br>
-        <small>12개 특성</small>
-    </div>
-    <div style="font-size: 24px; color: #666;">→</div>
-    <div style="background: #9b59b6; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
-        <strong>ElasticNet</strong><br>
-        <small>모델 학습</small>
-    </div>
-    <div style="font-size: 24px; color: #666;">→</div>
-    <div style="background: #e67e22; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
-        <strong>RV 예측</strong><br>
-        <small>22일 후 변동성</small>
-    </div>
-    <div style="font-size: 24px; color: #666;">→</div>
-    <div style="background: #2ecc71; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
-        <strong>VRP 계산</strong><br>
-        <small>VIX - 예측RV</small>
-    </div>
-    <div style="font-size: 24px; color: #666;">→</div>
-    <div style="background: #e74c3c; color: white; padding: 15px 20px; border-radius: 8px; text-align: center; min-width: 120px;">
-        <strong>트레이딩</strong><br>
-        <small>VRP > 평균 시 매도</small>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+    # 플로우차트 (Mermaid 기반)
+    pipeline_mermaid = """
+```mermaid
+flowchart LR
+    A["📥 INPUT<br/>12개 특성"] --> B["🤖 ElasticNet<br/>모델 학습"]
+    B --> C["📈 RV 예측<br/>22일 후 변동성"]
+    C --> D["📊 VRP 계산<br/>VIX - 예측RV"]
+    D --> E["💹 트레이딩<br/>VRP > 평균 시 매도"]
+    
+    style A fill:#3498db,color:#fff
+    style B fill:#9b59b6,color:#fff
+    style C fill:#e67e22,color:#fff
+    style D fill:#2ecc71,color:#fff
+    style E fill:#e74c3c,color:#fff
+```
+    """
+    st.markdown(pipeline_mermaid)
     
     st.markdown("---")
     
@@ -240,28 +228,28 @@ def _render_data_split():
 </div>
 """, unsafe_allow_html=True)
     
-    st.markdown("""
-<div style="display: flex; justify-content: center; margin: 20px 0;">
-    <div style="width: 90%; max-width: 800px;">
-        <div style="display: flex; height: 50px;">
-            <div style="flex: 8; background: #3498db; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 8px 0 0 8px;">
-                학습 데이터 (80%)
-            </div>
-            <div style="flex: 0.5; background: #e74c3c; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">
-                22d Gap
-            </div>
-            <div style="flex: 2; background: #2ecc71; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 0 8px 8px 0;">
-                테스트 (20%)
-            </div>
-        </div>
-        <div style="display: flex; margin-top: 5px; font-size: 0.85rem; color: #666;">
-            <div style="flex: 8; text-align: center;">2020-02 ~ 2024-06</div>
-            <div style="flex: 0.5;"></div>
-            <div style="flex: 2; text-align: center;">2024-06 ~</div>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+    # 데이터 분할 Mermaid 다이어그램
+    data_split_mermaid = """
+```mermaid
+flowchart LR
+    subgraph TRAIN[" "]
+        T1["📊 학습 데이터<br/>80%<br/>2020-02 ~ 2024-06"]
+    end
+    subgraph GAP[" "]
+        G1["⚠️ 22d Gap"]
+    end
+    subgraph TEST[" "]
+        T2["✅ 테스트<br/>20%<br/>2024-06 ~"]
+    end
+    
+    T1 --> G1 --> T2
+    
+    style T1 fill:#3498db,color:#fff
+    style G1 fill:#e74c3c,color:#fff
+    style T2 fill:#2ecc71,color:#fff
+```
+    """
+    st.markdown(data_split_mermaid)
     
     st.markdown("""
 <div class="warning-card">
