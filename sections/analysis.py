@@ -25,23 +25,49 @@ VRP = VIX - 예측RV로 계산합니다.
 </div>
 """, unsafe_allow_html=True)
     
-    # 플로우차트 (Mermaid 기반)
-    pipeline_mermaid = """
-```mermaid
-flowchart LR
-    A["📥 INPUT<br/>12개 특성"] --> B["🤖 ElasticNet<br/>모델 학습"]
-    B --> C["📈 RV 예측<br/>22일 후 변동성"]
-    C --> D["📊 VRP 계산<br/>VIX - 예측RV"]
-    D --> E["💹 트레이딩<br/>VRP > 평균 시 매도"]
+    # 플로우차트 (Plotly 기반)
+    fig_pipeline = go.Figure()
     
-    style A fill:#3498db,color:#fff
-    style B fill:#9b59b6,color:#fff
-    style C fill:#e67e22,color:#fff
-    style D fill:#2ecc71,color:#fff
-    style E fill:#e74c3c,color:#fff
-```
-    """
-    st.markdown(pipeline_mermaid)
+    # 박스 위치
+    boxes = [
+        {'x': 0, 'label': '📥 INPUT', 'sub': '12개 특성', 'color': '#3498db'},
+        {'x': 1, 'label': '🤖 ElasticNet', 'sub': '모델 학습', 'color': '#9b59b6'},
+        {'x': 2, 'label': '📈 RV 예측', 'sub': '22일 후 변동성', 'color': '#e67e22'},
+        {'x': 3, 'label': '📊 VRP 계산', 'sub': 'VIX - 예측RV', 'color': '#2ecc71'},
+        {'x': 4, 'label': '💹 트레이딩', 'sub': 'VRP > 평균 시 매도', 'color': '#e74c3c'},
+    ]
+    
+    for box in boxes:
+        # 박스 추가
+        fig_pipeline.add_shape(
+            type="rect", x0=box['x']-0.35, y0=-0.3, x1=box['x']+0.35, y1=0.3,
+            fillcolor=box['color'], line=dict(color=box['color'], width=2)
+        )
+        # 텍스트 추가
+        fig_pipeline.add_annotation(
+            x=box['x'], y=0.1, text=f"<b>{box['label']}</b>",
+            showarrow=False, font=dict(color='white', size=12)
+        )
+        fig_pipeline.add_annotation(
+            x=box['x'], y=-0.12, text=box['sub'],
+            showarrow=False, font=dict(color='white', size=10)
+        )
+    
+    # 화살표 추가
+    for i in range(len(boxes)-1):
+        fig_pipeline.add_annotation(
+            x=boxes[i]['x']+0.4, y=0, ax=boxes[i+1]['x']-0.4, ay=0,
+            xref='x', yref='y', axref='x', ayref='y',
+            showarrow=True, arrowhead=2, arrowsize=1.5, arrowwidth=2, arrowcolor='#666'
+        )
+    
+    fig_pipeline.update_layout(
+        height=120, margin=dict(l=20, r=20, t=10, b=10),
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[-0.6, 4.6]),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[-0.5, 0.5]),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig_pipeline, use_container_width=True)
     
     st.markdown("---")
     
@@ -228,28 +254,51 @@ def _render_data_split():
 </div>
 """, unsafe_allow_html=True)
     
-    # 데이터 분할 Mermaid 다이어그램
-    data_split_mermaid = """
-```mermaid
-flowchart LR
-    subgraph TRAIN[" "]
-        T1["📊 학습 데이터<br/>80%<br/>2020-02 ~ 2024-06"]
-    end
-    subgraph GAP[" "]
-        G1["⚠️ 22d Gap"]
-    end
-    subgraph TEST[" "]
-        T2["✅ 테스트<br/>20%<br/>2024-06 ~"]
-    end
+    # 데이터 분할 다이어그램 (Plotly 기반)
+    fig_split = go.Figure()
     
-    T1 --> G1 --> T2
+    # 수평 막대 차트로 데이터 분할 표현
+    fig_split.add_trace(go.Bar(
+        y=['데이터 분할'],
+        x=[80],
+        name='학습 (80%)',
+        orientation='h',
+        marker=dict(color='#3498db'),
+        text='📊 학습 데이터<br>2020-02 ~ 2024-06',
+        textposition='inside',
+        textfont=dict(color='white', size=12)
+    ))
+    fig_split.add_trace(go.Bar(
+        y=['데이터 분할'],
+        x=[2],
+        name='22d Gap',
+        orientation='h',
+        marker=dict(color='#e74c3c'),
+        text='⚠️',
+        textposition='inside',
+        textfont=dict(color='white', size=14)
+    ))
+    fig_split.add_trace(go.Bar(
+        y=['데이터 분할'],
+        x=[18],
+        name='테스트 (20%)',
+        orientation='h',
+        marker=dict(color='#2ecc71'),
+        text='✅ 테스트<br>2024-06 ~',
+        textposition='inside',
+        textfont=dict(color='white', size=12)
+    ))
     
-    style T1 fill:#3498db,color:#fff
-    style G1 fill:#e74c3c,color:#fff
-    style T2 fill:#2ecc71,color:#fff
-```
-    """
-    st.markdown(data_split_mermaid)
+    fig_split.update_layout(
+        barmode='stack',
+        height=100,
+        margin=dict(l=20, r=20, t=10, b=10),
+        xaxis=dict(showgrid=False, showticklabels=False),
+        yaxis=dict(showgrid=False, showticklabels=False),
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig_split, use_container_width=True)
     
     st.markdown("""
 <div class="warning-card">
