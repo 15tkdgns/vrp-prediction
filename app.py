@@ -120,10 +120,10 @@ st.markdown("""
     .slide-title {
         font-size: 2.2rem;
         font-weight: 700;
-        color: white;
+        color: #2c3e50;
         text-align: center;
         padding: 1.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #f8f9fa;
         border-radius: 10px;
         margin-bottom: 1.5rem;
     }
@@ -143,18 +143,18 @@ st.markdown("""
         box-shadow: 0 3px 15px rgba(0,0,0,0.08);
     }
     .key-point {
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        color: white;
+        background: #f8f9fa;
         border-radius: 8px;
-        padding: 1rem;
-        margin: 0.5rem 0;
+        padding: 1.2rem;
+        margin: 1rem 0;
+        line-height: 1.7;
     }
     .result-card {
-        background: #e8f8f5;
-        border-left: 4px solid #1abc9c;
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border-radius: 0 8px 8px 0;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.2rem;
+        margin: 1rem 0;
+        line-height: 1.7;
     }
     .hypothesis-card {
         background: #ebf5fb;
@@ -184,6 +184,13 @@ st.markdown("""
         margin: 0.5rem 0;
         border-left: 4px solid #ffc107;
         font-style: italic;
+    }
+    /* Sidebar 크기 조정 */
+    section[data-testid="stSidebar"] {
+        width: 250px !important;
+    }
+    section[data-testid="stSidebar"] > div {
+        width: 250px !important;
     }
 </style>
 """, unsafe_allow_html=True)
