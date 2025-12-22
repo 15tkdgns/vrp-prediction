@@ -30,11 +30,11 @@ VRP = VIX - 예측RV로 계산합니다.
     
     # 박스 위치
     boxes = [
-        {'x': 0, 'label': '📥 INPUT', 'sub': '12개 특성', 'color': '#3498db'},
-        {'x': 1, 'label': '🤖 ElasticNet', 'sub': '모델 학습', 'color': '#9b59b6'},
-        {'x': 2, 'label': '📈 RV 예측', 'sub': '22일 후 변동성', 'color': '#e67e22'},
-        {'x': 3, 'label': '📊 VRP 계산', 'sub': 'VIX - 예측RV', 'color': '#2ecc71'},
-        {'x': 4, 'label': '💹 트레이딩', 'sub': 'VRP > 평균 시 매도', 'color': '#e74c3c'},
+        {'x': 0, 'label': 'INPUT', 'sub': '12개 특성', 'color': '#3498db'},
+        {'x': 1, 'label': 'ElasticNet', 'sub': '모델 학습', 'color': '#9b59b6'},
+        {'x': 2, 'label': 'RV 예측', 'sub': '22일 후 변동성', 'color': '#e67e22'},
+        {'x': 3, 'label': 'VRP 계산', 'sub': 'VIX - 예측RV', 'color': '#2ecc71'},
+        {'x': 4, 'label': '트레이딩', 'sub': 'VRP > 평균 시 매도', 'color': '#e74c3c'},
     ]
     
     for box in boxes:
@@ -264,7 +264,7 @@ def _render_data_split():
         name='학습 (80%)',
         orientation='h',
         marker=dict(color='#3498db'),
-        text='📊 학습 데이터<br>2020-02 ~ 2024-06',
+        text='학습 데이터<br>2020-02 ~ 2024-06',
         textposition='inside',
         textfont=dict(color='white', size=12)
     ))
@@ -274,7 +274,7 @@ def _render_data_split():
         name='22d Gap',
         orientation='h',
         marker=dict(color='#e74c3c'),
-        text='⚠️',
+        text='Gap',
         textposition='inside',
         textfont=dict(color='white', size=14)
     ))
@@ -284,7 +284,7 @@ def _render_data_split():
         name='테스트 (20%)',
         orientation='h',
         marker=dict(color='#2ecc71'),
-        text='✅ 테스트<br>2024-06 ~',
+        text='테스트<br>2024-06 ~',
         textposition='inside',
         textfont=dict(color='white', size=12)
     ))
@@ -338,7 +338,7 @@ def _render_vrp_histogram(spy_data):
     """VRP 분포 히스토그램"""
     st.markdown("""
 <div class="explanation">
-<h4>📊 VRP 분포 히스토그램</h4>
+<h4> VRP 분포 히스토그램</h4>
 <p>VRP가 평균적으로 양수임을 확인합니다. 양수 VRP는 변동성 매도 전략의 수익 원천입니다.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -379,7 +379,7 @@ def _render_vix_regime(spy_data):
     """VIX 레짐 시각화"""
     st.markdown("""
 <div class="explanation">
-<h4>📈 VIX 레짐별 시장 상태</h4>
+<h4> VIX 레짐별 시장 상태</h4>
 <p>VIX 수준에 따라 시장을 저변동성(녹색), 보통(노랑), 고변동성(빨강) 구간으로 분류합니다.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -425,7 +425,7 @@ def _render_vix_regime(spy_data):
     col1, col2, col3, col4 = st.columns(4)
     regime_list = ['저변동성 (<15)', '보통 (15-20)', '경계 (20-25)', '고변동성 (>25)']
     cols = [col1, col2, col3, col4]
-    colors = ['🟢', '🟡', '🟠', '🔴']
+    colors = ['', '', '', '']
     
     for col, regime, color in zip(cols, regime_list, colors):
         if regime in spy_recent['regime'].values:
@@ -455,7 +455,7 @@ def _render_vix_rv_timeseries(spy_data):
     ))
     fig_vix_rv.add_trace(go.Scatter(
         x=spy_recent.index, y=spy_recent['RV_22d'],
-        name='RV 22d (★예측 대상)', line=dict(color='#3498db', width=2)
+        name='RV 22d (예측 대상)', line=dict(color='#3498db', width=2)
     ))
     fig_vix_rv.update_layout(
         title='[SPY] VIX vs 실현 변동성 (RV가 예측 대상)',
@@ -481,7 +481,7 @@ def _render_vix_rv_timeseries(spy_data):
 
 def _render_multi_asset_comparison():
     """다중 자산 비교"""
-    st.markdown("### 📈 다중 자산 VIX vs RV 비교")
+    st.markdown("###  다중 자산 VIX vs RV 비교")
     
     assets_info = {
         'GLD': {'name': 'Gold ETF', 'r2': 0.368, 'direction': 72.7, 'vix_corr': 0.514, 'color': '#f1c40f'},

@@ -16,7 +16,7 @@ from utils.data_loader import load_json_results
 
 def render_model_explainability():
     """모델 설명가능성 전체 렌더링"""
-    st.markdown('<h2 class="section-header">🔍 모델 설명가능성 (Explainability)</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header"> 모델 설명가능성 (Explainability)</h2>', unsafe_allow_html=True)
     
     st.markdown("""
 <div class="explanation">
@@ -69,7 +69,7 @@ def render_model_explainability():
 
 def _render_model_overview():
     """ElasticNet 모델 개요"""
-    st.markdown("### 📌 ElasticNet 모델 개요")
+    st.markdown("###  ElasticNet 모델 개요")
     
     col1, col2 = st.columns(2)
     
@@ -105,7 +105,7 @@ ElasticNet은 <strong>Ridge(L2)와 Lasso(L1) 규제를 결합</strong>한 선형
     # 모델 수식
     st.markdown("""
 <div class="hypothesis-card">
-<strong>📐 ElasticNet 손실 함수</strong><br><br>
+<strong> ElasticNet 손실 함수</strong><br><br>
 $$L = \\frac{1}{2n} \\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2 + \\alpha \\cdot \\rho \\cdot \\|\\beta\\|_1 + \\frac{\\alpha(1-\\rho)}{2} \\cdot \\|\\beta\\|_2^2$$
 <br><br>
 • <strong>α (alpha)</strong>: 전체 규제 강도<br>
@@ -117,7 +117,7 @@ $$L = \\frac{1}{2n} \\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2 + \\alpha \\cdot \\rho \
 
 def _render_hyperparameters():
     """하이퍼파라미터 및 튜닝 과정"""
-    st.markdown("### ⚙️ 하이퍼파라미터 및 튜닝")
+    st.markdown("### ️ 하이퍼파라미터 및 튜닝")
     
     col1, col2 = st.columns([1.2, 0.8])
     
@@ -136,7 +136,7 @@ def _render_hyperparameters():
     with col2:
         st.markdown("""
 <div class="result-card">
-<strong>🎯 튜닝 결과</strong><br><br>
+<strong> 튜닝 결과</strong><br><br>
 • <strong>alpha = 0.1</strong>: 적절한 규제<br>
 • <strong>l1_ratio = 0.5</strong>: L1/L2 균형<br>
 • <strong>선택된 특성</strong>: 12개 중 10개<br>
@@ -144,7 +144,7 @@ def _render_hyperparameters():
 </div>
 """, unsafe_allow_html=True)
     
-    st.markdown("#### 🔧 튜닝 과정: GridSearchCV")
+    st.markdown("####  튜닝 과정: GridSearchCV")
     
     st.markdown("""
 <div class="explanation">
@@ -211,7 +211,7 @@ def _render_hyperparameters():
     with col2:
         st.markdown("""
 <div class="key-point">
-<strong>💡 튜닝 인사이트</strong><br><br>
+<strong> 튜닝 인사이트</strong><br><br>
 <strong>1. Alpha 선택</strong><br>
 • alpha=0.1이 최적 → 적당한 규제 수준<br>
 • 너무 작으면 과적합, 너무 크면 과소적합<br><br>
@@ -229,7 +229,7 @@ def _render_hyperparameters():
 
 def _render_feature_importance_enhanced():
     """강화된 특성 중요도 분석"""
-    st.markdown("### 📊 특성 중요도 분석 (SHAP 스타일)")
+    st.markdown("###  특성 중요도 분석 (SHAP 스타일)")
     
     # 데이터 로드
     VALIDATION_DATA = load_json_results("vrp_validation_results.json")
@@ -302,7 +302,7 @@ def _render_feature_importance_enhanced():
     
     st.markdown("""
 <div class="hypothesis-card">
-<strong>📖 계수 해석</strong><br><br>
+<strong> 계수 해석</strong><br><br>
 • <span style="color:#2ecc71">■</span> <strong>RV_22d (+0.45)</strong>: 과거 22일 변동성이 높으면 → 미래 변동성도 높을 것으로 예측 (변동성 군집화)<br>
 • <span style="color:#2ecc71">■</span> <strong>VIX_lag1 (+0.32)</strong>: 전일 VIX가 높으면 → 시장 불안이 지속될 것으로 예측<br>
 • <span style="color:#e74c3c">■</span> <strong>return_5d (-0.05)</strong>: 최근 수익률이 양수면 → 변동성은 낮아질 것으로 예측 (레버리지 효과)
@@ -312,7 +312,7 @@ def _render_feature_importance_enhanced():
 
 def _render_learning_curve():
     """학습 곡선 시각화"""
-    st.markdown("### 📈 학습 곡선 (과적합 진단)")
+    st.markdown("###  학습 곡선 (과적합 진단)")
     
     st.markdown("""
 <div class="explanation">
@@ -367,7 +367,7 @@ def _render_learning_curve():
 
 def _render_residual_analysis():
     """잔차 분석"""
-    st.markdown("### 🎯 잔차 분석 (모델 진단)")
+    st.markdown("###  잔차 분석 (모델 진단)")
     
     np.random.seed(42)
     n_samples = 200
@@ -397,16 +397,16 @@ def _render_residual_analysis():
     shapiro_stat, shapiro_p = stats.shapiro(residuals[:50])
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("평균 잔차", f"{np.mean(residuals):.4f}", delta="0 근접 ✓")
+        st.metric("평균 잔차", f"{np.mean(residuals):.4f}", delta="0 근접 ")
     with col2:
         st.metric("잔차 표준편차", f"{np.std(residuals):.3f}")
     with col3:
-        st.metric("정규성 검정", f"p={shapiro_p:.3f}", delta="정규 분포 ✓" if shapiro_p > 0.05 else "비정규 ⚠️")
+        st.metric("정규성 검정", f"p={shapiro_p:.3f}", delta="정규 분포 " if shapiro_p > 0.05 else "비정규 ️")
 
 
 def _render_predicted_vs_actual():
     """예측값 vs 실제값"""
-    st.markdown("### 🔮 예측값 vs 실제값")
+    st.markdown("###  예측값 vs 실제값")
     
     np.random.seed(42)
     n_samples = 200
@@ -437,7 +437,7 @@ def _render_predicted_vs_actual():
 
 def _render_cross_validation():
     """교차 검증 결과"""
-    st.markdown("### 📋 5-Fold 교차 검증")
+    st.markdown("###  5-Fold 교차 검증")
     
     cv_results = {
         'Fold': ['Fold 1', 'Fold 2', 'Fold 3', 'Fold 4', 'Fold 5'],
@@ -470,7 +470,7 @@ def _render_cross_validation():
 
 def _render_model_limitations():
     """모델 한계 및 개선 방향"""
-    st.markdown("### ⚠️ 모델 한계 및 개선 방향")
+    st.markdown("### ️ 모델 한계 및 개선 방향")
     
     col1, col2 = st.columns(2)
     

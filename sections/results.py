@@ -73,7 +73,7 @@ S&P 500(SPY)은 R-squared = 0.02에 불과합니다. 왜 이런 차이가 발생
         try:
             st.image(img)
         except Exception:
-            st.info("📊 VIX-Beta 다이어그램 (이미지 로딩 실패)")
+            st.info(" VIX-Beta 다이어그램 (이미지 로딩 실패)")
     
     st.markdown("""
 <div class="explanation">
@@ -223,7 +223,7 @@ def render_conclusion():
         try:
             st.image(img)
         except Exception:
-            st.info("📊 결론 다이어그램 (이미지 로딩 실패)")
+            st.info(" 결론 다이어그램 (이미지 로딩 실패)")
     
     st.markdown("""
 <div class="explanation">
@@ -294,12 +294,12 @@ def render_research_flow():
     fig_flow = go.Figure()
     
     steps = [
-        {'x': 0, 'label': '📊 데이터 수집', 'sub': 'SPY, GLD, EFA 등', 'color': '#3498db'},
-        {'x': 1, 'label': '⚙️ 전처리', 'sub': 'VIX, RV 계산', 'color': '#9b59b6'},
-        {'x': 2, 'label': '📋 특성 추출', 'sub': '12개 Feature', 'color': '#e67e22'},
-        {'x': 3, 'label': '🤖 모델 학습', 'sub': 'ElasticNet + CV', 'color': '#1abc9c'},
-        {'x': 4, 'label': '📈 백테스팅', 'sub': 'VRP 전략 검증', 'color': '#f39c12'},
-        {'x': 5, 'label': '✅ 결과 도출', 'sub': 'VIX-Beta 이론', 'color': '#2ecc71'},
+        {'x': 0, 'label': '데이터 수집', 'sub': 'SPY, GLD, EFA 등', 'color': '#3498db'},
+        {'x': 1, 'label': '전처리', 'sub': 'VIX, RV 계산', 'color': '#9b59b6'},
+        {'x': 2, 'label': '특성 추출', 'sub': '12개 Feature', 'color': '#e67e22'},
+        {'x': 3, 'label': '모델 학습', 'sub': 'ElasticNet + CV', 'color': '#1abc9c'},
+        {'x': 4, 'label': '백테스팅', 'sub': 'VRP 전략 검증', 'color': '#f39c12'},
+        {'x': 5, 'label': '결과 도출', 'sub': 'VIX-Beta 이론', 'color': '#2ecc71'},
     ]
     
     for step in steps:

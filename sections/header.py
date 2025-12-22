@@ -346,7 +346,7 @@ def render_toc():
     with col1:
         st.markdown("""
         <div class="slide-card">
-        <h4>📋 개요 및 정의</h4>
+        <h4> 개요 및 정의</h4>
         <ol>
             <li>제목 슬라이드</li>
             <li>프로젝트 개요</li>
@@ -359,7 +359,7 @@ def render_toc():
     with col2:
         st.markdown("""
         <div class="slide-card">
-        <h4>📊 연구 방법론</h4>
+        <h4> 연구 방법론</h4>
         <ol start="5">
             <li>VRP(변동성 위험 프리미엄)란?</li>
             <li>연구 갭과 본 연구의 기여</li>
@@ -375,7 +375,7 @@ def render_toc():
     with col3:
         st.markdown("""
         <div class="slide-card">
-        <h4>🔬 모델 및 실험</h4>
+        <h4> 모델 및 실험</h4>
         <ol start="12">
             <li>실험 결과: 모델 성능 비교</li>
             <li>VIX-Beta 이론: 자산별 예측력 차이</li>
@@ -394,7 +394,7 @@ def render_toc():
     with col1:
         st.markdown("""
         <div class="slide-card">
-        <h4>📈 상세 분석</h4>
+        <h4> 상세 분석</h4>
         <ol start="18">
             <li>데이터 및 모델 시각화</li>
             <li>핵심 분석 그래프</li>
@@ -408,7 +408,7 @@ def render_toc():
     with col2:
         st.markdown("""
         <div class="slide-card">
-        <h4>📚 참고자료</h4>
+        <h4> 참고자료</h4>
         <ol start="23">
             <li>참고문헌 (References)</li>
         </ol>
