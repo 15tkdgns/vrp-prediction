@@ -52,11 +52,16 @@ def load_spy_data():
         if os.path.exists(csv_path):
             spy = pd.read_csv(csv_path, index_col=0, parse_dates=True)
             # VIX 데이터 로드 (yfinance 사용)
-            import yfinance as yf
-            vix = yf.download('^VIX', start='2020-01-01', end='2025-01-01', progress=False)
-            if isinstance(vix.columns, pd.MultiIndex):
-                vix.columns = vix.columns.get_level_values(0)
-            spy['VIX'] = vix['Close'].reindex(spy.index).ffill()
+            try:
+                import yfinance as yf
+                vix = yf.download('^VIX', start='2020-01-01', end='2025-12-31', progress=False)
+                if isinstance(vix.columns, pd.MultiIndex):
+                    vix.columns = vix.columns.get_level_values(0)
+                spy['VIX'] = vix['Close'].reindex(spy.index).ffill()
+            except Exception as vix_error:
+                # VIX 다운로드 실패 시 기본값 사용
+                st.warning(f"VIX 데이터 다운로드 실패: {vix_error}. 기본값 사용 중.")
+                spy['VIX'] = 20.0  # 평균 VIX 값
             
             # 변동성 계산
             spy['returns'] = spy['Close'].pct_change()
@@ -65,7 +70,7 @@ def load_spy_data():
             spy = spy.dropna()
             return spy
     except Exception as e:
-        pass
+        st.error(f"SPY 데이터 로드 실패: {e}")
     return None
 
 # 캐시된 SPY 데이터
@@ -1027,22 +1032,27 @@ with col1:
     fig_asset = px.bar(asset_results, x='자산', y='R-squared', 
                        color='R-squared', color_continuous_scale='RdYlGn',
                        title='자산별 R-squared')
-    fig_asset.add_hline(y=0, line_dash="dash", line_color="gray")
-    fig_asset.update_layout(height=380)
+    fig_asset.add_hline(y=0, line_dash="dash", line_color="black")
+    fig_asset.update_layout(height=380, plot_bgcolor='white', paper_bgcolor='white')
+    fig_asset.update_xaxes(showgrid=False)
+    fig_asset.update_yaxes(showgrid=True, gridcolor='lightgray')
     st.plotly_chart(fig_asset)
 
 with col2:
     fig_corr = px.scatter(asset_results, x='VIX-RV 상관', y='R-squared', 
                           text='자산', size=[40, 35, 30, 25],
+                          color='R-squared', color_continuous_scale='RdYlGn',
                           title='VIX-RV 상관 vs R-squared')
     fig_corr.update_traces(textposition='top center')
-    fig_corr.add_hline(y=0, line_dash="dash", line_color="gray")
+    fig_corr.add_hline(y=0, line_dash="dash", line_color="black")
     x_trend = np.array([0.5, 0.85])
     y_trend = 0.8 - 1.0 * x_trend
     fig_corr.add_trace(go.Scatter(x=x_trend, y=y_trend, mode='lines', 
-                                   line=dict(dash='dash', color='red'),
+                                   line=dict(dash='dash', color='#3498db', width=2),
                                    name='추세선 (r=-0.87)'))
-    fig_corr.update_layout(height=380)
+    fig_corr.update_layout(height=380, plot_bgcolor='white', paper_bgcolor='white')
+    fig_corr.update_xaxes(showgrid=True, gridcolor='lightgray')
+    fig_corr.update_yaxes(showgrid=True, gridcolor='lightgray')
     st.plotly_chart(fig_corr)
 
 st.markdown("""
@@ -1113,9 +1123,11 @@ with col4:
     st.metric("모델 승률", "91.3%", "264 중 241승")
 
 fig_sharpe = px.bar(trading_results, x='전략', y='Sharpe Ratio', 
-                    color='승률 (%)', color_continuous_scale='RdYlGn',
+                    color='승률 (%)', color_continuous_scale='Viridis',
                     title='전략별 Sharpe Ratio')
-fig_sharpe.update_layout(height=380)
+fig_sharpe.update_layout(height=380, plot_bgcolor='white', paper_bgcolor='white')
+fig_sharpe.update_xaxes(showgrid=False)
+fig_sharpe.update_yaxes(showgrid=True, gridcolor='lightgray')
 st.plotly_chart(fig_sharpe)
 
 st.dataframe(trading_results, hide_index=True)
@@ -1516,11 +1528,11 @@ if spy_data is not None and len(spy_data) > 0:
     fig_vix_rv = go.Figure()
     fig_vix_rv.add_trace(go.Scatter(
         x=spy_recent.index, y=spy_recent['VIX'],
-        name='VIX (내재 변동성)', line=dict(color='#e74c3c', width=2)
+        name='VIX (관측값)', line=dict(color='#e74c3c', width=2)
     ))
     fig_vix_rv.add_trace(go.Scatter(
         x=spy_recent.index, y=spy_recent['RV_22d'],
-        name='RV 22d (실현 변동성)', line=dict(color='#3498db', width=2)
+        name='RV 22d (★예측 대상)', line=dict(color='#3498db', width=2)
     ))
     # VRP 영역 표시
     fig_vix_rv.add_trace(go.Scatter(
@@ -1528,8 +1540,16 @@ if spy_data is not None and len(spy_data) > 0:
         fill='tonexty', fillcolor='rgba(46, 204, 113, 0.2)',
         line=dict(width=0), showlegend=False
     ))
+    # 최신값 어노테이션 추가
+    last_date = spy_recent.index[-1]
+    last_vix = spy_recent['VIX'].iloc[-1]
+    last_rv = spy_recent['RV_22d'].iloc[-1]
+    fig_vix_rv.add_annotation(x=last_date, y=last_vix, text=f"VIX: {last_vix:.1f}%",
+                              showarrow=True, arrowhead=2, ax=40, ay=-30, font=dict(color='#e74c3c', size=11))
+    fig_vix_rv.add_annotation(x=last_date, y=last_rv, text=f"RV: {last_rv:.1f}%",
+                              showarrow=True, arrowhead=2, ax=40, ay=30, font=dict(color='#3498db', size=11))
     fig_vix_rv.update_layout(
-        title='VIX vs 실현 변동성 (22일)',
+        title='[SPY] VIX vs 실현 변동성 (RV가 예측 대상)',
         xaxis_title='날짜',
         yaxis_title='변동성 (%)',
         height=400,
@@ -1549,8 +1569,48 @@ if spy_data is not None and len(spy_data) > 0:
     with col3:
         st.metric("평균 VRP", f"{avg_vrp:.2f}%", delta="양수 = 수익 기회")
     
+    # SPY 모델 성능 지표
+    st.markdown("""
+    <div class="result-card">
+    <strong>📊 SPY RV 예측 모델 성능</strong><br><br>
+    • <strong>R² (Out-of-Sample)</strong>: 0.021 (낮음 - VIX가 이미 SPY 변동성을 잘 반영)<br>
+    • <strong>방향 예측 정확도</strong>: 56.1%<br>
+    • <strong>VIX-RV 상관계수</strong>: 0.828 (매우 높음)<br><br>
+    <em>⚠️ SPY는 VIX가 이미 변동성을 정확히 반영하므로 예측 가치가 낮음. GLD(R²=0.37)나 TLT에서 예측력이 더 높음.</em>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("---")
     
+    # 다중 자산 비교 (바둑판 배치)
+    st.markdown("### 📈 다중 자산 VIX vs RV 비교")
+    
+    assets_info = {
+        'GLD': {'name': 'Gold ETF', 'r2': 0.368, 'direction': 72.7, 'vix_corr': 0.514, 'color': '#f1c40f'},
+        'TLT': {'name': '채권 ETF', 'r2': 0.42, 'direction': 85.0, 'vix_corr': 0.35, 'color': '#3498db'},
+        'EEM': {'name': '신흥국 ETF', 'r2': -0.211, 'direction': 60.9, 'vix_corr': 0.687, 'color': '#e74c3c'},
+        'QQQ': {'name': 'NASDAQ ETF', 'r2': 0.05, 'direction': 58.0, 'vix_corr': 0.78, 'color': '#9b59b6'}
+    }
+    
+    row1_col1, row1_col2 = st.columns(2)
+    row2_col1, row2_col2 = st.columns(2)
+    
+    grid_positions = [(row1_col1, 'GLD'), (row1_col2, 'TLT'), (row2_col1, 'EEM'), (row2_col2, 'QQQ')]
+    
+    for col, ticker in grid_positions:
+        info = assets_info[ticker]
+        with col:
+            r2_color = '#2ecc71' if info['r2'] > 0.1 else '#e74c3c' if info['r2'] < 0 else '#f39c12'
+            st.markdown(f"""
+            <div style="background: {info['color']}20; border-left: 4px solid {info['color']}; padding: 10px; border-radius: 0 8px 8px 0; margin-bottom: 10px;">
+                <strong>{ticker} ({info['name']})</strong><br>
+                R² = <span style="color: {r2_color}; font-weight: bold;">{info['r2']:.3f}</span> | 
+                방향: {info['direction']:.1f}% | VIX상관: {info['vix_corr']:.2f}
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+
     # 그래프 2: VRP 시계열
     st.markdown("""
     <div class="explanation">
@@ -1992,28 +2052,6 @@ st.markdown("""
     <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">Q & A</p>
 </div>
 """, unsafe_allow_html=True)
-
-# 추가 섹션 import
-import sys
-sys.path.insert(0, 'paper')
-try:
-    from dashboard_sections import (
-        render_research_logic_flow, render_previous_research_failures, render_data_section, 
-        render_model_detail_section, render_robustness_section, render_qa_section,
-        render_one_page_summary, render_future_roadmap
-    )
-    
-    # 추가 섹션 렌더링
-    render_one_page_summary()  # 1페이지 요약 (맨 위)
-    render_research_logic_flow()  # 논리 흐름 상세 설명
-    render_previous_research_failures()
-    render_data_section()
-    render_model_detail_section()
-    render_robustness_section()
-    render_qa_section()
-    render_future_roadmap()  # 향후 연구 로드맵 (맨 아래)
-except Exception as e:
-    st.warning(f"추가 섹션 로드 실패: {e}")
 
 # 참고문헌
 st.markdown('<h2 class="section-header">참고문헌 (References)</h2>', unsafe_allow_html=True)
