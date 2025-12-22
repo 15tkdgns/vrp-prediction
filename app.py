@@ -17,21 +17,48 @@ import os
 import base64
 import json
 from datetime import datetime
+from config.constants import COLORS, COLOR_SCHEMES, MODEL_COLORS, CATEGORY_COLORS, ASSET_COLORS
 
 # 페이지 설정
 st.set_page_config(
     page_title="VRP 예측 연구 발표",
-    page_icon="",
+    page_icon="📊",
     layout="wide"
 )
+
+# Sidebar 네비게이션
+st.sidebar.title("📊 VRP 예측 연구")
+st.sidebar.markdown("---")
+
+selected_section = st.sidebar.radio(
+    "섹션 선택",
+    [
+        "전체 보기",
+        "개요 및 정의",
+        "연구 방법론",
+        "실험 결과",
+        "상세 분석",
+        "참고문헌"
+    ],
+    index=0
+)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div style="font-size: 0.85rem; opacity: 0.7;">
+<strong>총 23개 섹션</strong><br>
+13개 그래프 | 10개 다이어그램
+</div>
+""", unsafe_allow_html=True)
 
 # 경로
 DIAGRAM_DIR = "diagrams"
 RESULTS_DIR = "data/results"
 
 
+@st.cache_data
 def load_json_results(filename):
-    """분석 결과 JSON 로드"""
+    """분석 결과 JSON 로드 (캐싱)"""
     path = os.path.join(RESULTS_DIR, filename)
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
@@ -46,8 +73,9 @@ SUBPERIOD = load_json_results("subperiod_analysis.json")
 STRUCTURAL_BREAKS = load_json_results("structural_breaks.json")
 
 
+@st.cache_data(ttl=3600)  # 1시간 캐싱
 def load_spy_data():
-    """SPY 데이터 및 VRP 데이터 로드"""
+    """SPY 데이터 및 VRP 데이터 로드 (캐싱)"""
     try:
         csv_path = "data/raw/spy_data_2020_2025.csv"
         if os.path.exists(csv_path):
@@ -77,8 +105,9 @@ def load_spy_data():
 # 캐시된 SPY 데이터
 SPY_DATA = None
 
+@st.cache_resource  # 리소스 캐싱
 def load_image(filename):
-    """PNG 이미지 로드"""
+    """PNG 이미지 로드 (캐싱)"""
     path = os.path.join(DIAGRAM_DIR, filename)
     if os.path.exists(path):
         return Image.open(path)
@@ -998,7 +1027,7 @@ model_results = pd.DataFrame({
 fig_model = px.bar(model_results.sort_values('R-squared', ascending=True), 
                    x='R-squared', y='모델', orientation='h',
                    color='유형',
-                   color_discrete_map={'Neural': '#e74c3c', 'Tree': '#2ecc71', 'Linear': '#3498db'},
+                   color_discrete_map=MODEL_COLORS,
                    title='모델별 R-squared 비교 (GLD, 22일 Gap)')
 fig_model.add_vline(x=0.37, line_dash="dash", line_color="gray", 
                     annotation_text="선형 모델 평균")
@@ -1433,7 +1462,7 @@ feature_importance['색상'] = feature_importance['카테고리'].map(color_map)
 fig_importance = px.bar(feature_importance.sort_values('중요도', ascending=True),
                         x='중요도', y='특성', orientation='h',
                         color='카테고리', 
-                        color_discrete_map=color_map,
+                        color_discrete_map=CATEGORY_COLORS,
                         title='특성 중요도 (ElasticNet 표준화 계수)')
 fig_importance.update_layout(height=400)
 st.plotly_chart(fig_importance, use_container_width=True)
