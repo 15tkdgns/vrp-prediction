@@ -70,7 +70,10 @@ S&P 500(SPY)은 R-squared = 0.02에 불과합니다. 왜 이런 차이가 발생
     
     img = load_image("08_vix_beta.png")
     if img:
-        st.image(img)
+        try:
+            st.image(img)
+        except Exception:
+            st.info("📊 VIX-Beta 다이어그램 (이미지 로딩 실패)")
     
     st.markdown("""
 <div class="explanation">
@@ -217,7 +220,10 @@ def render_conclusion():
     
     img = load_image("09_conclusion.png")
     if img:
-        st.image(img)
+        try:
+            st.image(img)
+        except Exception:
+            st.info("📊 결론 다이어그램 (이미지 로딩 실패)")
     
     st.markdown("""
 <div class="explanation">
@@ -280,7 +286,10 @@ def render_research_flow():
     
     img = load_image("10_research_flow.png")
     if img:
-        st.image(img)
+        try:
+            st.image(img)
+        except Exception:
+            st.info("📊 연구 흐름 다이어그램 (이미지 로딩 실패)")
 
 
 def render_limitations():
