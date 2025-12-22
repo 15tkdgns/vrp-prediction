@@ -9,12 +9,16 @@ import os
 
 def render_title():
     """제목 슬라이드 렌더링"""
+    # app.py의 수정 시간을 표시
+    app_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'app.py')
+    timestamp = datetime.fromtimestamp(os.path.getmtime(app_path)).strftime('%Y년 %m월 %d일 %H:%M')
+    
     st.markdown(f"""
 <div class="slide-title">
     <h1 style="margin: 0; font-size: 1.8rem;">머신러닝을 활용한 변동성 위험 프리미엄 예측</h1>
     <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">자산별 예측력 차이에 관한 연구</p>
     <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 0.8rem 0;">
-    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">마지막 업데이트: {datetime.fromtimestamp(os.path.getmtime(__file__)).strftime('%Y년 %m월 %d일 %H:%M')}</p>
+    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">마지막 업데이트: {timestamp}</p>
 </div>
 """, unsafe_allow_html=True)
 
