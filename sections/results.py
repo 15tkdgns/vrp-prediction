@@ -284,12 +284,61 @@ def render_research_flow():
     """연구 흐름 요약"""
     st.markdown('<h2 class="section-header">12. 연구 흐름 요약</h2>', unsafe_allow_html=True)
     
-    img = load_image("10_research_flow.png")
-    if img:
-        try:
-            st.image(img)
-        except Exception:
-            st.info("📊 연구 흐름 다이어그램 (이미지 로딩 실패)")
+    st.markdown("""
+<div class="explanation">
+<p>본 연구는 6단계로 진행되었습니다. 각 단계에서 철저한 검증을 수행했습니다.</p>
+</div>
+""", unsafe_allow_html=True)
+    
+    # 연구 흐름 Plotly 플로우차트
+    fig_flow = go.Figure()
+    
+    steps = [
+        {'x': 0, 'label': '📊 데이터 수집', 'sub': 'SPY, GLD, EFA 등', 'color': '#3498db'},
+        {'x': 1, 'label': '⚙️ 전처리', 'sub': 'VIX, RV 계산', 'color': '#9b59b6'},
+        {'x': 2, 'label': '📋 특성 추출', 'sub': '12개 Feature', 'color': '#e67e22'},
+        {'x': 3, 'label': '🤖 모델 학습', 'sub': 'ElasticNet + CV', 'color': '#1abc9c'},
+        {'x': 4, 'label': '📈 백테스팅', 'sub': 'VRP 전략 검증', 'color': '#f39c12'},
+        {'x': 5, 'label': '✅ 결과 도출', 'sub': 'VIX-Beta 이론', 'color': '#2ecc71'},
+    ]
+    
+    for step in steps:
+        fig_flow.add_shape(
+            type="rect", x0=step['x']-0.4, y0=-0.35, x1=step['x']+0.4, y1=0.35,
+            fillcolor=step['color'], line=dict(color=step['color'], width=2)
+        )
+        fig_flow.add_annotation(
+            x=step['x'], y=0.12, text=f"<b>{step['label']}</b>",
+            showarrow=False, font=dict(color='white', size=11)
+        )
+        fig_flow.add_annotation(
+            x=step['x'], y=-0.15, text=step['sub'],
+            showarrow=False, font=dict(color='white', size=9)
+        )
+    
+    for i in range(len(steps)-1):
+        fig_flow.add_annotation(
+            x=steps[i]['x']+0.45, y=0, ax=steps[i+1]['x']-0.45, ay=0,
+            xref='x', yref='y', axref='x', ayref='y',
+            showarrow=True, arrowhead=2, arrowsize=1.5, arrowwidth=2, arrowcolor='#666'
+        )
+    
+    fig_flow.update_layout(
+        height=130, margin=dict(l=20, r=20, t=10, b=10),
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[-0.6, 5.6]),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[-0.6, 0.6]),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig_flow, use_container_width=True)
+    
+    # 주요 성과 요약
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("데이터 기간", "2020 ~ 2025", delta="5년")
+    with col2:
+        st.metric("분석 자산", "9개 ETF", delta="SPY, GLD, TLT 등")
+    with col3:
+        st.metric("최종 R²", "0.19", delta="Gap 적용 후")
 
 
 def render_limitations():

@@ -317,7 +317,13 @@ def render_core_graphs():
     spy_data = load_spy_data()
     
     if spy_data is not None and len(spy_data) > 0:
+        # VRP 분포 히스토그램 추가
+        _render_vrp_histogram(spy_data)
+        st.markdown("---")
         _render_vix_rv_timeseries(spy_data)
+        st.markdown("---")
+        # VIX 레짐 시각화 추가
+        _render_vix_regime(spy_data)
         st.markdown("---")
         _render_multi_asset_comparison()
         st.markdown("---")
@@ -326,6 +332,106 @@ def render_core_graphs():
         _render_cumulative_returns(spy_data)
     else:
         st.info("SPY 데이터를 로드할 수 없습니다. data/raw/spy_data_2020_2025.csv 파일이 필요합니다.")
+
+
+def _render_vrp_histogram(spy_data):
+    """VRP 분포 히스토그램"""
+    st.markdown("""
+<div class="explanation">
+<h4>📊 VRP 분포 히스토그램</h4>
+<p>VRP가 평균적으로 양수임을 확인합니다. 양수 VRP는 변동성 매도 전략의 수익 원천입니다.</p>
+</div>
+""", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        vrp = spy_data['VRP'].dropna()
+        avg_vrp = vrp.mean()
+        
+        fig_hist = go.Figure()
+        fig_hist.add_trace(go.Histogram(
+            x=vrp, nbinsx=50,
+            marker_color=['#2ecc71' if v > 0 else '#e74c3c' for v in np.histogram(vrp, bins=50)[1][:-1]],
+            name='VRP 분포'
+        ))
+        fig_hist.add_vline(x=0, line_dash="solid", line_color="black", line_width=2)
+        fig_hist.add_vline(x=avg_vrp, line_dash="dash", line_color="#3498db", 
+                          annotation_text=f"평균: {avg_vrp:.2f}%")
+        fig_hist.update_layout(
+            title='VRP 분포 (녹색: 양수, 빨강: 음수)',
+            xaxis_title='VRP (%)',
+            yaxis_title='빈도',
+            height=350,
+            plot_bgcolor='white'
+        )
+        st.plotly_chart(fig_hist, use_container_width=True)
+    
+    with col2:
+        positive_pct = (vrp > 0).mean() * 100
+        st.metric("양수 VRP 비율", f"{positive_pct:.1f}%")
+        st.metric("평균 VRP", f"{avg_vrp:.2f}%")
+        st.metric("표준편차", f"{vrp.std():.2f}%")
+        st.metric("최대/최소", f"{vrp.max():.1f} / {vrp.min():.1f}%")
+
+
+def _render_vix_regime(spy_data):
+    """VIX 레짐 시각화"""
+    st.markdown("""
+<div class="explanation">
+<h4>📈 VIX 레짐별 시장 상태</h4>
+<p>VIX 수준에 따라 시장을 저변동성(녹색), 보통(노랑), 고변동성(빨강) 구간으로 분류합니다.</p>
+</div>
+""", unsafe_allow_html=True)
+    
+    spy_recent = spy_data.tail(500).copy()
+    spy_recent['regime'] = pd.cut(spy_recent['VIX'], 
+                                   bins=[0, 15, 20, 25, 100], 
+                                   labels=['저변동성 (<15)', '보통 (15-20)', '경계 (20-25)', '고변동성 (>25)'])
+    
+    fig_regime = go.Figure()
+    
+    # VIX 시계열
+    fig_regime.add_trace(go.Scatter(
+        x=spy_recent.index, y=spy_recent['VIX'],
+        mode='lines', name='VIX',
+        line=dict(color='#34495e', width=2)
+    ))
+    
+    # 레짐별 배경색
+    regime_colors = {'저변동성 (<15)': 'rgba(46, 204, 113, 0.2)', 
+                    '보통 (15-20)': 'rgba(241, 196, 15, 0.2)',
+                    '경계 (20-25)': 'rgba(230, 126, 34, 0.2)',
+                    '고변동성 (>25)': 'rgba(231, 76, 60, 0.2)'}
+    
+    fig_regime.add_hline(y=15, line_dash="dot", line_color="green", annotation_text="15")
+    fig_regime.add_hline(y=20, line_dash="dot", line_color="orange", annotation_text="20")
+    fig_regime.add_hline(y=25, line_dash="dot", line_color="red", annotation_text="25")
+    
+    fig_regime.update_layout(
+        title='VIX 레짐별 시장 상태 (최근 500일)',
+        xaxis_title='날짜',
+        yaxis_title='VIX',
+        height=300,
+        plot_bgcolor='white'
+    )
+    st.plotly_chart(fig_regime, use_container_width=True)
+    
+    # 레짐별 통계
+    regime_stats = spy_recent.groupby('regime').agg({
+        'VRP': ['mean', 'std', 'count']
+    }).round(2)
+    
+    col1, col2, col3, col4 = st.columns(4)
+    regime_list = ['저변동성 (<15)', '보통 (15-20)', '경계 (20-25)', '고변동성 (>25)']
+    cols = [col1, col2, col3, col4]
+    colors = ['🟢', '🟡', '🟠', '🔴']
+    
+    for col, regime, color in zip(cols, regime_list, colors):
+        if regime in spy_recent['regime'].values:
+            count = len(spy_recent[spy_recent['regime'] == regime])
+            pct = count / len(spy_recent) * 100
+            col.metric(f"{color} {regime.split()[0]}", f"{pct:.1f}%", delta=f"{count}일")
 
 
 def _render_vix_rv_timeseries(spy_data):

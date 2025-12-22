@@ -1,0 +1,99 @@
+# VRP 예측 대시보드 - 플로우차트 활용 가이드
+# ==============================================
+# 최종 업데이트: 2024-12-22
+
+## ══════════════════════════════════════════════════════════
+## 남은 플로우차트 (데이터 없이 구현 가능 - 4개)
+## ══════════════════════════════════════════════════════════
+
+### 1. VRP 계산 공식 플로우 (methodology.py > render_vrp_concept)
+형태: 3단계 분기 플로우
+내용:
+  [옵션가격] → [VIX (내재변동성)] 
+       ↓
+  [가격 시계열] → [RV (실현변동성)]
+       ↓
+  VRP = VIX - RV
+위치: VRP 개념 설명 섹션 하단
+
+### 2. 트레이딩 의사결정 플로우 (results.py > render_trading_performance)
+형태: 다이아몬드 조건 분기
+내용:
+  [예측 VRP] → (> 평균?) 
+       ↓ Yes          ↓ No
+  [변동성매도]     [포지션대기]
+위치: 트레이딩 성과 섹션 상단
+
+### 3. VIX-Beta 이론 흐름 (results.py > render_vix_beta)
+형태: 분기 플로우
+내용:
+  [VIX (S&P 500 기반)] 
+       ↓
+  [자산별 상관관계]
+       ↓                    ↓
+  [높은 상관 (SPY)]    [낮은 상관 (GLD)]
+  → 예측력 낮음         → 예측력 높음
+위치: VIX-Beta 이론 섹션 상단
+
+### 4. Chow Test 과정 (analysis.py > render_structural_breaks)
+형태: 3단계 플로우
+내용:
+  [전체 기간 모델] 
+       ↓
+  [분할점 기준 2개 모델]
+       ↓
+  [F-통계량 비교 → 구조변화 판정]
+위치: 구조적 변화 검정 섹션
+
+
+## ══════════════════════════════════════════════════════════
+## Plotly 플로우차트 템플릿
+## ══════════════════════════════════════════════════════════
+
+### 수평 플로우차트 템플릿
+```python
+def create_horizontal_flow(steps):
+    """수평 플로우차트 생성"""
+    fig = go.Figure()
+    for i, step in enumerate(steps):
+        fig.add_shape(type="rect", x0=i-0.35, y0=-0.3, x1=i+0.35, y1=0.3,
+                     fillcolor=step['color'], line=dict(color=step['color']))
+        fig.add_annotation(x=i, y=0.1, text=f"<b>{step['icon']}</b>",
+                          showarrow=False, font=dict(color='white', size=14))
+        fig.add_annotation(x=i, y=-0.1, text=step['label'],
+                          showarrow=False, font=dict(color='white', size=10))
+        if i < len(steps) - 1:
+            fig.add_annotation(x=i+0.4, y=0, ax=i+0.6, ay=0,
+                              xref='x', yref='y', axref='x', ayref='y',
+                              showarrow=True, arrowhead=2, arrowcolor='#666')
+    fig.update_layout(height=100, xaxis=dict(showgrid=False, showticklabels=False),
+                     yaxis=dict(showgrid=False, showticklabels=False))
+    return fig
+```
+
+### 조건 분기 플로우 템플릿
+```python
+def create_decision_flow():
+    """조건 분기 플로우 (다이아몬드)"""
+    fig = go.Figure()
+    # 입력 박스
+    fig.add_shape(type="rect", x0=-0.3, y0=0.7, x1=0.3, y1=1.3, fillcolor='#3498db')
+    # 다이아몬드 (조건)
+    fig.add_shape(type="path", path="M 0 0.4 L 0.3 0 L 0 -0.4 L -0.3 0 Z", fillcolor='#f39c12')
+    # Yes/No 분기 박스
+    fig.add_shape(type="rect", x0=-1, y0=-1.3, x1=-0.4, y1=-0.7, fillcolor='#2ecc71')  # Yes
+    fig.add_shape(type="rect", x0=0.4, y0=-1.3, x1=1, y1=-0.7, fillcolor='#e74c3c')   # No
+    return fig
+```
+
+
+## ══════════════════════════════════════════════════════════
+## 색상 팔레트
+## ══════════════════════════════════════════════════════════
+
+입력/데이터:   #3498db (파랑)
+처리/모델:    #9b59b6 (보라)
+계산/변환:    #e67e22 (주황)
+출력/결과:    #2ecc71 (녹색)
+경고/중요:    #e74c3c (빨강)
+조건/분기:    #f39c12 (노랑)
