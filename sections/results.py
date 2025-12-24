@@ -54,10 +54,12 @@ def render_model_performance():
             st.markdown("### 1. 자산별 R2 비교")
             fig_asset = px.bar(df, x='자산', y='R2', color='모델', barmode='group',
                               title='자산별 모델 R2 Score 비교',
+                              text=df['R2'].round(3),
                               color_discrete_sequence=px.colors.qualitative.Set2)
+            fig_asset.update_traces(textposition='outside', textfont_size=9)
             fig_asset.add_hline(y=0, line_dash="dash", line_color="red", 
                                annotation_text="R2=0 (기준선)")
-            fig_asset.update_layout(height=400)
+            fig_asset.update_layout(height=450)
             st.plotly_chart(fig_asset, use_container_width=True)
             
             st.markdown("---")
@@ -76,7 +78,9 @@ def render_model_performance():
                 fig_model_r2 = px.bar(model_avg.sort_values('R2', ascending=False), 
                                       x='모델', y='R2',
                                       title='모델별 평균 R2',
+                                      text=model_avg.sort_values('R2', ascending=False)['R2'].round(3),
                                       color='R2', color_continuous_scale='RdYlGn')
+                fig_model_r2.update_traces(textposition='outside')
                 fig_model_r2.update_layout(height=350)
                 st.plotly_chart(fig_model_r2, use_container_width=True)
             
@@ -84,7 +88,9 @@ def render_model_performance():
                 fig_model_dir = px.bar(model_avg.sort_values('Direction', ascending=False), 
                                        x='모델', y='Direction',
                                        title='모델별 평균 방향 정확도 (%)',
+                                       text=model_avg.sort_values('Direction', ascending=False)['Direction'].round(1),
                                        color='Direction', color_continuous_scale='Blues')
+                fig_model_dir.update_traces(textposition='outside', texttemplate='%{text}%')
                 fig_model_dir.add_hline(y=50, line_dash="dash", line_color="red", 
                                        annotation_text="50% (랜덤)")
                 fig_model_dir.update_layout(height=350)
