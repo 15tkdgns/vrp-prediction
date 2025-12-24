@@ -328,8 +328,6 @@ def render_core_graphs():
         _render_multi_asset_comparison()
         st.markdown("---")
         _render_vrp_timeseries(spy_data)
-        st.markdown("---")
-        _render_cumulative_returns(spy_data)
     else:
         st.info("SPY 데이터를 로드할 수 없습니다. data/raw/spy_data_2020_2025.csv 파일이 필요합니다.")
 
@@ -338,7 +336,7 @@ def _render_vrp_histogram(spy_data):
     """VRP 분포 히스토그램"""
     st.markdown("""
 <div class="explanation">
-<h4> VRP 분포 히스토그램</h4>
+<h4>VRP 분포 히스토그램</h4>
 <p>VRP가 평균적으로 양수임을 확인합니다. 양수 VRP는 변동성 매도 전략의 수익 원천입니다.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -379,7 +377,7 @@ def _render_vix_regime(spy_data):
     """VIX 레짐 시각화"""
     st.markdown("""
 <div class="explanation">
-<h4> VIX 레짐별 시장 상태</h4>
+<h4>VIX 레짐별 시장 상태</h4>
 <p>VIX 수준에 따라 시장을 저변동성(녹색), 보통(노랑), 고변동성(빨강) 구간으로 분류합니다.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -481,7 +479,7 @@ def _render_vix_rv_timeseries(spy_data):
 
 def _render_multi_asset_comparison():
     """다중 자산 비교"""
-    st.markdown("###  다중 자산 VIX vs RV 비교")
+    st.markdown("### 다중 자산 VIX vs RV 비교")
     
     assets_info = {
         'GLD': {'name': 'Gold ETF', 'r2': 0.368, 'direction': 72.7, 'vix_corr': 0.514, 'color': '#f1c40f'},

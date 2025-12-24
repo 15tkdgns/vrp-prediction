@@ -105,12 +105,66 @@ ElasticNet은 <strong>Ridge(L2)와 Lasso(L1) 규제를 결합</strong>한 선형
     # 모델 수식
     st.markdown("""
 <div class="hypothesis-card">
-<strong> ElasticNet 손실 함수</strong><br><br>
+<strong>ElasticNet 손실 함수</strong><br><br>
 $$L = \\frac{1}{2n} \\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2 + \\alpha \\cdot \\rho \\cdot \\|\\beta\\|_1 + \\frac{\\alpha(1-\\rho)}{2} \\cdot \\|\\beta\\|_2^2$$
 <br><br>
-• <strong>α (alpha)</strong>: 전체 규제 강도<br>
-• <strong>ρ (l1_ratio)</strong>: L1과 L2의 비율 (0=Ridge, 1=Lasso, 0~1=ElasticNet)<br>
-• <strong>β</strong>: 모델 계수 벡터
+- <strong>alpha</strong>: 전체 규제 강도<br>
+- <strong>l1_ratio</strong>: L1과 L2의 비율 (0=Ridge, 1=Lasso, 0~1=ElasticNet)<br>
+- <strong>beta</strong>: 모델 계수 벡터
+</div>
+""", unsafe_allow_html=True)
+    
+    st.markdown("---")
+    
+    # 입출력 요약 추가
+    st.markdown("### 모델 입출력 요약")
+    
+    st.markdown("""
+<div class="key-point">
+<strong>핵심 요약: 현재 VIX와 과거 변동성으로 미래 변동성을 예측</strong>
+</div>
+""", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([2, 1, 2])
+    
+    with col1:
+        st.markdown("""
+<div class="slide-card">
+<h4>입력 (Input) - 12개 특성</h4>
+<table style="width:100%; font-size:0.9rem;">
+<tr><td><strong>변동성 (3)</strong></td><td>RV_1d, RV_5d, RV_22d</td></tr>
+<tr><td><strong>VIX (3)</strong></td><td>VIX_lag1, VIX_lag5, VIX_change</td></tr>
+<tr><td><strong>VRP (3)</strong></td><td>VRP_lag1, VRP_lag5, VRP_ma5</td></tr>
+<tr><td><strong>시장 (3)</strong></td><td>regime_high, return_5d, return_22d</td></tr>
+</table>
+</div>
+""", unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+<div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+<div style="font-size: 2rem; color: #3498db;">→</div>
+</div>
+""", unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+<div class="slide-card" style="border-left: 4px solid #2ecc71;">
+<h4>출력 (Output)</h4>
+<p style="font-size: 1.1rem;"><strong>22일 후 실현 변동성 (RV_22d_future)</strong></p>
+<br>
+<h4>최종 활용</h4>
+<p>VRP = VIX - 예측RV<br>
+VRP > 평균 → 변동성 매도 신호</p>
+</div>
+""", unsafe_allow_html=True)
+    
+    st.markdown("""
+<div class="hypothesis-card">
+<strong>핵심 인사이트</strong><br><br>
+- 특성 중요도에서 <strong>VIX_lag1, VIX_lag5, RV_22d</strong>가 상위 차지<br>
+- 변동성 군집화(Volatility Clustering) 현상 활용: 과거 변동성이 높으면 미래에도 높을 가능성<br>
+- 시장 수익률/레짐 변수는 상대적으로 낮은 영향력
 </div>
 """, unsafe_allow_html=True)
 
