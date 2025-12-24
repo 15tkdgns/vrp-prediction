@@ -162,13 +162,50 @@ def render_model_performance():
             best_model = model_avg.loc[model_avg['R2'].idxmax()]
             best_asset = df.loc[df['R2'].idxmax()]
             
-            st.markdown(f"""
+            # 모델 유형별 평균
+            linear_models = ['ElasticNet', 'Ridge', 'Lasso']
+            nn_models = ['MLP_64', 'MLP_128_64']
+            tree_models = ['RandomForest', 'GradientBoosting']
+            
+            linear_r2 = df[df['모델'].isin(linear_models)]['R2'].mean()
+            nn_r2 = df[df['모델'].isin(nn_models)]['R2'].mean()
+            tree_r2 = df[df['모델'].isin(tree_models)]['R2'].mean()
+            
+            st.markdown("### 핵심 인사이트")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown(f"""
 <div class="key-point">
-<strong>핵심 발견</strong><br><br>
-- <strong>최고 모델</strong>: {best_model['모델']} (평균 R2 = {best_model['R2']:.4f})<br>
-- <strong>최고 자산</strong>: {best_asset['자산']} with {best_asset['모델']} (R2 = {best_asset['R2']:.4f})<br>
-- 모든 모델에서 R2 < 0 → 22일 후 변동성 예측은 매우 어려운 과제<br>
-- 선형 모델(ElasticNet, Ridge, Lasso)이 트리 모델보다 일관성 있음
+<strong>모델 성능 비교 결과</strong><br><br>
+<strong>1. 최고 성능 조합</strong><br>
+- 자산: <strong>{best_asset['자산']}</strong><br>
+- 모델: <strong>{best_asset['모델']}</strong><br>
+- R2: <strong>{best_asset['R2']:.4f}</strong><br><br>
+
+<strong>2. 모델 유형별 평균 R2</strong><br>
+- 선형 모델: <strong>{linear_r2:.4f}</strong><br>
+- 신경망 (MLP): <strong>{nn_r2:.4f}</strong><br>
+- 트리 기반: <strong>{tree_r2:.4f}</strong>
+</div>
+""", unsafe_allow_html=True)
+            
+            with col2:
+                st.markdown(f"""
+<div class="hypothesis-card">
+<strong>주요 발견 사항</strong><br><br>
+<strong>1. 22일 후 RV 예측은 어려운 과제</strong><br>
+- 모든 모델에서 R2 < 0 (단순 평균보다 낮은 성능)<br>
+- 22일 Gap 적용으로 현실적 예측 환경 반영<br><br>
+
+<strong>2. 자산별 예측 난이도 차이</strong><br>
+- GLD (금): 가장 예측 가능 (R2 ~ -0.2)<br>
+- TLT (국채): 가장 어려움 (R2 ~ -1.3 이하)<br><br>
+
+<strong>3. 선형 모델의 우위</strong><br>
+- 과적합 없이 안정적인 성능<br>
+- MLP가 SPY, QQQ에서 선형 모델 상회
 </div>
 """, unsafe_allow_html=True)
     else:
