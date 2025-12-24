@@ -53,10 +53,10 @@ VRP = VIX - 예측RV로 계산합니다.
             showarrow=False, font=dict(color='white', size=10)
         )
     
-    # 화살표 추가
+    # 화살표 추가 (왼쪽에서 오른쪽으로)
     for i in range(len(boxes)-1):
         fig_pipeline.add_annotation(
-            x=boxes[i]['x']+0.4, y=0, ax=boxes[i+1]['x']-0.4, ay=0,
+            x=boxes[i+1]['x']-0.4, y=0, ax=boxes[i]['x']+0.4, ay=0,
             xref='x', yref='y', axref='x', ayref='y',
             showarrow=True, arrowhead=2, arrowsize=1.5, arrowwidth=2, arrowcolor='#666'
         )

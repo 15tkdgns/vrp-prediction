@@ -86,7 +86,7 @@ from sections.references import render_closing, render_references
 # PART 1: Introduction (서론) - 섹션 1~7
 # ============================================================================
 st.markdown("---")
-st.markdown("## 📘 Part 1: Introduction (서론)")
+st.markdown("## Part 1: Introduction (서론)")
 
 # 1. 제목 슬라이드
 render_title()
@@ -113,7 +113,7 @@ render_hypothesis()
 # PART 2: Methodology (방법론) - 섹션 8~12
 # ============================================================================
 st.markdown("---")
-st.markdown("## 📗 Part 2: Methodology (방법론)")
+st.markdown("## Part 2: Methodology (방법론)")
 
 # 8. 예측 파이프라인
 render_pipeline()
@@ -134,7 +134,7 @@ render_models()
 # PART 3: Model Analysis (모델 분석) - 섹션 13~17
 # ============================================================================
 st.markdown("---")
-st.markdown("## 📙 Part 3: Model Analysis (모델 분석)")
+st.markdown("## Part 3: Model Analysis (모델 분석)")
 
 # 13. 모델 성능
 render_model_performance()
@@ -155,7 +155,7 @@ render_vix_beta_expansion(VIX_BETA)
 # PART 4: Economic Value (경제적 검증) - 섹션 18~20
 # ============================================================================
 st.markdown("---")
-st.markdown("## 📕 Part 4: Economic Value (경제적 검증)")
+st.markdown("## Part 4: Economic Value (경제적 검증)")
 
 # 18. 트레이딩 성과
 render_trading_performance()
@@ -170,7 +170,7 @@ render_structural_breaks(STRUCTURAL_BREAKS)
 # PART 5: Conclusion (결론) - 섹션 21~25
 # ============================================================================
 st.markdown("---")
-st.markdown("## 📓 Part 5: Conclusion (결론)")
+st.markdown("## Part 5: Conclusion (결론)")
 
 # 21. 연구 흐름 요약
 render_research_flow()
