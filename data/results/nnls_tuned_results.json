@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "experiment": "NNLS Ensemble Component Tuning",
+    "n_trials": 100,
+    "timestamp": "2025-12-25T03:49:03.090243"
+  },
+  "results": {
+    "SPY": {
+      "best_params": {
+        "Lasso": {
+          "alpha": 0.004623165065627608,
+          "max_iter": 4559
+        },
+        "ElasticNet": {
+          "alpha": 0.38250349787815247,
+          "l1_ratio": 0.0007022827445351786,
+          "max_iter": 3228
+        },
+        "Huber": {
+          "epsilon": 1.0030227551444693,
+          "alpha": 0.017497896302563355,
+          "max_iter": 122
+        },
+        "Ridge": {
+          "alpha": 99.43340501447824
+        },
+        "RF": {
+          "n_estimators": 281,
+          "max_depth": 3,
+          "min_samples_leaf": 50
+        }
+      },
+      "Lasso_cv_r2": -1.012431,
+      "ElasticNet_cv_r2": -0.987957,
+      "Huber_cv_r2": -0.105412,
+      "Ridge_cv_r2": -0.971738,
+      "RF_cv_r2": -0.627275,
+      "tuned_ensemble": {
+        "individual_r2": {
+          "Lasso": -2.170543911291461,
+          "ElasticNet": -2.2718469841530404,
+          "Huber": -0.4225718894696786,
+          "Ridge": -2.206070076373905,
+          "RF": -1.1722282528460752
+        },
+        "ensemble_r2": 0.0728260734359013,
+        "weights": {
+          "Lasso": 0.0,
+          "ElasticNet": 0.5324740822874027,
+          "Huber": 0.0,
+          "Ridge": 0.0,
+          "RF": 0.0
+        }
+      }
+    },
+    "GLD": {
+      "best_params": {
+        "Lasso": {
+          "alpha": 0.0427611086709394,
+          "max_iter": 1692
+        },
+        "ElasticNet": {
+          "alpha": 0.2263177754600646,
+          "l1_ratio": 0.18715531738611257,
+          "max_iter": 4707
+        },
+        "Huber": {
+          "epsilon": 1.00528702270696,
+          "alpha": 0.00031234019111356224,
+          "max_iter": 329
+        },
+        "Ridge": {
+          "alpha": 99.43340501447824
+        },
+        "RF": {
+          "n_estimators": 172,
+          "max_depth": 6,
+          "min_samples_leaf": 50
+        }
+      },
+      "Lasso_cv_r2": -0.929889,
+      "ElasticNet_cv_r2": -0.938995,
+      "Huber_cv_r2": -1.384904,
+      "Ridge_cv_r2": -1.339783,
+      "RF_cv_r2": -1.366015,
+      "tuned_ensemble": {
+        "individual_r2": {
+          "Lasso": -0.0033047718130347903,
+          "ElasticNet": 0.0006610382547501681,
+          "Huber": -0.12992680209882423,
+          "Ridge": -0.050883685667845624,
+          "RF": -0.5342252539114607
+        },
+        "ensemble_r2": 0.021552260280355173,
+        "weights": {
+          "Lasso": 0.0,
+          "ElasticNet": 0.08655154808140514,
+          "Huber": 1.0761671943319255,
+          "Ridge": 0.014212873480899625,
+          "RF": 0.0
+        }
+      }
+    },
+    "QQQ": {
+      "best_params": {
+        "Lasso": {
+          "alpha": 0.0016908750900065327,
+          "max_iter": 1211
+        },
+        "ElasticNet": {
+          "alpha": 0.7296173590845624,
+          "l1_ratio": 0.00018007268415680432,
+          "max_iter": 3283
+        },
+        "Huber": {
+          "epsilon": 1.000230773531471,
+          "alpha": 0.0006737648569944594,
+          "max_iter": 301
+        },
+        "Ridge": {
+          "alpha": 99.43340501447824
+        },
+        "RF": {
+          "n_estimators": 283,
+          "max_depth": 2,
+          "min_samples_leaf": 43
+        }
+      },
+      "Lasso_cv_r2": -0.335338,
+      "ElasticNet_cv_r2": -0.274897,
+      "Huber_cv_r2": 0.002882,
+      "Ridge_cv_r2": -0.277692,
+      "RF_cv_r2": -0.321651,
+      "tuned_ensemble": {
+        "individual_r2": {
+          "Lasso": -0.5710288412856248,
+          "ElasticNet": -0.6574553836432411,
+          "Huber": -0.08965273251344086,
+          "Ridge": -0.5859380017340579,
+          "RF": -0.5500811320507395
+        },
+        "ensemble_r2": 0.11603823111183598,
+        "weights": {
+          "Lasso": 0.0,
+          "ElasticNet": 0.5068821274225244,
+          "Huber": 0.0,
+          "Ridge": 0.15938029876854717,
+          "RF": 0.01336427712294457
+        }
+      }
+    },
+    "TLT": {
+      "best_params": {
+        "Lasso": {
+          "alpha": 0.737864208342295,
+          "max_iter": 1023
+        },
+        "ElasticNet": {
+          "alpha": 0.737864208342295,
+          "l1_ratio": 0.5588508982574674,
+          "max_iter": 2242
+        },
+        "Huber": {
+          "epsilon": 1.5719924504762688,
+          "alpha": 0.00036121806407468806,
+          "max_iter": 155
+        },
+        "Ridge": {
+          "alpha": 99.43340501447824
+        },
+        "RF": {
+          "n_estimators": 218,
+          "max_depth": 2,
+          "min_samples_leaf": 50
+        }
+      },
+      "Lasso_cv_r2": -0.205163,
+      "ElasticNet_cv_r2": -0.205163,
+      "Huber_cv_r2": -0.466565,
+      "Ridge_cv_r2": -0.934152,
+      "RF_cv_r2": -1.435459,
+      "tuned_ensemble": {
+        "individual_r2": {
+          "Lasso": -2.450916162891483,
+          "ElasticNet": -2.450916162891483,
+          "Huber": -0.845506556787103,
+          "Ridge": -2.3288884800246024,
+          "RF": -5.601429063045053
+        },
+        "ensemble_r2": 0.004541052156167624,
+        "weights": {
+          "Lasso": 0.5627997686133271,
+          "ElasticNet": 0.0,
+          "Huber": 0.1255741614358214,
+          "Ridge": 0.0,
+          "RF": 0.0
+        }
+      }
+    },
+    "EEM": {
+      "best_params": {
+        "Lasso": {
+          "alpha": 0.009204847189632801,
+          "max_iter": 4509
+        },
+        "ElasticNet": {
+          "alpha": 0.9972769702934139,
+          "l1_ratio": 0.00011601398365859803,
+          "max_iter": 4524
+        },
+        "Huber": {
+          "epsilon": 1.0038602376302506,
+          "alpha": 2.6579625576126363e-05,
+          "max_iter": 272
+        },
+        "Ridge": {
+          "alpha": 99.43340501447824
+        },
+        "RF": {
+          "n_estimators": 112,
+          "max_depth": 6,
+          "min_samples_leaf": 50
+        }
+      },
+      "Lasso_cv_r2": -1.341838,
+      "ElasticNet_cv_r2": -0.932887,
+      "Huber_cv_r2": -0.048586,
+      "Ridge_cv_r2": -1.046526,
+      "RF_cv_r2": -1.861643,
+      "tuned_ensemble": {
+        "individual_r2": {
+          "Lasso": -1.0616907889485567,
+          "ElasticNet": -1.0919541068483922,
+          "Huber": -0.1560168675536162,
+          "Ridge": -1.0696842456598725,
+          "RF": -1.3383218465835665
+        },
+        "ensemble_r2": 0.0391802742422358,
+        "weights": {
+          "Lasso": 0.0,
+          "ElasticNet": 0.11655596793194344,
+          "Huber": 0.5762342476678305,
+          "Ridge": 0.0,
+          "RF": 0.09037702820879233
+        }
+      }
+    }
+  }
+}
