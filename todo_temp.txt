@@ -1,0 +1,143 @@
+1. "평가 지표의 함정" 탈출: 기준점(Baseline) 변경
+가장 먼저 확인해야 할 것은 **"무엇과 비교하고 있는가?"**입니다.
+
+현재 문제점: sklearn.metrics.r2_score는 모델을 **"테스트 데이터의 전체 평균(Mean)"**과 비교합니다.
+
+변동성은 군집(Clustering) 현상이 있어 평균으로 회귀하기보다 어제 값이 오늘과 비슷한(Random Walk) 경향이 강합니다.
+
+만약 테스트 기간 동안 변동성이 급등/급락하는 추세였다면, "전체 평균"은 아무 의미가 없는 기준입니다.
+
+해결책: **Out-of-Sample R² ($R^2_{OOS}$)**의 기준을 **Prev Day RV (Random Walk)**로 변경하여 계산해 보십시오.
+
+R
+O
+O
+S
+2
+=
+1
+−
+∑
+(
+R
+V
+t
+r
+u
+e
+−
+R
+V
+p
+r
+e
+d
+)
+2
+∑
+(
+R
+V
+t
+r
+u
+e
+−
+R
+V
+t
+−
+1
+)
+2
+R 
+OOS
+2
+ =1− 
+∑(RV 
+true
+ −RV 
+t−1
+ ) 
+2
+ 
+∑(RV 
+true
+ −RV 
+pred
+ ) 
+2
+ 
+ 
+
+해석: 이 값이 양수라면, 귀하의 모델은 **"어제 변동성을 그대로 쓰는 것보다 낫다"**는 뜻이며, 이는 매우 훌륭한 성과입니다. sklearn의 음수 R²에 낙담할 필요가 없습니다.
+
+2. 샘플 가중치(Sample Weighting): "최신 데이터에 집중"
+금융 시계열은 **비정상성(Non-stationary)**이 강합니다. 3년 전의 데이터 패턴이 지금은 유효하지 않을 수 있습니다. 모든 과거 데이터에 동일한 가중치를 주면(Uniform Weighting), 모델은 현재 시장 상황을 반영하지 못합니다.
+
+전략: 학습 데이터의 손실 함수(Loss Function)에 지수 감쇠(Exponential Decay) 가중치를 적용하십시오.
+
+효과: 모델이 2020년 데이터보다 최근 3개월 데이터를 더 중요하게 학습하여, 최근의 Volatility Regime에 적응합니다.
+
+python
+import numpy as np
+
+# decay_rate: 0.99~0.999 추천 (값이 클수록 과거 기억 유지, 작을수록 최신 집중)
+def get_sample_weights(X_train, decay_rate=0.995):
+    n_samples = len(X_train)
+    # 최신 데이터(인덱스가 클수록)에 높은 가중치 부여
+    weights = np.array([decay_rate**(n_samples - i - 1) for i in range(n_samples)])
+    # 가중치 정규화 (선택사항)
+    return weights / np.mean(weights)
+
+# 모델 적용 예시
+weights = get_sample_weights(X_train)
+model = GradientBoostingRegressor().fit(X_train, y_train, sample_weight=weights)
+# 또는 Ridge().fit(X_train, y_train, sample_weight=weights)
+3. 목표 변수 변경: "변동성 변화량" 예측
+log(RV) 자체를 예측하는 것이 너무 어렵다면(Random Walk에 가까워서), **"변동성의 변화(Difference)"**를 예측하도록 문제를 재정의하십시오.
+
+기존: $X_t \rightarrow \log(RV_{t+1})$ 예측
+
+변경: $X_t \rightarrow \Delta \log(RV_{t+1}) = \log(RV_{t+1}) - \log(RV_t)$ 예측
+
+예측 복원: $\text{Forecast}_{t+1} = \log(RV_t) + \text{Predicted Change}$
+
+이유: 레벨(Level) 변수는 추세(Trend) 때문에 맞추기 어렵지만, 변화량(Differencing)은 정규분포에 가깝고 평균회귀 특성이 있어 머신러닝이 패턴을 찾기 훨씬 유리합니다.
+
+4. Rolling Window 크기 축소 (Regime Adaptation)
+Expanding Window(데이터 누적)를 사용하고 계신다면, 과거의 낡은 정보가 모델을 혼란스럽게 할 수 있습니다.
+
+진단: 테스트 기간의 시장 상황(예: 금리 인상기)이 학습 기간의 대부분(예: 저금리 평온기)과 다르면 R²는 필연적으로 음수가 나옵니다.
+
+해결책: 짧은 Rolling Window를 사용하십시오.
+
+제안: 최근 1년~2년 (252~500일) 데이터만 사용하여 학습하고, 매일/매주 재학습(Retraining) 하십시오.
+
+이는 모델이 "오래된 기억"을 잊고 현재의 변동성 레벨에 빠르게 적응하게 만듭니다.
+
+5. 앙상블 전략: "평균의 힘" (Model Averaging)
+단일 모델(Gradient Boosting 등)이 과적합(Overfitting)되고 있을 확률이 매우 높습니다. 가장 단순하지만 강력한 방법은 단순 평균 앙상블입니다.
+
+전략: 복잡한 Stacking 대신, 다음 3개 모델의 예측값을 산술 평균 내십시오.
+
+HAR-Linear (기준점)
+
+Random Walk (어제 변동성 그대로)
+
+Gradient Boosting (비선형성)
+
+공식: $\hat{y}_{final} = 0.5 \times \text{HAR} + 0.3 \times \text{Last_Value} + 0.2 \times \text{GB}$
+
+논리: Random Walk 요소를 강제로 주입하면, 모델이 크게 빗나가는 것(R² 급락)을 방지해주는 Anchor(닻) 역할을 합니다. 이를 **"Shrinkage toward Random Walk"**라고 하며, 예측 오차를 줄이는 검증된 테크닉입니다.
+
+요약: 즉시 적용할 Action Plan
+순서대로 시도해 보시기를 권장합니다.
+
+평가 기준 재확인: sklearn R² 대신 Random Walk 대비 R²를 직접 계산해보십시오. (이미 모델이 괜찮을 수도 있습니다.)
+
+Target Differencing: $\log(RV)$ 대신 **$\log(RV_{t+1}) - \log(RV_t)$**를 예측하도록 타겟을 바꾸십시오.
+
+Sample Weighting: 최신 데이터에 가중치를 주는 코드를 추가하십시오.
+
+Anchor 추가: 최종 예측값에 "어제 변동성 값"을 50% 섞어서 제출해 보십시오. R²가 극적으로 안정화될 것입니다.

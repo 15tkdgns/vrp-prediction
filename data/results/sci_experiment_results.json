@@ -1,0 +1,3605 @@
+{
+  "metadata": {
+    "created_at": "2025-12-25T00:22:55.998978",
+    "purpose": "SCI Journal Submission - VRP Prediction",
+    "target_variable": "RV_22d_future (22-day ahead Realized Volatility)"
+  },
+  "total_experiments": 95,
+  "experiments": [
+    {
+      "experiment_id": 1,
+      "timestamp": "2025-12-25T00:22:57.022934",
+      "configuration": {
+        "asset": "SPY",
+        "model": "ElasticNet",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.113656,
+          "R2_corrected": -6.951559,
+          "MAE_raw": 0.319598,
+          "MAE_corrected": 0.527705,
+          "RMSE_raw": 0.349369,
+          "QLIKE": 0.27415
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.9088,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.6222
+        }
+      }
+    },
+    {
+      "experiment_id": 2,
+      "timestamp": "2025-12-25T00:22:57.093917",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Ridge",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.111878,
+          "R2_corrected": -6.881076,
+          "MAE_raw": 0.317817,
+          "MAE_corrected": 0.52461,
+          "RMSE_raw": 0.349269,
+          "QLIKE": 0.272829
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.9107,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.6207
+        }
+      }
+    },
+    {
+      "experiment_id": 3,
+      "timestamp": "2025-12-25T00:22:57.174711",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Lasso",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.129253,
+          "R2_corrected": -7.01348,
+          "MAE_raw": 0.320931,
+          "MAE_corrected": 0.530003,
+          "RMSE_raw": 0.350243,
+          "QLIKE": 0.275371
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.9078,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.6238
+        }
+      }
+    },
+    {
+      "experiment_id": 4,
+      "timestamp": "2025-12-25T00:22:57.245661",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 5,
+      "timestamp": "2025-12-25T00:22:57.577859",
+      "configuration": {
+        "asset": "SPY",
+        "model": "RF",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -5.811576,
+          "R2_corrected": -7.745412,
+          "MAE_raw": 0.24988,
+          "MAE_corrected": 0.372064,
+          "RMSE_raw": 0.51674,
+          "QLIKE": 0.19527
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.994,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5144
+        }
+      }
+    },
+    {
+      "experiment_id": 6,
+      "timestamp": "2025-12-25T00:22:57.867398",
+      "configuration": {
+        "asset": "SPY",
+        "model": "GB",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -3.298605,
+          "R2_corrected": -5.105308,
+          "MAE_raw": 0.229857,
+          "MAE_corrected": 0.352514,
+          "RMSE_raw": 0.410499,
+          "QLIKE": 0.189223
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.9887,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4875
+        }
+      }
+    },
+    {
+      "experiment_id": 7,
+      "timestamp": "2025-12-25T00:22:57.933031",
+      "configuration": {
+        "asset": "SPY",
+        "model": "SVR",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.490032,
+          "R2_corrected": -3.625113,
+          "MAE_raw": 0.183655,
+          "MAE_corrected": 0.39516,
+          "RMSE_raw": 0.241683,
+          "QLIKE": 0.173711
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.8517,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4027
+        }
+      }
+    },
+    {
+      "experiment_id": 8,
+      "timestamp": "2025-12-25T00:22:58.076174",
+      "configuration": {
+        "asset": "SPY",
+        "model": "MLP",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.335106,
+          "R2_corrected": -4.831725,
+          "MAE_raw": 0.233015,
+          "MAE_corrected": 0.431755,
+          "RMSE_raw": 0.302553,
+          "QLIKE": 0.204904
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.8984,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.494
+        }
+      }
+    },
+    {
+      "experiment_id": 9,
+      "timestamp": "2025-12-25T00:22:58.476660",
+      "configuration": {
+        "asset": "GLD",
+        "model": "ElasticNet",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.076612,
+          "R2_corrected": -0.11698,
+          "MAE_raw": 0.186574,
+          "MAE_corrected": 0.191147,
+          "RMSE_raw": 0.217702,
+          "QLIKE": 0.106333
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.5104,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.5121
+        }
+      }
+    },
+    {
+      "experiment_id": 10,
+      "timestamp": "2025-12-25T00:22:58.535110",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Ridge",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.08287,
+          "R2_corrected": -0.124546,
+          "MAE_raw": 0.187645,
+          "MAE_corrected": 0.192351,
+          "RMSE_raw": 0.218333,
+          "QLIKE": 0.10695
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.5109,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.5136
+        }
+      }
+    },
+    {
+      "experiment_id": 11,
+      "timestamp": "2025-12-25T00:22:58.602813",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Lasso",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.074227,
+          "R2_corrected": -0.113174,
+          "MAE_raw": 0.186365,
+          "MAE_corrected": 0.190763,
+          "RMSE_raw": 0.21746,
+          "QLIKE": 0.106216
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.51,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.5108
+        }
+      }
+    },
+    {
+      "experiment_id": 12,
+      "timestamp": "2025-12-25T00:22:58.687687",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.001016,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177169,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 13,
+      "timestamp": "2025-12-25T00:22:59.053736",
+      "configuration": {
+        "asset": "GLD",
+        "model": "RF",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.497497,
+          "R2_corrected": -0.4012,
+          "MAE_raw": 0.204972,
+          "MAE_corrected": 0.199567,
+          "RMSE_raw": 0.256753,
+          "QLIKE": 0.153132
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.515,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4184
+        }
+      }
+    },
+    {
+      "experiment_id": 14,
+      "timestamp": "2025-12-25T00:22:59.393642",
+      "configuration": {
+        "asset": "GLD",
+        "model": "GB",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.64476,
+          "R2_corrected": -0.585707,
+          "MAE_raw": 0.208105,
+          "MAE_corrected": 0.206795,
+          "RMSE_raw": 0.269081,
+          "QLIKE": 0.168117
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.5226,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4348
+        }
+      }
+    },
+    {
+      "experiment_id": 15,
+      "timestamp": "2025-12-25T00:22:59.448655",
+      "configuration": {
+        "asset": "GLD",
+        "model": "SVR",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.648537,
+          "R2_corrected": -0.615508,
+          "MAE_raw": 0.211078,
+          "MAE_corrected": 0.211749,
+          "RMSE_raw": 0.26939,
+          "QLIKE": 0.146543
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.5107,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4655
+        }
+      }
+    },
+    {
+      "experiment_id": 16,
+      "timestamp": "2025-12-25T00:22:59.697825",
+      "configuration": {
+        "asset": "GLD",
+        "model": "MLP",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.619581,
+          "R2_corrected": -0.571839,
+          "MAE_raw": 0.220979,
+          "MAE_corrected": 0.222046,
+          "RMSE_raw": 0.267014,
+          "QLIKE": 0.174778
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.5158,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4533
+        }
+      }
+    },
+    {
+      "experiment_id": 17,
+      "timestamp": "2025-12-25T00:23:00.161193",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "ElasticNet",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.570453,
+          "R2_corrected": -2.084273,
+          "MAE_raw": 0.413975,
+          "MAE_corrected": 0.635698,
+          "RMSE_raw": 0.48897,
+          "QLIKE": 0.161087
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.4039,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.994
+        }
+      }
+    },
+    {
+      "experiment_id": 18,
+      "timestamp": "2025-12-25T00:23:00.238579",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Ridge",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.582466,
+          "R2_corrected": -2.082855,
+          "MAE_raw": 0.414773,
+          "MAE_corrected": 0.63433,
+          "RMSE_raw": 0.490837,
+          "QLIKE": 0.161848
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.4055,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.9935
+        }
+      }
+    },
+    {
+      "experiment_id": 19,
+      "timestamp": "2025-12-25T00:23:00.312624",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Lasso",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.571158,
+          "R2_corrected": -2.093583,
+          "MAE_raw": 0.414492,
+          "MAE_corrected": 0.637028,
+          "RMSE_raw": 0.48908,
+          "QLIKE": 0.161265
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.4031,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.9948
+        }
+      }
+    },
+    {
+      "experiment_id": 20,
+      "timestamp": "2025-12-25T00:23:00.407065",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -2.022803,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.634445,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 21,
+      "timestamp": "2025-12-25T00:23:00.779247",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "RF",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.404508,
+          "R2_corrected": -2.316682,
+          "MAE_raw": 0.384641,
+          "MAE_corrected": 0.545371,
+          "RMSE_raw": 0.605039,
+          "QLIKE": 0.142899
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.461,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.9217
+        }
+      }
+    },
+    {
+      "experiment_id": 22,
+      "timestamp": "2025-12-25T00:23:01.127833",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "GB",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.298627,
+          "R2_corrected": -2.154891,
+          "MAE_raw": 0.375457,
+          "MAE_corrected": 0.5245,
+          "RMSE_raw": 0.591568,
+          "QLIKE": 0.138799
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.4655,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.9106
+        }
+      }
+    },
+    {
+      "experiment_id": 23,
+      "timestamp": "2025-12-25T00:23:01.191064",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "SVR",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.517989,
+          "R2_corrected": -1.444587,
+          "MAE_raw": 0.336283,
+          "MAE_corrected": 0.499513,
+          "RMSE_raw": 0.480734,
+          "QLIKE": 0.146498
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.3737,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.7864
+        }
+      }
+    },
+    {
+      "experiment_id": 24,
+      "timestamp": "2025-12-25T00:23:01.350165",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "MLP",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.51119,
+          "R2_corrected": -1.984906,
+          "MAE_raw": 0.353807,
+          "MAE_corrected": 0.585498,
+          "RMSE_raw": 0.479656,
+          "QLIKE": 0.133221
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.3389,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8691
+        }
+      }
+    },
+    {
+      "experiment_id": 25,
+      "timestamp": "2025-12-25T00:23:01.883564",
+      "configuration": {
+        "asset": "TLT",
+        "model": "ElasticNet",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.607821,
+          "R2_corrected": -5.152801,
+          "MAE_raw": 0.22507,
+          "MAE_corrected": 0.309077,
+          "RMSE_raw": 0.269295,
+          "QLIKE": 0.122541
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.6836,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.6513
+        }
+      }
+    },
+    {
+      "experiment_id": 26,
+      "timestamp": "2025-12-25T00:23:01.960512",
+      "configuration": {
+        "asset": "TLT",
+        "model": "Ridge",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.701307,
+          "R2_corrected": -5.209956,
+          "MAE_raw": 0.228574,
+          "MAE_corrected": 0.310199,
+          "RMSE_raw": 0.272762,
+          "QLIKE": 0.123844
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.6855,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.6533
+        }
+      }
+    },
+    {
+      "experiment_id": 27,
+      "timestamp": "2025-12-25T00:23:02.048824",
+      "configuration": {
+        "asset": "TLT",
+        "model": "Lasso",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.550723,
+          "R2_corrected": -5.106048,
+          "MAE_raw": 0.222936,
+          "MAE_corrected": 0.308084,
+          "RMSE_raw": 0.267156,
+          "QLIKE": 0.121747
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.6829,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.6501
+        }
+      }
+    },
+    {
+      "experiment_id": 28,
+      "timestamp": "2025-12-25T00:23:02.128373",
+      "configuration": {
+        "asset": "TLT",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.803899,
+          "R2_corrected": -3.801429,
+          "MAE_raw": 0.152039,
+          "MAE_corrected": 0.267478,
+          "RMSE_raw": 0.19042,
+          "QLIKE": 0.077839
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.6223,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.5519
+        }
+      }
+    },
+    {
+      "experiment_id": 29,
+      "timestamp": "2025-12-25T00:23:02.497301",
+      "configuration": {
+        "asset": "TLT",
+        "model": "RF",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -8.306662,
+          "R2_corrected": -9.443521,
+          "MAE_raw": 0.242203,
+          "MAE_corrected": 0.2616,
+          "RMSE_raw": 0.432517,
+          "QLIKE": 0.128754
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.7208,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.5961
+        }
+      }
+    },
+    {
+      "experiment_id": 30,
+      "timestamp": "2025-12-25T00:23:02.834618",
+      "configuration": {
+        "asset": "TLT",
+        "model": "GB",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -10.058696,
+          "R2_corrected": -11.02894,
+          "MAE_raw": 0.241728,
+          "MAE_corrected": 0.258434,
+          "RMSE_raw": 0.471475,
+          "QLIKE": 0.126577
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.7303,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.6015
+        }
+      }
+    },
+    {
+      "experiment_id": 31,
+      "timestamp": "2025-12-25T00:23:02.892431",
+      "configuration": {
+        "asset": "TLT",
+        "model": "SVR",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -2.035749,
+          "R2_corrected": -3.679422,
+          "MAE_raw": 0.173305,
+          "MAE_corrected": 0.218733,
+          "RMSE_raw": 0.247024,
+          "QLIKE": 0.089558
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.6628,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.5222
+        }
+      }
+    },
+    {
+      "experiment_id": 32,
+      "timestamp": "2025-12-25T00:23:03.039631",
+      "configuration": {
+        "asset": "TLT",
+        "model": "MLP",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -3.775126,
+          "R2_corrected": -5.121014,
+          "MAE_raw": 0.220868,
+          "MAE_corrected": 0.25631,
+          "RMSE_raw": 0.309812,
+          "QLIKE": 0.124782
+        },
+        "bias_info": {
+          "train_mean": 0.7838,
+          "pred_train_mean": 0.7018,
+          "test_mean": 0.4462,
+          "pred_test_mean": 0.5701
+        }
+      }
+    },
+    {
+      "experiment_id": 33,
+      "timestamp": "2025-12-25T00:23:03.475081",
+      "configuration": {
+        "asset": "EEM",
+        "model": "ElasticNet",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.173527,
+          "R2_corrected": -3.933034,
+          "MAE_raw": 0.362345,
+          "MAE_corrected": 0.564059,
+          "RMSE_raw": 0.406637,
+          "QLIKE": 0.195714
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.0034,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.8073
+        }
+      }
+    },
+    {
+      "experiment_id": 34,
+      "timestamp": "2025-12-25T00:23:03.520905",
+      "configuration": {
+        "asset": "EEM",
+        "model": "Ridge",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.21382,
+          "R2_corrected": -3.917528,
+          "MAE_raw": 0.364324,
+          "MAE_corrected": 0.562557,
+          "RMSE_raw": 0.410389,
+          "QLIKE": 0.196569
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.0075,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.8075
+        }
+      }
+    },
+    {
+      "experiment_id": 35,
+      "timestamp": "2025-12-25T00:23:03.574798",
+      "configuration": {
+        "asset": "EEM",
+        "model": "Lasso",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -1.153824,
+          "R2_corrected": -3.935153,
+          "MAE_raw": 0.361135,
+          "MAE_corrected": 0.564584,
+          "RMSE_raw": 0.40479,
+          "QLIKE": 0.195206
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.0017,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.8071
+        }
+      }
+    },
+    {
+      "experiment_id": 36,
+      "timestamp": "2025-12-25T00:23:03.702441",
+      "configuration": {
+        "asset": "EEM",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.208979,
+          "R2_corrected": -4.278925,
+          "MAE_raw": 0.260002,
+          "MAE_corrected": 0.590694,
+          "RMSE_raw": 0.303273,
+          "QLIKE": 0.139322
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 0.8275,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.6711
+        }
+      }
+    },
+    {
+      "experiment_id": 37,
+      "timestamp": "2025-12-25T00:23:04.090250",
+      "configuration": {
+        "asset": "EEM",
+        "model": "RF",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -7.141851,
+          "R2_corrected": -8.532649,
+          "MAE_raw": 0.442291,
+          "MAE_corrected": 0.538007,
+          "RMSE_raw": 0.787021,
+          "QLIKE": 0.205291
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.1237,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.8423
+        }
+      }
+    },
+    {
+      "experiment_id": 38,
+      "timestamp": "2025-12-25T00:23:04.428441",
+      "configuration": {
+        "asset": "EEM",
+        "model": "GB",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -4.780133,
+          "R2_corrected": -5.930376,
+          "MAE_raw": 0.416907,
+          "MAE_corrected": 0.501745,
+          "RMSE_raw": 0.663123,
+          "QLIKE": 0.195983
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.1361,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.8134
+        }
+      }
+    },
+    {
+      "experiment_id": 39,
+      "timestamp": "2025-12-25T00:23:04.485466",
+      "configuration": {
+        "asset": "EEM",
+        "model": "SVR",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.335247,
+          "R2_corrected": -2.367608,
+          "MAE_raw": 0.249113,
+          "MAE_corrected": 0.44795,
+          "RMSE_raw": 0.318717,
+          "QLIKE": 0.131965
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 0.9427,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.6146
+        }
+      }
+    },
+    {
+      "experiment_id": 40,
+      "timestamp": "2025-12-25T00:23:04.803214",
+      "configuration": {
+        "asset": "EEM",
+        "model": "MLP",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.778184,
+          "R2_corrected": -1.674567,
+          "MAE_raw": 0.2685,
+          "MAE_corrected": 0.371474,
+          "RMSE_raw": 0.367801,
+          "QLIKE": 0.17254
+        },
+        "bias_info": {
+          "train_mean": 1.2637,
+          "pred_train_mean": 1.0587,
+          "test_mean": 0.5344,
+          "pred_test_mean": 0.5981
+        }
+      }
+    },
+    {
+      "experiment_id": 41,
+      "timestamp": "2025-12-25T00:23:04.901932",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "none",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.631084,
+          "R2_corrected": -7.227475,
+          "MAE_raw": 0.213615,
+          "MAE_corrected": 0.540313,
+          "RMSE_raw": 0.252864,
+          "QLIKE": 0.189368
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7611,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4846
+        }
+      }
+    },
+    {
+      "experiment_id": 42,
+      "timestamp": "2025-12-25T00:23:04.977221",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 43,
+      "timestamp": "2025-12-25T00:23:05.069364",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.63164,
+          "R2_corrected": -7.228468,
+          "MAE_raw": 0.213689,
+          "MAE_corrected": 0.540349,
+          "RMSE_raw": 0.252907,
+          "QLIKE": 0.189422
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7612,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4847
+        }
+      }
+    },
+    {
+      "experiment_id": 44,
+      "timestamp": "2025-12-25T00:23:05.157907",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log_winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681303,
+          "R2_corrected": -6.969648,
+          "MAE_raw": 0.228816,
+          "MAE_corrected": 0.532723,
+          "RMSE_raw": 0.256727,
+          "QLIKE": 0.197658
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 45,
+      "timestamp": "2025-12-25T00:23:05.230495",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "none",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.092751,
+          "R2_corrected": -0.002204,
+          "MAE_raw": 0.181263,
+          "MAE_corrected": 0.177722,
+          "RMSE_raw": 0.219327,
+          "QLIKE": 0.107953
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4516,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4358
+        }
+      }
+    },
+    {
+      "experiment_id": 46,
+      "timestamp": "2025-12-25T00:23:05.294242",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.001016,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177169,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 47,
+      "timestamp": "2025-12-25T00:23:05.390002",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.092947,
+          "R2_corrected": -0.00228,
+          "MAE_raw": 0.181292,
+          "MAE_corrected": 0.177726,
+          "RMSE_raw": 0.219347,
+          "QLIKE": 0.107978
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4515,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4358
+        }
+      }
+    },
+    {
+      "experiment_id": 48,
+      "timestamp": "2025-12-25T00:23:05.527424",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log_winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094778,
+          "R2_corrected": 0.001233,
+          "MAE_raw": 0.181155,
+          "MAE_corrected": 0.17714,
+          "RMSE_raw": 0.219531,
+          "QLIKE": 0.108202
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4512,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4344
+        }
+      }
+    },
+    {
+      "experiment_id": 49,
+      "timestamp": "2025-12-25T00:23:05.640983",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "none",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.366029,
+          "R2_corrected": -2.308432,
+          "MAE_raw": 0.358409,
+          "MAE_corrected": 0.659519,
+          "RMSE_raw": 0.456037,
+          "QLIKE": 0.148042
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2931,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8996
+        }
+      }
+    },
+    {
+      "experiment_id": 50,
+      "timestamp": "2025-12-25T00:23:05.715377",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -2.022803,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.634445,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 51,
+      "timestamp": "2025-12-25T00:23:05.777237",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.36641,
+          "R2_corrected": -2.309168,
+          "MAE_raw": 0.358542,
+          "MAE_corrected": 0.659623,
+          "RMSE_raw": 0.4561,
+          "QLIKE": 0.14807
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2932,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8998
+        }
+      }
+    },
+    {
+      "experiment_id": 52,
+      "timestamp": "2025-12-25T00:23:05.846815",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log_winsorize",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183707,
+          "R2_corrected": -2.023292,
+          "MAE_raw": 0.331815,
+          "MAE_corrected": 0.634509,
+          "RMSE_raw": 0.424514,
+          "QLIKE": 0.133076
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8677
+        }
+      }
+    },
+    {
+      "experiment_id": 53,
+      "timestamp": "2025-12-25T00:23:05.920250",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.616024,
+          "R2_corrected": -6.604926,
+          "MAE_raw": 0.221552,
+          "MAE_corrected": 0.520219,
+          "RMSE_raw": 0.251694,
+          "QLIKE": 0.191914
+        },
+        "bias_info": {
+          "train_mean": 1.1293,
+          "pred_train_mean": 0.7757,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4964
+        }
+      }
+    },
+    {
+      "experiment_id": 54,
+      "timestamp": "2025-12-25T00:23:06.032310",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 10,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 957,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.631831,
+          "R2_corrected": -6.697529,
+          "MAE_raw": 0.223414,
+          "MAE_corrected": 0.523435,
+          "RMSE_raw": 0.252922,
+          "QLIKE": 0.193356
+        },
+        "bias_info": {
+          "train_mean": 1.134,
+          "pred_train_mean": 0.7791,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.4987
+        }
+      }
+    },
+    {
+      "experiment_id": 55,
+      "timestamp": "2025-12-25T00:23:06.123873",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 56,
+      "timestamp": "2025-12-25T00:23:06.213129",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.087023,
+          "R2_corrected": -0.00153,
+          "MAE_raw": 0.181215,
+          "MAE_corrected": 0.1775,
+          "RMSE_raw": 0.218752,
+          "QLIKE": 0.107374
+        },
+        "bias_info": {
+          "train_mean": 0.5446,
+          "pred_train_mean": 0.4534,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4376
+        }
+      }
+    },
+    {
+      "experiment_id": 57,
+      "timestamp": "2025-12-25T00:23:06.296778",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 10,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 957,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.086463,
+          "R2_corrected": -0.001862,
+          "MAE_raw": 0.181108,
+          "MAE_corrected": 0.177472,
+          "RMSE_raw": 0.218695,
+          "QLIKE": 0.10731
+        },
+        "bias_info": {
+          "train_mean": 0.5452,
+          "pred_train_mean": 0.4536,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4377
+        }
+      }
+    },
+    {
+      "experiment_id": 58,
+      "timestamp": "2025-12-25T00:23:06.358220",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.001016,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177169,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 59,
+      "timestamp": "2025-12-25T00:23:06.416212",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.162043,
+          "R2_corrected": -1.88277,
+          "MAE_raw": 0.32375,
+          "MAE_corrected": 0.616758,
+          "RMSE_raw": 0.420612,
+          "QLIKE": 0.13128
+        },
+        "bias_info": {
+          "train_mean": 1.6492,
+          "pred_train_mean": 1.2672,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8524
+        }
+      }
+    },
+    {
+      "experiment_id": 60,
+      "timestamp": "2025-12-25T00:23:06.519067",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 10,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 957,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.165134,
+          "R2_corrected": -1.909629,
+          "MAE_raw": 0.325313,
+          "MAE_corrected": 0.620298,
+          "RMSE_raw": 0.421171,
+          "QLIKE": 0.131485
+        },
+        "bias_info": {
+          "train_mean": 1.6557,
+          "pred_train_mean": 1.2727,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8557
+        }
+      }
+    },
+    {
+      "experiment_id": 61,
+      "timestamp": "2025-12-25T00:23:06.586194",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -2.022803,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.634445,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 62,
+      "timestamp": "2025-12-25T00:23:06.663189",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "none",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -0.681318,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.228814,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 63,
+      "timestamp": "2025-12-25T00:23:06.753909",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 64,
+      "timestamp": "2025-12-25T00:23:06.834374",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "multiplicative",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -4.090465,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.420902,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 65,
+      "timestamp": "2025-12-25T00:23:06.921047",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "none",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": -0.094161,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.181128,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 66,
+      "timestamp": "2025-12-25T00:23:07.050569",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.001016,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177169,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 67,
+      "timestamp": "2025-12-25T00:23:07.138382",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "multiplicative",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.003085,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177154,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 68,
+      "timestamp": "2025-12-25T00:23:07.226478",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "none",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -0.183538,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.33176,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 69,
+      "timestamp": "2025-12-25T00:23:07.325549",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -2.022803,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.634445,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 70,
+      "timestamp": "2025-12-25T00:23:07.409833",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "multiplicative",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -1.367841,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.530325,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 71,
+      "timestamp": "2025-12-25T00:23:07.529473",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 72,
+      "timestamp": "2025-12-25T00:23:07.620744",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": false
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.803671,
+          "R2_corrected": -7.728145,
+          "MAE_raw": 0.24183,
+          "MAE_corrected": 0.556737,
+          "RMSE_raw": 0.265905,
+          "QLIKE": 0.212302
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.774,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.52
+        }
+      }
+    },
+    {
+      "experiment_id": 73,
+      "timestamp": "2025-12-25T00:23:07.718759",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": false,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 12,
+        "metrics": {
+          "R2_raw": -0.681318,
+          "R2_corrected": -6.969449,
+          "MAE_raw": 0.228814,
+          "MAE_corrected": 0.532715,
+          "RMSE_raw": 0.256728,
+          "QLIKE": 0.197656
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7873,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5053
+        }
+      }
+    },
+    {
+      "experiment_id": 74,
+      "timestamp": "2025-12-25T00:23:07.790621",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": false,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 946,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.736424,
+          "R2_corrected": -7.3688,
+          "MAE_raw": 0.234797,
+          "MAE_corrected": 0.545975,
+          "RMSE_raw": 0.260901,
+          "QLIKE": 0.202235
+        },
+        "bias_info": {
+          "train_mean": 1.1529,
+          "pred_train_mean": 0.787,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.5135
+        }
+      }
+    },
+    {
+      "experiment_id": 75,
+      "timestamp": "2025-12-25T00:23:07.852517",
+      "configuration": {
+        "asset": "SPY",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": false,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.694315,
+          "R2_corrected": -7.071317,
+          "MAE_raw": 0.229366,
+          "MAE_corrected": 0.535927,
+          "RMSE_raw": 0.257719,
+          "QLIKE": 0.197882
+        },
+        "bias_info": {
+          "train_mean": 1.146,
+          "pred_train_mean": 0.7845,
+          "test_mean": 0.3411,
+          "pred_test_mean": 0.506
+        }
+      }
+    },
+    {
+      "experiment_id": 76,
+      "timestamp": "2025-12-25T00:23:07.923746",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.094161,
+          "R2_corrected": 0.001016,
+          "MAE_raw": 0.181128,
+          "MAE_corrected": 0.177169,
+          "RMSE_raw": 0.219469,
+          "QLIKE": 0.108136
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4514,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4347
+        }
+      }
+    },
+    {
+      "experiment_id": 77,
+      "timestamp": "2025-12-25T00:23:08.021850",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": false
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.153685,
+          "R2_corrected": -0.001181,
+          "MAE_raw": 0.185182,
+          "MAE_corrected": 0.178754,
+          "RMSE_raw": 0.225359,
+          "QLIKE": 0.114942
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.45,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.421
+        }
+      }
+    },
+    {
+      "experiment_id": 78,
+      "timestamp": "2025-12-25T00:23:08.089466",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": false,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 12,
+        "metrics": {
+          "R2_raw": -0.092968,
+          "R2_corrected": 0.002582,
+          "MAE_raw": 0.180945,
+          "MAE_corrected": 0.177074,
+          "RMSE_raw": 0.219349,
+          "QLIKE": 0.108006
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4512,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4345
+        }
+      }
+    },
+    {
+      "experiment_id": 79,
+      "timestamp": "2025-12-25T00:23:08.168458",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": false,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 946,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.101644,
+          "R2_corrected": 0.001098,
+          "MAE_raw": 0.181685,
+          "MAE_corrected": 0.177659,
+          "RMSE_raw": 0.220218,
+          "QLIKE": 0.108917
+        },
+        "bias_info": {
+          "train_mean": 0.546,
+          "pred_train_mean": 0.4497,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4322
+        }
+      }
+    },
+    {
+      "experiment_id": 80,
+      "timestamp": "2025-12-25T00:23:08.239372",
+      "configuration": {
+        "asset": "GLD",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": false,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.092987,
+          "R2_corrected": 0.002711,
+          "MAE_raw": 0.180905,
+          "MAE_corrected": 0.177149,
+          "RMSE_raw": 0.219351,
+          "QLIKE": 0.107991
+        },
+        "bias_info": {
+          "train_mean": 0.5451,
+          "pred_train_mean": 0.4512,
+          "test_mean": 0.5039,
+          "pred_test_mean": 0.4345
+        }
+      }
+    },
+    {
+      "experiment_id": 81,
+      "timestamp": "2025-12-25T00:23:08.318542",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "metrics": {
+          "R2_raw": -0.183538,
+          "R2_corrected": -2.022803,
+          "MAE_raw": 0.33176,
+          "MAE_corrected": 0.634445,
+          "RMSE_raw": 0.424484,
+          "QLIKE": 0.133059
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2853,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8676
+        }
+      }
+    },
+    {
+      "experiment_id": 82,
+      "timestamp": "2025-12-25T00:23:08.384924",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": false
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.182386,
+          "R2_corrected": -2.095106,
+          "MAE_raw": 0.336174,
+          "MAE_corrected": 0.644627,
+          "RMSE_raw": 0.424277,
+          "QLIKE": 0.133707
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2734,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.865
+        }
+      }
+    },
+    {
+      "experiment_id": 83,
+      "timestamp": "2025-12-25T00:23:08.476305",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": false,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 12,
+        "metrics": {
+          "R2_raw": -0.190732,
+          "R2_corrected": -2.090512,
+          "MAE_raw": 0.333937,
+          "MAE_corrected": 0.643175,
+          "RMSE_raw": 0.425772,
+          "QLIKE": 0.133482
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2817,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8743
+        }
+      }
+    },
+    {
+      "experiment_id": 84,
+      "timestamp": "2025-12-25T00:23:08.530052",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": false,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 946,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.188772,
+          "R2_corrected": -2.050589,
+          "MAE_raw": 0.335432,
+          "MAE_corrected": 0.638898,
+          "RMSE_raw": 0.425422,
+          "QLIKE": 0.133453
+        },
+        "bias_info": {
+          "train_mean": 1.6794,
+          "pred_train_mean": 1.2931,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8742
+        }
+      }
+    },
+    {
+      "experiment_id": 85,
+      "timestamp": "2025-12-25T00:23:08.614086",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "Huber",
+        "model_params": {},
+        "target_transform": "log",
+        "bias_correction": "mean_shift",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": false,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 11,
+        "metrics": {
+          "R2_raw": -0.18426,
+          "R2_corrected": -2.057772,
+          "MAE_raw": 0.332179,
+          "MAE_corrected": 0.638693,
+          "RMSE_raw": 0.424613,
+          "QLIKE": 0.133149
+        },
+        "bias_info": {
+          "train_mean": 1.6731,
+          "pred_train_mean": 1.2812,
+          "test_mean": 0.7005,
+          "pred_test_mean": 0.8685
+        }
+      }
+    },
+    {
+      "experiment_id": 86,
+      "timestamp": "2025-12-25T00:23:09.293353",
+      "configuration": {
+        "asset": "SPY",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.4538,
+          "Ridge": 0.0,
+          "Huber": 0.1167,
+          "RF": 0.0,
+          "GB": 0.0008,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": 0.059121,
+          "R2_corrected": -1.234428,
+          "MAE_ensemble": 0.134952,
+          "MAE_corrected": 0.275839,
+          "QLIKE": 0.130978
+        }
+      }
+    },
+    {
+      "experiment_id": 87,
+      "timestamp": "2025-12-25T00:23:10.011969",
+      "configuration": {
+        "asset": "SPY",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.383,
+          "Ridge": 0.0606,
+          "Huber": 0.1218,
+          "RF": 0.0,
+          "GB": 0.0,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": 0.06195,
+          "R2_corrected": -1.267597,
+          "MAE_ensemble": 0.134829,
+          "MAE_corrected": 0.278401,
+          "QLIKE": 0.130484
+        }
+      }
+    },
+    {
+      "experiment_id": 88,
+      "timestamp": "2025-12-25T00:23:10.808343",
+      "configuration": {
+        "asset": "GLD",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.0,
+          "Ridge": 0.0,
+          "Huber": 1.0712,
+          "RF": 0.0,
+          "GB": 0.0,
+          "SVR": 0.0735
+        },
+        "metrics": {
+          "R2_ensemble": 0.014825,
+          "R2_corrected": -0.019977,
+          "MAE_ensemble": 0.176843,
+          "MAE_corrected": 0.178885,
+          "QLIKE": 0.096317
+        }
+      }
+    },
+    {
+      "experiment_id": 89,
+      "timestamp": "2025-12-25T00:23:11.629988",
+      "configuration": {
+        "asset": "GLD",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.0,
+          "Ridge": 0.0,
+          "Huber": 1.0855,
+          "RF": 0.0,
+          "GB": 0.0,
+          "SVR": 0.0673
+        },
+        "metrics": {
+          "R2_ensemble": 0.016934,
+          "R2_corrected": -0.019162,
+          "MAE_ensemble": 0.176564,
+          "MAE_corrected": 0.178576,
+          "QLIKE": 0.0961
+        }
+      }
+    },
+    {
+      "experiment_id": 90,
+      "timestamp": "2025-12-25T00:23:12.437639",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.6601,
+          "Ridge": 0.0,
+          "Huber": 0.0,
+          "RF": 0.0385,
+          "GB": 0.0,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": 0.096266,
+          "R2_corrected": -0.284845,
+          "MAE_ensemble": 0.248709,
+          "MAE_corrected": 0.376258,
+          "QLIKE": 0.114893
+        }
+      }
+    },
+    {
+      "experiment_id": 91,
+      "timestamp": "2025-12-25T00:23:13.227481",
+      "configuration": {
+        "asset": "QQQ",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.6586,
+          "Ridge": 0.0,
+          "Huber": 0.0,
+          "RF": 0.0323,
+          "GB": 0.0,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": 0.102014,
+          "R2_corrected": -0.297775,
+          "MAE_ensemble": 0.249138,
+          "MAE_corrected": 0.380452,
+          "QLIKE": 0.113791
+        }
+      }
+    },
+    {
+      "experiment_id": 92,
+      "timestamp": "2025-12-25T00:23:14.018318",
+      "configuration": {
+        "asset": "TLT",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.2098,
+          "Ridge": 0.0,
+          "Huber": 0.5424,
+          "RF": 0.0,
+          "GB": 0.0,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": -0.121392,
+          "R2_corrected": -0.50634,
+          "MAE_ensemble": 0.130675,
+          "MAE_corrected": 0.142973,
+          "QLIKE": 0.059696
+        }
+      }
+    },
+    {
+      "experiment_id": 93,
+      "timestamp": "2025-12-25T00:23:14.808736",
+      "configuration": {
+        "asset": "TLT",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.2218,
+          "Ridge": 0.0,
+          "Huber": 0.5353,
+          "RF": 0.0,
+          "GB": 0.0,
+          "SVR": 0.0
+        },
+        "metrics": {
+          "R2_ensemble": -0.117202,
+          "R2_corrected": -0.519157,
+          "MAE_ensemble": 0.130467,
+          "MAE_corrected": 0.143165,
+          "QLIKE": 0.059353
+        }
+      }
+    },
+    {
+      "experiment_id": 94,
+      "timestamp": "2025-12-25T00:23:15.725469",
+      "configuration": {
+        "asset": "EEM",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 5,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 962,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.0,
+          "Ridge": 0.0,
+          "Huber": 0.7492,
+          "RF": 0.0189,
+          "GB": 0.0159,
+          "SVR": 0.0165
+        },
+        "metrics": {
+          "R2_ensemble": 0.039929,
+          "R2_corrected": -0.743195,
+          "MAE_ensemble": 0.202239,
+          "MAE_corrected": 0.3317,
+          "QLIKE": 0.114164
+        }
+      }
+    },
+    {
+      "experiment_id": 95,
+      "timestamp": "2025-12-25T00:23:16.627664",
+      "configuration": {
+        "asset": "EEM",
+        "model": "NNLS_Ensemble",
+        "base_models": [
+          "ElasticNet",
+          "Ridge",
+          "Huber",
+          "RF",
+          "GB",
+          "SVR"
+        ],
+        "target_transform": "log",
+        "gap": 22,
+        "feature_config": {
+          "use_har_means": true,
+          "use_vix_lags": true,
+          "use_vrp": true,
+          "use_market_state": true
+        }
+      },
+      "results": {
+        "n_train": 945,
+        "n_test": 242,
+        "n_features": 14,
+        "n_base_models": 6,
+        "ensemble_weights": {
+          "ElasticNet": 0.0,
+          "Ridge": 0.0,
+          "Huber": 0.7463,
+          "RF": 0.0,
+          "GB": 0.0346,
+          "SVR": 0.0093
+        },
+        "metrics": {
+          "R2_ensemble": 0.042748,
+          "R2_corrected": -0.773765,
+          "MAE_ensemble": 0.200866,
+          "MAE_corrected": 0.334677,
+          "QLIKE": 0.113833
+        }
+      }
+    }
+  ]
+}
