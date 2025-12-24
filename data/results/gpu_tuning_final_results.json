@@ -1,0 +1,295 @@
+{
+  "metadata": {
+    "experiment": "GPU Model Tuning",
+    "start_time": "2025-12-25T01:59:12.108024",
+    "assets": [
+      "SPY",
+      "GLD",
+      "QQQ",
+      "TLT",
+      "EEM"
+    ],
+    "n_trials_boost": 100,
+    "n_trials_nn": 50
+  },
+  "results": {
+    "SPY": {
+      "LightGBM": {
+        "best_params": {
+          "n_estimators": 1802,
+          "max_depth": 11,
+          "learning_rate": 0.20429408217380676,
+          "num_leaves": 131,
+          "min_child_samples": 7,
+          "subsample": 0.8169438352699189,
+          "colsample_bytree": 0.6225097052666139,
+          "reg_alpha": 9.301909755515457,
+          "reg_lambda": 2.294126792135284e-05
+        },
+        "best_R2": -0.8120559542113515
+      },
+      "CatBoost": {
+        "best_params": {
+          "iterations": 1159,
+          "depth": 6,
+          "learning_rate": 0.14480069537374457,
+          "l2_leaf_reg": 5.695830356752829,
+          "bagging_temperature": 0.8454573879125631,
+          "random_strength": 0.1343960217591712
+        },
+        "best_R2": -1.0730083290314134
+      },
+      "MLP": {
+        "best_params": {
+          "n_layers": 4,
+          "hidden_0": 341,
+          "hidden_1": 325,
+          "hidden_2": 138,
+          "hidden_3": 384,
+          "dropout": 0.4981126922026228,
+          "lr": 0.00019920906906915786,
+          "batch_size": 256
+        },
+        "best_R2": -0.29123304321572396
+      },
+      "Ensemble": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.6082118293510219,
+            "CatBoost": 0.0
+          },
+          "R2": -0.2317031995852148
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.9999870241070927,
+            "CatBoost": 1.297589290728106e-05
+          },
+          "R2": -1.3673852562816484
+        }
+      }
+    },
+    "GLD": {
+      "LightGBM": {
+        "best_params": {
+          "n_estimators": 1007,
+          "max_depth": 11,
+          "learning_rate": 0.028931305190458206,
+          "num_leaves": 19,
+          "min_child_samples": 60,
+          "subsample": 0.5709276867944452,
+          "colsample_bytree": 0.6668491498045785,
+          "reg_alpha": 1.0957157039083408e-05,
+          "reg_lambda": 0.05751673949831533
+        },
+        "best_R2": 0.00288009998658878
+      },
+      "CatBoost": {
+        "best_params": {
+          "iterations": 1098,
+          "depth": 7,
+          "learning_rate": 0.10467605813858147,
+          "l2_leaf_reg": 2.3929254126677866,
+          "bagging_temperature": 0.48727989838222674,
+          "random_strength": 0.541846524035543
+        },
+        "best_R2": 0.004820913258343107
+      },
+      "MLP": {
+        "best_params": {
+          "n_layers": 4,
+          "hidden_0": 33,
+          "hidden_1": 38,
+          "hidden_2": 354,
+          "hidden_3": 215,
+          "dropout": 0.23247666223471716,
+          "lr": 1.4790140541627165e-05,
+          "batch_size": 128
+        },
+        "best_R2": -0.0661532719035054
+      },
+      "Ensemble": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.245909845854942,
+            "CatBoost": 0.7094178176914341
+          },
+          "R2": -0.8666330374390103
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.2214176022203015,
+            "CatBoost": 0.7785823977796985
+          },
+          "R2": -0.8768828511801139
+        }
+      }
+    },
+    "QQQ": {
+      "LightGBM": {
+        "best_params": {
+          "n_estimators": 875,
+          "max_depth": 7,
+          "learning_rate": 0.10359522552233617,
+          "num_leaves": 86,
+          "min_child_samples": 58,
+          "subsample": 0.7733510177551882,
+          "colsample_bytree": 0.669879221448226,
+          "reg_alpha": 9.315252677984738,
+          "reg_lambda": 0.013945074243400706
+        },
+        "best_R2": -0.4451760042330586
+      },
+      "CatBoost": {
+        "best_params": {
+          "iterations": 1302,
+          "depth": 8,
+          "learning_rate": 0.2997610930305679,
+          "l2_leaf_reg": 6.075029764312822,
+          "bagging_temperature": 0.4172990467693828,
+          "random_strength": 0.542162151636864
+        },
+        "best_R2": -0.19389818746718013
+      },
+      "MLP": {
+        "best_params": {
+          "n_layers": 3,
+          "hidden_0": 403,
+          "hidden_1": 305,
+          "hidden_2": 449,
+          "dropout": 0.49982862731049477,
+          "lr": 2.2091321676951503e-05,
+          "batch_size": 128
+        },
+        "best_R2": 0.05912171683584677
+      },
+      "Ensemble": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.7060310536672986,
+            "CatBoost": 0.0
+          },
+          "R2": -0.08613702513071808
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.9999870241070927,
+            "CatBoost": 1.297589290728106e-05
+          },
+          "R2": -0.6299625087321952
+        }
+      }
+    },
+    "TLT": {
+      "LightGBM": {
+        "best_params": {
+          "n_estimators": 1860,
+          "max_depth": 11,
+          "learning_rate": 0.17542435761863598,
+          "num_leaves": 146,
+          "min_child_samples": 38,
+          "subsample": 0.8790836681085896,
+          "colsample_bytree": 0.561729365099744,
+          "reg_alpha": 2.6602655555857053,
+          "reg_lambda": 3.1571290616161436
+        },
+        "best_R2": -1.7923812216307646
+      },
+      "CatBoost": {
+        "best_params": {
+          "iterations": 336,
+          "depth": 10,
+          "learning_rate": 0.01901993559558638,
+          "l2_leaf_reg": 1.596516471841546,
+          "bagging_temperature": 0.5543028265007148,
+          "random_strength": 0.4047443316359947
+        },
+        "best_R2": -1.7146879434377023
+      },
+      "MLP": {
+        "best_params": {
+          "n_layers": 4,
+          "hidden_0": 32,
+          "hidden_1": 219,
+          "hidden_2": 472,
+          "hidden_3": 238,
+          "dropout": 0.4978449902116386,
+          "lr": 0.0005872766665352766,
+          "batch_size": 128
+        },
+        "best_R2": -0.3108205086523279
+      },
+      "Ensemble": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.3565909362930241,
+            "CatBoost": 0.21522463567718317
+          },
+          "R2": -2.6491136757637643
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.5946011420564256,
+            "CatBoost": 0.4053988579435743
+          },
+          "R2": -6.715856587867554
+        }
+      }
+    },
+    "EEM": {
+      "LightGBM": {
+        "best_params": {
+          "n_estimators": 753,
+          "max_depth": 6,
+          "learning_rate": 0.002947597778856225,
+          "num_leaves": 249,
+          "min_child_samples": 98,
+          "subsample": 0.9836434003343488,
+          "colsample_bytree": 0.5371462031244818,
+          "reg_alpha": 7.311349035977923,
+          "reg_lambda": 0.00026412910383862237
+        },
+        "best_R2": -0.8911268986570133
+      },
+      "CatBoost": {
+        "best_params": {
+          "iterations": 1351,
+          "depth": 5,
+          "learning_rate": 0.0702199020563424,
+          "l2_leaf_reg": 7.4777831587747885,
+          "bagging_temperature": 0.017109606529970667,
+          "random_strength": 0.05585152630520526
+        },
+        "best_R2": -0.6809627927137059
+      },
+      "MLP": {
+        "best_params": {
+          "n_layers": 3,
+          "hidden_0": 243,
+          "hidden_1": 90,
+          "hidden_2": 270,
+          "dropout": 0.017194260557609198,
+          "lr": 0.00534516611064682,
+          "batch_size": 64
+        },
+        "best_R2": -0.10724370819624807
+      },
+      "Ensemble": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.6770352049715049,
+            "CatBoost": 0.0
+          },
+          "R2": -0.16247165152425525
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.9999870241070927,
+            "CatBoost": 1.297589290728106e-05
+          },
+          "R2": -0.9797152084126806
+        }
+      }
+    }
+  }
+}

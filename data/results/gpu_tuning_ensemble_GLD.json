@@ -1,0 +1,34 @@
+{
+  "model": "Ensemble_GLD",
+  "total_trials": 1,
+  "best_params": {
+    "method": "ensemble_optimization"
+  },
+  "best_score": -0.8666330374390103,
+  "trials": [
+    {
+      "trial_id": 1,
+      "params": {
+        "method": "ensemble_optimization"
+      },
+      "score": -0.8666330374390103,
+      "metrics": {
+        "nnls": {
+          "weights": {
+            "LightGBM": 0.245909845854942,
+            "CatBoost": 0.7094178176914341
+          },
+          "R2": -0.8666330374390103
+        },
+        "optuna": {
+          "weights": {
+            "LightGBM": 0.2214176022203015,
+            "CatBoost": 0.7785823977796985
+          },
+          "R2": -0.8768828511801139
+        }
+      },
+      "timestamp": "2025-12-25T01:29:32.964047"
+    }
+  ]
+}

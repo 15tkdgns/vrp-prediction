@@ -1,0 +1,421 @@
+{
+  "metadata": {
+    "experiment": "Robust Regularized Ensemble",
+    "approach": "Simple models, strong regularization, feature selection, bias correction",
+    "timestamp": "2025-12-25T02:53:40.214799"
+  },
+  "results": {
+    "SPY": {
+      "Ridge_strong": {
+        "R2": -2.355943,
+        "MAE": 0.34535,
+        "CV_R2_mean": -0.951079,
+        "CV_R2_std": 1.535682
+      },
+      "Ridge_medium": {
+        "R2": -2.326971,
+        "MAE": 0.343591,
+        "CV_R2_mean": -0.936287,
+        "CV_R2_std": 1.518646
+      },
+      "Lasso_strong": {
+        "R2": -3.471249,
+        "MAE": 0.398953,
+        "CV_R2_mean": -1.489632,
+        "CV_R2_std": 2.151985
+      },
+      "ElasticNet_strong": {
+        "R2": -2.93279,
+        "MAE": 0.374525,
+        "CV_R2_mean": -1.229136,
+        "CV_R2_std": 1.853917
+      },
+      "Huber_strong": {
+        "R2": -0.817516,
+        "MAE": 0.244163,
+        "CV_R2_mean": -0.310671,
+        "CV_R2_std": 0.630094
+      },
+      "BayesianRidge": {
+        "R2": -2.367001,
+        "MAE": 0.345989,
+        "CV_R2_mean": -0.958459,
+        "CV_R2_std": 1.543419
+      },
+      "RF_shallow": {
+        "R2": -1.162704,
+        "MAE": 0.235376,
+        "CV_R2_mean": -0.480422,
+        "CV_R2_std": 0.741322
+      },
+      "GB_shallow": {
+        "R2": -1.348904,
+        "MAE": 0.221461,
+        "CV_R2_mean": -1.277357,
+        "CV_R2_std": 1.198359
+      },
+      "ExtraTrees_shallow": {
+        "R2": -1.122633,
+        "MAE": 0.258462,
+        "CV_R2_mean": -0.487344,
+        "CV_R2_std": 0.757834
+      },
+      "SVR_rbf": {
+        "R2": -0.354693,
+        "MAE": 0.181746,
+        "CV_R2_mean": 0.025151,
+        "CV_R2_std": 0.335201
+      },
+      "SVR_linear": {
+        "R2": -0.658598,
+        "MAE": 0.229891,
+        "CV_R2_mean": -0.254335,
+        "CV_R2_std": 0.548261
+      },
+      "NNLS_Ensemble_All": {
+        "R2": -16.699387,
+        "MAE": 0.804906,
+        "weights": {
+          "Lasso_strong": 0.4287,
+          "GB_shallow": 0.5713
+        }
+      },
+      "NNLS_Ensemble_Top5": {
+        "R2": -16.599621,
+        "weights": {
+          "SVR_linear": 0.429,
+          "ExtraTrees_shallow": 0.4338,
+          "RF_shallow": 0.1371
+        }
+      }
+    },
+    "GLD": {
+      "Ridge_strong": {
+        "R2": -0.061588,
+        "MAE": 0.186542,
+        "CV_R2_mean": -1.508613,
+        "CV_R2_std": 1.97165
+      },
+      "Ridge_medium": {
+        "R2": -0.063462,
+        "MAE": 0.186665,
+        "CV_R2_mean": -1.549341,
+        "CV_R2_std": 2.018639
+      },
+      "Lasso_strong": {
+        "R2": -0.000158,
+        "MAE": 0.179113,
+        "CV_R2_mean": -1.194787,
+        "CV_R2_std": 1.481376
+      },
+      "ElasticNet_strong": {
+        "R2": -0.0166,
+        "MAE": 0.181791,
+        "CV_R2_mean": -1.085054,
+        "CV_R2_std": 1.373142
+      },
+      "Huber_strong": {
+        "R2": -0.168678,
+        "MAE": 0.18667,
+        "CV_R2_mean": -0.67191,
+        "CV_R2_std": 0.906736
+      },
+      "BayesianRidge": {
+        "R2": -0.062147,
+        "MAE": 0.186572,
+        "CV_R2_mean": -1.542488,
+        "CV_R2_std": 2.013479
+      },
+      "RF_shallow": {
+        "R2": -0.528162,
+        "MAE": 0.211362,
+        "CV_R2_mean": -10.715723,
+        "CV_R2_std": 14.127686
+      },
+      "GB_shallow": {
+        "R2": -0.598175,
+        "MAE": 0.215278,
+        "CV_R2_mean": -12.299975,
+        "CV_R2_std": 16.417832
+      },
+      "ExtraTrees_shallow": {
+        "R2": -0.317136,
+        "MAE": 0.206986,
+        "CV_R2_mean": -2.867814,
+        "CV_R2_std": 3.804126
+      },
+      "SVR_rbf": {
+        "R2": -0.266381,
+        "MAE": 0.188768,
+        "CV_R2_mean": -1.490051,
+        "CV_R2_std": 2.006264
+      },
+      "SVR_linear": {
+        "R2": -0.087435,
+        "MAE": 0.181514,
+        "CV_R2_mean": -0.652728,
+        "CV_R2_std": 0.924728
+      },
+      "NNLS_Ensemble_All": {
+        "R2": -0.03057,
+        "MAE": 0.179399,
+        "weights": {
+          "SVR_linear": 1.0
+        }
+      },
+      "NNLS_Ensemble_Top5": {
+        "R2": -0.038557,
+        "weights": {
+          "Lasso_strong": 1.0
+        }
+      }
+    },
+    "QQQ": {
+      "Ridge_strong": {
+        "R2": -0.652195,
+        "MAE": 0.449503,
+        "CV_R2_mean": -0.302961,
+        "CV_R2_std": 0.520694
+      },
+      "Ridge_medium": {
+        "R2": -0.63762,
+        "MAE": 0.446265,
+        "CV_R2_mean": -0.313389,
+        "CV_R2_std": 0.503615
+      },
+      "Lasso_strong": {
+        "R2": -1.31338,
+        "MAE": 0.560538,
+        "CV_R2_mean": -0.625793,
+        "CV_R2_std": 0.996729
+      },
+      "ElasticNet_strong": {
+        "R2": -0.913335,
+        "MAE": 0.500362,
+        "CV_R2_mean": -0.39296,
+        "CV_R2_std": 0.733777
+      },
+      "Huber_strong": {
+        "R2": -0.248027,
+        "MAE": 0.352048,
+        "CV_R2_mean": -0.01727,
+        "CV_R2_std": 0.290152
+      },
+      "BayesianRidge": {
+        "R2": -0.643823,
+        "MAE": 0.447648,
+        "CV_R2_mean": -0.31295,
+        "CV_R2_std": 0.510326
+      },
+      "RF_shallow": {
+        "R2": -0.756457,
+        "MAE": 0.381017,
+        "CV_R2_mean": -0.695048,
+        "CV_R2_std": 0.193367
+      },
+      "GB_shallow": {
+        "R2": -0.774685,
+        "MAE": 0.368677,
+        "CV_R2_mean": -1.080922,
+        "CV_R2_std": 0.878221
+      },
+      "ExtraTrees_shallow": {
+        "R2": -0.459069,
+        "MAE": 0.369017,
+        "CV_R2_mean": -0.139072,
+        "CV_R2_std": 0.43487
+      },
+      "SVR_rbf": {
+        "R2": -0.510887,
+        "MAE": 0.34917,
+        "CV_R2_mean": -0.058209,
+        "CV_R2_std": 0.36851
+      },
+      "SVR_linear": {
+        "R2": -0.184612,
+        "MAE": 0.334025,
+        "CV_R2_mean": 0.009968,
+        "CV_R2_std": 0.279458
+      },
+      "NNLS_Ensemble_All": {
+        "R2": -6.314574,
+        "MAE": 1.006366,
+        "weights": {
+          "Lasso_strong": 0.3472,
+          "RF_shallow": 0.4474,
+          "GB_shallow": 0.2054
+        }
+      },
+      "NNLS_Ensemble_Top5": {
+        "R2": -6.218722,
+        "weights": {
+          "Ridge_medium": 1.0
+        }
+      }
+    },
+    "TLT": {
+      "Ridge_strong": {
+        "R2": -1.981551,
+        "MAE": 0.203118,
+        "CV_R2_mean": -0.309148,
+        "CV_R2_std": 0.401822
+      },
+      "Ridge_medium": {
+        "R2": -1.950177,
+        "MAE": 0.201666,
+        "CV_R2_mean": -0.327927,
+        "CV_R2_std": 0.413649
+      },
+      "Lasso_strong": {
+        "R2": -2.449977,
+        "MAE": 0.223808,
+        "CV_R2_mean": -0.201452,
+        "CV_R2_std": 0.224819
+      },
+      "ElasticNet_strong": {
+        "R2": -2.3223,
+        "MAE": 0.218175,
+        "CV_R2_mean": -0.205313,
+        "CV_R2_std": 0.270833
+      },
+      "Huber_strong": {
+        "R2": -1.022229,
+        "MAE": 0.163834,
+        "CV_R2_mean": -0.693949,
+        "CV_R2_std": 0.628843
+      },
+      "BayesianRidge": {
+        "R2": -1.961542,
+        "MAE": 0.202223,
+        "CV_R2_mean": -0.323859,
+        "CV_R2_std": 0.412349
+      },
+      "RF_shallow": {
+        "R2": -2.136298,
+        "MAE": 0.207347,
+        "CV_R2_mean": -1.580505,
+        "CV_R2_std": 1.544621
+      },
+      "GB_shallow": {
+        "R2": -2.1027,
+        "MAE": 0.198426,
+        "CV_R2_mean": -2.354287,
+        "CV_R2_std": 2.374009
+      },
+      "ExtraTrees_shallow": {
+        "R2": -1.443782,
+        "MAE": 0.178378,
+        "CV_R2_mean": -0.033007,
+        "CV_R2_std": 0.089943
+      },
+      "SVR_rbf": {
+        "R2": -0.720974,
+        "MAE": 0.156711,
+        "CV_R2_mean": -0.303578,
+        "CV_R2_std": 0.263958
+      },
+      "SVR_linear": {
+        "R2": -1.180151,
+        "MAE": 0.16946,
+        "CV_R2_mean": -0.698199,
+        "CV_R2_std": 0.648159
+      },
+      "NNLS_Ensemble_All": {
+        "R2": -5.671512,
+        "MAE": 0.337636,
+        "weights": {
+          "Lasso_strong": 1.0
+        }
+      },
+      "NNLS_Ensemble_Top5": {
+        "R2": -5.727093,
+        "weights": {
+          "Ridge_medium": 1.0
+        }
+      }
+    },
+    "EEM": {
+      "Ridge_strong": {
+        "R2": -1.087802,
+        "MAE": 0.359431,
+        "CV_R2_mean": -0.830572,
+        "CV_R2_std": 0.617304
+      },
+      "Ridge_medium": {
+        "R2": -1.109447,
+        "MAE": 0.361505,
+        "CV_R2_mean": -0.887205,
+        "CV_R2_std": 0.586855
+      },
+      "Lasso_strong": {
+        "R2": -1.537642,
+        "MAE": 0.40356,
+        "CV_R2_mean": -1.111423,
+        "CV_R2_std": 0.868849
+      },
+      "ElasticNet_strong": {
+        "R2": -1.245165,
+        "MAE": 0.377782,
+        "CV_R2_mean": -0.945886,
+        "CV_R2_std": 0.711173
+      },
+      "Huber_strong": {
+        "R2": -0.224827,
+        "MAE": 0.265579,
+        "CV_R2_mean": -0.097369,
+        "CV_R2_std": 0.268387
+      },
+      "BayesianRidge": {
+        "R2": -1.107106,
+        "MAE": 0.361214,
+        "CV_R2_mean": -0.87715,
+        "CV_R2_std": 0.593106
+      },
+      "RF_shallow": {
+        "R2": -21.327441,
+        "MAE": 0.606057,
+        "CV_R2_mean": -7.938022,
+        "CV_R2_std": 9.003305
+      },
+      "GB_shallow": {
+        "R2": -6.138629,
+        "MAE": 0.434355,
+        "CV_R2_mean": -4.347001,
+        "CV_R2_std": 3.137746
+      },
+      "ExtraTrees_shallow": {
+        "R2": -0.630245,
+        "MAE": 0.316935,
+        "CV_R2_mean": -0.582,
+        "CV_R2_std": 0.432889
+      },
+      "SVR_rbf": {
+        "R2": -0.058885,
+        "MAE": 0.235014,
+        "CV_R2_mean": -0.064866,
+        "CV_R2_std": 0.216498
+      },
+      "SVR_linear": {
+        "R2": -0.258258,
+        "MAE": 0.270944,
+        "CV_R2_mean": -0.114998,
+        "CV_R2_std": 0.296947
+      },
+      "NNLS_Ensemble_All": {
+        "R2": -6.959547,
+        "MAE": 0.73407,
+        "weights": {
+          "ExtraTrees_shallow": 0.5296,
+          "SVR_linear": 0.4704
+        }
+      },
+      "NNLS_Ensemble_Top5": {
+        "R2": -6.959547,
+        "weights": {
+          "SVR_linear": 0.4704,
+          "ExtraTrees_shallow": 0.5296
+        }
+      }
+    }
+  }
+}

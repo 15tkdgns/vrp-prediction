@@ -1,0 +1,2018 @@
+{
+  "model": "CatBoost_SPY",
+  "total_trials": 100,
+  "best_params": {
+    "iterations": 1159,
+    "depth": 6,
+    "learning_rate": 0.14480069537374457,
+    "l2_leaf_reg": 5.695830356752829,
+    "bagging_temperature": 0.8454573879125631,
+    "random_strength": 0.1343960217591712,
+    "task_type": "GPU",
+    "random_seed": 42,
+    "verbose": false
+  },
+  "best_score": -1.0730083290314134,
+  "trials": [
+    {
+      "trial_id": 1,
+      "params": {
+        "iterations": 812,
+        "depth": 10,
+        "learning_rate": 0.06504856968981275,
+        "l2_leaf_reg": 6.387926357773329,
+        "bagging_temperature": 0.15601864044243652,
+        "random_strength": 0.15599452033620265,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.4096205876683827,
+      "metrics": {
+        "R2": -2.409621,
+        "MAE": 0.212085
+      },
+      "timestamp": "2025-12-25T01:11:02.985630"
+    },
+    {
+      "trial_id": 2,
+      "params": {
+        "iterations": 210,
+        "depth": 10,
+        "learning_rate": 0.030834348179355788,
+        "l2_leaf_reg": 7.372653200164409,
+        "bagging_temperature": 0.020584494295802447,
+        "random_strength": 0.9699098521619943,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.9446982445649437,
+      "metrics": {
+        "R2": -1.944698,
+        "MAE": 0.234051
+      },
+      "timestamp": "2025-12-25T01:11:04.220359"
+    },
+    {
+      "trial_id": 3,
+      "params": {
+        "iterations": 1682,
+        "depth": 5,
+        "learning_rate": 0.002820996133514492,
+        "l2_leaf_reg": 2.650640588680904,
+        "bagging_temperature": 0.3042422429595377,
+        "random_strength": 0.5247564316322378,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5951647989319273,
+      "metrics": {
+        "R2": -1.595165,
+        "MAE": 0.245084
+      },
+      "timestamp": "2025-12-25T01:11:15.228725"
+    },
+    {
+      "trial_id": 4,
+      "params": {
+        "iterations": 921,
+        "depth": 6,
+        "learning_rate": 0.032781876533976156,
+        "l2_leaf_reg": 2.2554447458683766,
+        "bagging_temperature": 0.29214464853521815,
+        "random_strength": 0.3663618432936917,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.8370341750318846,
+      "metrics": {
+        "R2": -1.837034,
+        "MAE": 0.233834
+      },
+      "timestamp": "2025-12-25T01:11:17.214186"
+    },
+    {
+      "trial_id": 5,
+      "params": {
+        "iterations": 966,
+        "depth": 9,
+        "learning_rate": 0.003123317753376431,
+        "l2_leaf_reg": 5.628109945722504,
+        "bagging_temperature": 0.5924145688620425,
+        "random_strength": 0.046450412719997725,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2769846656484276,
+      "metrics": {
+        "R2": -1.276985,
+        "MAE": 0.230325
+      },
+      "timestamp": "2025-12-25T01:11:39.796410"
+    },
+    {
+      "trial_id": 6,
+      "params": {
+        "iterations": 1254,
+        "depth": 5,
+        "learning_rate": 0.0014492412389916862,
+        "l2_leaf_reg": 9.539969835279999,
+        "bagging_temperature": 0.9656320330745594,
+        "random_strength": 0.8083973481164611,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4194042645166096,
+      "metrics": {
+        "R2": -1.419404,
+        "MAE": 0.277951
+      },
+      "timestamp": "2025-12-25T01:11:50.558672"
+    },
+    {
+      "trial_id": 7,
+      "params": {
+        "iterations": 679,
+        "depth": 4,
+        "learning_rate": 0.04953682563497157,
+        "l2_leaf_reg": 4.961372443656412,
+        "bagging_temperature": 0.12203823484477883,
+        "random_strength": 0.4951769101112702,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5575949030908984,
+      "metrics": {
+        "R2": -1.557595,
+        "MAE": 0.242585
+      },
+      "timestamp": "2025-12-25T01:11:52.332260"
+    },
+    {
+      "trial_id": 8,
+      "params": {
+        "iterations": 165,
+        "depth": 10,
+        "learning_rate": 0.004375517173207359,
+        "l2_leaf_reg": 6.962700559185838,
+        "bagging_temperature": 0.31171107608941095,
+        "random_strength": 0.5200680211778108,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.311994573771231,
+      "metrics": {
+        "R2": -2.311995,
+        "MAE": 0.337094
+      },
+      "timestamp": "2025-12-25T01:11:53.604630"
+    },
+    {
+      "trial_id": 9,
+      "params": {
+        "iterations": 1139,
+        "depth": 5,
+        "learning_rate": 0.25221951700214285,
+        "l2_leaf_reg": 7.976195410250031,
+        "bagging_temperature": 0.9394989415641891,
+        "random_strength": 0.8948273504276488,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1745994259182488,
+      "metrics": {
+        "R2": -1.174599,
+        "MAE": 0.243046
+      },
+      "timestamp": "2025-12-25T01:11:54.424521"
+    },
+    {
+      "trial_id": 10,
+      "params": {
+        "iterations": 1236,
+        "depth": 10,
+        "learning_rate": 0.0016565580440884786,
+        "l2_leaf_reg": 2.763845761772307,
+        "bagging_temperature": 0.045227288910538066,
+        "random_strength": 0.32533033076326434,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7862287454792445,
+      "metrics": {
+        "R2": -1.786229,
+        "MAE": 0.251853
+      },
+      "timestamp": "2025-12-25T01:12:36.547335"
+    },
+    {
+      "trial_id": 11,
+      "params": {
+        "iterations": 1896,
+        "depth": 7,
+        "learning_rate": 0.25215116809209465,
+        "l2_leaf_reg": 9.50049230931008,
+        "bagging_temperature": 0.9838742161461945,
+        "random_strength": 0.787842595653707,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5209007532660457,
+      "metrics": {
+        "R2": -1.520901,
+        "MAE": 0.212761
+      },
+      "timestamp": "2025-12-25T01:12:37.922754"
+    },
+    {
+      "trial_id": 12,
+      "params": {
+        "iterations": 1418,
+        "depth": 8,
+        "learning_rate": 0.007170082510302912,
+        "l2_leaf_reg": 4.416438190782011,
+        "bagging_temperature": 0.7183803821417525,
+        "random_strength": 0.008686035996669214,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4607870788524804,
+      "metrics": {
+        "R2": -1.460787,
+        "MAE": 0.220764
+      },
+      "timestamp": "2025-12-25T01:12:48.284670"
+    },
+    {
+      "trial_id": 13,
+      "params": {
+        "iterations": 557,
+        "depth": 7,
+        "learning_rate": 0.2360604030906118,
+        "l2_leaf_reg": 8.074672937766332,
+        "bagging_temperature": 0.6898904233496919,
+        "random_strength": 0.7132976821321029,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5100034487544032,
+      "metrics": {
+        "R2": -1.510003,
+        "MAE": 0.208233
+      },
+      "timestamp": "2025-12-25T01:12:49.603200"
+    },
+    {
+      "trial_id": 14,
+      "params": {
+        "iterations": 1073,
+        "depth": 8,
+        "learning_rate": 0.010917865848670527,
+        "l2_leaf_reg": 5.750010037270288,
+        "bagging_temperature": 0.6492347056663552,
+        "random_strength": 0.04535002119833897,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.425117163958908,
+      "metrics": {
+        "R2": -1.425117,
+        "MAE": 0.22059
+      },
+      "timestamp": "2025-12-25T01:12:57.737309"
+    },
+    {
+      "trial_id": 15,
+      "params": {
+        "iterations": 1567,
+        "depth": 8,
+        "learning_rate": 0.10755682028722727,
+        "l2_leaf_reg": 4.085193594396846,
+        "bagging_temperature": 0.8469961233886654,
+        "random_strength": 0.9482399769763038,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.429038534573765,
+      "metrics": {
+        "R2": -1.429039,
+        "MAE": 0.22393
+      },
+      "timestamp": "2025-12-25T01:12:59.199931"
+    },
+    {
+      "trial_id": 16,
+      "params": {
+        "iterations": 1028,
+        "depth": 4,
+        "learning_rate": 0.016349993818077738,
+        "l2_leaf_reg": 8.12274542149051,
+        "bagging_temperature": 0.4970853936108525,
+        "random_strength": 0.22397372590468495,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3011057299089321,
+      "metrics": {
+        "R2": -1.301106,
+        "MAE": 0.235904
+      },
+      "timestamp": "2025-12-25T01:13:03.597261"
+    },
+    {
+      "trial_id": 17,
+      "params": {
+        "iterations": 449,
+        "depth": 9,
+        "learning_rate": 0.00627405862726744,
+        "l2_leaf_reg": 8.463076682006745,
+        "bagging_temperature": 0.5105239206362632,
+        "random_strength": 0.6512279310422993,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.6575300338628791,
+      "metrics": {
+        "R2": -1.65753,
+        "MAE": 0.241405
+      },
+      "timestamp": "2025-12-25T01:13:06.243108"
+    },
+    {
+      "trial_id": 18,
+      "params": {
+        "iterations": 1225,
+        "depth": 6,
+        "learning_rate": 0.10774800984183923,
+        "l2_leaf_reg": 5.867352921441289,
+        "bagging_temperature": 0.8448345378628919,
+        "random_strength": 0.17163959879044033,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.297290546696742,
+      "metrics": {
+        "R2": -1.297291,
+        "MAE": 0.224799
+      },
+      "timestamp": "2025-12-25T01:13:07.428274"
+    },
+    {
+      "trial_id": 19,
+      "params": {
+        "iterations": 810,
+        "depth": 6,
+        "learning_rate": 0.0028383274256285123,
+        "l2_leaf_reg": 3.785215217582155,
+        "bagging_temperature": 0.5361770021826553,
+        "random_strength": 0.3521400244363564,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3999978297487177,
+      "metrics": {
+        "R2": -1.399998,
+        "MAE": 0.255219
+      },
+      "timestamp": "2025-12-25T01:13:15.140938"
+    },
+    {
+      "trial_id": 20,
+      "params": {
+        "iterations": 1441,
+        "depth": 9,
+        "learning_rate": 0.0010389584576169259,
+        "l2_leaf_reg": 7.059446116881941,
+        "bagging_temperature": 0.8405371917283118,
+        "random_strength": 0.8697850927016999,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.460580317423756,
+      "metrics": {
+        "R2": -1.46058,
+        "MAE": 0.277946
+      },
+      "timestamp": "2025-12-25T01:13:43.150414"
+    },
+    {
+      "trial_id": 21,
+      "params": {
+        "iterations": 1933,
+        "depth": 5,
+        "learning_rate": 0.017786703493134545,
+        "l2_leaf_reg": 1.4795049726925598,
+        "bagging_temperature": 0.436206171037035,
+        "random_strength": 0.6253453045257586,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7937883259632357,
+      "metrics": {
+        "R2": -1.793788,
+        "MAE": 0.242613
+      },
+      "timestamp": "2025-12-25T01:13:45.183678"
+    },
+    {
+      "trial_id": 22,
+      "params": {
+        "iterations": 1159,
+        "depth": 6,
+        "learning_rate": 0.14480069537374457,
+        "l2_leaf_reg": 5.695830356752829,
+        "bagging_temperature": 0.8454573879125631,
+        "random_strength": 0.1343960217591712,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.0730083290314134,
+      "metrics": {
+        "R2": -1.073008,
+        "MAE": 0.214837
+      },
+      "timestamp": "2025-12-25T01:13:46.641550"
+    },
+    {
+      "trial_id": 23,
+      "params": {
+        "iterations": 1081,
+        "depth": 7,
+        "learning_rate": 0.12727652064195502,
+        "l2_leaf_reg": 5.139875879870667,
+        "bagging_temperature": 0.7714503617965166,
+        "random_strength": 0.09817031464901471,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.6213537671728906,
+      "metrics": {
+        "R2": -1.621354,
+        "MAE": 0.224306
+      },
+      "timestamp": "2025-12-25T01:13:47.946557"
+    },
+    {
+      "trial_id": 24,
+      "params": {
+        "iterations": 1341,
+        "depth": 6,
+        "learning_rate": 0.16558777251792392,
+        "l2_leaf_reg": 6.343472651125066,
+        "bagging_temperature": 0.6080990570634782,
+        "random_strength": 0.2494202308892526,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1706560623537068,
+      "metrics": {
+        "R2": -1.170656,
+        "MAE": 0.23653
+      },
+      "timestamp": "2025-12-25T01:13:48.881092"
+    },
+    {
+      "trial_id": 25,
+      "params": {
+        "iterations": 1390,
+        "depth": 6,
+        "learning_rate": 0.29785364948960286,
+        "l2_leaf_reg": 6.494967815287199,
+        "bagging_temperature": 0.9081936913661701,
+        "random_strength": 0.2637544434993347,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.6266281448742217,
+      "metrics": {
+        "R2": -1.626628,
+        "MAE": 0.227854
+      },
+      "timestamp": "2025-12-25T01:13:49.698298"
+    },
+    {
+      "trial_id": 26,
+      "params": {
+        "iterations": 1655,
+        "depth": 5,
+        "learning_rate": 0.14989312644931993,
+        "l2_leaf_reg": 8.89322995518882,
+        "bagging_temperature": 0.7856445621265489,
+        "random_strength": 0.4192584536072759,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3865989844253601,
+      "metrics": {
+        "R2": -1.386599,
+        "MAE": 0.219094
+      },
+      "timestamp": "2025-12-25T01:13:51.162519"
+    },
+    {
+      "trial_id": 27,
+      "params": {
+        "iterations": 1291,
+        "depth": 4,
+        "learning_rate": 0.1666525481058133,
+        "l2_leaf_reg": 6.268149110319015,
+        "bagging_temperature": 0.9359346737880677,
+        "random_strength": 0.2583993478681408,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.403331557556212,
+      "metrics": {
+        "R2": -1.403332,
+        "MAE": 0.23807
+      },
+      "timestamp": "2025-12-25T01:13:51.971672"
+    },
+    {
+      "trial_id": 28,
+      "params": {
+        "iterations": 1773,
+        "depth": 6,
+        "learning_rate": 0.06996521526352252,
+        "l2_leaf_reg": 7.579893675198329,
+        "bagging_temperature": 0.6210742177401191,
+        "random_strength": 0.13740306729154567,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4717770948672326,
+      "metrics": {
+        "R2": -1.471777,
+        "MAE": 0.225357
+      },
+      "timestamp": "2025-12-25T01:13:53.757596"
+    },
+    {
+      "trial_id": 29,
+      "params": {
+        "iterations": 1128,
+        "depth": 5,
+        "learning_rate": 0.07966784294739178,
+        "l2_leaf_reg": 4.690965312810711,
+        "bagging_temperature": 0.7349818392707892,
+        "random_strength": 0.4187142837487243,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2559602410584785,
+      "metrics": {
+        "R2": -1.25596,
+        "MAE": 0.231897
+      },
+      "timestamp": "2025-12-25T01:13:54.912397"
+    },
+    {
+      "trial_id": 30,
+      "params": {
+        "iterations": 813,
+        "depth": 7,
+        "learning_rate": 0.1894128283573814,
+        "l2_leaf_reg": 6.492829873021234,
+        "bagging_temperature": 0.8920972667261828,
+        "random_strength": 0.19891490950300175,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5041275701294228,
+      "metrics": {
+        "R2": -1.504128,
+        "MAE": 0.213362
+      },
+      "timestamp": "2025-12-25T01:13:56.255254"
+    },
+    {
+      "trial_id": 31,
+      "params": {
+        "iterations": 1474,
+        "depth": 6,
+        "learning_rate": 0.04689839337382964,
+        "l2_leaf_reg": 9.913851690072757,
+        "bagging_temperature": 0.7981288788419765,
+        "random_strength": 0.11211255029254164,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2985157824659925,
+      "metrics": {
+        "R2": -1.298516,
+        "MAE": 0.223604
+      },
+      "timestamp": "2025-12-25T01:13:58.801619"
+    },
+    {
+      "trial_id": 32,
+      "params": {
+        "iterations": 1144,
+        "depth": 5,
+        "learning_rate": 0.07984843969668931,
+        "l2_leaf_reg": 4.5500478781507,
+        "bagging_temperature": 0.7113080303516237,
+        "random_strength": 0.4394011844929888,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3152630970593928,
+      "metrics": {
+        "R2": -1.315263,
+        "MAE": 0.227948
+      },
+      "timestamp": "2025-12-25T01:14:00.379382"
+    },
+    {
+      "trial_id": 33,
+      "params": {
+        "iterations": 882,
+        "depth": 5,
+        "learning_rate": 0.08849859056526742,
+        "l2_leaf_reg": 3.4519476068043526,
+        "bagging_temperature": 0.7536890034002007,
+        "random_strength": 0.28062536986640085,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.601975271645129,
+      "metrics": {
+        "R2": -1.601975,
+        "MAE": 0.230784
+      },
+      "timestamp": "2025-12-25T01:14:01.421497"
+    },
+    {
+      "trial_id": 34,
+      "params": {
+        "iterations": 1346,
+        "depth": 4,
+        "learning_rate": 0.05127281131878137,
+        "l2_leaf_reg": 4.981073056194724,
+        "bagging_temperature": 0.41955938505786283,
+        "random_strength": 0.5659453373469441,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.385940864174155,
+      "metrics": {
+        "R2": -1.385941,
+        "MAE": 0.243687
+      },
+      "timestamp": "2025-12-25T01:14:02.680105"
+    },
+    {
+      "trial_id": 35,
+      "params": {
+        "iterations": 1156,
+        "depth": 5,
+        "learning_rate": 0.18889198920393527,
+        "l2_leaf_reg": 6.161496590904884,
+        "bagging_temperature": 0.5825023673473413,
+        "random_strength": 0.4208870382803246,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7129997960348873,
+      "metrics": {
+        "R2": -1.713,
+        "MAE": 0.224837
+      },
+      "timestamp": "2025-12-25T01:14:03.867394"
+    },
+    {
+      "trial_id": 36,
+      "params": {
+        "iterations": 1550,
+        "depth": 6,
+        "learning_rate": 0.027032469885644277,
+        "l2_leaf_reg": 7.610846737393561,
+        "bagging_temperature": 0.6694796945321497,
+        "random_strength": 0.34819333437568956,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2051038970694607,
+      "metrics": {
+        "R2": -1.205104,
+        "MAE": 0.22726
+      },
+      "timestamp": "2025-12-25T01:14:06.458787"
+    },
+    {
+      "trial_id": 37,
+      "params": {
+        "iterations": 1580,
+        "depth": 6,
+        "learning_rate": 0.025546245226546083,
+        "l2_leaf_reg": 7.466764039444411,
+        "bagging_temperature": 0.6594394346255932,
+        "random_strength": 0.30712496801189015,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3168731858313865,
+      "metrics": {
+        "R2": -1.316873,
+        "MAE": 0.223416
+      },
+      "timestamp": "2025-12-25T01:14:09.914220"
+    },
+    {
+      "trial_id": 38,
+      "params": {
+        "iterations": 958,
+        "depth": 7,
+        "learning_rate": 0.032507910406898176,
+        "l2_leaf_reg": 6.980480593482263,
+        "bagging_temperature": 0.8898251177757568,
+        "random_strength": 0.22619224953393297,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3413092510188895,
+      "metrics": {
+        "R2": -1.341309,
+        "MAE": 0.217767
+      },
+      "timestamp": "2025-12-25T01:14:13.194780"
+    },
+    {
+      "trial_id": 39,
+      "params": {
+        "iterations": 1767,
+        "depth": 6,
+        "learning_rate": 0.11947697328052576,
+        "l2_leaf_reg": 7.799728906250126,
+        "bagging_temperature": 0.5607235459045186,
+        "random_strength": 0.9806938956779305,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4034054730587529,
+      "metrics": {
+        "R2": -1.403405,
+        "MAE": 0.210403
+      },
+      "timestamp": "2025-12-25T01:14:14.982012"
+    },
+    {
+      "trial_id": 40,
+      "params": {
+        "iterations": 1499,
+        "depth": 7,
+        "learning_rate": 0.20801252770151962,
+        "l2_leaf_reg": 9.091537202296458,
+        "bagging_temperature": 0.44993416358810745,
+        "random_strength": 0.07802199264374488,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.611706049581136,
+      "metrics": {
+        "R2": -1.611706,
+        "MAE": 0.219635
+      },
+      "timestamp": "2025-12-25T01:14:16.320011"
+    },
+    {
+      "trial_id": 41,
+      "params": {
+        "iterations": 1329,
+        "depth": 5,
+        "learning_rate": 0.05545069806769925,
+        "l2_leaf_reg": 8.539802102323915,
+        "bagging_temperature": 0.3544409101171335,
+        "random_strength": 0.4774574882042881,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1612930548644487,
+      "metrics": {
+        "R2": -1.161293,
+        "MAE": 0.2319
+      },
+      "timestamp": "2025-12-25T01:14:17.852181"
+    },
+    {
+      "trial_id": 42,
+      "params": {
+        "iterations": 1305,
+        "depth": 5,
+        "learning_rate": 0.056609493069014125,
+        "l2_leaf_reg": 8.563120654386532,
+        "bagging_temperature": 0.19799059684797307,
+        "random_strength": 0.4663534218578077,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2602650605535808,
+      "metrics": {
+        "R2": -1.260265,
+        "MAE": 0.242066
+      },
+      "timestamp": "2025-12-25T01:14:19.289698"
+    },
+    {
+      "trial_id": 43,
+      "params": {
+        "iterations": 1188,
+        "depth": 6,
+        "learning_rate": 0.02419122287238745,
+        "l2_leaf_reg": 6.684246457263061,
+        "bagging_temperature": 0.3679087149210874,
+        "random_strength": 0.3684333565436957,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.334806748352222,
+      "metrics": {
+        "R2": -1.334807,
+        "MAE": 0.227227
+      },
+      "timestamp": "2025-12-25T01:14:22.478462"
+    },
+    {
+      "trial_id": 44,
+      "params": {
+        "iterations": 1574,
+        "depth": 5,
+        "learning_rate": 0.040358457957239253,
+        "l2_leaf_reg": 5.363656329387975,
+        "bagging_temperature": 0.23726357437374757,
+        "random_strength": 0.5683391124279813,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.357917434355293,
+      "metrics": {
+        "R2": -1.357917,
+        "MAE": 0.234872
+      },
+      "timestamp": "2025-12-25T01:14:24.114604"
+    },
+    {
+      "trial_id": 45,
+      "params": {
+        "iterations": 1352,
+        "depth": 4,
+        "learning_rate": 0.27981534683873716,
+        "l2_leaf_reg": 7.273825090527308,
+        "bagging_temperature": 0.981678292748906,
+        "random_strength": 0.3658215957663513,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.626569125631618,
+      "metrics": {
+        "R2": -1.626569,
+        "MAE": 0.238691
+      },
+      "timestamp": "2025-12-25T01:14:24.892887"
+    },
+    {
+      "trial_id": 46,
+      "params": {
+        "iterations": 1012,
+        "depth": 6,
+        "learning_rate": 0.15986305015748,
+        "l2_leaf_reg": 8.136824959267187,
+        "bagging_temperature": 0.6816752275584874,
+        "random_strength": 0.16194333434749908,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.281209447861381,
+      "metrics": {
+        "R2": -1.281209,
+        "MAE": 0.235984
+      },
+      "timestamp": "2025-12-25T01:14:25.894001"
+    },
+    {
+      "trial_id": 47,
+      "params": {
+        "iterations": 1765,
+        "depth": 7,
+        "learning_rate": 0.09481295783534972,
+        "l2_leaf_reg": 9.101986754370106,
+        "bagging_temperature": 0.3280506287493185,
+        "random_strength": 0.7264594878947737,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.494607026349748,
+      "metrics": {
+        "R2": -1.494607,
+        "MAE": 0.2153
+      },
+      "timestamp": "2025-12-25T01:14:28.069293"
+    },
+    {
+      "trial_id": 48,
+      "params": {
+        "iterations": 1658,
+        "depth": 5,
+        "learning_rate": 0.013702253805494434,
+        "l2_leaf_reg": 8.59959586349794,
+        "bagging_temperature": 0.0851635658379038,
+        "random_strength": 0.32102243741102016,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3915032369767797,
+      "metrics": {
+        "R2": -1.391503,
+        "MAE": 0.240001
+      },
+      "timestamp": "2025-12-25T01:14:33.581710"
+    },
+    {
+      "trial_id": 49,
+      "params": {
+        "iterations": 1251,
+        "depth": 6,
+        "learning_rate": 0.13779278375322565,
+        "l2_leaf_reg": 7.757541180643542,
+        "bagging_temperature": 0.38641331054262684,
+        "random_strength": 0.5010446579785571,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4490833997354056,
+      "metrics": {
+        "R2": -1.449083,
+        "MAE": 0.220059
+      },
+      "timestamp": "2025-12-25T01:14:34.732785"
+    },
+    {
+      "trial_id": 50,
+      "params": {
+        "iterations": 328,
+        "depth": 4,
+        "learning_rate": 0.2225174842788296,
+        "l2_leaf_reg": 6.010290552147494,
+        "bagging_temperature": 0.6223383254772282,
+        "random_strength": 0.58077660550628,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.4668228494254265,
+      "metrics": {
+        "R2": -2.466823,
+        "MAE": 0.225406
+      },
+      "timestamp": "2025-12-25T01:14:35.256926"
+    },
+    {
+      "trial_id": 51,
+      "params": {
+        "iterations": 891,
+        "depth": 5,
+        "learning_rate": 0.06448618944107268,
+        "l2_leaf_reg": 5.518522350960431,
+        "bagging_temperature": 0.8153363227448376,
+        "random_strength": 0.9229340694912611,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.414154668863786,
+      "metrics": {
+        "R2": -1.414155,
+        "MAE": 0.222461
+      },
+      "timestamp": "2025-12-25T01:14:36.860903"
+    },
+    {
+      "trial_id": 52,
+      "params": {
+        "iterations": 1111,
+        "depth": 5,
+        "learning_rate": 0.07812330781608134,
+        "l2_leaf_reg": 4.562983568545727,
+        "bagging_temperature": 0.7330577107072879,
+        "random_strength": 0.39517267295797454,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2357147020287091,
+      "metrics": {
+        "R2": -1.235715,
+        "MAE": 0.23002
+      },
+      "timestamp": "2025-12-25T01:14:38.145046"
+    },
+    {
+      "trial_id": 53,
+      "params": {
+        "iterations": 1067,
+        "depth": 6,
+        "learning_rate": 0.0404711456793383,
+        "l2_leaf_reg": 4.252322681246887,
+        "bagging_temperature": 0.9449433253352404,
+        "random_strength": 0.37092298102455173,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.328350224896032,
+      "metrics": {
+        "R2": -1.32835,
+        "MAE": 0.223942
+      },
+      "timestamp": "2025-12-25T01:14:40.093908"
+    },
+    {
+      "trial_id": 54,
+      "params": {
+        "iterations": 1221,
+        "depth": 5,
+        "learning_rate": 0.10383090290122908,
+        "l2_leaf_reg": 6.784750065901511,
+        "bagging_temperature": 0.8615269218359791,
+        "random_strength": 0.22050425582862193,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3539493344697928,
+      "metrics": {
+        "R2": -1.353949,
+        "MAE": 0.230027
+      },
+      "timestamp": "2025-12-25T01:14:41.254795"
+    },
+    {
+      "trial_id": 55,
+      "params": {
+        "iterations": 1516,
+        "depth": 4,
+        "learning_rate": 0.026128314297055328,
+        "l2_leaf_reg": 3.7155957834883226,
+        "bagging_temperature": 0.6245248549080948,
+        "random_strength": 0.46322533272064403,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.6261047642496504,
+      "metrics": {
+        "R2": -1.626105,
+        "MAE": 0.229868
+      },
+      "timestamp": "2025-12-25T01:14:44.012485"
+    },
+    {
+      "trial_id": 56,
+      "params": {
+        "iterations": 692,
+        "depth": 5,
+        "learning_rate": 0.06679828552822933,
+        "l2_leaf_reg": 9.48678394562687,
+        "bagging_temperature": 0.4871989079941641,
+        "random_strength": 0.5342942700242215,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.648608440823045,
+      "metrics": {
+        "R2": -1.648608,
+        "MAE": 0.21151
+      },
+      "timestamp": "2025-12-25T01:14:46.432808"
+    },
+    {
+      "trial_id": 57,
+      "params": {
+        "iterations": 1409,
+        "depth": 6,
+        "learning_rate": 0.12438830042456833,
+        "l2_leaf_reg": 5.778781870971819,
+        "bagging_temperature": 0.7216183526659791,
+        "random_strength": 0.3960300517246724,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.0634431792430914,
+      "metrics": {
+        "R2": -2.063443,
+        "MAE": 0.217682
+      },
+      "timestamp": "2025-12-25T01:14:48.196306"
+    },
+    {
+      "trial_id": 58,
+      "params": {
+        "iterations": 996,
+        "depth": 7,
+        "learning_rate": 0.03835510920778874,
+        "l2_leaf_reg": 3.187355561814071,
+        "bagging_temperature": 0.8184177368472274,
+        "random_strength": 0.6470872887336561,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.925371185622145,
+      "metrics": {
+        "R2": -1.925371,
+        "MAE": 0.227071
+      },
+      "timestamp": "2025-12-25T01:14:50.636230"
+    },
+    {
+      "trial_id": 59,
+      "params": {
+        "iterations": 1289,
+        "depth": 6,
+        "learning_rate": 0.2400160040742133,
+        "l2_leaf_reg": 7.215897514307095,
+        "bagging_temperature": 0.6733093261039619,
+        "random_strength": 0.28455534343400873,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.8258344211007462,
+      "metrics": {
+        "R2": -1.825834,
+        "MAE": 0.215632
+      },
+      "timestamp": "2025-12-25T01:14:51.873720"
+    },
+    {
+      "trial_id": 60,
+      "params": {
+        "iterations": 1118,
+        "depth": 5,
+        "learning_rate": 0.16862251087553223,
+        "l2_leaf_reg": 8.03306606244808,
+        "bagging_temperature": 0.7701737569578537,
+        "random_strength": 0.009283177793250053,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.312311168458709,
+      "metrics": {
+        "R2": -1.312311,
+        "MAE": 0.20771
+      },
+      "timestamp": "2025-12-25T01:14:53.099871"
+    },
+    {
+      "trial_id": 61,
+      "params": {
+        "iterations": 1387,
+        "depth": 8,
+        "learning_rate": 0.019719808411785424,
+        "l2_leaf_reg": 8.305754766888894,
+        "bagging_temperature": 0.2690027439654336,
+        "random_strength": 0.31869305441938983,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3392511331298471,
+      "metrics": {
+        "R2": -1.339251,
+        "MAE": 0.21955
+      },
+      "timestamp": "2025-12-25T01:14:58.882327"
+    },
+    {
+      "trial_id": 62,
+      "params": {
+        "iterations": 1129,
+        "depth": 5,
+        "learning_rate": 0.07941632549282115,
+        "l2_leaf_reg": 4.753513593437272,
+        "bagging_temperature": 0.7401351266328877,
+        "random_strength": 0.476820355655582,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1808326384307541,
+      "metrics": {
+        "R2": -1.180833,
+        "MAE": 0.235359
+      },
+      "timestamp": "2025-12-25T01:14:59.996998"
+    },
+    {
+      "trial_id": 63,
+      "params": {
+        "iterations": 1215,
+        "depth": 4,
+        "learning_rate": 0.00935871918949938,
+        "l2_leaf_reg": 4.736567143229757,
+        "bagging_temperature": 0.870643563417125,
+        "random_strength": 0.5224705128133151,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3277383029259235,
+      "metrics": {
+        "R2": -1.327738,
+        "MAE": 0.233429
+      },
+      "timestamp": "2025-12-25T01:15:05.466315"
+    },
+    {
+      "trial_id": 64,
+      "params": {
+        "iterations": 1077,
+        "depth": 5,
+        "learning_rate": 0.07934545000379842,
+        "l2_leaf_reg": 5.3018715838293975,
+        "bagging_temperature": 0.918882403849175,
+        "random_strength": 0.4743531965115396,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2654583972119031,
+      "metrics": {
+        "R2": -1.265458,
+        "MAE": 0.228242
+      },
+      "timestamp": "2025-12-25T01:15:06.792093"
+    },
+    {
+      "trial_id": 65,
+      "params": {
+        "iterations": 1299,
+        "depth": 5,
+        "learning_rate": 0.058056485263127816,
+        "l2_leaf_reg": 4.9941247410690455,
+        "bagging_temperature": 0.6956249187986128,
+        "random_strength": 0.39393780967353703,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.8055724465930831,
+      "metrics": {
+        "R2": -1.805572,
+        "MAE": 0.21817
+      },
+      "timestamp": "2025-12-25T01:15:08.983717"
+    },
+    {
+      "trial_id": 66,
+      "params": {
+        "iterations": 956,
+        "depth": 6,
+        "learning_rate": 0.13774835587454626,
+        "l2_leaf_reg": 4.287695795647923,
+        "bagging_temperature": 0.7419868322017468,
+        "random_strength": 0.7907305316370807,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5401089363281635,
+      "metrics": {
+        "R2": -1.540109,
+        "MAE": 0.221682
+      },
+      "timestamp": "2025-12-25T01:15:10.161108"
+    },
+    {
+      "trial_id": 67,
+      "params": {
+        "iterations": 823,
+        "depth": 5,
+        "learning_rate": 0.10316363887813113,
+        "l2_leaf_reg": 8.755803853611505,
+        "bagging_temperature": 0.5367644523605539,
+        "random_strength": 0.19763012234536181,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3937268626268695,
+      "metrics": {
+        "R2": -1.393727,
+        "MAE": 0.234231
+      },
+      "timestamp": "2025-12-25T01:15:11.438660"
+    },
+    {
+      "trial_id": 68,
+      "params": {
+        "iterations": 1447,
+        "depth": 4,
+        "learning_rate": 0.19151387621306454,
+        "l2_leaf_reg": 4.07739278943805,
+        "bagging_temperature": 0.5786631638431079,
+        "random_strength": 0.593358591682208,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3818955956547834,
+      "metrics": {
+        "R2": -1.381896,
+        "MAE": 0.236579
+      },
+      "timestamp": "2025-12-25T01:15:12.269711"
+    },
+    {
+      "trial_id": 69,
+      "params": {
+        "iterations": 1177,
+        "depth": 6,
+        "learning_rate": 0.08648035038080579,
+        "l2_leaf_reg": 5.681442794244415,
+        "bagging_temperature": 0.6425169874185195,
+        "random_strength": 0.8432731747622646,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5934741006029172,
+      "metrics": {
+        "R2": -1.593474,
+        "MAE": 0.236333
+      },
+      "timestamp": "2025-12-25T01:15:13.436244"
+    },
+    {
+      "trial_id": 70,
+      "params": {
+        "iterations": 1346,
+        "depth": 5,
+        "learning_rate": 0.047633875178100644,
+        "l2_leaf_reg": 6.472763965286523,
+        "bagging_temperature": 0.7899086505397794,
+        "random_strength": 0.6921661861563664,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3853835291940202,
+      "metrics": {
+        "R2": -1.385384,
+        "MAE": 0.227013
+      },
+      "timestamp": "2025-12-25T01:15:15.572224"
+    },
+    {
+      "trial_id": 71,
+      "params": {
+        "iterations": 731,
+        "depth": 8,
+        "learning_rate": 0.2584104239699958,
+        "l2_leaf_reg": 1.6487480531231653,
+        "bagging_temperature": 0.6023439195362602,
+        "random_strength": 0.43886784730037676,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.596641113773498,
+      "metrics": {
+        "R2": -2.596641,
+        "MAE": 0.232954
+      },
+      "timestamp": "2025-12-25T01:15:16.645235"
+    },
+    {
+      "trial_id": 72,
+      "params": {
+        "iterations": 1114,
+        "depth": 5,
+        "learning_rate": 0.0727956117967095,
+        "l2_leaf_reg": 4.48829069617356,
+        "bagging_temperature": 0.7243609051626911,
+        "random_strength": 0.41765646786365385,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2526310290764915,
+      "metrics": {
+        "R2": -1.252631,
+        "MAE": 0.229131
+      },
+      "timestamp": "2025-12-25T01:15:17.923259"
+    },
+    {
+      "trial_id": 73,
+      "params": {
+        "iterations": 1124,
+        "depth": 5,
+        "learning_rate": 0.11189316215024606,
+        "l2_leaf_reg": 4.865079291233396,
+        "bagging_temperature": 0.8252514132475699,
+        "random_strength": 0.34003556275296437,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.473838337712194,
+      "metrics": {
+        "R2": -1.473838,
+        "MAE": 0.228689
+      },
+      "timestamp": "2025-12-25T01:15:19.042145"
+    },
+    {
+      "trial_id": 74,
+      "params": {
+        "iterations": 1022,
+        "depth": 5,
+        "learning_rate": 0.07324349843911243,
+        "l2_leaf_reg": 3.975614923250077,
+        "bagging_temperature": 0.770609124031655,
+        "random_strength": 0.4852622631252781,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.247851989959187,
+      "metrics": {
+        "R2": -1.247852,
+        "MAE": 0.222083
+      },
+      "timestamp": "2025-12-25T01:15:20.310384"
+    },
+    {
+      "trial_id": 75,
+      "params": {
+        "iterations": 1026,
+        "depth": 5,
+        "learning_rate": 0.055611876950345494,
+        "l2_leaf_reg": 3.0511205280603186,
+        "bagging_temperature": 0.953230395576955,
+        "random_strength": 0.5428176223763881,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.5261166044147387,
+      "metrics": {
+        "R2": -1.526117,
+        "MAE": 0.226709
+      },
+      "timestamp": "2025-12-25T01:15:21.808602"
+    },
+    {
+      "trial_id": 76,
+      "params": {
+        "iterations": 924,
+        "depth": 4,
+        "learning_rate": 0.03537436154281675,
+        "l2_leaf_reg": 3.8933374590300565,
+        "bagging_temperature": 0.9968342729312957,
+        "random_strength": 0.4842417087316888,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3944130967277015,
+      "metrics": {
+        "R2": -1.394413,
+        "MAE": 0.243984
+      },
+      "timestamp": "2025-12-25T01:15:23.307336"
+    },
+    {
+      "trial_id": 77,
+      "params": {
+        "iterations": 1249,
+        "depth": 6,
+        "learning_rate": 0.1545392301902521,
+        "l2_leaf_reg": 5.183719733759883,
+        "bagging_temperature": 0.770004042513415,
+        "random_strength": 0.4925556043171646,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.554699618437219,
+      "metrics": {
+        "R2": -1.5547,
+        "MAE": 0.222952
+      },
+      "timestamp": "2025-12-25T01:15:24.589615"
+    },
+    {
+      "trial_id": 78,
+      "params": {
+        "iterations": 1164,
+        "depth": 6,
+        "learning_rate": 0.09697014843874595,
+        "l2_leaf_reg": 7.741250319931298,
+        "bagging_temperature": 0.6972604523567764,
+        "random_strength": 0.13489562007069608,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3928944515387554,
+      "metrics": {
+        "R2": -1.392894,
+        "MAE": 0.230987
+      },
+      "timestamp": "2025-12-25T01:15:26.019689"
+    },
+    {
+      "trial_id": 79,
+      "params": {
+        "iterations": 1514,
+        "depth": 7,
+        "learning_rate": 0.003863157024447347,
+        "l2_leaf_reg": 6.06156122781552,
+        "bagging_temperature": 0.890951082197013,
+        "random_strength": 0.2443719651370615,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.278735890419099,
+      "metrics": {
+        "R2": -1.278736,
+        "MAE": 0.218995
+      },
+      "timestamp": "2025-12-25T01:15:45.066811"
+    },
+    {
+      "trial_id": 80,
+      "params": {
+        "iterations": 1613,
+        "depth": 6,
+        "learning_rate": 0.06163564455251532,
+        "l2_leaf_reg": 9.13827993966694,
+        "bagging_temperature": 0.8559244515777341,
+        "random_strength": 0.2843823372466863,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.6541029579980049,
+      "metrics": {
+        "R2": -1.654103,
+        "MAE": 0.212292
+      },
+      "timestamp": "2025-12-25T01:15:48.620229"
+    },
+    {
+      "trial_id": 81,
+      "params": {
+        "iterations": 1715,
+        "depth": 4,
+        "learning_rate": 0.046939087359607744,
+        "l2_leaf_reg": 3.648649059077728,
+        "bagging_temperature": 0.6533526326404018,
+        "random_strength": 0.44989423661871575,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.683487055120089,
+      "metrics": {
+        "R2": -1.683487,
+        "MAE": 0.227897
+      },
+      "timestamp": "2025-12-25T01:15:51.212419"
+    },
+    {
+      "trial_id": 82,
+      "params": {
+        "iterations": 1077,
+        "depth": 5,
+        "learning_rate": 0.07944815325390535,
+        "l2_leaf_reg": 4.440766459615214,
+        "bagging_temperature": 0.7415406246741842,
+        "random_strength": 0.39889248244070535,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -2.029466368440625,
+      "metrics": {
+        "R2": -2.029466,
+        "MAE": 0.21702
+      },
+      "timestamp": "2025-12-25T01:15:54.229033"
+    },
+    {
+      "trial_id": 83,
+      "params": {
+        "iterations": 1122,
+        "depth": 5,
+        "learning_rate": 0.06952224086920367,
+        "l2_leaf_reg": 3.9680870476828507,
+        "bagging_temperature": 0.8006927708608519,
+        "random_strength": 0.3445899288109878,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.3098442969325803,
+      "metrics": {
+        "R2": -1.309844,
+        "MAE": 0.224576
+      },
+      "timestamp": "2025-12-25T01:15:55.852421"
+    },
+    {
+      "trial_id": 84,
+      "params": {
+        "iterations": 999,
+        "depth": 5,
+        "learning_rate": 0.1254881516395406,
+        "l2_leaf_reg": 4.682927953347349,
+        "bagging_temperature": 0.7267501181367877,
+        "random_strength": 0.42963430533208136,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.483520092133427,
+      "metrics": {
+        "R2": -1.48352,
+        "MAE": 0.222503
+      },
+      "timestamp": "2025-12-25T01:15:57.279351"
+    },
+    {
+      "trial_id": 85,
+      "params": {
+        "iterations": 1997,
+        "depth": 5,
+        "learning_rate": 0.028072788888074178,
+        "l2_leaf_reg": 5.512233512196902,
+        "bagging_temperature": 0.75372248384122,
+        "random_strength": 0.507750485567565,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2871935506625598,
+      "metrics": {
+        "R2": -1.287194,
+        "MAE": 0.227832
+      },
+      "timestamp": "2025-12-25T01:16:00.471928"
+    },
+    {
+      "trial_id": 86,
+      "params": {
+        "iterations": 1199,
+        "depth": 5,
+        "learning_rate": 0.17847660859916703,
+        "l2_leaf_reg": 3.5335364126921682,
+        "bagging_temperature": 0.7144852452272042,
+        "random_strength": 0.390572750210024,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.9944027448966613,
+      "metrics": {
+        "R2": -1.994403,
+        "MAE": 0.231068
+      },
+      "timestamp": "2025-12-25T01:16:01.739313"
+    },
+    {
+      "trial_id": 87,
+      "params": {
+        "iterations": 1274,
+        "depth": 5,
+        "learning_rate": 0.07540995085254054,
+        "l2_leaf_reg": 4.2641593222749545,
+        "bagging_temperature": 0.6745277429532943,
+        "random_strength": 0.5467825419092858,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4494526827759278,
+      "metrics": {
+        "R2": -1.449453,
+        "MAE": 0.225484
+      },
+      "timestamp": "2025-12-25T01:16:03.328834"
+    },
+    {
+      "trial_id": 88,
+      "params": {
+        "iterations": 1044,
+        "depth": 6,
+        "learning_rate": 0.08895068173531943,
+        "l2_leaf_reg": 4.541927351808717,
+        "bagging_temperature": 0.9224205906302793,
+        "random_strength": 0.5990785475186031,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1791270394356697,
+      "metrics": {
+        "R2": -1.179127,
+        "MAE": 0.219798
+      },
+      "timestamp": "2025-12-25T01:16:04.788362"
+    },
+    {
+      "trial_id": 89,
+      "params": {
+        "iterations": 1041,
+        "depth": 6,
+        "learning_rate": 0.29898199206088344,
+        "l2_leaf_reg": 8.312458001450771,
+        "bagging_temperature": 0.9175704803800521,
+        "random_strength": 0.9361236537182254,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.700041536459342,
+      "metrics": {
+        "R2": -1.700042,
+        "MAE": 0.235462
+      },
+      "timestamp": "2025-12-25T01:16:05.985955"
+    },
+    {
+      "trial_id": 90,
+      "params": {
+        "iterations": 1336,
+        "depth": 6,
+        "learning_rate": 0.14017851060679984,
+        "l2_leaf_reg": 2.593133318708329,
+        "bagging_temperature": 0.8812102915570772,
+        "random_strength": 0.896128009814411,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.435253437591696,
+      "metrics": {
+        "R2": -1.435253,
+        "MAE": 0.236423
+      },
+      "timestamp": "2025-12-25T01:16:07.232287"
+    },
+    {
+      "trial_id": 91,
+      "params": {
+        "iterations": 875,
+        "depth": 7,
+        "learning_rate": 0.20953281580304658,
+        "l2_leaf_reg": 6.795420872519445,
+        "bagging_temperature": 0.8427935380312293,
+        "random_strength": 0.3011650547462357,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.8119264572753817,
+      "metrics": {
+        "R2": -1.811926,
+        "MAE": 0.212277
+      },
+      "timestamp": "2025-12-25T01:16:09.388644"
+    },
+    {
+      "trial_id": 92,
+      "params": {
+        "iterations": 1104,
+        "depth": 5,
+        "learning_rate": 0.09356330739673992,
+        "l2_leaf_reg": 4.544936882522975,
+        "bagging_temperature": 0.9727748813268673,
+        "random_strength": 0.05636859694558269,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7699092456838716,
+      "metrics": {
+        "R2": -1.769909,
+        "MAE": 0.225172
+      },
+      "timestamp": "2025-12-25T01:16:11.171405"
+    },
+    {
+      "trial_id": 93,
+      "params": {
+        "iterations": 952,
+        "depth": 10,
+        "learning_rate": 0.1108780973440621,
+        "l2_leaf_reg": 5.068609365302823,
+        "bagging_temperature": 0.7637904532105342,
+        "random_strength": 0.4629262575267684,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.1185861896648706,
+      "metrics": {
+        "R2": -1.118586,
+        "MAE": 0.218769
+      },
+      "timestamp": "2025-12-25T01:17:18.738138"
+    },
+    {
+      "trial_id": 94,
+      "params": {
+        "iterations": 760,
+        "depth": 9,
+        "learning_rate": 0.0019801781464347406,
+        "l2_leaf_reg": 5.064642797416706,
+        "bagging_temperature": 0.7686717307225716,
+        "random_strength": 0.18925666349643447,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.453616443085997,
+      "metrics": {
+        "R2": -1.453616,
+        "MAE": 0.271937
+      },
+      "timestamp": "2025-12-25T01:24:16.406759"
+    },
+    {
+      "trial_id": 95,
+      "params": {
+        "iterations": 974,
+        "depth": 9,
+        "learning_rate": 0.1138932369877257,
+        "l2_leaf_reg": 5.377896678890814,
+        "bagging_temperature": 0.8284450882101035,
+        "random_strength": 0.4650610046275473,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2711547814030273,
+      "metrics": {
+        "R2": -1.271155,
+        "MAE": 0.221474
+      },
+      "timestamp": "2025-12-25T01:24:19.663533"
+    },
+    {
+      "trial_id": 96,
+      "params": {
+        "iterations": 568,
+        "depth": 6,
+        "learning_rate": 0.08781396940468061,
+        "l2_leaf_reg": 5.892069110884192,
+        "bagging_temperature": 0.7982400391711516,
+        "random_strength": 0.5036250674950918,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4997003200652936,
+      "metrics": {
+        "R2": -1.4997,
+        "MAE": 0.228771
+      },
+      "timestamp": "2025-12-25T01:24:21.118896"
+    },
+    {
+      "trial_id": 97,
+      "params": {
+        "iterations": 1047,
+        "depth": 10,
+        "learning_rate": 0.042996800821068666,
+        "l2_leaf_reg": 4.736484265759889,
+        "bagging_temperature": 0.5555095043983722,
+        "random_strength": 0.6085623635203075,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7007399820813376,
+      "metrics": {
+        "R2": -1.70074,
+        "MAE": 0.213974
+      },
+      "timestamp": "2025-12-25T01:24:29.158824"
+    },
+    {
+      "trial_id": 98,
+      "params": {
+        "iterations": 893,
+        "depth": 6,
+        "learning_rate": 0.1497367972885181,
+        "l2_leaf_reg": 7.968111379205514,
+        "bagging_temperature": 0.9099442961323305,
+        "random_strength": 0.7060446236353909,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.2969467537623833,
+      "metrics": {
+        "R2": -1.296947,
+        "MAE": 0.220859
+      },
+      "timestamp": "2025-12-25T01:24:30.885090"
+    },
+    {
+      "trial_id": 99,
+      "params": {
+        "iterations": 842,
+        "depth": 10,
+        "learning_rate": 0.0215234319412182,
+        "l2_leaf_reg": 5.198070653679999,
+        "bagging_temperature": 0.17396472710290806,
+        "random_strength": 0.7451262357763834,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.7186124988885476,
+      "metrics": {
+        "R2": -1.718612,
+        "MAE": 0.217286
+      },
+      "timestamp": "2025-12-25T01:24:46.771242"
+    },
+    {
+      "trial_id": 100,
+      "params": {
+        "iterations": 949,
+        "depth": 6,
+        "learning_rate": 0.014401688642354261,
+        "l2_leaf_reg": 7.54669141657112,
+        "bagging_temperature": 0.0013528202821873614,
+        "random_strength": 0.999187020162144,
+        "task_type": "GPU",
+        "random_seed": 42,
+        "verbose": false
+      },
+      "score": -1.4095680358601923,
+      "metrics": {
+        "R2": -1.409568,
+        "MAE": 0.230082
+      },
+      "timestamp": "2025-12-25T01:24:53.608387"
+    }
+  ]
+}
