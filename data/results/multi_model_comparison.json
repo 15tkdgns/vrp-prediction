@@ -4,7 +4,7 @@
       "ElasticNet": {
         "R2": -1.4096,
         "MAE": 4.4874,
-        "RMSE": 5.2878,
+        "RMSE": 5.2877,
         "Direction": 46.28
       },
       "Ridge": {
@@ -20,16 +20,28 @@
         "Direction": 46.28
       },
       "RandomForest": {
-        "R2": -1.2329,
-        "MAE": 3.9071,
-        "RMSE": 5.0902,
+        "R2": -1.2418,
+        "MAE": 3.9064,
+        "RMSE": 5.1003,
         "Direction": 52.07
       },
       "GradientBoosting": {
-        "R2": -1.6158,
-        "MAE": 3.5734,
-        "RMSE": 5.5094,
+        "R2": -1.6143,
+        "MAE": 3.5705,
+        "RMSE": 5.5077,
         "Direction": 59.5
+      },
+      "MLP_64": {
+        "R2": -0.9664,
+        "MAE": 3.8657,
+        "RMSE": 4.7768,
+        "Direction": 54.55
+      },
+      "MLP_128_64": {
+        "R2": -1.0907,
+        "MAE": 4.1384,
+        "RMSE": 4.9253,
+        "Direction": 50.41
       }
     },
     "GLD": {
@@ -52,7 +64,7 @@
         "Direction": 38.02
       },
       "RandomForest": {
-        "R2": -0.5088,
+        "R2": -0.5087,
         "MAE": 3.421,
         "RMSE": 4.2135,
         "Direction": 47.93
@@ -62,6 +74,18 @@
         "MAE": 3.3527,
         "RMSE": 4.25,
         "Direction": 51.24
+      },
+      "MLP_64": {
+        "R2": -0.3982,
+        "MAE": 3.2403,
+        "RMSE": 4.0562,
+        "Direction": 43.8
+      },
+      "MLP_128_64": {
+        "R2": -0.471,
+        "MAE": 3.3438,
+        "RMSE": 4.1605,
+        "Direction": 42.15
       }
     },
     "TLT": {
@@ -72,7 +96,7 @@
         "Direction": 44.63
       },
       "Ridge": {
-        "R2": -1.5291,
+        "R2": -1.5292,
         "MAE": 3.1289,
         "RMSE": 3.875,
         "Direction": 47.11
@@ -84,16 +108,28 @@
         "Direction": 45.45
       },
       "RandomForest": {
-        "R2": -4.3986,
-        "MAE": 3.6881,
-        "RMSE": 5.6615,
+        "R2": -4.3807,
+        "MAE": 3.6849,
+        "RMSE": 5.652,
         "Direction": 38.84
       },
       "GradientBoosting": {
-        "R2": -6.5735,
-        "MAE": 4.1214,
-        "RMSE": 6.7056,
+        "R2": -6.2249,
+        "MAE": 4.0713,
+        "RMSE": 6.5494,
         "Direction": 38.84
+      },
+      "MLP_64": {
+        "R2": -3.5306,
+        "MAE": 3.6415,
+        "RMSE": 5.1864,
+        "Direction": 48.76
+      },
+      "MLP_128_64": {
+        "R2": -5.5993,
+        "MAE": 4.2113,
+        "RMSE": 6.2595,
+        "Direction": 38.02
       }
     },
     "QQQ": {
@@ -116,16 +152,28 @@
         "Direction": 50.41
       },
       "RandomForest": {
-        "R2": -0.5905,
-        "MAE": 4.5391,
-        "RMSE": 5.8278,
-        "Direction": 52.48
+        "R2": -0.5487,
+        "MAE": 4.5051,
+        "RMSE": 5.7509,
+        "Direction": 52.07
       },
       "GradientBoosting": {
-        "R2": -0.6783,
-        "MAE": 4.5038,
-        "RMSE": 5.9866,
+        "R2": -0.7076,
+        "MAE": 4.5288,
+        "RMSE": 6.0386,
         "Direction": 54.55
+      },
+      "MLP_64": {
+        "R2": -0.3726,
+        "MAE": 4.222,
+        "RMSE": 5.414,
+        "Direction": 52.07
+      },
+      "MLP_128_64": {
+        "R2": -0.4993,
+        "MAE": 4.6634,
+        "RMSE": 5.6583,
+        "Direction": 52.07
       }
     },
     "EEM": {
@@ -148,16 +196,28 @@
         "Direction": 60.33
       },
       "RandomForest": {
-        "R2": -4.3447,
-        "MAE": 5.7857,
-        "RMSE": 8.7571,
+        "R2": -4.9091,
+        "MAE": 5.9052,
+        "RMSE": 9.2079,
         "Direction": 63.64
       },
       "GradientBoosting": {
-        "R2": -2.384,
-        "MAE": 5.1666,
-        "RMSE": 6.9681,
-        "Direction": 63.64
+        "R2": -2.3246,
+        "MAE": 5.1554,
+        "RMSE": 6.9067,
+        "Direction": 66.94
+      },
+      "MLP_64": {
+        "R2": -1.0774,
+        "MAE": 4.2925,
+        "RMSE": 5.4595,
+        "Direction": 59.5
+      },
+      "MLP_128_64": {
+        "R2": -0.876,
+        "MAE": 4.1552,
+        "RMSE": 5.1881,
+        "Direction": 58.68
       }
     }
   },
@@ -173,7 +233,9 @@
     "Ridge",
     "Lasso",
     "RandomForest",
-    "GradientBoosting"
+    "GradientBoosting",
+    "MLP_64",
+    "MLP_128_64"
   ],
   "metrics": [
     "R2",
@@ -181,5 +243,5 @@
     "RMSE",
     "Direction"
   ],
-  "timestamp": "2025-12-24T15:53:41.467089"
+  "timestamp": "2025-12-24T16:30:08.976513"
 }

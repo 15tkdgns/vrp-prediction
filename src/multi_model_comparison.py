@@ -11,6 +11,9 @@ import json
 import os
 from sklearn.linear_model import ElasticNet, Ridge, Lasso
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 import yfinance as yf
 from datetime import datetime
@@ -155,7 +158,15 @@ def main():
             'Ridge': Ridge(alpha=1.0, random_state=42),
             'Lasso': Lasso(alpha=0.1, random_state=42),
             'RandomForest': RandomForestRegressor(n_estimators=100, max_depth=5, random_state=42),
-            'GradientBoosting': GradientBoostingRegressor(n_estimators=100, max_depth=3, random_state=42)
+            'GradientBoosting': GradientBoostingRegressor(n_estimators=100, max_depth=3, random_state=42),
+            'MLP_64': Pipeline([
+                ('scaler', StandardScaler()),
+                ('mlp', MLPRegressor(hidden_layer_sizes=(64,), max_iter=500, random_state=42, early_stopping=True))
+            ]),
+            'MLP_128_64': Pipeline([
+                ('scaler', StandardScaler()),
+                ('mlp', MLPRegressor(hidden_layer_sizes=(128, 64), max_iter=500, random_state=42, early_stopping=True))
+            ])
         }
         
         result = run_experiment(asset, models)
