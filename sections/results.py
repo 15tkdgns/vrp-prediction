@@ -105,9 +105,53 @@ def render_model_performance():
             fig_heatmap = px.imshow(pivot_r2, 
                                     color_continuous_scale='RdYlGn',
                                     aspect='auto',
-                                    title='R2 Score 히트맵 (자산 x 모델)')
-            fig_heatmap.update_layout(height=350)
+                                    title='R2 Score 히트맵 (자산 x 모델)',
+                                    text_auto='.3f')
+            fig_heatmap.update_layout(height=400)
             st.plotly_chart(fig_heatmap, use_container_width=True)
+            
+            st.markdown("---")
+            
+            # 4. 자산별 상세 성능
+            st.markdown("### 4. 자산별 상세 성능")
+            
+            assets = df['자산'].unique()
+            tabs = st.tabs(list(assets))
+            
+            for tab, asset in zip(tabs, assets):
+                with tab:
+                    asset_df = df[df['자산'] == asset].sort_values('R2', ascending=False)
+                    
+                    col1, col2 = st.columns([1.5, 1])
+                    
+                    with col1:
+                        fig_asset_detail = px.bar(
+                            asset_df, 
+                            x='모델', y='R2',
+                            title=f'{asset} - 모델별 R2',
+                            text=asset_df['R2'].round(3),
+                            color='R2',
+                            color_continuous_scale='RdYlGn'
+                        )
+                        fig_asset_detail.update_traces(textposition='outside')
+                        fig_asset_detail.add_hline(y=0, line_dash="dash", line_color="red")
+                        fig_asset_detail.update_layout(height=300, showlegend=False)
+                        st.plotly_chart(fig_asset_detail, use_container_width=True)
+                    
+                    with col2:
+                        # 자산별 요약 테이블
+                        st.dataframe(
+                            asset_df[['모델', 'R2', 'MAE', 'Direction']].rename(
+                                columns={'Direction': '방향(%)'}
+                            ),
+                            hide_index=True,
+                            use_container_width=True
+                        )
+                        
+                        best = asset_df.iloc[0]
+                        st.metric(f"최고 모델", best['모델'], delta=f"R2: {best['R2']:.3f}")
+            
+            st.markdown("---")
             
             # 결과 테이블
             st.markdown("### 상세 결과 테이블")
