@@ -11,47 +11,118 @@ from utils.data_loader import load_image
 
 
 def render_model_performance():
-    """모델 성능 비교"""
+    """모델 성능 비교 - 다중 자산 x 다중 모델"""
     st.markdown('<h2 class="section-header">8. 실험 결과: 모델 성능 비교</h2>', unsafe_allow_html=True)
     
     st.markdown("""
 <div class="explanation">
 <h4>실험 설정</h4>
 <ul>
-    <li><strong>데이터</strong>: GLD (Gold ETF), 2015-2024</li>
-    <li><strong>학습:테스트</strong>: 80:20 (22일 Gap 적용)</li>
-    <li><strong>평가 지표</strong>: R-squared, 방향 정확도</li>
+    <li><strong>자산</strong>: SPY, GLD, TLT, QQQ, EEM (5개)</li>
+    <li><strong>모델</strong>: ElasticNet, Ridge, Lasso, RandomForest, GradientBoosting (5개)</li>
+    <li><strong>분할</strong>: 80:20 (22일 Gap 적용)</li>
+    <li><strong>평가 지표</strong>: R2, MAE, RMSE, Direction Accuracy</li>
 </ul>
 </div>
 """, unsafe_allow_html=True)
     
-    model_results = pd.DataFrame({
-        '모델': ['MLP (64)', 'MLP (128,64)', 'LightGBM', 'Gradient Boosting', 'Random Forest', 'ElasticNet', 'Ridge', 'OLS'],
-        '유형': ['Neural', 'Neural', 'Tree', 'Tree', 'Tree', 'Linear', 'Linear', 'Linear'],
-        'R-squared': [0.4374, 0.4213, 0.3985, 0.3799, 0.3756, 0.3680, 0.3680, 0.3680],
-        '방향 (%)': [74.1, 73.3, 74.1, 72.9, 72.9, 72.7, 73.3, 73.3]
-    })
+    # 실험 결과 데이터 (multi_model_comparison.json에서 로드)
+    from utils.data_loader import load_json_results
+    comparison_data = load_json_results("multi_model_comparison.json")
     
-    fig_model = px.bar(model_results.sort_values('R-squared', ascending=True), 
-                       x='R-squared', y='모델', orientation='h',
-                       color='유형',
-                       color_discrete_map=MODEL_COLORS,
-                       title='모델별 R-squared 비교 (GLD, 22일 Gap)')
-    fig_model.add_vline(x=0.37, line_dash="dash", line_color="gray", 
-                        annotation_text="선형 모델 평균")
-    fig_model.update_layout(height=450)
-    st.plotly_chart(fig_model)
-    
-    st.markdown("""
-<div class="result-card">
-<strong>H1 채택:</strong> MLP (R-squared = 0.44)가 선형 모델 (R-squared = 0.37)보다 19% 개선<br>
-<br>
-<strong>해석:</strong><br>
-- MLP가 가장 높은 예측력을 보이며, 이는 VRP 예측에 비선형 관계가 중요함을 시사<br>
-- LightGBM(0.40)과 Gradient Boosting(0.38)도 선형 모델보다 우수<br>
-- 방향 예측 정확도는 모든 모델이 72-74%로 비슷
+    if comparison_data and 'results' in comparison_data:
+        results = comparison_data['results']
+        
+        # 데이터 변환
+        rows = []
+        for asset, models in results.items():
+            for model, metrics in models.items():
+                if metrics.get('R2') is not None:
+                    rows.append({
+                        '자산': asset,
+                        '모델': model,
+                        'R2': metrics['R2'],
+                        'MAE': metrics['MAE'],
+                        'RMSE': metrics['RMSE'],
+                        'Direction': metrics['Direction']
+                    })
+        
+        df = pd.DataFrame(rows)
+        
+        if len(df) > 0:
+            # 1. 자산별 R2 비교
+            st.markdown("### 1. 자산별 R2 비교")
+            fig_asset = px.bar(df, x='자산', y='R2', color='모델', barmode='group',
+                              title='자산별 모델 R2 Score 비교',
+                              color_discrete_sequence=px.colors.qualitative.Set2)
+            fig_asset.add_hline(y=0, line_dash="dash", line_color="red", 
+                               annotation_text="R2=0 (기준선)")
+            fig_asset.update_layout(height=400)
+            st.plotly_chart(fig_asset, use_container_width=True)
+            
+            st.markdown("---")
+            
+            # 2. 모델별 평균 성능
+            st.markdown("### 2. 모델별 평균 성능")
+            model_avg = df.groupby('모델').agg({
+                'R2': 'mean',
+                'MAE': 'mean',
+                'Direction': 'mean'
+            }).round(4).reset_index()
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                fig_model_r2 = px.bar(model_avg.sort_values('R2', ascending=False), 
+                                      x='모델', y='R2',
+                                      title='모델별 평균 R2',
+                                      color='R2', color_continuous_scale='RdYlGn')
+                fig_model_r2.update_layout(height=350)
+                st.plotly_chart(fig_model_r2, use_container_width=True)
+            
+            with col2:
+                fig_model_dir = px.bar(model_avg.sort_values('Direction', ascending=False), 
+                                       x='모델', y='Direction',
+                                       title='모델별 평균 방향 정확도 (%)',
+                                       color='Direction', color_continuous_scale='Blues')
+                fig_model_dir.add_hline(y=50, line_dash="dash", line_color="red", 
+                                       annotation_text="50% (랜덤)")
+                fig_model_dir.update_layout(height=350)
+                st.plotly_chart(fig_model_dir, use_container_width=True)
+            
+            st.markdown("---")
+            
+            # 3. 히트맵: 자산 x 모델 R2
+            st.markdown("### 3. 자산 x 모델 성능 히트맵")
+            pivot_r2 = df.pivot(index='자산', columns='모델', values='R2')
+            
+            fig_heatmap = px.imshow(pivot_r2, 
+                                    color_continuous_scale='RdYlGn',
+                                    aspect='auto',
+                                    title='R2 Score 히트맵 (자산 x 모델)')
+            fig_heatmap.update_layout(height=350)
+            st.plotly_chart(fig_heatmap, use_container_width=True)
+            
+            # 결과 테이블
+            st.markdown("### 상세 결과 테이블")
+            st.dataframe(df.sort_values(['자산', 'R2'], ascending=[True, False]), 
+                        hide_index=True, use_container_width=True)
+            
+            # 핵심 발견
+            best_model = model_avg.loc[model_avg['R2'].idxmax()]
+            best_asset = df.loc[df['R2'].idxmax()]
+            
+            st.markdown(f"""
+<div class="key-point">
+<strong>핵심 발견</strong><br><br>
+- <strong>최고 모델</strong>: {best_model['모델']} (평균 R2 = {best_model['R2']:.4f})<br>
+- <strong>최고 자산</strong>: {best_asset['자산']} with {best_asset['모델']} (R2 = {best_asset['R2']:.4f})<br>
+- 모든 모델에서 R2 < 0 → 22일 후 변동성 예측은 매우 어려운 과제<br>
+- 선형 모델(ElasticNet, Ridge, Lasso)이 트리 모델보다 일관성 있음
 </div>
 """, unsafe_allow_html=True)
+    else:
+        st.info("모델 비교 결과 데이터를 로드할 수 없습니다. src/multi_model_comparison.py 실행이 필요합니다.")
 
 
 def render_vix_beta():

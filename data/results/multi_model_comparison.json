@@ -1,0 +1,185 @@
+{
+  "results": {
+    "SPY": {
+      "ElasticNet": {
+        "R2": -1.4096,
+        "MAE": 4.4874,
+        "RMSE": 5.2878,
+        "Direction": 46.28
+      },
+      "Ridge": {
+        "R2": -1.2513,
+        "MAE": 4.3175,
+        "RMSE": 5.1111,
+        "Direction": 46.28
+      },
+      "Lasso": {
+        "R2": -1.4065,
+        "MAE": 4.4836,
+        "RMSE": 5.2843,
+        "Direction": 46.28
+      },
+      "RandomForest": {
+        "R2": -1.2329,
+        "MAE": 3.9071,
+        "RMSE": 5.0902,
+        "Direction": 52.07
+      },
+      "GradientBoosting": {
+        "R2": -1.6158,
+        "MAE": 3.5734,
+        "RMSE": 5.5094,
+        "Direction": 59.5
+      }
+    },
+    "GLD": {
+      "ElasticNet": {
+        "R2": -0.2093,
+        "MAE": 3.3314,
+        "RMSE": 3.7723,
+        "Direction": 38.02
+      },
+      "Ridge": {
+        "R2": -0.2048,
+        "MAE": 3.3462,
+        "RMSE": 3.7652,
+        "Direction": 42.98
+      },
+      "Lasso": {
+        "R2": -0.2027,
+        "MAE": 3.3203,
+        "RMSE": 3.7619,
+        "Direction": 38.02
+      },
+      "RandomForest": {
+        "R2": -0.5088,
+        "MAE": 3.421,
+        "RMSE": 4.2135,
+        "Direction": 47.93
+      },
+      "GradientBoosting": {
+        "R2": -0.535,
+        "MAE": 3.3527,
+        "RMSE": 4.25,
+        "Direction": 51.24
+      }
+    },
+    "TLT": {
+      "ElasticNet": {
+        "R2": -1.3197,
+        "MAE": 2.9373,
+        "RMSE": 3.7111,
+        "Direction": 44.63
+      },
+      "Ridge": {
+        "R2": -1.5291,
+        "MAE": 3.1289,
+        "RMSE": 3.875,
+        "Direction": 47.11
+      },
+      "Lasso": {
+        "R2": -1.3014,
+        "MAE": 2.9294,
+        "RMSE": 3.6965,
+        "Direction": 45.45
+      },
+      "RandomForest": {
+        "R2": -4.3986,
+        "MAE": 3.6881,
+        "RMSE": 5.6615,
+        "Direction": 38.84
+      },
+      "GradientBoosting": {
+        "R2": -6.5735,
+        "MAE": 4.1214,
+        "RMSE": 6.7056,
+        "Direction": 38.84
+      }
+    },
+    "QQQ": {
+      "ElasticNet": {
+        "R2": -0.6605,
+        "MAE": 5.0219,
+        "RMSE": 5.9548,
+        "Direction": 51.24
+      },
+      "Ridge": {
+        "R2": -0.6169,
+        "MAE": 4.9105,
+        "RMSE": 5.876,
+        "Direction": 53.72
+      },
+      "Lasso": {
+        "R2": -0.6453,
+        "MAE": 4.997,
+        "RMSE": 5.9274,
+        "Direction": 50.41
+      },
+      "RandomForest": {
+        "R2": -0.5905,
+        "MAE": 4.5391,
+        "RMSE": 5.8278,
+        "Direction": 52.48
+      },
+      "GradientBoosting": {
+        "R2": -0.6783,
+        "MAE": 4.5038,
+        "RMSE": 5.9866,
+        "Direction": 54.55
+      }
+    },
+    "EEM": {
+      "ElasticNet": {
+        "R2": -1.0263,
+        "MAE": 4.4919,
+        "RMSE": 5.392,
+        "Direction": 60.33
+      },
+      "Ridge": {
+        "R2": -1.0538,
+        "MAE": 4.4834,
+        "RMSE": 5.4285,
+        "Direction": 61.98
+      },
+      "Lasso": {
+        "R2": -1.0215,
+        "MAE": 4.4893,
+        "RMSE": 5.3856,
+        "Direction": 60.33
+      },
+      "RandomForest": {
+        "R2": -4.3447,
+        "MAE": 5.7857,
+        "RMSE": 8.7571,
+        "Direction": 63.64
+      },
+      "GradientBoosting": {
+        "R2": -2.384,
+        "MAE": 5.1666,
+        "RMSE": 6.9681,
+        "Direction": 63.64
+      }
+    }
+  },
+  "assets": [
+    "SPY",
+    "GLD",
+    "TLT",
+    "QQQ",
+    "EEM"
+  ],
+  "models": [
+    "ElasticNet",
+    "Ridge",
+    "Lasso",
+    "RandomForest",
+    "GradientBoosting"
+  ],
+  "metrics": [
+    "R2",
+    "MAE",
+    "RMSE",
+    "Direction"
+  ],
+  "timestamp": "2025-12-24T15:53:41.467089"
+}
