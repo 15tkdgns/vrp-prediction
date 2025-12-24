@@ -275,13 +275,6 @@ def render_features():
 </div>
 """, unsafe_allow_html=True)
     
-    img = load_image("05_features.png")
-    if img:
-        try:
-            st.image(img)
-        except Exception:
-            st.info(" 특성 다이어그램 (이미지 로딩 실패)")
-    
     features_df = pd.DataFrame({
         '카테고리': ['변동성']*3 + ['VIX']*3 + ['VRP']*3 + ['기타']*3,
         '특성': ['RV_1d', 'RV_5d', 'RV_22d', 'Vol_lag1', 'Vol_lag5', 'Vol_change',
@@ -296,7 +289,7 @@ def render_features():
                   'mean(VRP_t-4:t)', 'I(VIX >= 25)', 'sum(r_t-4:t)', 'sum(r_t-21:t)']
     })
     
-    st.dataframe(features_df, hide_index=True)
+    st.dataframe(features_df, hide_index=True, use_container_width=True)
     
     st.markdown("""
 <div class="warning-card">
