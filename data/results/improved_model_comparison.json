@@ -1,0 +1,277 @@
+{
+  "strategy_results": {
+    "SPY": {
+      "baseline": {
+        "ElasticNet": {
+          "R2": -1.1906,
+          "MAE": 4.1954
+        },
+        "Huber": {
+          "R2": -0.4706,
+          "MAE": 3.2442
+        },
+        "MLP": {
+          "R2": -1.3993,
+          "MAE": 4.1431
+        }
+      },
+      "log_transform": {
+        "ElasticNet": {
+          "R2": -0.4007,
+          "MAE": 3.312
+        },
+        "Huber": {
+          "R2": -0.3056,
+          "MAE": 3.1008
+        },
+        "MLP": {
+          "R2": -0.5266,
+          "MAE": 3.1662
+        }
+      },
+      "winsorize": {
+        "ElasticNet": {
+          "R2": -1.1727,
+          "MAE": 4.1888
+        },
+        "Huber": {
+          "R2": -0.4682,
+          "MAE": 3.2423
+        },
+        "MLP": {
+          "R2": -1.2753,
+          "MAE": 4.0436
+        }
+      },
+      "log+winsorize": {
+        "ElasticNet": {
+          "R2": -0.4014,
+          "MAE": 3.3133
+        },
+        "Huber": {
+          "R2": -0.3046,
+          "MAE": 3.0992
+        },
+        "MLP": {
+          "R2": -0.5453,
+          "MAE": 3.2032
+        }
+      },
+      "short_horizon_5d": {
+        "ElasticNet": {
+          "R2": 0.0678,
+          "MAE": 4.0032
+        },
+        "Huber": {
+          "R2": 0.0446,
+          "MAE": 4.0562
+        },
+        "MLP": {
+          "R2": -0.0631,
+          "MAE": 4.174
+        }
+      },
+      "short_horizon_10d": {
+        "ElasticNet": {
+          "R2": -0.0272,
+          "MAE": 4.3002
+        },
+        "Huber": {
+          "R2": -0.0394,
+          "MAE": 4.301
+        },
+        "MLP": {
+          "R2": -0.2788,
+          "MAE": 4.5836
+        }
+      }
+    },
+    "GLD": {
+      "baseline": {
+        "ElasticNet": {
+          "R2": -0.3477,
+          "MAE": 3.5303
+        },
+        "Huber": {
+          "R2": -0.2732,
+          "MAE": 3.3493
+        },
+        "MLP": {
+          "R2": -0.4189,
+          "MAE": 3.2816
+        }
+      },
+      "log_transform": {
+        "ElasticNet": {
+          "R2": -0.1725,
+          "MAE": 3.2569
+        },
+        "Huber": {
+          "R2": -0.3042,
+          "MAE": 3.382
+        },
+        "MLP": {
+          "R2": -0.3873,
+          "MAE": 3.0909
+        }
+      },
+      "winsorize": {
+        "ElasticNet": {
+          "R2": -0.3391,
+          "MAE": 3.5213
+        },
+        "Huber": {
+          "R2": -0.2719,
+          "MAE": 3.3473
+        },
+        "MLP": {
+          "R2": -0.4171,
+          "MAE": 3.2834
+        }
+      },
+      "log+winsorize": {
+        "ElasticNet": {
+          "R2": -0.1698,
+          "MAE": 3.2537
+        },
+        "Huber": {
+          "R2": -0.3035,
+          "MAE": 3.3809
+        },
+        "MLP": {
+          "R2": -0.3775,
+          "MAE": 3.083
+        }
+      },
+      "short_horizon_5d": {
+        "ElasticNet": {
+          "R2": -0.0503,
+          "MAE": 4.3334
+        },
+        "Huber": {
+          "R2": -0.1093,
+          "MAE": 4.4627
+        },
+        "MLP": {
+          "R2": -0.3607,
+          "MAE": 5.0351
+        }
+      },
+      "short_horizon_10d": {
+        "ElasticNet": {
+          "R2": -0.1066,
+          "MAE": 4.4988
+        },
+        "Huber": {
+          "R2": -0.1745,
+          "MAE": 4.7074
+        },
+        "MLP": {
+          "R2": -0.4013,
+          "MAE": 4.9408
+        }
+      }
+    },
+    "QQQ": {
+      "baseline": {
+        "ElasticNet": {
+          "R2": -0.582,
+          "MAE": 4.6937
+        },
+        "Huber": {
+          "R2": -0.2917,
+          "MAE": 4.0613
+        },
+        "MLP": {
+          "R2": -0.4615,
+          "MAE": 4.3933
+        }
+      },
+      "log_transform": {
+        "ElasticNet": {
+          "R2": -0.1044,
+          "MAE": 3.8189
+        },
+        "Huber": {
+          "R2": -0.1392,
+          "MAE": 3.7879
+        },
+        "MLP": {
+          "R2": -0.373,
+          "MAE": 4.1423
+        }
+      },
+      "winsorize": {
+        "ElasticNet": {
+          "R2": -0.5611,
+          "MAE": 4.6593
+        },
+        "Huber": {
+          "R2": -0.2901,
+          "MAE": 4.0571
+        },
+        "MLP": {
+          "R2": -0.4271,
+          "MAE": 4.3418
+        }
+      },
+      "log+winsorize": {
+        "ElasticNet": {
+          "R2": -0.1046,
+          "MAE": 3.8194
+        },
+        "Huber": {
+          "R2": -0.1392,
+          "MAE": 3.7839
+        },
+        "MLP": {
+          "R2": -0.3613,
+          "MAE": 4.1395
+        }
+      },
+      "short_horizon_5d": {
+        "ElasticNet": {
+          "R2": 0.1689,
+          "MAE": 5.2013
+        },
+        "Huber": {
+          "R2": 0.1305,
+          "MAE": 5.2328
+        },
+        "MLP": {
+          "R2": -0.1075,
+          "MAE": 5.7735
+        }
+      },
+      "short_horizon_10d": {
+        "ElasticNet": {
+          "R2": 0.0368,
+          "MAE": 5.5756
+        },
+        "Huber": {
+          "R2": -0.0412,
+          "MAE": 5.8335
+        },
+        "MLP": {
+          "R2": -0.3373,
+          "MAE": 6.4839
+        }
+      }
+    }
+  },
+  "stacking_results": {},
+  "assets": [
+    "SPY",
+    "GLD",
+    "QQQ"
+  ],
+  "strategies": [
+    "baseline",
+    "log_transform",
+    "winsorize",
+    "log+winsorize",
+    "short_horizon_5d",
+    "short_horizon_10d"
+  ],
+  "timestamp": "2025-12-24T17:10:08.142960"
+}
