@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "experiment": "SPY R² 0.10+ Target",
+    "features": [
+      "RV_22d_lag1",
+      "RV_22d_lag5",
+      "RV_22d_lag22",
+      "VIX_lag1",
+      "VRP_lag1"
+    ],
+    "n_features": 5,
+    "timestamp": "2025-12-25T17:09:33.090998"
+  },
+  "results": {
+    "naive": -12.513739968572049,
+    "walk_forward_cv": -2.1870439185607475,
+    "best_regularization": {
+      "model": "Huber",
+      "alpha": 10.0,
+      "val_r2": -0.18334302374453237,
+      "test_r2": -0.07384228514977065
+    },
+    "simple_ensemble": -0.7213984675680603
+  }
+}
