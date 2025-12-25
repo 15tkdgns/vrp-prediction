@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "experiment": "SPY Alternative Approaches",
+    "timestamp": "2025-12-25T17:21:57.108260"
+  },
+  "results": [
+    {
+      "approach": "short_horizon_5d",
+      "val_r2": 0.31175596883893286,
+      "test_r2": -0.044766818494229144
+    },
+    {
+      "approach": "exclude_covid",
+      "val_r2": 0.21580006212701497,
+      "test_r2": -0.05477151030303218
+    },
+    {
+      "approach": "regime_low_vol",
+      "val_r2": -0.03050769718643709,
+      "test_r2": -0.09236974052780411
+    },
+    {
+      "approach": "direction",
+      "accuracy": 0.7146974063400576
+    },
+    {
+      "approach": "longer_history",
+      "best_model": "Ridge_a1.0",
+      "test_r2": 0.5896675091029724
+    }
+  ]
+}
