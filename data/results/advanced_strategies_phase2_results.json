@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "experiment": "Advanced R² Improvement - Phase 2",
+    "strategies": [
+      "1. Zumbach Effect (Path-Dependency)",
+      "2. Asset-specific (MOVE for TLT, CGR for SPY)",
+      "3. HAR-REQ (Quantile-based features)",
+      "4. QLIKE & Asymmetric Huber loss",
+      "5. Time-varying Hurst exponent"
+    ],
+    "timestamp": "2025-12-25T14:58:19.933170"
+  },
+  "results": {
+    "SPY": {
+      "asset": "SPY",
+      "n_features": 49,
+      "ensemble_r2": 0.00029301860914798805,
+      "ensemble_qlike": 0.1625739190530361,
+      "individual_r2": {
+        "Lasso": -1.2778575309503024,
+        "Huber": -2.5569487063943184,
+        "Ridge": -1.5622801092631788,
+        "ElasticNet": -1.3048501141918578,
+        "AsymHuber": -3.619677035243881,
+        "QLIKE": -2.6247154327568065,
+        "RF": -1.2521223235678072
+      },
+      "weights": {
+        "Lasso": 0.0,
+        "Huber": 0.011197017280390489,
+        "Ridge": 0.0,
+        "ElasticNet": 0.5780765634257249,
+        "AsymHuber": 0.0,
+        "QLIKE": 0.0,
+        "RF": 0.0
+      }
+    },
+    "GLD": {
+      "asset": "GLD",
+      "n_features": 45,
+      "ensemble_r2": 0.0009522132157059326,
+      "ensemble_qlike": 0.05229118060175665,
+      "individual_r2": {
+        "Lasso": -1.3074204726224883,
+        "Huber": -1.715773126928391,
+        "Ridge": -2.1942573470176705,
+        "ElasticNet": -0.8373291129603047,
+        "AsymHuber": -1.4376427829973326,
+        "QLIKE": -2.2248525829276056,
+        "RF": -2.674460655042603
+      },
+      "weights": {
+        "Lasso": 0.0,
+        "Huber": 0.0,
+        "Ridge": 0.0,
+        "ElasticNet": 1.3530818113861443,
+        "AsymHuber": 0.05500939937984139,
+        "QLIKE": 0.0,
+        "RF": 0.0
+      }
+    },
+    "QQQ": {
+      "asset": "QQQ",
+      "n_features": 45,
+      "ensemble_r2": 0.07734039656310443,
+      "ensemble_qlike": 0.1277119077502574,
+      "individual_r2": {
+        "Lasso": -3.2935917695493266,
+        "Huber": -19.045635324239353,
+        "Ridge": -7.1782547663979095,
+        "ElasticNet": -0.6075280046512619,
+        "AsymHuber": -9.534946085194667,
+        "QLIKE": -4.21943804775462,
+        "RF": -0.9584886745827441
+      },
+      "weights": {
+        "Lasso": 0.0,
+        "Huber": 0.0,
+        "Ridge": 0.0,
+        "ElasticNet": 0.5369008345421543,
+        "AsymHuber": 0.0,
+        "QLIKE": 0.0,
+        "RF": 0.2146739120853436
+      }
+    },
+    "TLT": {
+      "asset": "TLT",
+      "n_features": 48,
+      "ensemble_r2": 1.1102230246251565e-16,
+      "ensemble_qlike": 0.05475740193388305,
+      "individual_r2": {
+        "Lasso": -1.294290180018014,
+        "Huber": -9.158057143753064,
+        "Ridge": -7.404015844142631,
+        "ElasticNet": -2.7777413987110777,
+        "AsymHuber": -9.042659981926592,
+        "QLIKE": -7.909000461092818,
+        "RF": -2.5691978497261108
+      },
+      "weights": {
+        "Lasso": 0.0,
+        "Huber": 0.0,
+        "Ridge": 0.0,
+        "ElasticNet": 0.652608587276326,
+        "AsymHuber": 0.0,
+        "QLIKE": 0.0,
+        "RF": 0.0
+      }
+    },
+    "EEM": {
+      "asset": "EEM",
+      "n_features": 45,
+      "ensemble_r2": 0.1853775135977912,
+      "ensemble_qlike": 0.11017635566475874,
+      "individual_r2": {
+        "Lasso": -0.34128131545104257,
+        "Huber": -7.38493203068237,
+        "Ridge": -6.9733892152220704,
+        "ElasticNet": -0.3578923624378767,
+        "AsymHuber": -9.498660839345327,
+        "QLIKE": -7.877225246010514,
+        "RF": -1.340794157842224
+      },
+      "weights": {
+        "Lasso": 0.0,
+        "Huber": 0.0,
+        "Ridge": 0.0,
+        "ElasticNet": 0.4483249968632184,
+        "AsymHuber": 0.17712824409866335,
+        "QLIKE": 0.0,
+        "RF": 0.0
+      }
+    }
+  }
+}
