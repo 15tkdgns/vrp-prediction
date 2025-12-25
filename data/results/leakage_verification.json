@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "experiment": "Data Leakage Verification",
+    "timestamp": "2025-12-26T05:21:04.202705"
+  },
+  "results": {
+    "feature_timing": {
+      "lag1_correct": "True",
+      "future_correct": "True"
+    },
+    "train_test_split": {
+      "has_gap": true,
+      "no_overlap": false
+    },
+    "random_vs_time": {
+      "time_split_r2": 0.010708697861306238,
+      "random_split_r2": -0.38988682599694996
+    },
+    "no_future_info": {
+      "all_features_lagged": true,
+      "target_is_future": true
+    },
+    "vix_timing": {
+      "vix_aligned": true,
+      "vix_lag1_correct": "True"
+    },
+    "walk_forward": {
+      "all_folds_sequential": "True"
+    }
+  }
+}
