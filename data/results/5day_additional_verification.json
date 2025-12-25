@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "experiment": "5-Day Additional Verification",
+    "timestamp": "2025-12-25T21:10:39.661422"
+  },
+  "results": {
+    "SPY": {
+      "importance": {
+        "coef_importance": {
+          "RV_5d_lag1": 0.06737832962085441,
+          "RV_22d_lag1": 0.0009474425538648641,
+          "RV_ratio_lag1": 0.010893363176045168,
+          "VIX_lag1": 0.12081897797103007,
+          "VIX_change_lag1": 0.014136251125236188,
+          "direction_5d_lag1": 0.02093335971465434
+        },
+        "perm_importance": {
+          "RV_5d_lag1": 0.04262915053550653,
+          "RV_22d_lag1": 0.0005680662784578461,
+          "RV_ratio_lag1": -0.002045087048633931,
+          "VIX_lag1": 0.43540413059853034,
+          "VIX_change_lag1": -0.013755736469252766,
+          "direction_5d_lag1": 0.026952578975052988
+        }
+      },
+      "direction": {
+        "overall_accuracy": 0.6867469879518072,
+        "up_accuracy": 0.6229946524064172,
+        "down_accuracy": 0.7506702412868632,
+        "up_count": 374,
+        "down_count": 373
+      },
+      "residuals": {
+        "residual_mean": 0.03552612098711794,
+        "residual_std": 0.12506300802982687,
+        "mae": 0.07288861654677761
+      }
+    },
+    "QQQ": {
+      "importance": {
+        "coef_importance": {
+          "RV_5d_lag1": 0.03992750268724688,
+          "RV_22d_lag1": 0.0,
+          "RV_ratio_lag1": 0.0042184532053198475,
+          "VIX_lag1": 0.10580816214053981,
+          "VIX_change_lag1": 0.004894506047680293,
+          "direction_5d_lag1": 0.011113672635677
+        },
+        "perm_importance": {
+          "RV_5d_lag1": 0.046192266375868374,
+          "RV_22d_lag1": 0.0,
+          "RV_ratio_lag1": -0.0011578130482849947,
+          "VIX_lag1": 0.3998225260511815,
+          "VIX_change_lag1": -0.0028510035673676715,
+          "direction_5d_lag1": 0.015514953262585451
+        }
+      },
+      "direction": {
+        "overall_accuracy": 0.7014725568942436,
+        "up_accuracy": 0.615979381443299,
+        "down_accuracy": 0.7938718662952646,
+        "up_count": 388,
+        "down_count": 359
+      },
+      "residuals": {
+        "residual_mean": 0.0641202692644282,
+        "residual_std": 0.21079978043853498,
+        "mae": 0.13182764073597358
+      }
+    },
+    "XLK": {
+      "importance": {
+        "coef_importance": {
+          "RV_5d_lag1": 0.24146553747122557,
+          "RV_22d_lag1": 0.0439656008035591,
+          "RV_ratio_lag1": 0.011910932421431061,
+          "VIX_lag1": 0.23187778681577512,
+          "VIX_change_lag1": 0.041603750564649475,
+          "direction_5d_lag1": 0.01389248684197784
+        },
+        "perm_importance": {
+          "RV_5d_lag1": 0.05351642611212648,
+          "RV_22d_lag1": 0.012337851371159503,
+          "RV_ratio_lag1": -0.013203364417084806,
+          "VIX_lag1": 0.3757128088285201,
+          "VIX_change_lag1": -0.020478861680153337,
+          "direction_5d_lag1": -0.006103901138977963
+        }
+      },
+      "direction": {
+        "overall_accuracy": 0.6318607764390897,
+        "up_accuracy": 0.6200527704485488,
+        "down_accuracy": 0.6440217391304348,
+        "up_count": 379,
+        "down_count": 368
+      },
+      "residuals": {
+        "residual_mean": 0.0019363239132489797,
+        "residual_std": 0.2614130169973579,
+        "mae": 0.1771907732657533
+      }
+    },
+    "XLF": {
+      "importance": {
+        "coef_importance": {
+          "RV_5d_lag1": 0.06072768850765551,
+          "RV_22d_lag1": 0.04720689387311177,
+          "RV_ratio_lag1": 0.0005211126965887781,
+          "VIX_lag1": 0.07580281359999631,
+          "VIX_change_lag1": 0.006901905133511669,
+          "direction_5d_lag1": 0.010057319079536435
+        },
+        "perm_importance": {
+          "RV_5d_lag1": 0.015156326325904357,
+          "RV_22d_lag1": -0.0004085109345658422,
+          "RV_ratio_lag1": -0.00022553707307337856,
+          "VIX_lag1": 0.29396902274952974,
+          "VIX_change_lag1": -0.002798721161736295,
+          "direction_5d_lag1": 0.016974758813822155
+        }
+      },
+      "direction": {
+        "overall_accuracy": 0.7242302543507363,
+        "up_accuracy": 0.8310991957104558,
+        "down_accuracy": 0.6176470588235294,
+        "up_count": 373,
+        "down_count": 374
+      },
+      "residuals": {
+        "residual_mean": 0.014251957008426306,
+        "residual_std": 0.1678320588472416,
+        "mae": 0.10012199462578925
+      }
+    }
+  }
+}
