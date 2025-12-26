@@ -123,6 +123,76 @@ def render_introduction():
     
     st.markdown("---")
     
+    # 기존 연구
+    st.markdown("### 기존 연구 (Prior Research)")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        **변동성 예측 모델**
+        
+        | 모델 | 연구자 | 특징 |
+        |------|--------|------|
+        | **HAR-RV** | Corsi (2009) | 일간/주간/월간 RV 활용 |
+        | **GARCH** | Bollerslev (1986) | 조건부 이분산성 |
+        | **Realized GARCH** | Hansen et al. (2012) | RV와 GARCH 결합 |
+        | **HAR-RV-J** | Andersen et al. (2007) | 점프 성분 분리 |
+        """)
+    
+    with col2:
+        st.markdown("""
+        **VRP 관련 연구**
+        
+        | 주제 | 연구자 | 발견 |
+        |------|--------|------|
+        | VRP 정의 | Carr & Wu (2009) | IV² - RV로 정의 |
+        | 수익률 예측 | Bollerslev et al. (2009) | VRP가 수익률 예측 |
+        | 위험 관리 | Bekaert & Hoerova (2014) | VRP로 위험 측정 |
+        """)
+    
+    st.markdown("---")
+    
+    # 연구 갭 및 문제 정의
+    st.markdown("### 연구 갭 및 문제 정의")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.error("""
+        **기존 연구의 한계**
+        
+        1. **장기 호라이즌 중심**: 대부분 22일(월간) 예측
+        2. **단일 모델**: HAR-RV 또는 GARCH 단독 사용
+        3. **제한적 검증**: 단순 Train/Test 분할
+        4. **경제적 가치 미검증**: 통계적 유의성만 확인
+        """)
+    
+    with col2:
+        st.info("""
+        **본 연구의 차별점**
+        
+        1. **5일 단기 예측**: 실용적인 예측 호라이즌
+        2. **VIX 통합**: 내재 변동성 정보 활용
+        3. **엄격한 검증**: Walk-Forward CV + DM 검정
+        4. **경제적 가치 입증**: 트레이딩 시뮬레이션
+        """)
+    
+    st.markdown("---")
+    
+    # 연구 질문
+    st.markdown("### 연구 질문 (Research Questions)")
+    
+    st.markdown("""
+    > **RQ1**: 5일 호라이즌에서 실현 변동성을 예측할 수 있는가?
+    
+    > **RQ2**: VIX(내재 변동성)가 예측에 얼마나 기여하는가?
+    
+    > **RQ3**: 예측 모델이 경제적 가치를 제공하는가?
+    """)
+    
+    st.markdown("---")
+    
     st.markdown("### 연구 목적")
     st.markdown("""
     1. **5일 변동성 예측**: 단기 호라이즌에서의 예측력 검증
