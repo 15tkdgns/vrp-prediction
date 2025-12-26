@@ -382,6 +382,21 @@ def render_methodology():
         - Log 변환
         """)
     
+    # 타겟 변환 전략
+    st.markdown("### 타겟 변환 전략 (Target Transformation)")
+    
+    st.markdown("""
+    변동성 데이터의 왜도(Skewness)와 이분산성을 해결하기 위해 다양한 변환을 적용합니다.
+    
+    | 변환 | 수식 | 적용 모델 | 효과 |
+    |------|------|----------|------|
+    | **Sqrt** | √RV | Ridge(sqrt) | 극단값 완화 |
+    | **Log** | log(RV) | Lasso(log), Huber(log) | 정규화 개선 |
+    | **Raw** | RV | Ridge(raw) | 원시 변동성 |
+    
+    > 표기 예시: Ridge(sqrt) = Ridge 모델 + Sqrt 변환
+    """)
+    
     st.markdown("### 자산-VIX 매칭 테이블")
     
     st.markdown("""
@@ -443,6 +458,32 @@ def render_results():
     """)
     
     st.markdown("---")
+    
+    # 자산 확장 설명
+    with st.expander("분석 자산 확장에 대하여"):
+        st.markdown("""
+        **핵심 자산 (4개)**: SPY, QQQ, XLK, XLF - 주요 분석 및 결론 도출
+        
+        **확장 자산 (8개)**: + GLD, USO, TLT, EEM
+        - **목적**: Robustness Check (동일 방법론의 다양한 자산군 적용 검증)
+        - **결과**: 주식 자산에서 예측력 우수, 원자재/채권에서는 제한적
+        """)
+    
+    # HAR-RV 베이스라인 한계 (Part 5에서 이동)
+    st.markdown("### 벤치마크 모델 성능 (HAR-RV)")
+    
+    st.markdown("""
+    **HAR-RV 모델의 한계** (ML 도입 명분)
+    
+    | 자산 | HAR-RV R² | 한계 |
+    |------|----------|------|
+    | SPY | 0.18 | 비선형 패턴 미포착 |
+    | QQQ | 0.22 | VIX 정보 미활용 |
+    | XLK | 0.15 | 섹터 특성 무시 |
+    | XLF | 0.01 | 금융위기 시 붕괴 |
+    
+    > HAR-RV는 선형적 장기기억만 포착 → **ML을 통한 비선형 패턴 학습 필요**
+    """)
     
     st.markdown("### 모델 성능 비교")
     
