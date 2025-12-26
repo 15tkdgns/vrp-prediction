@@ -523,6 +523,38 @@ def render_results():
         actual = ts.get('actual', [])
         predicted = ts.get('predicted', [])
         rolling_r2 = ts.get('rolling_r2', [])
+        metadata = ts.get('metadata', {})
+        
+        # 모델 및 평가지표 정보
+        st.markdown(f"""
+        | 항목 | 값 |
+        |------|-----|
+        | **자산** | {metadata.get('asset', 'SPY')} (S&P 500 ETF) |
+        | **모델** | {metadata.get('model', 'Ridge_100')} (L2 정규화, α=100) |
+        | **타겟** | 5일 실현 변동성 (Sqrt 변환) |
+        | **테스트 기간** | {metadata.get('test_start', 'N/A')} ~ {metadata.get('test_end', 'N/A')} |
+        | **샘플 수** | {metadata.get('n_samples', 'N/A')}개 (Out-of-Sample) |
+        """)
+        
+        # 평가지표 계산
+        if actual and predicted:
+            import numpy as np
+            actual_arr = np.array(actual)
+            pred_arr = np.array(predicted)
+            mse = np.mean((actual_arr - pred_arr) ** 2)
+            rmse = np.sqrt(mse)
+            mae = np.mean(np.abs(actual_arr - pred_arr))
+            r2 = 1 - np.sum((actual_arr - pred_arr)**2) / np.sum((actual_arr - np.mean(actual_arr))**2)
+            
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("R²", f"{r2:.3f}")
+            with col2:
+                st.metric("RMSE", f"{rmse:.4f}")
+            with col3:
+                st.metric("MAE", f"{mae:.4f}")
+            with col4:
+                st.metric("샘플수", f"{len(actual)}")
         
         # 시계열 차트
         fig_ts = go.Figure()
@@ -535,13 +567,44 @@ def render_results():
             name='Predicted RV', line=dict(color='#dc3545', width=1, dash='dash')
         ))
         fig_ts.update_layout(
-            title='SPY Realized Volatility: Actual vs Predicted',
-            xaxis_title='Date', yaxis_title='5-Day RV',
+            title='SPY 5-Day Realized Volatility: Actual vs Predicted (Ridge α=100)',
+            xaxis_title='Date', yaxis_title='5-Day RV (Annualized)',
             template='plotly_white', height=350
         )
         st.plotly_chart(fig_ts, use_container_width=True)
         
+        st.markdown("""
+        > **해석**: 파란선(실제)과 빨간점선(예측)의 일치도가 높을수록 예측력이 좋음.
+        > 급등 구간에서 예측이 다소 지연되는 패턴이 관찰됨 (변동성 클러스터링).
+        """)
+        
+        # 오차 시계열 추가
+        st.markdown("**예측 오차 시계열 (Actual - Predicted)**")
+        errors = [a - p for a, p in zip(actual, predicted)]
+        fig_error = go.Figure()
+        fig_error.add_trace(go.Scatter(
+            x=dates, y=errors, mode='lines',
+            fill='tozeroy', line=dict(color='#6c757d', width=1),
+            fillcolor='rgba(108, 117, 125, 0.3)'
+        ))
+        fig_error.add_hline(y=0, line_dash="dash", line_color="red")
+        fig_error.update_layout(
+            title='Prediction Error Over Time',
+            xaxis_title='Date', yaxis_title='Error (Actual - Predicted)',
+            template='plotly_white', height=250
+        )
+        st.plotly_chart(fig_error, use_container_width=True)
+        
+        st.markdown("""
+        > **해석**: 양수 = 과소예측(Actual > Predicted), 음수 = 과대예측.
+        > 고변동 구간에서 과소예측 경향, 저변동 구간에서 과대예측 경향 확인.
+        """)
+        
         # Rolling R² 차트
+        st.markdown("**Rolling R² (250일 윈도우)**")
+        st.markdown("""
+        - **자산**: SPY | **모델**: Ridge (α=100) | **윈도우**: 250 거래일 (≈1년)
+        """)
         fig_roll = go.Figure()
         fig_roll.add_trace(go.Scatter(
             x=dates, y=rolling_r2, mode='lines',
@@ -549,13 +612,16 @@ def render_results():
         ))
         fig_roll.add_hline(y=0, line_dash="dash", line_color="gray")
         fig_roll.update_layout(
-            title='Rolling R2 (250-day Window)',
-            xaxis_title='Date', yaxis_title='R2',
+            title='SPY Ridge Model: Rolling R² Over Time',
+            xaxis_title='Date', yaxis_title='R²',
             template='plotly_white', height=250
         )
         st.plotly_chart(fig_roll, use_container_width=True)
         
-        st.info(f"테스트 기간: {ts.get('metadata', {}).get('test_start', '')} ~ {ts.get('metadata', {}).get('test_end', '')}")
+        st.markdown("""
+        > **해석**: R²가 0 이상 유지되는 구간에서 모델이 Persistence보다 우수.
+        > 변동성 급등기에 일시적으로 R² 하락 가능 (예측 어려움).
+        """)
         
         # 추가 시각화
         col1, col2 = st.columns(2)
@@ -597,7 +663,8 @@ def render_results():
             st.plotly_chart(fig_resid, use_container_width=True)
         
         # Confusion Matrix (방향 예측)
-        st.markdown("**Direction Prediction Confusion Matrix**")
+        st.markdown("**방향 예측 혼동 행렬 (Direction Confusion Matrix)**")
+        st.markdown("- **자산**: SPY | **모델**: Ridge | **예측 타겟**: RV 상승/하락 방향")
         
         # 방향 계산
         actual_dir = ['Up' if actual[i] > actual[i-1] else 'Down' for i in range(1, len(actual))]
@@ -615,10 +682,15 @@ def render_results():
             textfont={"size": 16}
         ))
         fig_cm.update_layout(
-            title=f'Direction Accuracy: {(tp+tn)/(tp+tn+fp+fn)*100:.1f}%',
+            title=f'SPY 방향 예측 정확도: {(tp+tn)/(tp+tn+fp+fn)*100:.1f}%',
             template='plotly_white', height=300
         )
         st.plotly_chart(fig_cm, use_container_width=True)
+        
+        st.markdown(f"""
+        > **해석**: TP={tp}(상승 정확), TN={tn}(하락 정확), FP={fp}(거짓 상승), FN={fn}(거짓 하락).
+        > 하락 예측이 상승 예측보다 정확한 경향 (변동성 급등 포착).
+        """)
         
         # ML vs HAR 누적 오차 차이 시계열
         cumulative_error_diff = ts.get('cumulative_error_diff', [])
