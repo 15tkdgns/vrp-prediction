@@ -188,7 +188,7 @@ def render_introduction():
     | 2015 | Feunou et al. | Good/Bad VRP | 상승/하락 VRP 분리 |
     """)
     
-    st.warning("""
+    st.info("""
     **핵심 발견**: VRP는 평균적으로 양수 (내재 변동성 > 실현 변동성)
     - 투자자들이 변동성 위험에 대해 프리미엄을 지불
     """)
@@ -205,7 +205,7 @@ def render_introduction():
     | 2022 | Filipovic et al. | Neural Network | 옵션 가격 예측 |
     """)
     
-    st.success("""
+    st.info("""
     **본 연구의 위치**
     - HAR-RV의 계층 구조 활용 (Corsi, 2009)
     - VIX 정보 통합 (Bollerslev et al., 2009)
@@ -221,7 +221,7 @@ def render_introduction():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.error("""
+        st.info("""
         **기존 연구의 한계**
         
         1. **장기 호라이즌 중심**: 대부분 22일(월간) 예측
@@ -295,7 +295,7 @@ def render_introduction():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.success("""
+        st.info("""
         **예측력 확인**
         - Walk-Forward CV R² = 0.18 (SPY, QQQ)
         - HAR-RV 대비 최대 +0.25 개선
@@ -303,7 +303,7 @@ def render_introduction():
         """)
     
     with col2:
-        st.success("""
+        st.info("""
         **실용적 가치**
         - 방향 정확도 68-72%
         - 초과 수익률 1-7%
@@ -429,11 +429,11 @@ def render_results():
     # Validation Pass 배지
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.success("Walk-Forward CV: PASSED")
+        st.info("Walk-Forward CV: PASSED")
     with col2:
-        st.success("DM Test: p < 0.05")
+        st.info("DM Test: p < 0.05")
     with col3:
-        st.success("Leakage Check: CLEAN")
+        st.info("Leakage Check: CLEAN")
     
     st.markdown("""
     > **통계적 유의성 → 예측의 핵심 변수(Part 4) → 경제적 가치(Part 5)**
@@ -548,7 +548,7 @@ def render_results():
     
     st.dataframe(dm_data, use_container_width=True)
     
-    st.success("모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
+    st.info("모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
     
     with st.expander("DM 검정이란?"):
         st.markdown("""
@@ -740,7 +740,7 @@ def render_additional():
     
     st.plotly_chart(fig, use_container_width=True)
     
-    st.warning("**VIX가 가장 중요한 예측 변수** (R2 감소 0.29~0.44)")
+    st.info("**VIX가 가장 중요한 예측 변수** (R2 감소 0.29~0.44)")
     
     # 특성 방향성 설명
     st.markdown("""
@@ -775,7 +775,7 @@ def render_additional():
     
     st.dataframe(vix_data, use_container_width=True)
     
-    st.success("**중간 변동성 구간 (VIX 15-30)에서 예측력 최고**")
+    st.info("**중간 변동성 구간 (VIX 15-30)에서 예측력 최고**")
     
     with st.expander("실무적 해석"):
         st.markdown("""
@@ -919,7 +919,7 @@ def render_economic():
         })
         st.dataframe(utility_df, use_container_width=True)
     
-    st.success("""
+    st.info("""
     **Gamma=10 (고위험 회피 투자자)**
     
     ML 전략에 연간 **496 bps (4.96%)** 성능료 지불 용의 → 경제적 가치 입증
@@ -937,7 +937,7 @@ def render_conclusion():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.success("""
+        st.info("""
         **예측력**
         - Walk-Forward CV R² = 0.18 (SPY, QQQ)
         - HAR-RV 대비 최대 +0.25 개선
@@ -945,7 +945,7 @@ def render_conclusion():
         """)
     
     with col2:
-        st.success("""
+        st.info("""
         **실용성**
         - 방향 정확도 68-72%
         - 초과 수익 1-7%
@@ -962,7 +962,7 @@ def render_conclusion():
     
     st.markdown("### 한계 및 향후 연구")
     
-    st.warning("""
+    st.info("""
     **한계점**
     - Pre-COVID가 Post-COVID보다 예측력 우수 (환경 변화)
     - 극단적 VIX 구간에서 예측력 저하
