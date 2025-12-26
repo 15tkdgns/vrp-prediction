@@ -656,10 +656,6 @@ def render_results():
             ))
             fig_err.add_hline(y=0, line_dash="dash", line_color="gray")
             
-            # 코로나 시점 표시 (2020-03)
-            fig_err.add_vline(x='2022-03-01', line_dash="dot", line_color="red", 
-                              annotation_text="Market Stress", annotation_position="top")
-            
             fig_err.update_layout(
                 title='Cumulative Error (HAR - ML): 양수 = ML이 더 정확',
                 xaxis_title='Date', yaxis_title='Cumulative Error Diff',
