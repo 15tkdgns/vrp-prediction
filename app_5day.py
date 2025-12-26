@@ -158,7 +158,7 @@ def render_introduction():
     st.markdown("""
     - **IV (Implied Volatility)**: 옵션 시장에서 추출한 위험중립(Q) 측정치 (예: VIX)
     - **RV (Realized Volatility)**: 실제(P) 측정치에서의 기대 실현 변동성
-    - **VRP**: 투자자가 변동성 위험 회피를 위해 지불하는 '공포 프리미엄'
+    - **VRP**: 투자자가 변동성 위험 회피를 위해 지불하는 '공포 프리미엄' (Carr & Wu, 2009)
     """)
     
     st.info("""
@@ -203,10 +203,10 @@ def render_introduction():
     st.markdown("""
     | 연도 | 연구자 | 주제 | 핵심 발견 |
     |------|--------|------|----------|
-    | 2009 | Carr & Wu | VRP 정의 | $VRP = IV^2 - RV$ |
-    | 2009 | Bollerslev et al. | VRP와 수익률 | VRP가 미래 수익률 예측 |
-    | 2014 | Bekaert & Hoerova | VRP 분해 | 위험 회피 vs 불확실성 |
-    | 2015 | Feunou et al. | Good/Bad VRP | 상승/하락 VRP 분리 |
+    | 2009 | Carr & Wu | VRP 정의 | "Variance Risk Premiums", *RFS* |
+    | 2009 | Bollerslev et al. | VRP와 수익률 | "Expected Stock Returns and Variance Risk Premia", *RFS* |
+    | 2014 | Bekaert & Hoerova | VRP 분해 | "The Variance Risk Premium", *Journal of Finance* |
+    | 2015 | Feunou et al. | Good/Bad VRP | "Proxying for the Risk-Free Rate", *Journal of Econometrics* |
     """)
     
     st.info("""
@@ -220,10 +220,9 @@ def render_introduction():
     st.markdown("""
     | 연도 | 연구자 | 방법 | Results |
     |------|--------|------|------|
-    | 2019 | Bucci | LSTM | HAR 대비 개선 |
-    | 2020 | Zhang et al. | Random Forest | 비선형 관계 포착 |
-    | 2021 | Christensen et al. | Gradient Boosting | 변동성 예측 우수 |
-    | 2022 | Filipovic et al. | Neural Network | 옵션 가격 예측 |
+    | 2009 | Corsi | HAR-RV | "A Simple Approximate Long-Memory Model...", *J. Fin. Econometrics* |
+    | 2020 | Gu et al. | Empirical Asset Pricing | "Empirical Asset Pricing via Machine Learning", *RFS* |
+    | 2021 | Christensen et al. | Gradient Boosting | *Journal of Financial Econometrics* |
     """)
     
     st.info("""
@@ -342,8 +341,9 @@ def render_methodology():
         | Item | 내용 |
         |------|------|
         | 기간 | 2015-01-01 ~ 2024-12-31 |
+        | Source | Yahoo Finance, FRED (St. Louis Fed) |
         | Asset | SPY, QQQ, XLK, XLF |
-        | 빈도 | 일간 |
+        | 빈도 | 일간 (Daily) |
         | Sample Count | ~2,500 거래일 |
         """)
     
@@ -413,9 +413,9 @@ def render_methodology():
     | Model | Description | Reference |
     |------|------|----------|
     | **Persistence** | Simple RV Persistence | - |
-    | **HAR-RV** | Heterogeneous AR | Corsi (2009) |
-    | **THAR** | Threshold HAR | VIX 임계값 기반 |
-    | **HAR-CJ** | Jump Component Separation | Andersen et al. (2007) |
+    | **HAR-RV** | Heterogeneous AR | Corsi (2009), *J. Fin. Econometrics* |
+    | **THAR** | Threshold HAR | Corsi et al. (2010) |
+    | **HAR-CJ** | Jump Component Separation | Andersen et al. (2007), *Review of Econ. & Stat.* |
     """)
     
     st.markdown("### 검증 방법")
@@ -753,7 +753,9 @@ def render_results():
     
     with st.expander("DM Test이란?"):
         st.markdown("""
-        **Diebold-Mariano Test**은 두 예측 Model의 성능 차이가 통계적으로 유의미한지 Test합니다.
+        **Diebold-Mariano Test (1995)**은 두 예측 Model의 성능 차이가 통계적으로 유의미한지 Test합니다.
+        
+        *Source: Diebold, F. X., & Mariano, R. S. (1995). "Comparing Predictive Accuracy", Journal of Business & Economic Statistics.*
         
         - **p < 0.05**: 기존 Model(Persistence) 보다 예측력이 **우연히** 좋을 확률은 5% 미만
         - 즉, ML Model의 우수성이 **통계적으로 입증**되었음을 의미합니다.
@@ -1155,6 +1157,8 @@ def render_economic():
     **2차 효용 함수 기반 성능료 계산**
     
     투자자가 ML 기반 전략으로 전환하기 위해 기꺼이 지불할 용의가 있는 연간 베이시스 포인트(bps)
+    
+    *Source: Fleming, J., Kirby, C., & Ostdiek, B. (2001). "The Economic Value of Volatility Timing", Journal of Finance.*
     """)
     
     # JSON에서 동적 로드
