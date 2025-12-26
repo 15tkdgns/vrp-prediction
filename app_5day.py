@@ -22,7 +22,7 @@ from pathlib import Path
 
 # 페이지 설정
 st.set_page_config(
-    page_title="5일 VRP 예측 연구",
+    page_title="VRP 예측 연구",
     page_icon="",
     layout="wide"
 )
@@ -582,20 +582,44 @@ def render_results():
             'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'GLD': -0.093, 'USO': 0.231, 'TLT': -0.482, 'EEM': 0.206, 'XLF': 0.308, 'XLK': 0.079}
         }).T
     
+    # 자산군 그룹화 순서 적용
+    asset_order = ['SPY', 'QQQ', 'XLK', 'XLF', 'GLD', 'USO', 'TLT', 'EEM']
+    available_cols = [col for col in asset_order if col in matrix_data.columns]
+    matrix_ordered = matrix_data[available_cols] if available_cols else matrix_data
+    
+    # 최고 성능 셀 찾기
+    max_val = matrix_ordered.values.max()
+    max_idx = np.where(matrix_ordered.values == max_val)
+    
     # 히트맵
     fig_heatmap = go.Figure(data=go.Heatmap(
-        z=matrix_data.values,
-        x=matrix_data.columns.tolist(),
-        y=matrix_data.index.tolist(),
+        z=matrix_ordered.values,
+        x=matrix_ordered.columns.tolist(),
+        y=matrix_ordered.index.tolist(),
         colorscale='RdYlGn',
-        text=np.round(matrix_data.values, 3),
+        text=np.round(matrix_ordered.values, 3),
         texttemplate='%{text}',
         textfont={"size": 12},
         hoverongaps=False
     ))
     
+    # 최고 성능 셀 하이라이트 (사각형 테두리)
+    if len(max_idx[0]) > 0:
+        best_row = max_idx[0][0]
+        best_col = max_idx[1][0]
+        fig_heatmap.add_shape(
+            type="rect",
+            x0=best_col - 0.5, x1=best_col + 0.5,
+            y0=best_row - 0.5, y1=best_row + 0.5,
+            line=dict(color="gold", width=4)
+        )
+    
+    # 자산군 구분선
+    fig_heatmap.add_vline(x=1.5, line_dash="dash", line_color="gray", opacity=0.5)  # 주식 | 섹터
+    fig_heatmap.add_vline(x=3.5, line_dash="dash", line_color="gray", opacity=0.5)  # 섹터 | 기타
+    
     fig_heatmap.update_layout(
-        title='Model × Asset R² Performance Heatmap',
+        title='Model x Asset R2 Heatmap (자산군: 주식 | 섹터 | 기타)',
         xaxis_title='Asset',
         yaxis_title='Model',
         template='plotly_white',
@@ -603,6 +627,15 @@ def render_results():
     )
     
     st.plotly_chart(fig_heatmap, use_container_width=True)
+    
+    # 자산군 범례
+    st.markdown("""
+    | 자산군 | 자산 | 특징 |
+    |--------|------|------|
+    | **주식** | SPY, QQQ | 높은 예측력 (R² > 0.25) |
+    | **섹터** | XLK, XLF | 중간 예측력 (R² 0.15~0.30) |
+    | **기타** | GLD, USO, TLT, EEM | 낮거나 음수 R² (모델 적합성 낮음) |
+    """)
     
     # 자산별 최고 모델
     st.markdown("### 자산별 최적 모델")
@@ -696,7 +729,17 @@ def render_additional():
     
     st.plotly_chart(fig, use_container_width=True)
     
-    st.warning("**VIX가 가장 중요한 예측 변수** (R² 감소 0.29~0.44)")
+    st.warning("**VIX가 가장 중요한 예측 변수** (R2 감소 0.29~0.44)")
+    
+    # 특성 방향성 설명
+    st.markdown("""
+    | 특성 | 방향 | 해석 |
+    |------|------|------|
+    | **VIX_lag1** | (+) | VIX 상승 → 미래 RV 상승 예측 |
+    | **RV_5d_lag1** | (+) | 과거 변동성 → 미래 변동성 (지속성) |
+    | **RV_22d_lag1** | (+) | 장기 평균으로의 회귀 |
+    | **direction_5d** | (-) | 하락장 → 변동성 상승 (레버리지 효과) |
+    """)
     
     st.markdown("### 방향 정확도")
     
