@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "experiment": "Extended Asset Analysis",
+    "timestamp": "2025-12-26T09:41:58.597607",
+    "n_assets": 24
+  },
+  "results": [
+    {
+      "ticker": "SPY",
+      "name": "S&P 500",
+      "class": "Equity Index",
+      "n_samples": 2488,
+      "cv_mean": 0.18205950042985722,
+      "cv_std": 0.1502874918607215,
+      "test_r2": 0.35682621486802346,
+      "direction_acc": 0.6867469879518072
+    },
+    {
+      "ticker": "QQQ",
+      "name": "NASDAQ 100",
+      "class": "Equity Index",
+      "n_samples": 2488,
+      "cv_mean": 0.0742778295073793,
+      "cv_std": 0.14532726426513345,
+      "test_r2": 0.2643225765673749,
+      "direction_acc": 0.6827309236947792
+    },
+    {
+      "ticker": "IWM",
+      "name": "Russell 2000",
+      "class": "Equity Index",
+      "n_samples": 2488,
+      "cv_mean": 0.1265141263020024,
+      "cv_std": 0.15996858326577937,
+      "test_r2": 0.10815961028957288,
+      "direction_acc": 0.7336010709504686
+    },
+    {
+      "ticker": "DIA",
+      "name": "Dow Jones",
+      "class": "Equity Index",
+      "n_samples": 2488,
+      "cv_mean": 0.16717029547064272,
+      "cv_std": 0.18082884170282157,
+      "test_r2": 0.3425637852017388,
+      "direction_acc": 0.7255689424364123
+    },
+    {
+      "ticker": "XLK",
+      "name": "Technology",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.025884931401129553,
+      "cv_std": 0.14610152674190602,
+      "test_r2": 0.15178811102800327,
+      "direction_acc": 0.6867469879518072
+    },
+    {
+      "ticker": "XLF",
+      "name": "Financials",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.08145037322478026,
+      "cv_std": 0.10032371785390477,
+      "test_r2": 0.263566470546865,
+      "direction_acc": 0.6854082998661312
+    },
+    {
+      "ticker": "XLE",
+      "name": "Energy",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": -0.09775997989238397,
+      "cv_std": 0.3110642186769118,
+      "test_r2": 0.36585582455119947,
+      "direction_acc": 0.7376171352074966
+    },
+    {
+      "ticker": "XLV",
+      "name": "Healthcare",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.11377554705727855,
+      "cv_std": 0.311847405519456,
+      "test_r2": 0.3268348437427083,
+      "direction_acc": 0.7095046854082999
+    },
+    {
+      "ticker": "XLI",
+      "name": "Industrials",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.14377941794779464,
+      "cv_std": 0.11093623849543865,
+      "test_r2": 0.2657714444792131,
+      "direction_acc": 0.7255689424364123
+    },
+    {
+      "ticker": "XLY",
+      "name": "Consumer Disc",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.05661965121237158,
+      "cv_std": 0.175366478451965,
+      "test_r2": 0.10180949939956241,
+      "direction_acc": 0.6358768406961178
+    },
+    {
+      "ticker": "XLP",
+      "name": "Consumer Staples",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": 0.03792593031285581,
+      "cv_std": 0.23521926734943918,
+      "test_r2": 0.18120651257840392,
+      "direction_acc": 0.7215528781793842
+    },
+    {
+      "ticker": "XLU",
+      "name": "Utilities",
+      "class": "Sector",
+      "n_samples": 2488,
+      "cv_mean": -0.1308186409600339,
+      "cv_std": 0.36833441511763954,
+      "test_r2": 0.08020146805979,
+      "direction_acc": 0.714859437751004
+    },
+    {
+      "ticker": "EEM",
+      "name": "Emerging Markets",
+      "class": "Emerging",
+      "n_samples": 2488,
+      "cv_mean": 0.0832216556818087,
+      "cv_std": 0.14496453571107257,
+      "test_r2": 0.2130452472442772,
+      "direction_acc": 0.6974564926372155
+    },
+    {
+      "ticker": "FXI",
+      "name": "China",
+      "class": "Emerging",
+      "n_samples": 2488,
+      "cv_mean": -0.04615469795310956,
+      "cv_std": 0.040641525102906736,
+      "test_r2": -0.034255501745571015,
+      "direction_acc": 0.7014725568942436
+    },
+    {
+      "ticker": "EWZ",
+      "name": "Brazil",
+      "class": "Emerging",
+      "n_samples": 2488,
+      "cv_mean": -0.2778580352641186,
+      "cv_std": 0.3322602738172613,
+      "test_r2": -0.16678805043545575,
+      "direction_acc": 0.5903614457831325
+    },
+    {
+      "ticker": "EWJ",
+      "name": "Japan",
+      "class": "Emerging",
+      "n_samples": 2488,
+      "cv_mean": -0.0015272984173531957,
+      "cv_std": 0.13054389918702147,
+      "test_r2": -0.006085233483188013,
+      "direction_acc": 0.7095046854082999
+    },
+    {
+      "ticker": "GLD",
+      "name": "Gold",
+      "class": "Commodity",
+      "n_samples": 2488,
+      "cv_mean": -0.09644888052685278,
+      "cv_std": 0.1951774093679968,
+      "test_r2": -0.037953548607822185,
+      "direction_acc": 0.7228915662650602
+    },
+    {
+      "ticker": "SLV",
+      "name": "Silver",
+      "class": "Commodity",
+      "n_samples": 2488,
+      "cv_mean": -0.09480055596840362,
+      "cv_std": 0.12724824072400462,
+      "test_r2": -0.15788210022715554,
+      "direction_acc": 0.7095046854082999
+    },
+    {
+      "ticker": "USO",
+      "name": "Oil",
+      "class": "Commodity",
+      "n_samples": 2488,
+      "cv_mean": -0.11147281543290677,
+      "cv_std": 0.29955116682300414,
+      "test_r2": 0.24265425933556428,
+      "direction_acc": 0.677376171352075
+    },
+    {
+      "ticker": "TLT",
+      "name": "20+ Year Treasury",
+      "class": "Bond",
+      "n_samples": 2488,
+      "cv_mean": -0.4570480558897808,
+      "cv_std": 0.5746904344299808,
+      "test_r2": -0.36002414778544667,
+      "direction_acc": 0.6532797858099063
+    },
+    {
+      "ticker": "IEF",
+      "name": "7-10 Year Treasury",
+      "class": "Bond",
+      "n_samples": 2488,
+      "cv_mean": -0.21415199216334252,
+      "cv_std": 0.2064048244786401,
+      "test_r2": -0.4529520282846058,
+      "direction_acc": 0.5903614457831325
+    },
+    {
+      "ticker": "HYG",
+      "name": "High Yield",
+      "class": "Bond",
+      "n_samples": 2488,
+      "cv_mean": -0.4055290928897241,
+      "cv_std": 0.9185200342333083,
+      "test_r2": 0.10042682408626802,
+      "direction_acc": 0.6251673360107095
+    },
+    {
+      "ticker": "LQD",
+      "name": "Investment Grade",
+      "class": "Bond",
+      "n_samples": 2488,
+      "cv_mean": -4.041026094175281,
+      "cv_std": 7.60678769590082,
+      "test_r2": -0.3232720948117962,
+      "direction_acc": 0.5876840696117804
+    },
+    {
+      "ticker": "VNQ",
+      "name": "REIT",
+      "class": "Real Estate",
+      "n_samples": 2488,
+      "cv_mean": 0.032149081308150265,
+      "cv_std": 0.13789744497269582,
+      "test_r2": 0.06604672182167548,
+      "direction_acc": 0.7054886211512718
+    }
+  ]
+}
