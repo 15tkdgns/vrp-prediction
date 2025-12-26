@@ -76,6 +76,7 @@ def load_results():
         'advanced_todo': 'advanced_todo_experiments.json',
         'spy_timeseries': 'spy_predictions_timeseries.json',
         'dashboard_dynamic': 'dashboard_dynamic_data.json',
+        'paper_model_matrix': 'paper_model_matrix.json',
     }
     
     for key, filename in files.items():
@@ -525,20 +526,6 @@ def render_results():
         marker_color='#dc3545'
     ))
     
-    fig.update_layout(
-        title='SPY/QQQ/XLK/XLF - Optimal Model R² vs Persistence R² 비교',
-        barmode='group',
-        yaxis_title='R²',
-        template='plotly_white'
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("""
-    **Interpretation**: ML Model(파란색)이 단순 지속성 Model(빨간색)보다 높은 R²를 보이며,
-    이는 과거 변동성만으로 예측하는 것보다 VIX 정보를 포함한 ML Model이 우수함을 의미합니다.
-    """)
-    
     # SPY 실제 vs 예측 시계열
     st.markdown("### SPY: 실제값 vs 예측값")
     
@@ -765,7 +752,18 @@ def render_results():
     st.markdown("### Model x Asset R2 매트릭스")
     
     # JSON에서 동적 로드
-    if 'model_asset_matrix' in results and 'matrix' in results['model_asset_matrix']:
+    # JSON에서 동적 로드 (Prioritize Paper Model Matrix with 8 Assets)
+    if 'paper_model_matrix' in results and 'matrix' in results['paper_model_matrix']:
+        matrix_raw = results['paper_model_matrix']['matrix']
+        # 데이터 Transform
+        matrix_dict = {}
+        for asset, models in matrix_raw.items():
+            for model, metrics in models.items():
+                if model not in matrix_dict:
+                    matrix_dict[model] = {}
+                matrix_dict[model][asset] = metrics.get('r2', 0)
+        matrix_data = pd.DataFrame(matrix_dict).T
+    elif 'model_asset_matrix' in results and 'matrix' in results['model_asset_matrix']:
         matrix_raw = results['model_asset_matrix']['matrix']
         # 데이터 Transform
         matrix_dict = {}
@@ -787,6 +785,9 @@ def render_results():
     
     # Asset군 그룹화 순서 Applied
     asset_order = ['SPY', 'QQQ', 'XLK', 'XLF', 'GLD', 'USO', 'TLT', 'EEM']
+    # Use reindex instead of filtering to ensure all assets are shown (filling NaN if missing, but they shouldn't be)
+    # But filtering [available_cols] is safer if strict match is needed. 
+    # Since we created the JSON with these exact keys, they will be available.
     available_cols = [col for col in asset_order if col in matrix_data.columns]
     matrix_ordered = matrix_data[available_cols] if available_cols else matrix_data
     
