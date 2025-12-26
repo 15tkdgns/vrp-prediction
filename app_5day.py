@@ -246,28 +246,23 @@ def render_introduction():
     # 왜 5일인가?
     st.markdown("### 왜 5일 호라이즌인가?")
     
-    col1, col2 = st.columns(2)
+    st.markdown("""
+    **VRP의 평균 회귀 특성**
     
-    with col1:
-        st.markdown("""
-        **VRP의 평균 회귀 특성**
-        
-        변동성 위험 프리미엄은 단기에서 평균 회귀(Mean Reversion) 특성을 보입니다.
-        5일 호라이즌은 이 패턴을 포착하기에 최적입니다.
-        
-        - 1일: 노이즈 과다
-        - 5일: 평균 회귀 시작
-        - 22일: 장기 지속성 지배
-        """)
+    | 호라이즌 | 특성 | 예측 적합성 |
+    |----------|------|------------|
+    | **1일** | 노이즈 과다 | 낮음 |
+    | **5일** | 평균 회귀 시작 | **최적** |
+    | **22일** | 장기 지속성 지배 | 중간 |
     
-    with col2:
-        st.markdown("""
-        **실용적 이유**
-        
-        - **주간 리밸런싱**: 대부분의 기관 투자자 리밸런싱 주기
-        - **옵션 만기**: 주간 옵션 거래와 일치
-        - **거래 비용**: 적절한 거래 빈도로 비용 최소화
-        """)
+    **실용적 이유**
+    
+    | 항목 | 설명 |
+    |------|------|
+    | 주간 리밸런싱 | 대부분의 기관 투자자 리밸런싱 주기 |
+    | 옵션 만기 | 주간 옵션 거래와 일치 |
+    | 거래 비용 | 적절한 거래 빈도로 비용 최소화 |
+    """)
     
     st.markdown("---")
     
@@ -356,31 +351,13 @@ def render_methodology():
     
     st.markdown("### 모델")
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        **Ridge Regression**
-        - L2 정규화
-        - α = 10~1000
-        - Sqrt/Log 변환
-        """)
-    
-    with col2:
-        st.markdown("""
-        **Lasso Regression**
-        - L1 정규화
-        - α = 0.01
-        - Log 변환
-        """)
-    
-    with col3:
-        st.markdown("""
-        **Huber Regressor**
-        - 이상치 강건
-        - ε = 1.35
-        - Log 변환
-        """)
+    st.markdown("""
+    | 모델 | 정규화 | 파라미터 | 타겟 변환 |
+    |------|--------|----------|----------|
+    | **Ridge Regression** | L2 | α = 10~1000 | Sqrt/Log |
+    | **Lasso Regression** | L1 | α = 0.01 | Log |
+    | **Huber Regressor** | - | ε = 1.35 | Log |
+    """)
     
     # 타겟 변환 전략
     st.markdown("### 타겟 변환 전략 (Target Transformation)")
