@@ -378,6 +378,71 @@ def render_results():
     st.dataframe(dm_data, use_container_width=True)
     
     st.success("✅ 모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
+    
+    # 모델 × 자산 매트릭스
+    st.markdown("### 모델 × 자산 R² 매트릭스")
+    
+    # 매트릭스 데이터 (실험 결과 기반)
+    matrix_data = pd.DataFrame({
+        'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'IWM': 0.105, 'DIA': 0.311, 'XLK': 0.167, 'XLF': 0.228, 'XLE': 0.336, 'XLV': 0.323},
+        'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'IWM': 0.108, 'DIA': 0.343, 'XLK': 0.152, 'XLF': 0.264, 'XLE': 0.366, 'XLV': 0.326},
+        'Lasso_0.01': {'SPY': 0.370, 'QQQ': 0.269, 'IWM': 0.108, 'DIA': 0.375, 'XLK': 0.160, 'XLF': 0.269, 'XLE': 0.348, 'XLV': 0.352},
+        'Huber': {'SPY': 0.263, 'QQQ': 0.171, 'IWM': 0.054, 'DIA': 0.385, 'XLK': 0.042, 'XLF': 0.306, 'XLE': 0.372, 'XLV': 0.326},
+        'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'IWM': 0.100, 'DIA': 0.392, 'XLK': 0.079, 'XLF': 0.308, 'XLE': 0.368, 'XLV': 0.320}
+    }).T
+    
+    # 히트맵
+    fig_heatmap = go.Figure(data=go.Heatmap(
+        z=matrix_data.values,
+        x=matrix_data.columns.tolist(),
+        y=matrix_data.index.tolist(),
+        colorscale='RdYlGn',
+        text=np.round(matrix_data.values, 3),
+        texttemplate='%{text}',
+        textfont={"size": 12},
+        hoverongaps=False
+    ))
+    
+    fig_heatmap.update_layout(
+        title='Model × Asset R² Performance Heatmap',
+        xaxis_title='Asset',
+        yaxis_title='Model',
+        template='plotly_white',
+        height=400
+    )
+    
+    st.plotly_chart(fig_heatmap, use_container_width=True)
+    
+    # 자산별 최고 모델
+    st.markdown("### 자산별 최적 모델")
+    
+    best_models = pd.DataFrame({
+        'Asset': ['SPY', 'QQQ', 'IWM', 'DIA', 'XLK', 'XLF', 'XLE', 'XLV'],
+        'Best Model': ['Ridge_10', 'Ridge_10', 'Lasso_0.01', 'ElasticNet', 'Ridge_10', 'ElasticNet', 'Huber', 'Lasso_0.01'],
+        'R²': [0.375, 0.283, 0.108, 0.392, 0.167, 0.308, 0.372, 0.352]
+    })
+    
+    st.dataframe(best_models, use_container_width=True)
+    
+    # 모델별 평균 성능 차트
+    model_avg = matrix_data.mean(axis=1).sort_values(ascending=False)
+    
+    fig_model = go.Figure(go.Bar(
+        x=model_avg.values,
+        y=model_avg.index,
+        orientation='h',
+        marker_color='#2d5a87'
+    ))
+    
+    fig_model.update_layout(
+        title='Model Average R² (across assets)',
+        xaxis_title='Average R²',
+        yaxis_title='Model',
+        template='plotly_white',
+        height=300
+    )
+    
+    st.plotly_chart(fig_model, use_container_width=True)
 
 # ============================================================================
 # PART 4: 추가 분석
