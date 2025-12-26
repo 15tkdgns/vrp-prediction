@@ -1,0 +1,53 @@
+{
+  "direction_accuracy": {
+    "SPY": {
+      "total": 49.6,
+      "up": 41.5,
+      "down": 58.1
+    },
+    "QQQ": {
+      "total": 49.1,
+      "up": 42.3,
+      "down": 56.2
+    },
+    "XLK": {
+      "total": 47.2,
+      "up": 39.9,
+      "down": 54.8
+    },
+    "XLF": {
+      "total": 49.3,
+      "up": 41.7,
+      "down": 57.5
+    }
+  },
+  "vix_regime": {
+    "SPY": {
+      "low": -0.04,
+      "mid": 0.14,
+      "high": -0.39
+    },
+    "QQQ": {
+      "low": -0.16,
+      "mid": 0.04,
+      "high": -0.61
+    },
+    "XLK": {
+      "low": -0.41,
+      "mid": -0.03,
+      "high": -0.7
+    },
+    "XLF": {
+      "low": -0.47,
+      "mid": 0.06,
+      "high": -0.12
+    }
+  },
+  "executive_summary": {
+    "best_r2": 0.36,
+    "best_asset": "SPY",
+    "direction_acc_spy": 58.1,
+    "utility_gain_bps": 496,
+    "dm_test_pvalue": 0.016
+  }
+}

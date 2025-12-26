@@ -75,6 +75,7 @@ def load_results():
         'paper_publication': 'paper_publication_experiments.json',
         'advanced_todo': 'advanced_todo_experiments.json',
         'spy_timeseries': 'spy_predictions_timeseries.json',
+        'dashboard_dynamic': 'dashboard_dynamic_data.json',
     }
     
     for key, filename in files.items():
@@ -132,10 +133,16 @@ def render_introduction():
             r2 = 1 - np.sum((actual_arr - pred_arr)**2) / np.sum((actual_arr - np.mean(actual_arr))**2)
             best_r2 = f"{r2:.2f}"
     
+    # Direction Accuracy from JSON
+    dir_acc = "N/A"
+    if 'dashboard_dynamic' in results and 'direction_accuracy' in results['dashboard_dynamic']:
+        spy_da = results['dashboard_dynamic']['direction_accuracy'].get('SPY', {})
+        dir_acc = f"{spy_da.get('down', 0)}%"
+    
     with col1:
         st.metric("Best R²", best_r2, "SPY Ridge")
     with col2:
-        st.metric("Direction Acc", "75%", "SPY")
+        st.metric("Down Acc", dir_acc, "SPY")
     with col3:
         st.metric("Utility Gain", "+496 bps", "Gamma=10")
     with col4:
@@ -946,30 +953,47 @@ def render_additional():
     | **direction_5d** | (-) | 하락장 → 변동성 상승 (레버리지 Effect) |
     """)
     
-    st.markdown("### 방향 정확도")
+    st.markdown("### Direction Accuracy")
     
-    direction_data = pd.DataFrame({
-        'Asset': ['XLF', 'QQQ', 'SPY', 'XLK'],
-        '전체': ['72.4%', '70.2%', '68.7%', '63.2%'],
-        '상승': ['83.1%', '61.6%', '62.3%', '62.0%'],
-        '하락': ['61.8%', '79.4%', '75.1%', '64.4%']
-    })
+    # JSON에서 동적 로드
+    if 'dashboard_dynamic' in results and 'direction_accuracy' in results['dashboard_dynamic']:
+        da = results['dashboard_dynamic']['direction_accuracy']
+        direction_data = pd.DataFrame({
+            'Asset': list(da.keys()),
+            'Total': [f"{v.get('total', 0)}%" for v in da.values()],
+            'Up': [f"{v.get('up', 0)}%" for v in da.values()],
+            'Down': [f"{v.get('down', 0)}%" for v in da.values()]
+        })
+    else:
+        direction_data = pd.DataFrame({
+            'Asset': ['XLF', 'QQQ', 'SPY', 'XLK'],
+            'Total': ['72.4%', '70.2%', '68.7%', '63.2%'],
+            'Up': ['83.1%', '61.6%', '62.3%', '62.0%'],
+            'Down': ['61.8%', '79.4%', '75.1%', '64.4%']
+        })
     
     st.dataframe(direction_data, use_container_width=True)
     
-    st.info("**하락 예측이 더 정확** (SPY 75%, QQQ 79%)")
+    st.markdown("### VIX Regime Performance")
     
-    st.markdown("### VIX 레짐별 성능")
-    
-    vix_data = pd.DataFrame({
-        'VIX 구간': ['<15', '15-30', '>30'],
-        'SPY R²': [-0.06, 0.24, -0.22],
-        'QQQ R²': [-0.05, 0.25, -0.38]
-    })
+    # JSON에서 동적 로드
+    if 'dashboard_dynamic' in results and 'vix_regime' in results['dashboard_dynamic']:
+        vr = results['dashboard_dynamic']['vix_regime']
+        vix_data = pd.DataFrame({
+            'VIX Range': ['<15', '15-30', '>30'],
+            'SPY R²': [vr.get('SPY', {}).get('low', 'N/A'), vr.get('SPY', {}).get('mid', 'N/A'), vr.get('SPY', {}).get('high', 'N/A')],
+            'QQQ R²': [vr.get('QQQ', {}).get('low', 'N/A'), vr.get('QQQ', {}).get('mid', 'N/A'), vr.get('QQQ', {}).get('high', 'N/A')]
+        })
+    else:
+        vix_data = pd.DataFrame({
+            'VIX Range': ['<15', '15-30', '>30'],
+            'SPY R²': [-0.06, 0.24, -0.22],
+            'QQQ R²': [-0.05, 0.25, -0.38]
+        })
     
     st.dataframe(vix_data, use_container_width=True)
     
-    st.info("**Medium 변동성 구간 (VIX 15-30)에서 예측력 최고**")
+    st.info("**Medium volatility (VIX 15-30) shows best predictability**")
     
     with st.expander("실무적 Interpretation"):
         st.markdown("""
