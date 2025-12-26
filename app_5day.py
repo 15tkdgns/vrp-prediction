@@ -116,13 +116,26 @@ def render_introduction():
     st.markdown('<div class="main-header">변동성 위험 프리미엄(VRP) 예측</div>', unsafe_allow_html=True)
     st.markdown("### 머신러닝을 활용한 5일 변동성 위험 프리미엄 예측")
     
-    # Executive Summary: 핵심 지표 4개
+    # Executive Summary: 실시간 계산
     col1, col2, col3, col4 = st.columns(4)
     
+    # SPY R² 실시간 계산
+    best_r2 = "N/A"
+    if 'spy_timeseries' in results:
+        ts = results['spy_timeseries']
+        actual = ts.get('actual', [])
+        predicted = ts.get('predicted', [])
+        if actual and predicted:
+            import numpy as np
+            actual_arr = np.array(actual)
+            pred_arr = np.array(predicted)
+            r2 = 1 - np.sum((actual_arr - pred_arr)**2) / np.sum((actual_arr - np.mean(actual_arr))**2)
+            best_r2 = f"{r2:.2f}"
+    
     with col1:
-        st.metric("최고 R2", "0.38", "ML Ridge")
+        st.metric("Best R²", best_r2, "SPY Ridge")
     with col2:
-        st.metric("하락 정확도", "75%", "SPY")
+        st.metric("Direction Acc", "75%", "SPY")
     with col3:
         st.metric("Utility Gain", "+496 bps", "Gamma=10")
     with col4:
