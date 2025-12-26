@@ -1,0 +1,415 @@
+{
+  "metadata": {
+    "experiment": "Academic Research Based Asset Analysis",
+    "timestamp": "2025-12-26T09:48:04.958113",
+    "reference": "Corsi (2009), Bollerslev et al. (2009), Liu et al. (2015)",
+    "assets": [
+      "SPY",
+      "QQQ",
+      "GLD",
+      "USO",
+      "TLT",
+      "EEM",
+      "XLF",
+      "XLK"
+    ]
+  },
+  "results": {
+    "assets": {
+      "SPY": {
+        "name": "S&P 500 ETF",
+        "class": "Stock Index",
+        "n_samples": 2488
+      },
+      "QQQ": {
+        "name": "NASDAQ 100",
+        "class": "Stock Index",
+        "n_samples": 2488
+      },
+      "GLD": {
+        "name": "Gold",
+        "class": "Commodity",
+        "n_samples": 2488
+      },
+      "USO": {
+        "name": "Oil",
+        "class": "Commodity",
+        "n_samples": 2488
+      },
+      "TLT": {
+        "name": "20+ Year Treasury",
+        "class": "Bond",
+        "n_samples": 2488
+      },
+      "EEM": {
+        "name": "Emerging Markets",
+        "class": "Emerging",
+        "n_samples": 2488
+      },
+      "XLF": {
+        "name": "Financials",
+        "class": "Sector",
+        "n_samples": 2488
+      },
+      "XLK": {
+        "name": "Technology",
+        "class": "Sector",
+        "n_samples": 2488
+      }
+    },
+    "matrix": {
+      "SPY": {
+        "Ridge_10": {
+          "r2": 0.3752,
+          "rmse": 0.1281,
+          "mae": 0.0725,
+          "direction_acc": 0.6881
+        },
+        "Ridge_100": {
+          "r2": 0.3568,
+          "rmse": 0.13,
+          "mae": 0.0729,
+          "direction_acc": 0.6867
+        },
+        "Lasso_0.01": {
+          "r2": 0.3702,
+          "rmse": 0.1286,
+          "mae": 0.0717,
+          "direction_acc": 0.7041
+        },
+        "Huber": {
+          "r2": 0.2629,
+          "rmse": 0.1392,
+          "mae": 0.0772,
+          "direction_acc": 0.6787
+        },
+        "ElasticNet": {
+          "r2": 0.2687,
+          "rmse": 0.1386,
+          "mae": 0.0764,
+          "direction_acc": 0.6961
+        }
+      },
+      "QQQ": {
+        "Ridge_10": {
+          "r2": 0.2828,
+          "rmse": 0.2276,
+          "mae": 0.1367,
+          "direction_acc": 0.6814
+        },
+        "Ridge_100": {
+          "r2": 0.2643,
+          "rmse": 0.2305,
+          "mae": 0.1383,
+          "direction_acc": 0.6827
+        },
+        "Lasso_0.01": {
+          "r2": 0.2694,
+          "rmse": 0.2298,
+          "mae": 0.137,
+          "direction_acc": 0.6774
+        },
+        "Huber": {
+          "r2": 0.171,
+          "rmse": 0.2447,
+          "mae": 0.1483,
+          "direction_acc": 0.6573
+        },
+        "ElasticNet": {
+          "r2": 0.1426,
+          "rmse": 0.2489,
+          "mae": 0.1464,
+          "direction_acc": 0.6867
+        }
+      },
+      "GLD": {
+        "Ridge_10": {
+          "r2": -0.0396,
+          "rmse": 0.0892,
+          "mae": 0.0585,
+          "direction_acc": 0.7269
+        },
+        "Ridge_100": {
+          "r2": -0.038,
+          "rmse": 0.0892,
+          "mae": 0.0583,
+          "direction_acc": 0.7229
+        },
+        "Lasso_0.01": {
+          "r2": -0.0359,
+          "rmse": 0.0891,
+          "mae": 0.0583,
+          "direction_acc": 0.7189
+        },
+        "Huber": {
+          "r2": -0.1277,
+          "rmse": 0.0929,
+          "mae": 0.0589,
+          "direction_acc": 0.7108
+        },
+        "ElasticNet": {
+          "r2": -0.0926,
+          "rmse": 0.0915,
+          "mae": 0.0591,
+          "direction_acc": 0.7015
+        }
+      },
+      "USO": {
+        "Ridge_10": {
+          "r2": 0.242,
+          "rmse": 0.5341,
+          "mae": 0.3267,
+          "direction_acc": 0.672
+        },
+        "Ridge_100": {
+          "r2": 0.2427,
+          "rmse": 0.5339,
+          "mae": 0.3249,
+          "direction_acc": 0.6774
+        },
+        "Lasso_0.01": {
+          "r2": 0.2408,
+          "rmse": 0.5345,
+          "mae": 0.3256,
+          "direction_acc": 0.6774
+        },
+        "Huber": {
+          "r2": 0.157,
+          "rmse": 0.5633,
+          "mae": 0.3059,
+          "direction_acc": 0.7028
+        },
+        "ElasticNet": {
+          "r2": 0.2307,
+          "rmse": 0.5381,
+          "mae": 0.3236,
+          "direction_acc": 0.6854
+        }
+      },
+      "TLT": {
+        "Ridge_10": {
+          "r2": -0.3572,
+          "rmse": 0.1333,
+          "mae": 0.0907,
+          "direction_acc": 0.6546
+        },
+        "Ridge_100": {
+          "r2": -0.36,
+          "rmse": 0.1335,
+          "mae": 0.0907,
+          "direction_acc": 0.6533
+        },
+        "Lasso_0.01": {
+          "r2": -0.3484,
+          "rmse": 0.1329,
+          "mae": 0.0897,
+          "direction_acc": 0.668
+        },
+        "Huber": {
+          "r2": -0.3638,
+          "rmse": 0.1337,
+          "mae": 0.09,
+          "direction_acc": 0.6519
+        },
+        "ElasticNet": {
+          "r2": -0.4818,
+          "rmse": 0.1393,
+          "mae": 0.0947,
+          "direction_acc": 0.664
+        }
+      },
+      "EEM": {
+        "Ridge_10": {
+          "r2": 0.2129,
+          "rmse": 0.1743,
+          "mae": 0.1092,
+          "direction_acc": 0.6988
+        },
+        "Ridge_100": {
+          "r2": 0.213,
+          "rmse": 0.1743,
+          "mae": 0.1077,
+          "direction_acc": 0.6975
+        },
+        "Lasso_0.01": {
+          "r2": 0.2328,
+          "rmse": 0.1721,
+          "mae": 0.1061,
+          "direction_acc": 0.7082
+        },
+        "Huber": {
+          "r2": 0.1945,
+          "rmse": 0.1764,
+          "mae": 0.0987,
+          "direction_acc": 0.739
+        },
+        "ElasticNet": {
+          "r2": 0.2059,
+          "rmse": 0.1751,
+          "mae": 0.1032,
+          "direction_acc": 0.7162
+        }
+      },
+      "XLF": {
+        "Ridge_10": {
+          "r2": 0.228,
+          "rmse": 0.1756,
+          "mae": 0.114,
+          "direction_acc": 0.6787
+        },
+        "Ridge_100": {
+          "r2": 0.2636,
+          "rmse": 0.1715,
+          "mae": 0.1103,
+          "direction_acc": 0.6854
+        },
+        "Lasso_0.01": {
+          "r2": 0.269,
+          "rmse": 0.1708,
+          "mae": 0.1117,
+          "direction_acc": 0.6827
+        },
+        "Huber": {
+          "r2": 0.306,
+          "rmse": 0.1665,
+          "mae": 0.0974,
+          "direction_acc": 0.7269
+        },
+        "ElasticNet": {
+          "r2": 0.3079,
+          "rmse": 0.1662,
+          "mae": 0.109,
+          "direction_acc": 0.6774
+        }
+      },
+      "XLK": {
+        "Ridge_10": {
+          "r2": 0.1665,
+          "rmse": 0.269,
+          "mae": 0.1651,
+          "direction_acc": 0.6827
+        },
+        "Ridge_100": {
+          "r2": 0.1518,
+          "rmse": 0.2714,
+          "mae": 0.1662,
+          "direction_acc": 0.6867
+        },
+        "Lasso_0.01": {
+          "r2": 0.1597,
+          "rmse": 0.2701,
+          "mae": 0.1646,
+          "direction_acc": 0.6814
+        },
+        "Huber": {
+          "r2": 0.0416,
+          "rmse": 0.2884,
+          "mae": 0.1779,
+          "direction_acc": 0.6573
+        },
+        "ElasticNet": {
+          "r2": 0.0793,
+          "rmse": 0.2827,
+          "mae": 0.1692,
+          "direction_acc": 0.6961
+        }
+      }
+    },
+    "best_by_asset": {
+      "SPY": {
+        "model": "Ridge_10",
+        "metrics": {
+          "r2": 0.3752,
+          "rmse": 0.1281,
+          "mae": 0.0725,
+          "direction_acc": 0.6881
+        }
+      },
+      "QQQ": {
+        "model": "Ridge_10",
+        "metrics": {
+          "r2": 0.2828,
+          "rmse": 0.2276,
+          "mae": 0.1367,
+          "direction_acc": 0.6814
+        }
+      },
+      "GLD": {
+        "model": "Lasso_0.01",
+        "metrics": {
+          "r2": -0.0359,
+          "rmse": 0.0891,
+          "mae": 0.0583,
+          "direction_acc": 0.7189
+        }
+      },
+      "USO": {
+        "model": "Ridge_100",
+        "metrics": {
+          "r2": 0.2427,
+          "rmse": 0.5339,
+          "mae": 0.3249,
+          "direction_acc": 0.6774
+        }
+      },
+      "TLT": {
+        "model": "Lasso_0.01",
+        "metrics": {
+          "r2": -0.3484,
+          "rmse": 0.1329,
+          "mae": 0.0897,
+          "direction_acc": 0.668
+        }
+      },
+      "EEM": {
+        "model": "Lasso_0.01",
+        "metrics": {
+          "r2": 0.2328,
+          "rmse": 0.1721,
+          "mae": 0.1061,
+          "direction_acc": 0.7082
+        }
+      },
+      "XLF": {
+        "model": "ElasticNet",
+        "metrics": {
+          "r2": 0.3079,
+          "rmse": 0.1662,
+          "mae": 0.109,
+          "direction_acc": 0.6774
+        }
+      },
+      "XLK": {
+        "model": "Ridge_10",
+        "metrics": {
+          "r2": 0.1665,
+          "rmse": 0.269,
+          "mae": 0.1651,
+          "direction_acc": 0.6827
+        }
+      }
+    },
+    "best_by_model": {
+      "Ridge_10": {
+        "avg_r2": 0.1388,
+        "std_r2": 0.2178
+      },
+      "Ridge_100": {
+        "avg_r2": 0.1368,
+        "std_r2": 0.2166
+      },
+      "Lasso_0.01": {
+        "avg_r2": 0.1447,
+        "std_r2": 0.2165
+      },
+      "Huber": {
+        "avg_r2": 0.0802,
+        "std_r2": 0.2102
+      },
+      "ElasticNet": {
+        "avg_r2": 0.0826,
+        "std_r2": 0.2438
+      }
+    }
+  }
+}

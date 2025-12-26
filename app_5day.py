@@ -382,13 +382,13 @@ def render_results():
     # 모델 × 자산 매트릭스
     st.markdown("### 모델 × 자산 R² 매트릭스")
     
-    # 매트릭스 데이터 (실험 결과 기반)
+    # 매트릭스 데이터 (학술 연구 기반 자산 포함)
     matrix_data = pd.DataFrame({
-        'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'IWM': 0.105, 'DIA': 0.311, 'XLK': 0.167, 'XLF': 0.228, 'XLE': 0.336, 'XLV': 0.323},
-        'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'IWM': 0.108, 'DIA': 0.343, 'XLK': 0.152, 'XLF': 0.264, 'XLE': 0.366, 'XLV': 0.326},
-        'Lasso_0.01': {'SPY': 0.370, 'QQQ': 0.269, 'IWM': 0.108, 'DIA': 0.375, 'XLK': 0.160, 'XLF': 0.269, 'XLE': 0.348, 'XLV': 0.352},
-        'Huber': {'SPY': 0.263, 'QQQ': 0.171, 'IWM': 0.054, 'DIA': 0.385, 'XLK': 0.042, 'XLF': 0.306, 'XLE': 0.372, 'XLV': 0.326},
-        'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'IWM': 0.100, 'DIA': 0.392, 'XLK': 0.079, 'XLF': 0.308, 'XLE': 0.368, 'XLV': 0.320}
+        'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'GLD': -0.040, 'USO': 0.242, 'TLT': -0.357, 'EEM': 0.213, 'XLF': 0.228, 'XLK': 0.167},
+        'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'GLD': -0.038, 'USO': 0.243, 'TLT': -0.360, 'EEM': 0.213, 'XLF': 0.264, 'XLK': 0.152},
+        'Lasso_0.01': {'SPY': 0.370, 'QQQ': 0.269, 'GLD': -0.036, 'USO': 0.241, 'TLT': -0.348, 'EEM': 0.233, 'XLF': 0.269, 'XLK': 0.160},
+        'Huber': {'SPY': 0.263, 'QQQ': 0.171, 'GLD': -0.128, 'USO': 0.157, 'TLT': -0.364, 'EEM': 0.195, 'XLF': 0.306, 'XLK': 0.042},
+        'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'GLD': -0.093, 'USO': 0.231, 'TLT': -0.482, 'EEM': 0.206, 'XLF': 0.308, 'XLK': 0.079}
     }).T
     
     # 히트맵
@@ -417,9 +417,10 @@ def render_results():
     st.markdown("### 자산별 최적 모델")
     
     best_models = pd.DataFrame({
-        'Asset': ['SPY', 'QQQ', 'IWM', 'DIA', 'XLK', 'XLF', 'XLE', 'XLV'],
-        'Best Model': ['Ridge_10', 'Ridge_10', 'Lasso_0.01', 'ElasticNet', 'Ridge_10', 'ElasticNet', 'Huber', 'Lasso_0.01'],
-        'R²': [0.375, 0.283, 0.108, 0.392, 0.167, 0.308, 0.372, 0.352]
+        'Asset': ['SPY', 'QQQ', 'GLD', 'USO', 'TLT', 'EEM', 'XLF', 'XLK'],
+        'Class': ['Stock', 'Stock', 'Gold', 'Oil', 'Bond', 'EM', 'Sector', 'Sector'],
+        'Best Model': ['Ridge_10', 'Ridge_10', 'Lasso', 'Ridge_100', 'Lasso', 'Lasso', 'ElasticNet', 'Ridge_10'],
+        'R²': [0.375, 0.283, -0.036, 0.243, -0.348, 0.233, 0.308, 0.167]
     })
     
     st.dataframe(best_models, use_container_width=True)
