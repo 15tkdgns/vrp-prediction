@@ -68,7 +68,12 @@ def load_results():
         'tuning': '5day_tuning_optimized.json',
         'additional': '5day_additional_verification.json',
         'sci': 'sci_quality_experiments.json',
-        'leakage': 'leakage_verification.json'
+        'leakage': 'leakage_verification.json',
+        'model_asset_matrix': 'model_asset_matrix.json',
+        'academic_asset': 'academic_asset_analysis.json',
+        'sci_journal': 'sci_journal_experiments.json',
+        'paper_publication': 'paper_publication_experiments.json',
+        'advanced_todo': 'advanced_todo_experiments.json',
     }
     
     for key, filename in files.items():
@@ -415,16 +420,28 @@ def render_results():
     st.success("모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
     
     # 모델 × 자산 매트릭스
-    st.markdown("### 모델 × 자산 R² 매트릭스")
+    st.markdown("### 모델 x 자산 R2 매트릭스")
     
-    # 매트릭스 데이터 (학술 연구 기반 자산 포함)
-    matrix_data = pd.DataFrame({
-        'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'GLD': -0.040, 'USO': 0.242, 'TLT': -0.357, 'EEM': 0.213, 'XLF': 0.228, 'XLK': 0.167},
-        'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'GLD': -0.038, 'USO': 0.243, 'TLT': -0.360, 'EEM': 0.213, 'XLF': 0.264, 'XLK': 0.152},
-        'Lasso_0.01': {'SPY': 0.370, 'QQQ': 0.269, 'GLD': -0.036, 'USO': 0.241, 'TLT': -0.348, 'EEM': 0.233, 'XLF': 0.269, 'XLK': 0.160},
-        'Huber': {'SPY': 0.263, 'QQQ': 0.171, 'GLD': -0.128, 'USO': 0.157, 'TLT': -0.364, 'EEM': 0.195, 'XLF': 0.306, 'XLK': 0.042},
-        'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'GLD': -0.093, 'USO': 0.231, 'TLT': -0.482, 'EEM': 0.206, 'XLF': 0.308, 'XLK': 0.079}
-    }).T
+    # JSON에서 동적 로드
+    if 'model_asset_matrix' in results and 'matrix' in results['model_asset_matrix']:
+        matrix_raw = results['model_asset_matrix']['matrix']
+        # 데이터 변환
+        matrix_dict = {}
+        for asset, models in matrix_raw.items():
+            for model, metrics in models.items():
+                if model not in matrix_dict:
+                    matrix_dict[model] = {}
+                matrix_dict[model][asset] = metrics.get('r2', 0)
+        matrix_data = pd.DataFrame(matrix_dict).T
+    else:
+        # 폴백: 학술 연구 기반 자산 매트릭스
+        matrix_data = pd.DataFrame({
+            'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'GLD': -0.040, 'USO': 0.242, 'TLT': -0.357, 'EEM': 0.213, 'XLF': 0.228, 'XLK': 0.167},
+            'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'GLD': -0.038, 'USO': 0.243, 'TLT': -0.360, 'EEM': 0.213, 'XLF': 0.264, 'XLK': 0.152},
+            'Lasso_0.01': {'SPY': 0.370, 'QQQ': 0.269, 'GLD': -0.036, 'USO': 0.241, 'TLT': -0.348, 'EEM': 0.233, 'XLF': 0.269, 'XLK': 0.160},
+            'Huber': {'SPY': 0.263, 'QQQ': 0.171, 'GLD': -0.128, 'USO': 0.157, 'TLT': -0.364, 'EEM': 0.195, 'XLF': 0.306, 'XLK': 0.042},
+            'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'GLD': -0.093, 'USO': 0.231, 'TLT': -0.482, 'EEM': 0.206, 'XLF': 0.308, 'XLK': 0.079}
+        }).T
     
     # 히트맵
     fig_heatmap = go.Figure(data=go.Heatmap(
@@ -451,12 +468,23 @@ def render_results():
     # 자산별 최고 모델
     st.markdown("### 자산별 최적 모델")
     
-    best_models = pd.DataFrame({
-        'Asset': ['SPY', 'QQQ', 'GLD', 'USO', 'TLT', 'EEM', 'XLF', 'XLK'],
-        'Class': ['Stock', 'Stock', 'Gold', 'Oil', 'Bond', 'EM', 'Sector', 'Sector'],
-        'Best Model': ['Ridge_10', 'Ridge_10', 'Lasso', 'Ridge_100', 'Lasso', 'Lasso', 'ElasticNet', 'Ridge_10'],
-        'R²': [0.375, 0.283, -0.036, 0.243, -0.348, 0.233, 0.308, 0.167]
-    })
+    # JSON에서 동적 로드
+    if 'model_asset_matrix' in results and 'best_by_asset' in results['model_asset_matrix']:
+        best_raw = results['model_asset_matrix']['best_by_asset']
+        best_list = []
+        for asset, info in best_raw.items():
+            best_list.append({
+                'Asset': asset,
+                'Best Model': info.get('model', 'N/A'),
+                'R2': round(info.get('metrics', {}).get('r2', 0), 3)
+            })
+        best_models = pd.DataFrame(best_list)
+    else:
+        best_models = pd.DataFrame({
+            'Asset': ['SPY', 'QQQ', 'GLD', 'USO', 'TLT', 'EEM', 'XLF', 'XLK'],
+            'Best Model': ['Ridge_10', 'Ridge_10', 'Lasso', 'Ridge_100', 'Lasso', 'Lasso', 'ElasticNet', 'Ridge_10'],
+            'R2': [0.375, 0.283, -0.036, 0.243, -0.348, 0.233, 0.308, 0.167]
+        })
     
     st.dataframe(best_models, use_container_width=True)
     
@@ -489,14 +517,24 @@ def render_additional():
     
     st.markdown("### 특성 중요도")
     
-    importance_data = pd.DataFrame({
-        'Feature': ['VIX_lag1', 'RV_5d_lag1', 'direction_5d', 'RV_22d_lag1'],
-        'SPY': [0.44, 0.04, 0.03, 0.00],
-        'QQQ': [0.40, 0.05, 0.02, 0.00],
-        'XLK': [0.38, 0.05, 0.00, 0.01],
-        'XLF': [0.29, 0.02, 0.02, 0.00],
-        'Mean': [0.34, 0.04, 0.02, 0.00]
-    })
+    # JSON에서 동적 로드 (SHAP 분석 결과)
+    if 'sci_journal' in results and 'results' in results['sci_journal']:
+        shap_data = results['sci_journal']['results'].get('shap', {})
+        feat_imp = shap_data.get('feature_importance', {})
+        
+        importance_data = pd.DataFrame({
+            'Feature': list(feat_imp.keys()),
+            'R2 Decrease': [round(v, 4) for v in feat_imp.values()]
+        })
+    else:
+        importance_data = pd.DataFrame({
+            'Feature': ['VIX_lag1', 'RV_5d_lag1', 'direction_5d', 'RV_22d_lag1'],
+            'SPY': [0.44, 0.04, 0.03, 0.00],
+            'QQQ': [0.40, 0.05, 0.02, 0.00],
+            'XLK': [0.38, 0.05, 0.00, 0.01],
+            'XLF': [0.29, 0.02, 0.02, 0.00],
+            'Mean': [0.34, 0.04, 0.02, 0.00]
+        })
     
     st.dataframe(importance_data, use_container_width=True)
     
