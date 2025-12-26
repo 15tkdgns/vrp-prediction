@@ -710,20 +710,31 @@ def render_additional():
     
     st.dataframe(importance_data, use_container_width=True)
     
-    # 중요도 차트
+    # 중요도 차트 - 데이터 구조에 맞게 분기
     fig = go.Figure()
     
-    for asset in ['SPY', 'QQQ', 'XLK', 'XLF']:
+    if 'SPY' in importance_data.columns:
+        # 폴백 데이터 (자산별 컬럼)
+        for asset in ['SPY', 'QQQ', 'XLK', 'XLF']:
+            if asset in importance_data.columns:
+                fig.add_trace(go.Bar(
+                    name=asset,
+                    x=importance_data['Feature'],
+                    y=importance_data[asset]
+                ))
+    else:
+        # JSON 로드 데이터 (R2 Decrease 컬럼)
         fig.add_trace(go.Bar(
-            name=asset,
+            name='R2 Decrease',
             x=importance_data['Feature'],
-            y=importance_data[asset]
+            y=importance_data['R2 Decrease'],
+            marker_color='#2d5a87'
         ))
     
     fig.update_layout(
-        title='Permutation Feature Importance (R² Decrease)',
+        title='Permutation Feature Importance',
         barmode='group',
-        yaxis_title='R² Decrease',
+        yaxis_title='R2 Decrease',
         template='plotly_white'
     )
     
