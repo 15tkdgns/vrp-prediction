@@ -506,13 +506,18 @@ def render_results():
     ))
     
     fig.update_layout(
-        title='Model vs Persistence R2 Comparison',
+        title='SPY/QQQ/XLK/XLF - 최적 모델 R² vs Persistence R² 비교',
         barmode='group',
-        yaxis_title='R2',
+        yaxis_title='R²',
         template='plotly_white'
     )
     
     st.plotly_chart(fig, use_container_width=True)
+    
+    st.markdown("""
+    **해석**: ML 모델(파란색)이 단순 지속성 모델(빨간색)보다 높은 R²를 보이며,
+    이는 과거 변동성만으로 예측하는 것보다 VIX 정보를 포함한 ML 모델이 우수함을 의미합니다.
+    """)
     
     # SPY 실제 vs 예측 시계열
     st.markdown("### SPY: 실제값 vs 예측값")
@@ -662,62 +667,16 @@ def render_results():
             )
             st.plotly_chart(fig_resid, use_container_width=True)
         
-        # Confusion Matrix (방향 예측)
-        st.markdown("**방향 예측 혼동 행렬 (Direction Confusion Matrix)**")
-        st.markdown("- **자산**: SPY | **모델**: Ridge | **예측 타겟**: RV 상승/하락 방향")
-        
-        # 방향 계산
-        actual_dir = ['Up' if actual[i] > actual[i-1] else 'Down' for i in range(1, len(actual))]
-        pred_dir = ['Up' if predicted[i] > predicted[i-1] else 'Down' for i in range(1, len(predicted))]
-        
-        tp = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Up' and p == 'Up')
-        tn = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Down' and p == 'Down')
-        fp = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Down' and p == 'Up')
-        fn = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Up' and p == 'Down')
-        
-        cm = [[tp, fn], [fp, tn]]
-        fig_cm = go.Figure(data=go.Heatmap(
-            z=cm, x=['Pred Up', 'Pred Down'], y=['Actual Up', 'Actual Down'],
-            colorscale='Blues', text=cm, texttemplate='%{text}',
-            textfont={"size": 16}
-        ))
-        fig_cm.update_layout(
-            title=f'SPY 방향 예측 정확도: {(tp+tn)/(tp+tn+fp+fn)*100:.1f}%',
-            template='plotly_white', height=300
-        )
-        st.plotly_chart(fig_cm, use_container_width=True)
-        
-        st.markdown(f"""
-        > **해석**: TP={tp}(상승 정확), TN={tn}(하락 정확), FP={fp}(거짓 상승), FN={fn}(거짓 하락).
-        > 하락 예측이 상승 예측보다 정확한 경향 (변동성 급등 포착).
-        """)
-        
-        # ML vs HAR 누적 오차 차이 시계열
-        cumulative_error_diff = ts.get('cumulative_error_diff', [])
-        if cumulative_error_diff:
-            st.markdown("**ML vs HAR: 누적 예측 오차 차이**")
-            fig_err = go.Figure()
-            fig_err.add_trace(go.Scatter(
-                x=dates, y=cumulative_error_diff, mode='lines',
-                fill='tozeroy', line=dict(color='#28a745'),
-                fillcolor='rgba(40, 167, 69, 0.3)',
-                name='Cumulative Error Diff'
-            ))
-            fig_err.add_hline(y=0, line_dash="dash", line_color="gray")
-            
-            fig_err.update_layout(
-                title='Cumulative Error (HAR - ML): 양수 = ML이 더 정확',
-                xaxis_title='Date', yaxis_title='Cumulative Error Diff',
-                template='plotly_white', height=300
-            )
-            st.plotly_chart(fig_err, use_container_width=True)
-            
-            st.info("**해석**: 그래프가 상승하는 구간에서 ML 모델이 HAR보다 지속적으로 우수")
-        
     else:
         st.info("SPY 시계열 데이터가 없습니다. src/spy_predictions_viz.py 실행 필요.")
     
-    st.markdown("### Walk-Forward CV 결과")
+    st.markdown("### Walk-Forward CV 결과 (R² 성능 지표)")
+    
+    st.markdown("""
+    - **자산**: SPY, QQQ, XLK, XLF (주식 ETF)
+    - **모델**: 각 자산별 최적 모델 (Ridge/Lasso/Huber)
+    - **지표**: Out-of-Sample R² (높을수록 예측력 우수)
+    """)
     
     # JSON에서 동적 로드
     if 'paper_statistics' in results and 'wf_cv' in results['paper_statistics']:
