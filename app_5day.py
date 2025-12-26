@@ -123,32 +123,72 @@ def render_introduction():
     
     st.markdown("---")
     
-    # 기존 연구
-    st.markdown("### 기존 연구 (Prior Research)")
+    # 선행연구 (Prior Research)
+    st.markdown("### 선행연구 (Prior Research)")
     
-    col1, col2 = st.columns(2)
+    # 탭으로 구분
+    tab1, tab2, tab3 = st.tabs(["변동성 예측 모델", "VRP 연구", "머신러닝 접근법"])
     
-    with col1:
-        st.markdown("""
-        **변동성 예측 모델**
+    with tab1:
+        st.markdown("#### 변동성 예측 모델의 발전")
         
-        | 모델 | 연구자 | 특징 |
-        |------|--------|------|
-        | **HAR-RV** | Corsi (2009) | 일간/주간/월간 RV 활용 |
-        | **GARCH** | Bollerslev (1986) | 조건부 이분산성 |
-        | **Realized GARCH** | Hansen et al. (2012) | RV와 GARCH 결합 |
-        | **HAR-RV-J** | Andersen et al. (2007) | 점프 성분 분리 |
+        st.markdown("""
+        | 연도 | 모델 | 연구자 | 핵심 기여 |
+        |------|------|--------|----------|
+        | 1986 | **GARCH** | Bollerslev | 조건부 이분산성 모델링 |
+        | 2003 | **Realized Volatility** | Andersen et al. | 고빈도 데이터 활용 |
+        | 2007 | **HAR-RV-J** | Andersen et al. | 점프 성분 분리 |
+        | 2009 | **HAR-RV** | Corsi | 일간/주간/월간 RV 계층 구조 |
+        | 2012 | **Realized GARCH** | Hansen et al. | RV와 GARCH 통합 |
+        """)
+        
+        st.info("""
+        **HAR-RV 모델 (Corsi, 2009)**
+        
+        $$RV_{t+1} = \\beta_0 + \\beta_d RV_t^{(d)} + \\beta_w RV_t^{(w)} + \\beta_m RV_t^{(m)} + \\epsilon_t$$
+        
+        - $RV^{(d)}$: 일간 실현 변동성
+        - $RV^{(w)}$: 주간 실현 변동성 (5일)
+        - $RV^{(m)}$: 월간 실현 변동성 (22일)
         """)
     
-    with col2:
-        st.markdown("""
-        **VRP 관련 연구**
+    with tab2:
+        st.markdown("#### VRP (Variance Risk Premium) 연구")
         
-        | 주제 | 연구자 | 발견 |
-        |------|--------|------|
-        | VRP 정의 | Carr & Wu (2009) | IV² - RV로 정의 |
-        | 수익률 예측 | Bollerslev et al. (2009) | VRP가 수익률 예측 |
-        | 위험 관리 | Bekaert & Hoerova (2014) | VRP로 위험 측정 |
+        st.markdown("""
+        | 연도 | 연구자 | 주제 | 핵심 발견 |
+        |------|--------|------|----------|
+        | 2009 | Carr & Wu | VRP 정의 | $VRP = IV^2 - RV$ |
+        | 2009 | Bollerslev et al. | VRP와 수익률 | VRP가 미래 수익률 예측 |
+        | 2014 | Bekaert & Hoerova | VRP 분해 | 위험 회피 vs 불확실성 |
+        | 2015 | Feunou et al. | Good/Bad VRP | 상승/하락 VRP 분리 |
+        """)
+        
+        st.warning("""
+        **핵심 발견**: VRP는 평균적으로 양수 (내재 변동성 > 실현 변동성)
+        
+        → 투자자들이 변동성 위험에 대해 프리미엄을 지불
+        """)
+    
+    with tab3:
+        st.markdown("#### 머신러닝 기반 변동성 예측")
+        
+        st.markdown("""
+        | 연도 | 연구자 | 방법 | 결과 |
+        |------|--------|------|------|
+        | 2019 | Bucci | LSTM | HAR 대비 개선 |
+        | 2020 | Zhang et al. | Random Forest | 비선형 관계 포착 |
+        | 2021 | Christensen et al. | Gradient Boosting | 변동성 예측 우수 |
+        | 2022 | Filipovic et al. | Neural Network | 옵션 가격 예측 |
+        """)
+        
+        st.success("""
+        **본 연구의 위치**
+        
+        - HAR-RV의 계층 구조 활용 (Corsi, 2009)
+        - VIX 정보 통합 (Bollerslev et al., 2009)
+        - 정규화된 선형 모델 (Ridge, Lasso, Huber)
+        - 엄격한 Walk-Forward 검증
         """)
     
     st.markdown("---")
