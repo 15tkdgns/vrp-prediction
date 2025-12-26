@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "experiment": "Advanced Experiments from todo_temp.txt",
+    "timestamp": "2025-12-26T10:08:25.926681"
+  },
+  "results": {
+    "asset_specific_vix": {
+      "SPY": {
+        "r2_specific_vix": 0.3627006977830587,
+        "r2_general_vix": 0.3627006977830587,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      },
+      "QQQ": {
+        "r2_specific_vix": 0.24849886929837917,
+        "r2_general_vix": 0.24849886929837917,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      },
+      "GLD": {
+        "r2_specific_vix": 0.010909230861814723,
+        "r2_general_vix": -0.035482717863660085,
+        "improvement": 0.04639194872547481,
+        "vix_used": "^GVZ"
+      },
+      "USO": {
+        "r2_specific_vix": 0.2872376893956702,
+        "r2_general_vix": 0.28811949072680376,
+        "improvement": -0.0008818013311335804,
+        "vix_used": "^OVX"
+      },
+      "TLT": {
+        "r2_specific_vix": -0.3439893223121442,
+        "r2_general_vix": -0.3439893223121442,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      },
+      "EEM": {
+        "r2_specific_vix": 0.24398407768402164,
+        "r2_general_vix": 0.24398407768402164,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      },
+      "XLF": {
+        "r2_specific_vix": 0.27820623334512795,
+        "r2_general_vix": 0.27820623334512795,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      },
+      "XLK": {
+        "r2_specific_vix": 0.1531072694083,
+        "r2_general_vix": 0.1531072694083,
+        "improvement": 0.0,
+        "vix_used": "^VIX"
+      }
+    },
+    "vix_term_structure": {
+      "SPY": {
+        "r2_basic": 0.3627006977830587,
+        "r2_term_structure": 0.36012607569254396,
+        "improvement": -0.0025746220905147332,
+        "features_used": [
+          "RV_5d_lag1",
+          "RV_22d_lag1",
+          "VIX9D_lag1",
+          "VIX_lag1",
+          "VIX3M_lag1",
+          "VIX_slope_lag1",
+          "VIX_curve_lag1"
+        ]
+      }
+    },
+    "regime_switching": {
+      "Buy & Hold": {
+        "total_return": 0.2857643465144035,
+        "sharpe": 0.6083645628166454,
+        "max_drawdown": -0.2438483398898087
+      },
+      "Conservative": {
+        "total_return": 0.23433166829159413,
+        "sharpe": 0.7539478644149796,
+        "max_drawdown": -0.14422236696799928
+      },
+      "Aggressive": {
+        "total_return": 0.2935146802974349,
+        "sharpe": 0.696182448470337,
+        "max_drawdown": -0.20693275798644395
+      },
+      "Inverse": {
+        "total_return": 0.20123471278600946,
+        "sharpe": 0.4198054229811288,
+        "max_drawdown": -0.28402693105176724
+      }
+    },
+    "utility_performance_fee": {
+      "gamma_2": {
+        "utility_bh": 0.0014127306243300075,
+        "utility_ml": 0.0013570681445218605,
+        "utility_gain_annual": -0.0028944489500236405,
+        "performance_fee_bps": -28.944489500236404
+      },
+      "gamma_6": {
+        "utility_bh": 0.00035152366308630056,
+        "utility_ml": 0.0008004169103370386,
+        "utility_gain_annual": 0.023342448857038376,
+        "performance_fee_bps": 233.42448857038377
+      },
+      "gamma_10": {
+        "utility_bh": -0.0007096832981574061,
+        "utility_ml": 0.00024376567615221642,
+        "utility_gain_annual": 0.04957934666410037,
+        "performance_fee_bps": 495.7934666410037
+      }
+    }
+  }
+}
