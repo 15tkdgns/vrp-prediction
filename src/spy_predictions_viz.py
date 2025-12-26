@@ -78,11 +78,31 @@ def generate_spy_predictions():
             r2 = 1 - ss_res / (ss_tot + 1e-10)
             rolling_r2.append(r2)
     
+    # HAR 모델 (비교용)
+    har_model = Ridge(alpha=1000.0)
+    X_train_har = X_train[['RV_5d_lag1', 'RV_22d_lag1']]  # VIX 제외
+    X_test_har = X_test[['RV_5d_lag1', 'RV_22d_lag1']]
+    
+    scaler_har = StandardScaler()
+    X_train_har_s = scaler_har.fit_transform(X_train_har)
+    X_test_har_s = scaler_har.transform(X_test_har)
+    
+    har_model.fit(X_train_har_s, np.sqrt(y_train))
+    pred_har = np.maximum(har_model.predict(X_test_har_s) ** 2, 0)
+    
+    # 누적 오차 계산
+    ml_error = np.abs(y_test.values - pred)
+    har_error = np.abs(y_test.values - pred_har)
+    error_diff = har_error - ml_error  # 양수 = ML이 더 정확
+    cumulative_error_diff = np.cumsum(error_diff).tolist()
+    
     result = {
         'dates': dates,
         'actual': actual,
         'predicted': predicted,
         'rolling_r2': rolling_r2,
+        'har_predicted': pred_har.tolist(),
+        'cumulative_error_diff': cumulative_error_diff,
         'metadata': {
             'asset': 'SPY',
             'model': 'Ridge_100',

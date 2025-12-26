@@ -643,6 +643,32 @@ def render_results():
         )
         st.plotly_chart(fig_cm, use_container_width=True)
         
+        # ML vs HAR 누적 오차 차이 시계열
+        cumulative_error_diff = ts.get('cumulative_error_diff', [])
+        if cumulative_error_diff:
+            st.markdown("**ML vs HAR: 누적 예측 오차 차이**")
+            fig_err = go.Figure()
+            fig_err.add_trace(go.Scatter(
+                x=dates, y=cumulative_error_diff, mode='lines',
+                fill='tozeroy', line=dict(color='#28a745'),
+                fillcolor='rgba(40, 167, 69, 0.3)',
+                name='Cumulative Error Diff'
+            ))
+            fig_err.add_hline(y=0, line_dash="dash", line_color="gray")
+            
+            # 코로나 시점 표시 (2020-03)
+            fig_err.add_vline(x='2022-03-01', line_dash="dot", line_color="red", 
+                              annotation_text="Market Stress", annotation_position="top")
+            
+            fig_err.update_layout(
+                title='Cumulative Error (HAR - ML): 양수 = ML이 더 정확',
+                xaxis_title='Date', yaxis_title='Cumulative Error Diff',
+                template='plotly_white', height=300
+            )
+            st.plotly_chart(fig_err, use_container_width=True)
+            
+            st.info("**해석**: 그래프가 상승하는 구간에서 ML 모델이 HAR보다 지속적으로 우수")
+        
     else:
         st.info("SPY 시계열 데이터가 없습니다. src/spy_predictions_viz.py 실행 필요.")
     
