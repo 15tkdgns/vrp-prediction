@@ -87,7 +87,7 @@ def load_results():
 results = load_results()
 
 # Sidebar
-st.sidebar.title("5일 VRP 예측 연구")
+st.sidebar.title("변동성 위험 프리미엄(VRP) 예측")
 st.sidebar.markdown("---")
 
 selected_part = st.sidebar.radio(
@@ -112,19 +112,41 @@ st.sidebar.info("**5일 예측 호라이즌**\n\n단기 변동성 예측 연구"
 # ============================================================================
 
 def render_introduction():
-    st.markdown('<div class="main-header">5일 VRP 예측 연구</div>', unsafe_allow_html=True)
-    st.markdown("### 머신러닝을 활용한 단기 변동성 위험 프리미엄 예측")
+    st.markdown('<div class="main-header">변동성 위험 프리미엄(VRP) 예측</div>', unsafe_allow_html=True)
+    st.markdown("### 머신러닝을 활용한 5일 변동성 위험 프리미엄 예측")
     
+    # Executive Summary: 핵심 지표 4개
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric("최고 R2", "0.18", "Walk-Forward CV")
+        st.metric("최고 R2", "0.38", "ML Ridge")
     with col2:
-        st.metric("방향 정확도", "70%", "+20%p vs Random")
+        st.metric("하락 정확도", "75%", "SPY")
     with col3:
-        st.metric("초과 수익", "+7.3%", "SPY")
+        st.metric("Utility Gain", "+496 bps", "Gamma=10")
     with col4:
-        st.metric("DM 검정", "p<0.05", "통계적 유의")
+        st.metric("DM 검정", "p=0.016", "ML > HAR")
+    
+    st.markdown("---")
+    
+    # VRP 경제적 정의
+    st.markdown("### VRP의 경제적 정의")
+    
+    st.latex(r"VRP_t = IV_t^{Q} - E_t^{P}[RV_{t+h}]")
+    
+    st.markdown("""
+    - **IV (Implied Volatility)**: 옵션 시장에서 추출한 위험중립(Q) 측정치 (예: VIX)
+    - **RV (Realized Volatility)**: 실제(P) 측정치에서의 기대 실현 변동성
+    - **VRP**: 투자자가 변동성 위험 회피를 위해 지불하는 '공포 프리미엄'
+    """)
+    
+    st.info("""
+    **이질적 시장 가설 (Heterogeneous Market Hypothesis)**
+    
+    투자자들은 서로 다른 투자 호라이즌(5일, 22일, 65일)을 가지며, 
+    이로 인해 변동성은 다중 시간척도의 지속성(Multi-scale Persistence)을 보입니다.
+    ML 모델은 이러한 비선형 패턴을 학습하여 HAR-RV의 선형적 한계를 극복합니다.
+    """)
     
     st.markdown("---")
     
@@ -330,6 +352,30 @@ def render_methodology():
         - ε = 1.35
         - Log 변환
         """)
+    
+    st.markdown("### 자산-VIX 매칭 테이블")
+    
+    st.markdown("""
+    | 자산 | 자산군 | 적용 VIX | 설명 |
+    |------|--------|----------|------|
+    | SPY, QQQ | 주식지수 | VIX | S&P 500 VIX |
+    | GLD | 금 | GVZ | CBOE Gold ETF VIX |
+    | USO | 원유 | OVX | CBOE Oil ETF VIX |
+    | TLT | 채권 | VIX | (TYVIX 대용) |
+    | EEM | 신흥시장 | VIX | (VXEEM 대용) |
+    | XLF, XLK | 섹터 | VIX | S&P 500 VIX |
+    """)
+    
+    st.markdown("### 벤치마크 모델")
+    
+    st.markdown("""
+    | 모델 | 설명 | 참고문헌 |
+    |------|------|----------|
+    | **Persistence** | 단순 RV 지속성 | - |
+    | **HAR-RV** | Heterogeneous AR | Corsi (2009) |
+    | **THAR** | Threshold HAR | VIX 임계값 기반 |
+    | **HAR-CJ** | 점프 성분 분리 | Andersen et al. (2007) |
+    """)
     
     st.markdown("### 검증 방법")
     
@@ -717,6 +763,49 @@ def render_economic():
         st.metric("Sharpe 개선", "+0.13", "평균")
     with col3:
         st.metric("MDD 개선", "-5%p", "평균")
+    
+    st.markdown("---")
+    
+    # Utility Gain 섹션 (Fleming et al., 2001)
+    st.markdown("### Utility Gain (Fleming et al., 2001)")
+    
+    st.latex(r"\Delta = \bar{U}_{ML} - \bar{U}_{Static}")
+    
+    st.markdown("""
+    **2차 효용 함수 기반 성능료 계산**
+    
+    투자자가 ML 기반 전략으로 전환하기 위해 기꺼이 지불할 용의가 있는 연간 베이시스 포인트(bps)
+    """)
+    
+    # JSON에서 동적 로드
+    if 'advanced_todo' in results and 'results' in results['advanced_todo']:
+        utility_data = results['advanced_todo']['results'].get('utility_performance_fee', {})
+        utility_list = []
+        for key, vals in utility_data.items():
+            gamma = key.replace('gamma_', '')
+            utility_list.append({
+                'Gamma': gamma,
+                'Utility B&H': round(vals.get('utility_bh', 0), 6),
+                'Utility ML': round(vals.get('utility_ml', 0), 6),
+                'Performance Fee': f"{round(vals.get('performance_fee_bps', 0), 1)} bps"
+            })
+        if utility_list:
+            utility_df = pd.DataFrame(utility_list)
+            st.dataframe(utility_df, use_container_width=True)
+    else:
+        utility_df = pd.DataFrame({
+            'Gamma': ['2', '6', '10'],
+            'Utility B&H': [0.0014, 0.0004, -0.0007],
+            'Utility ML': [0.0014, 0.0008, 0.0002],
+            'Performance Fee': ['-29 bps', '+233 bps', '+496 bps']
+        })
+        st.dataframe(utility_df, use_container_width=True)
+    
+    st.success("""
+    **Gamma=10 (고위험 회피 투자자)**
+    
+    ML 전략에 연간 **496 bps (4.96%)** 성능료 지불 용의 → 경제적 가치 입증
+    """)
 
 # ============================================================================
 # PART 6: 결론
