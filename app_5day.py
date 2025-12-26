@@ -354,38 +354,51 @@ def render_results():
     
     st.markdown("### 모델 성능 비교")
     
-    # 성능 테이블
-    performance_data = pd.DataFrame({
-        'Asset': ['SPY', 'QQQ', 'XLK', 'XLF'],
-        'Model': ['Ridge(sqrt)', 'Lasso(log)', 'Ridge(raw)', 'Huber(log)'],
-        'R²': [0.357, 0.328, 0.281, 0.289],
-        'R²_Persist': [-0.002, -0.001, -0.163, -0.296],
-        'Direction': ['68.7%', '70.1%', '69.5%', '72.4%']
-    })
+    # JSON에서 동적 로드
+    if 'paper_statistics' in results and 'model_comparison' in results['paper_statistics']:
+        mc = results['paper_statistics']['model_comparison']
+        performance_data = pd.DataFrame({
+            'Asset': list(mc.keys()),
+            'Model': [v.get('best_model', 'N/A') for v in mc.values()],
+            'R2': [round(v.get('r2', 0), 3) for v in mc.values()],
+            'R2_Persist': [round(v.get('persistence_r2', 0), 3) for v in mc.values()],
+            'Direction': [f"{v.get('direction_acc', 0)*100:.1f}%" for v in mc.values()]
+        })
+    else:
+        performance_data = pd.DataFrame({
+            'Asset': ['SPY', 'QQQ', 'XLK', 'XLF'],
+            'Model': ['Ridge(sqrt)', 'Lasso(log)', 'Ridge(raw)', 'Huber(log)'],
+            'R2': [0.357, 0.328, 0.281, 0.289],
+            'R2_Persist': [-0.002, -0.001, -0.163, -0.296],
+            'Direction': ['68.7%', '70.1%', '69.5%', '72.4%']
+        })
     
     st.dataframe(performance_data, use_container_width=True)
     
-    # R² 비교 차트
+    # R2 비교 차트
     fig = go.Figure()
     
+    r2_col = 'R2' if 'R2' in performance_data.columns else 'R2'
+    persist_col = 'R2_Persist' if 'R2_Persist' in performance_data.columns else 'R2_Persist'
+    
     fig.add_trace(go.Bar(
-        name='Model R²',
+        name='Model R2',
         x=performance_data['Asset'],
-        y=performance_data['R²'],
+        y=performance_data[r2_col],
         marker_color='#2d5a87'
     ))
     
     fig.add_trace(go.Bar(
-        name='Persistence R²',
+        name='Persistence R2',
         x=performance_data['Asset'],
-        y=performance_data['R²_Persist'],
+        y=performance_data[persist_col],
         marker_color='#dc3545'
     ))
     
     fig.update_layout(
-        title='Model vs Persistence R² Comparison',
+        title='Model vs Persistence R2 Comparison',
         barmode='group',
-        yaxis_title='R²',
+        yaxis_title='R2',
         template='plotly_white'
     )
     
@@ -393,27 +406,54 @@ def render_results():
     
     st.markdown("### Walk-Forward CV 결과")
     
-    wf_data = pd.DataFrame({
-        'Asset': ['SPY', 'QQQ', 'XLK', 'XLF'],
-        'Fold 1': [0.18, 0.23, 0.13, 0.05],
-        'Fold 2': [0.29, 0.22, 0.16, 0.23],
-        'Fold 3': [0.34, 0.24, 0.19, 0.09],
-        'Fold 4': [0.21, 0.17, 0.20, 0.14],
-        'Fold 5': [-0.10, 0.04, 0.10, 0.05],
-        'Mean': [0.18, 0.18, 0.16, 0.11],
-        'Std': [0.15, 0.07, 0.04, 0.07]
-    })
+    # JSON에서 동적 로드
+    if 'paper_statistics' in results and 'wf_cv' in results['paper_statistics']:
+        wf = results['paper_statistics']['wf_cv']
+        wf_list = []
+        for asset, vals in wf.items():
+            row = {'Asset': asset}
+            for i, v in enumerate(vals.get('folds', [])):
+                row[f'Fold {i+1}'] = round(v, 2)
+            row['Mean'] = round(vals.get('mean', 0), 2)
+            row['Std'] = round(vals.get('std', 0), 2)
+            wf_list.append(row)
+        wf_data = pd.DataFrame(wf_list)
+    else:
+        wf_data = pd.DataFrame({
+            'Asset': ['SPY', 'QQQ', 'XLK', 'XLF'],
+            'Fold 1': [0.18, 0.23, 0.13, 0.05],
+            'Fold 2': [0.29, 0.22, 0.16, 0.23],
+            'Fold 3': [0.34, 0.24, 0.19, 0.09],
+            'Fold 4': [0.21, 0.17, 0.20, 0.14],
+            'Fold 5': [-0.10, 0.04, 0.10, 0.05],
+            'Mean': [0.18, 0.18, 0.16, 0.11],
+            'Std': [0.15, 0.07, 0.04, 0.07]
+        })
     
     st.dataframe(wf_data, use_container_width=True)
     
     st.markdown("### Diebold-Mariano 검정")
     
-    dm_data = pd.DataFrame({
-        'Asset': ['XLF', 'SPY', 'XLK', 'QQQ'],
-        'DM 통계량': [-3.38, -2.23, -2.25, -1.78],
-        'p-value': [0.0007, 0.026, 0.024, 0.075],
-        '유의성': ['***', '**', '**', '*']
-    })
+    # JSON에서 동적 로드
+    if 'paper_statistics' in results and 'dm_test' in results['paper_statistics']:
+        dm = results['paper_statistics']['dm_test']
+        dm_list = []
+        for asset, vals in dm.items():
+            sig = '***' if vals.get('p_value', 1) < 0.01 else ('**' if vals.get('p_value', 1) < 0.05 else '*')
+            dm_list.append({
+                'Asset': asset,
+                'DM Stat': round(vals.get('dm_stat', 0), 2),
+                'p-value': round(vals.get('p_value', 0), 4),
+                'Sig': sig
+            })
+        dm_data = pd.DataFrame(dm_list)
+    else:
+        dm_data = pd.DataFrame({
+            'Asset': ['XLF', 'SPY', 'XLK', 'QQQ'],
+            'DM Stat': [-3.38, -2.23, -2.25, -1.78],
+            'p-value': [0.0007, 0.026, 0.024, 0.075],
+            'Sig': ['***', '**', '**', '*']
+        })
     
     st.dataframe(dm_data, use_container_width=True)
     
@@ -593,25 +633,53 @@ def render_economic():
     
     st.markdown("### HAR-RV 모델 대비 개선")
     
-    har_data = pd.DataFrame({
-        'Asset': ['XLF', 'SPY', 'QQQ', 'XLK'],
-        'HAR-RV R²': [0.01, 0.18, 0.22, 0.15],
-        'Hybrid R²': [0.26, 0.36, 0.26, 0.15],
-        '개선': ['+0.25', '+0.18', '+0.05', '+0.01']
-    })
+    # JSON에서 동적 로드
+    if 'sci' in results and 'har_comparison' in results['sci']:
+        har = results['sci']['har_comparison']
+        har_list = []
+        for asset, vals in har.items():
+            har_list.append({
+                'Asset': asset,
+                'HAR-RV R2': round(vals.get('har_r2', 0), 2),
+                'Hybrid R2': round(vals.get('hybrid_r2', 0), 2),
+                'Improvement': f"+{vals.get('hybrid_r2', 0) - vals.get('har_r2', 0):.2f}"
+            })
+        har_data = pd.DataFrame(har_list)
+    else:
+        har_data = pd.DataFrame({
+            'Asset': ['XLF', 'SPY', 'QQQ', 'XLK'],
+            'HAR-RV R2': [0.01, 0.18, 0.22, 0.15],
+            'Hybrid R2': [0.26, 0.36, 0.26, 0.15],
+            'Improvement': ['+0.25', '+0.18', '+0.05', '+0.01']
+        })
     
     st.dataframe(har_data, use_container_width=True)
     
     st.markdown("### 트레이딩 시뮬레이션")
     
-    trading_data = pd.DataFrame({
-        'Asset': ['SPY', 'QQQ', 'XLF', 'XLK'],
-        '전략 수익': ['39.1%', '42.2%', '25.4%', '46.5%'],
-        'Buy&Hold': ['31.8%', '39.9%', '22.2%', '45.4%'],
-        '초과 수익': ['+7.3%', '+2.4%', '+3.1%', '+1.1%'],
-        'Sharpe': [0.87, 0.71, 0.69, 0.71],
-        'MDD': ['-19.7%', '-24.6%', '-14.5%', '-23.0%']
-    })
+    # JSON에서 동적 로드
+    if 'sci' in results and 'trading_simulation' in results['sci']:
+        trad = results['sci']['trading_simulation']
+        trad_list = []
+        for asset, vals in trad.items():
+            trad_list.append({
+                'Asset': asset,
+                'Strategy': f"{vals.get('strategy_return', 0)*100:.1f}%",
+                'BuyHold': f"{vals.get('buy_hold_return', 0)*100:.1f}%",
+                'Excess': f"+{(vals.get('strategy_return', 0) - vals.get('buy_hold_return', 0))*100:.1f}%",
+                'Sharpe': round(vals.get('sharpe', 0), 2),
+                'MDD': f"{vals.get('max_drawdown', 0)*100:.1f}%"
+            })
+        trading_data = pd.DataFrame(trad_list)
+    else:
+        trading_data = pd.DataFrame({
+            'Asset': ['SPY', 'QQQ', 'XLF', 'XLK'],
+            'Strategy': ['39.1%', '42.2%', '25.4%', '46.5%'],
+            'BuyHold': ['31.8%', '39.9%', '22.2%', '45.4%'],
+            'Excess': ['+7.3%', '+2.4%', '+3.1%', '+1.1%'],
+            'Sharpe': [0.87, 0.71, 0.69, 0.71],
+            'MDD': ['-19.7%', '-24.6%', '-14.5%', '-23.0%']
+        })
     
     st.dataframe(trading_data, use_container_width=True)
     
