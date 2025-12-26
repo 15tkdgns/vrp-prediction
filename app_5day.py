@@ -270,11 +270,11 @@ def render_introduction():
     st.markdown("### 연구 질문 (Research Questions)")
     
     st.markdown("""
-    > **RQ1**: 5일 호라이즌에서 실현 변동성을 예측할 수 있는가?
+    **RQ1**: 5일 호라이즌에서 실현 변동성을 예측할 수 있는가?
     
-    > **RQ2**: VIX(내재 변동성)가 예측에 얼마나 기여하는가?
+    **RQ2**: VIX(내재 변동성)가 예측에 얼마나 기여하는가?
     
-    > **RQ3**: 예측 모델이 경제적 가치를 제공하는가?
+    **RQ3**: 예측 모델이 경제적 가치를 제공하는가?
     """)
     
     st.markdown("---")
@@ -400,16 +400,16 @@ def render_methodology():
     
     st.markdown("### 검증 방법")
     
-    st.info("""
+    st.markdown("""
     **Walk-Forward Cross-Validation (5-Fold)**
     
-    ```
-    Fold 1: Train[0:169] → Gap[5] → Test[170:335]
-    Fold 2: Train[0:335] → Gap[5] → Test[336:501]
-    Fold 3: Train[0:501] → Gap[5] → Test[502:667]
-    Fold 4: Train[0:667] → Gap[5] → Test[668:833]
-    Fold 5: Train[0:833] → Gap[5] → Test[834:999]
-    ```
+    | Fold | Train | Gap | Test |
+    |------|-------|-----|------|
+    | 1 | [0:169] | 5일 | [170:335] |
+    | 2 | [0:335] | 5일 | [336:501] |
+    | 3 | [0:501] | 5일 | [502:667] |
+    | 4 | [0:667] | 5일 | [668:833] |
+    | 5 | [0:833] | 5일 | [834:999] |
     """)
 
 # ============================================================================
@@ -429,9 +429,9 @@ def render_results():
         st.info("Leakage Check: CLEAN")
     
     st.markdown("""
-    > **통계적 유의성 → 예측의 핵심 변수(Part 4) → 경제적 가치(Part 5)**
-    > 
-    > 아래 결과들은 엄격한 Walk-Forward CV를 통과한 **Out-of-Sample** 성능입니다.
+    **통계적 유의성 → 예측의 핵심 변수(Part 4) → 경제적 가치(Part 5)**
+    
+    아래 결과들은 엄격한 Walk-Forward CV를 통과한 **Out-of-Sample** 성능입니다.
     """)
     
     st.markdown("---")
