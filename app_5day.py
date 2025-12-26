@@ -538,6 +538,70 @@ def render_results():
         st.plotly_chart(fig_roll, use_container_width=True)
         
         st.info(f"테스트 기간: {ts.get('metadata', {}).get('test_start', '')} ~ {ts.get('metadata', {}).get('test_end', '')}")
+        
+        # 추가 시각화
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Scatter Plot: 실제 vs 예측
+            st.markdown("**Actual vs Predicted Scatter**")
+            fig_scatter = go.Figure()
+            fig_scatter.add_trace(go.Scatter(
+                x=actual, y=predicted, mode='markers',
+                marker=dict(size=3, opacity=0.5, color='#2d5a87'),
+                name='Predictions'
+            ))
+            # 45도선
+            max_val = max(max(actual), max(predicted))
+            fig_scatter.add_trace(go.Scatter(
+                x=[0, max_val], y=[0, max_val], mode='lines',
+                line=dict(color='red', dash='dash'), name='Perfect Fit'
+            ))
+            fig_scatter.update_layout(
+                xaxis_title='Actual RV', yaxis_title='Predicted RV',
+                template='plotly_white', height=300, showlegend=False
+            )
+            st.plotly_chart(fig_scatter, use_container_width=True)
+        
+        with col2:
+            # Residual 분포
+            st.markdown("**Residual Distribution**")
+            residuals = [a - p for a, p in zip(actual, predicted)]
+            fig_resid = go.Figure()
+            fig_resid.add_trace(go.Histogram(
+                x=residuals, nbinsx=50, marker_color='#2d5a87'
+            ))
+            fig_resid.add_vline(x=0, line_dash="dash", line_color="red")
+            fig_resid.update_layout(
+                xaxis_title='Residual (Actual - Predicted)', yaxis_title='Count',
+                template='plotly_white', height=300
+            )
+            st.plotly_chart(fig_resid, use_container_width=True)
+        
+        # Confusion Matrix (방향 예측)
+        st.markdown("**Direction Prediction Confusion Matrix**")
+        
+        # 방향 계산
+        actual_dir = ['Up' if actual[i] > actual[i-1] else 'Down' for i in range(1, len(actual))]
+        pred_dir = ['Up' if predicted[i] > predicted[i-1] else 'Down' for i in range(1, len(predicted))]
+        
+        tp = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Up' and p == 'Up')
+        tn = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Down' and p == 'Down')
+        fp = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Down' and p == 'Up')
+        fn = sum(1 for a, p in zip(actual_dir, pred_dir) if a == 'Up' and p == 'Down')
+        
+        cm = [[tp, fn], [fp, tn]]
+        fig_cm = go.Figure(data=go.Heatmap(
+            z=cm, x=['Pred Up', 'Pred Down'], y=['Actual Up', 'Actual Down'],
+            colorscale='Blues', text=cm, texttemplate='%{text}',
+            textfont={"size": 16}
+        ))
+        fig_cm.update_layout(
+            title=f'Direction Accuracy: {(tp+tn)/(tp+tn+fp+fn)*100:.1f}%',
+            template='plotly_white', height=300
+        )
+        st.plotly_chart(fig_cm, use_container_width=True)
+        
     else:
         st.info("SPY 시계열 데이터가 없습니다. src/spy_predictions_viz.py 실행 필요.")
     
@@ -918,6 +982,50 @@ def render_economic():
     )
     
     st.plotly_chart(fig, use_container_width=True)
+    
+    # 누적 수익 곡선 (시뮬레이션)
+    st.markdown("### 누적 수익률 비교")
+    
+    # 시뮬레이션 데이터 (예시)
+    days = list(range(250))
+    np.random.seed(42)
+    bh_daily = np.random.normal(0.0004, 0.01, 250)
+    strat_daily = np.random.normal(0.0006, 0.009, 250)  # 약간 높은 수익, 낮은 변동성
+    
+    bh_cum = np.cumprod(1 + bh_daily) - 1
+    strat_cum = np.cumprod(1 + strat_daily) - 1
+    excess = strat_cum - bh_cum
+    
+    fig_cum = go.Figure()
+    fig_cum.add_trace(go.Scatter(
+        x=days, y=strat_cum * 100, mode='lines',
+        name='ML Strategy', line=dict(color='#28a745', width=2)
+    ))
+    fig_cum.add_trace(go.Scatter(
+        x=days, y=bh_cum * 100, mode='lines',
+        name='Buy & Hold', line=dict(color='#6c757d', width=2)
+    ))
+    fig_cum.update_layout(
+        title='Cumulative Return Comparison',
+        xaxis_title='Days', yaxis_title='Cumulative Return (%)',
+        template='plotly_white', height=350
+    )
+    st.plotly_chart(fig_cum, use_container_width=True)
+    
+    # Excess Return 영역 차트
+    fig_excess = go.Figure()
+    fig_excess.add_trace(go.Scatter(
+        x=days, y=excess * 100, fill='tozeroy', mode='lines',
+        name='Excess Return', line=dict(color='#17a2b8'),
+        fillcolor='rgba(23, 162, 184, 0.3)'
+    ))
+    fig_excess.add_hline(y=0, line_dash="dash", line_color="gray")
+    fig_excess.update_layout(
+        title='Excess Return (Strategy - Buy&Hold)',
+        xaxis_title='Days', yaxis_title='Excess Return (%)',
+        template='plotly_white', height=250
+    )
+    st.plotly_chart(fig_excess, use_container_width=True)
     
     col1, col2, col3 = st.columns(3)
     
