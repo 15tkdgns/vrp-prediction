@@ -74,6 +74,7 @@ def load_results():
         'sci_journal': 'sci_journal_experiments.json',
         'paper_publication': 'paper_publication_experiments.json',
         'advanced_todo': 'advanced_todo_experiments.json',
+        'spy_timeseries': 'spy_predictions_timeseries.json',
     }
     
     for key, filename in files.items():
@@ -494,6 +495,51 @@ def render_results():
     )
     
     st.plotly_chart(fig, use_container_width=True)
+    
+    # SPY 실제 vs 예측 시계열
+    st.markdown("### SPY: 실제값 vs 예측값")
+    
+    if 'spy_timeseries' in results:
+        ts = results['spy_timeseries']
+        dates = ts.get('dates', [])
+        actual = ts.get('actual', [])
+        predicted = ts.get('predicted', [])
+        rolling_r2 = ts.get('rolling_r2', [])
+        
+        # 시계열 차트
+        fig_ts = go.Figure()
+        fig_ts.add_trace(go.Scatter(
+            x=dates, y=actual, mode='lines',
+            name='Actual RV', line=dict(color='#2d5a87', width=1)
+        ))
+        fig_ts.add_trace(go.Scatter(
+            x=dates, y=predicted, mode='lines',
+            name='Predicted RV', line=dict(color='#dc3545', width=1, dash='dash')
+        ))
+        fig_ts.update_layout(
+            title='SPY Realized Volatility: Actual vs Predicted',
+            xaxis_title='Date', yaxis_title='5-Day RV',
+            template='plotly_white', height=350
+        )
+        st.plotly_chart(fig_ts, use_container_width=True)
+        
+        # Rolling R² 차트
+        fig_roll = go.Figure()
+        fig_roll.add_trace(go.Scatter(
+            x=dates, y=rolling_r2, mode='lines',
+            name='Rolling R2 (250d)', line=dict(color='#28a745', width=2)
+        ))
+        fig_roll.add_hline(y=0, line_dash="dash", line_color="gray")
+        fig_roll.update_layout(
+            title='Rolling R2 (250-day Window)',
+            xaxis_title='Date', yaxis_title='R2',
+            template='plotly_white', height=250
+        )
+        st.plotly_chart(fig_roll, use_container_width=True)
+        
+        st.info(f"테스트 기간: {ts.get('metadata', {}).get('test_start', '')} ~ {ts.get('metadata', {}).get('test_end', '')}")
+    else:
+        st.info("SPY 시계열 데이터가 없습니다. src/spy_predictions_viz.py 실행 필요.")
     
     st.markdown("### Walk-Forward CV 결과")
     
@@ -976,7 +1022,6 @@ def render_conclusion():
     
     st.markdown("---")
     st.markdown("### 감사합니다")
-    st.markdown("*5일 VRP 예측 연구 - 2024*")
 
 # ============================================================================
 # 메인 렌더링
