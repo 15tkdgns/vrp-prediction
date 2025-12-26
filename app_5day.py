@@ -2,12 +2,12 @@
 """
 VRP 예측 연구 대시보드
 ==========================
-SCI 논문용 연구 결과 프레젠테이션
+SCI 논문용 연구 Results 프레젠테이션
 
 Part 1: 서론 (Introduction)
 Part 2: 방법론 (Methodology)
-Part 3: 결과 (Results)
-Part 4: 추가 분석 (Additional Analysis)
+Part 3: Results (Results)
+Part 4: Additional Analysis (Additional Analysis)
 Part 5: 경제적 유의성 (Economic Significance)
 Part 6: 결론 (Conclusion)
 """
@@ -59,7 +59,7 @@ st.markdown("""
 # 데이터 로드
 @st.cache_data
 def load_results():
-    """결과 데이터 로드"""
+    """Results 데이터 로드"""
     results = {}
     data_path = Path("data/results")
     
@@ -97,8 +97,8 @@ selected_part = st.sidebar.radio(
         "전체 보기",
         "Part 1: 서론",
         "Part 2: 방법론",
-        "Part 3: 결과",
-        "Part 4: 추가 분석",
+        "Part 3: Results",
+        "Part 4: Additional Analysis",
         "Part 5: 경제적 유의성",
         "Part 6: 결론"
     ],
@@ -106,7 +106,7 @@ selected_part = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.info("**5일 예측 호라이즌**\n\n단기 변동성 예측 연구")
+st.sidebar.info("**5일 예측 Horizon**\n\n단기 변동성 예측 연구")
 
 # ============================================================================
 # PART 1: 서론
@@ -126,7 +126,7 @@ def render_introduction():
     with col3:
         st.metric("Utility Gain", "+496 bps", "Gamma=10")
     with col4:
-        st.metric("DM 검정", "p=0.016", "ML > HAR")
+        st.metric("DM Test", "p=0.016", "ML > HAR")
     
     st.markdown("---")
     
@@ -144,9 +144,9 @@ def render_introduction():
     st.info("""
     **이질적 시장 가설 (Heterogeneous Market Hypothesis)**
     
-    투자자들은 서로 다른 투자 호라이즌(5일, 22일, 65일)을 가지며, 
+    투자자들은 서로 다른 투자 Horizon(5일, 22일, 65일)을 가지며, 
     이로 인해 변동성은 다중 시간척도의 지속성(Multi-scale Persistence)을 보입니다.
-    ML 모델은 이러한 비선형 패턴을 학습하여 HAR-RV의 선형적 한계를 극복합니다.
+    ML Model은 이러한 비선형 패턴을 학습하여 HAR-RV의 선형적 한계를 극복합니다.
     """)
     
     st.markdown("---")
@@ -154,21 +154,21 @@ def render_introduction():
     # 선행연구 (Prior Research)
     st.markdown("### 선행연구 (Prior Research)")
     
-    # 1. 변동성 예측 모델
-    st.markdown("#### 1. 변동성 예측 모델의 발전")
+    # 1. 변동성 예측 Model
+    st.markdown("#### 1. 변동성 예측 Model의 발전")
     
     st.markdown("""
-    | 연도 | 모델 | 연구자 | 핵심 기여 |
+    | 연도 | Model | 연구자 | 핵심 기여 |
     |------|------|--------|----------|
-    | 1986 | **GARCH** | Bollerslev | 조건부 이분산성 모델링 |
+    | 1986 | **GARCH** | Bollerslev | 조건부 이분산성 Model링 |
     | 2003 | **Realized Volatility** | Andersen et al. | 고빈도 데이터 활용 |
-    | 2007 | **HAR-RV-J** | Andersen et al. | 점프 성분 분리 |
+    | 2007 | **HAR-RV-J** | Andersen et al. | Jump Component Separation |
     | 2009 | **HAR-RV** | Corsi | 일간/주간/월간 RV 계층 구조 |
     | 2012 | **Realized GARCH** | Hansen et al. | RV와 GARCH 통합 |
     """)
     
     st.info("""
-    **HAR-RV 모델 (Corsi, 2009)**
+    **HAR-RV Model (Corsi, 2009)**
     
     $$RV_{t+1} = \\beta_0 + \\beta_d RV_t^{(d)} + \\beta_w RV_t^{(w)} + \\beta_m RV_t^{(m)} + \\epsilon_t$$
     
@@ -198,7 +198,7 @@ def render_introduction():
     st.markdown("#### 3. 머신러닝 기반 변동성 예측")
     
     st.markdown("""
-    | 연도 | 연구자 | 방법 | 결과 |
+    | 연도 | 연구자 | 방법 | Results |
     |------|--------|------|------|
     | 2019 | Bucci | LSTM | HAR 대비 개선 |
     | 2020 | Zhang et al. | Random Forest | 비선형 관계 포착 |
@@ -210,7 +210,7 @@ def render_introduction():
     **본 연구의 위치**
     - HAR-RV의 계층 구조 활용 (Corsi, 2009)
     - VIX 정보 통합 (Bollerslev et al., 2009)
-    - 정규화된 선형 모델 (Ridge, Lasso, Huber)
+    - Regularization된 선형 Model (Ridge, Lasso, Huber)
     - 엄격한 Walk-Forward 검증
     """)
     
@@ -225,8 +225,8 @@ def render_introduction():
         st.info("""
         **기존 연구의 한계**
         
-        1. **장기 호라이즌 중심**: 대부분 22일(월간) 예측
-        2. **단일 모델**: HAR-RV 또는 GARCH 단독 사용
+        1. **장기 Horizon 중심**: 대부분 22일(월간) 예측
+        2. **단일 Model**: HAR-RV 또는 GARCH 단독 사용
         3. **제한적 검증**: 단순 Train/Test 분할
         4. **경제적 가치 미검증**: 통계적 유의성만 확인
         """)
@@ -235,33 +235,33 @@ def render_introduction():
         st.info("""
         **본 연구의 차별점**
         
-        1. **5일 단기 예측**: 실용적인 예측 호라이즌
+        1. **5일 단기 예측**: 실용적인 예측 Horizon
         2. **VIX 통합**: 내재 변동성 정보 활용
-        3. **엄격한 검증**: Walk-Forward CV + DM 검정
+        3. **엄격한 검증**: Walk-Forward CV + DM Test
         4. **경제적 가치 입증**: 트레이딩 시뮬레이션
         """)
     
     st.markdown("---")
     
     # 왜 5일인가?
-    st.markdown("### 왜 5일 호라이즌인가?")
+    st.markdown("### 왜 5일 Horizon인가?")
     
     st.markdown("""
-    **VRP의 평균 회귀 특성**
+    **VRP의 평균 회귀 Characteristic**
     
-    | 호라이즌 | 특성 | 예측 적합성 |
+    | Horizon | Characteristic | Prediction Suitability |
     |----------|------|------------|
-    | **1일** | 노이즈 과다 | 낮음 |
-    | **5일** | 평균 회귀 시작 | **최적** |
-    | **22일** | 장기 지속성 지배 | 중간 |
+    | **1일** | High Noise | Low |
+    | **5일** | Mean Reversion Start | **Optimal** |
+    | **22일** | Long-term Persistence | Medium |
     
     **실용적 이유**
     
-    | 항목 | 설명 |
+    | Item | Description |
     |------|------|
-    | 주간 리밸런싱 | 대부분의 기관 투자자 리밸런싱 주기 |
-    | 옵션 만기 | 주간 옵션 거래와 일치 |
-    | 거래 비용 | 적절한 거래 빈도로 비용 최소화 |
+    | Weekly Rebalancing | 대부분의 기관 투자자 리밸런싱 주기 |
+    | Option Expiry | 주간 옵션 거래와 일치 |
+    | Trading Cost | 적절한 거래 빈도로 비용 최소화 |
     """)
     
     st.markdown("---")
@@ -270,20 +270,20 @@ def render_introduction():
     st.markdown("### 연구 질문 (Research Questions)")
     
     st.markdown("""
-    **RQ1**: 5일 호라이즌에서 실현 변동성을 예측할 수 있는가?
+    **RQ1**: 5일 Horizon에서 실현 변동성을 예측할 수 있는가?
     
     **RQ2**: VIX(내재 변동성)가 예측에 얼마나 기여하는가?
     
-    **RQ3**: 예측 모델이 경제적 가치를 제공하는가?
+    **RQ3**: 예측 Model이 경제적 가치를 제공하는가?
     """)
     
     st.markdown("---")
     
     st.markdown("### 연구 목적")
     st.markdown("""
-    1. **5일 변동성 예측**: 단기 호라이즌에서의 예측력 검증
+    1. **5일 변동성 예측**: 단기 Horizon에서의 예측력 검증
     2. **VIX 활용**: 내재 변동성 정보의 예측 기여도 분석
-    3. **경제적 가치**: 트레이딩 전략으로의 적용 가능성 평가
+    3. **경제적 가치**: 트레이딩 전략으로의 Applied 가능성 평가
     """)
     
     st.markdown("### 주요 발견")
@@ -295,7 +295,7 @@ def render_introduction():
         **예측력 확인**
         - Walk-Forward CV R² = 0.18 (SPY, QQQ)
         - HAR-RV 대비 최대 +0.25 개선
-        - Diebold-Mariano 검정 통과 (p<0.05)
+        - Diebold-Mariano Test 통과 (p<0.05)
         """)
     
     with col2:
@@ -319,28 +319,28 @@ def render_methodology():
     
     with col1:
         st.markdown("""
-        | 항목 | 내용 |
+        | Item | 내용 |
         |------|------|
         | 기간 | 2015-01-01 ~ 2024-12-31 |
-        | 자산 | SPY, QQQ, XLK, XLF |
+        | Asset | SPY, QQQ, XLK, XLF |
         | 빈도 | 일간 |
-        | 샘플 수 | ~2,500 거래일 |
+        | Sample Count | ~2,500 거래일 |
         """)
     
     with col2:
         st.markdown("""
-        | 자산 | 설명 |
+        | Asset | Description |
         |------|------|
         | SPY | S&P 500 ETF |
         | QQQ | NASDAQ 100 ETF |
-        | XLK | 기술 섹터 ETF |
-        | XLF | 금융 섹터 ETF |
+        | XLK | 기술 Sector ETF |
+        | XLF | Gold융 Sector ETF |
         """)
     
-    st.markdown("### 특성 (Features)")
+    st.markdown("### Characteristic (Features)")
     
     st.markdown("""
-    | 특성 | 정의 | 역할 |
+    | Characteristic | 정의 | 역할 |
     |------|------|------|
     | `RV_5d_lag1` | 5일 실현 변동성 (t-1) | 단기 변동성 |
     | `RV_22d_lag1` | 22일 실현 변동성 (t-1) | 중기 변동성 |
@@ -349,53 +349,53 @@ def render_methodology():
     | `direction_5d_lag1` | 5일 방향성 (t-1) | 시장 분위기 |
     """)
     
-    st.markdown("### 모델")
+    st.markdown("### Model")
     
     st.markdown("""
-    | 모델 | 정규화 | 파라미터 | 타겟 변환 |
+    | Model | Regularization | Parameter | Target Transform |
     |------|--------|----------|----------|
     | **Ridge Regression** | L2 | α = 10~1000 | Sqrt/Log |
     | **Lasso Regression** | L1 | α = 0.01 | Log |
     | **Huber Regressor** | - | ε = 1.35 | Log |
     """)
     
-    # 타겟 변환 전략
-    st.markdown("### 타겟 변환 전략 (Target Transformation)")
+    # Target Transform 전략
+    st.markdown("### Target Transform 전략 (Target Transformation)")
     
     st.markdown("""
-    변동성 데이터의 왜도(Skewness)와 이분산성을 해결하기 위해 다양한 변환을 적용합니다.
+    변동성 데이터의 왜도(Skewness)와 이분산성을 해결하기 위해 다양한 Transform을 Applied합니다.
     
-    | 변환 | 수식 | 적용 모델 | 효과 |
+    | Transform | Formula | Applied Model | Effect |
     |------|------|----------|------|
-    | **Sqrt** | √RV | Ridge(sqrt) | 극단값 완화 |
-    | **Log** | log(RV) | Lasso(log), Huber(log) | 정규화 개선 |
-    | **Raw** | RV | Ridge(raw) | 원시 변동성 |
+    | **Sqrt** | √RV | Ridge(sqrt) | Reduce Outliers |
+    | **Log** | log(RV) | Lasso(log), Huber(log) | Regularization 개선 |
+    | **Raw** | RV | Ridge(raw) | Raw Volatility |
     
-    > 표기 예시: Ridge(sqrt) = Ridge 모델 + Sqrt 변환
+    > 표기 예시: Ridge(sqrt) = Ridge Model + Sqrt Transform
     """)
     
-    st.markdown("### 자산-VIX 매칭 테이블")
+    st.markdown("### Asset-VIX 매칭 테이블")
     
     st.markdown("""
-    | 자산 | 자산군 | 적용 VIX | 설명 |
+    | Asset | Asset군 | Applied VIX | Description |
     |------|--------|----------|------|
-    | SPY, QQQ | 주식지수 | VIX | S&P 500 VIX |
-    | GLD | 금 | GVZ | CBOE Gold ETF VIX |
-    | USO | 원유 | OVX | CBOE Oil ETF VIX |
-    | TLT | 채권 | VIX | (TYVIX 대용) |
-    | EEM | 신흥시장 | VIX | (VXEEM 대용) |
-    | XLF, XLK | 섹터 | VIX | S&P 500 VIX |
+    | SPY, QQQ | Equity Index | VIX | S&P 500 VIX |
+    | GLD | Gold | GVZ | CBOE Gold ETF VIX |
+    | USO | Oil | OVX | CBOE Oil ETF VIX |
+    | TLT | Bond | VIX | (TYVIX 대용) |
+    | EEM | Emerging Market | VIX | (VXEEM 대용) |
+    | XLF, XLK | Sector | VIX | S&P 500 VIX |
     """)
     
-    st.markdown("### 벤치마크 모델")
+    st.markdown("### 벤치마크 Model")
     
     st.markdown("""
-    | 모델 | 설명 | 참고문헌 |
+    | Model | Description | Reference |
     |------|------|----------|
-    | **Persistence** | 단순 RV 지속성 | - |
+    | **Persistence** | Simple RV Persistence | - |
     | **HAR-RV** | Heterogeneous AR | Corsi (2009) |
     | **THAR** | Threshold HAR | VIX 임계값 기반 |
-    | **HAR-CJ** | 점프 성분 분리 | Andersen et al. (2007) |
+    | **HAR-CJ** | Jump Component Separation | Andersen et al. (2007) |
     """)
     
     st.markdown("### 검증 방법")
@@ -413,11 +413,11 @@ def render_methodology():
     """)
 
 # ============================================================================
-# PART 3: 결과
+# PART 3: Results
 # ============================================================================
 
 def render_results():
-    st.markdown('<h2 class="section-header">Part 3: 실험 결과</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header">Part 3: 실험 Results</h2>', unsafe_allow_html=True)
     
     # Validation Pass 배지
     col1, col2, col3 = st.columns(3)
@@ -431,38 +431,38 @@ def render_results():
     st.markdown("""
     **통계적 유의성 → 예측의 핵심 변수(Part 4) → 경제적 가치(Part 5)**
     
-    아래 결과들은 엄격한 Walk-Forward CV를 통과한 **Out-of-Sample** 성능입니다.
+    아래 Results들은 엄격한 Walk-Forward CV를 통과한 **Out-of-Sample** 성능입니다.
     """)
     
     st.markdown("---")
     
-    # 자산 확장 설명
-    with st.expander("분석 자산 확장에 대하여"):
+    # Asset 확장 Description
+    with st.expander("분석 Asset 확장에 대하여"):
         st.markdown("""
-        **핵심 자산 (4개)**: SPY, QQQ, XLK, XLF - 주요 분석 및 결론 도출
+        **핵심 Asset (4개)**: SPY, QQQ, XLK, XLF - 주요 분석 및 결론 도출
         
-        **확장 자산 (8개)**: + GLD, USO, TLT, EEM
-        - **목적**: Robustness Check (동일 방법론의 다양한 자산군 적용 검증)
-        - **결과**: 주식 자산에서 예측력 우수, 원자재/채권에서는 제한적
+        **확장 Asset (8개)**: + GLD, USO, TLT, EEM
+        - **목적**: Robustness Check (동일 방법론의 다양한 Asset군 Applied 검증)
+        - **Results**: 주식 Asset에서 예측력 우수, 원자재/Bond에서는 제한적
         """)
     
     # HAR-RV 베이스라인 한계 (Part 5에서 이동)
-    st.markdown("### 벤치마크 모델 성능 (HAR-RV)")
+    st.markdown("### 벤치마크 Model 성능 (HAR-RV)")
     
     st.markdown("""
-    **HAR-RV 모델의 한계** (ML 도입 명분)
+    **HAR-RV Model의 한계** (ML 도입 명분)
     
-    | 자산 | HAR-RV R² | 한계 |
+    | Asset | HAR-RV R² | 한계 |
     |------|----------|------|
     | SPY | 0.18 | 비선형 패턴 미포착 |
     | QQQ | 0.22 | VIX 정보 미활용 |
-    | XLK | 0.15 | 섹터 특성 무시 |
-    | XLF | 0.01 | 금융위기 시 붕괴 |
+    | XLK | 0.15 | Sector Characteristic 무시 |
+    | XLF | 0.01 | Gold융위기 시 붕괴 |
     
     > HAR-RV는 선형적 장기기억만 포착 → **ML을 통한 비선형 패턴 학습 필요**
     """)
     
-    st.markdown("### 모델 성능 비교")
+    st.markdown("### Model 성능 비교")
     
     # JSON에서 동적 로드
     if 'paper_statistics' in results and 'model_comparison' in results['paper_statistics']:
@@ -506,7 +506,7 @@ def render_results():
     ))
     
     fig.update_layout(
-        title='SPY/QQQ/XLK/XLF - 최적 모델 R² vs Persistence R² 비교',
+        title='SPY/QQQ/XLK/XLF - Optimal Model R² vs Persistence R² 비교',
         barmode='group',
         yaxis_title='R²',
         template='plotly_white'
@@ -515,8 +515,8 @@ def render_results():
     st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("""
-    **해석**: ML 모델(파란색)이 단순 지속성 모델(빨간색)보다 높은 R²를 보이며,
-    이는 과거 변동성만으로 예측하는 것보다 VIX 정보를 포함한 ML 모델이 우수함을 의미합니다.
+    **Interpretation**: ML Model(파란색)이 단순 지속성 Model(빨간색)보다 높은 R²를 보이며,
+    이는 과거 변동성만으로 예측하는 것보다 VIX 정보를 포함한 ML Model이 우수함을 의미합니다.
     """)
     
     # SPY 실제 vs 예측 시계열
@@ -530,15 +530,15 @@ def render_results():
         rolling_r2 = ts.get('rolling_r2', [])
         metadata = ts.get('metadata', {})
         
-        # 모델 및 평가지표 정보
+        # Model 및 평가지표 정보
         st.markdown(f"""
-        | 항목 | 값 |
+        | Item | 값 |
         |------|-----|
-        | **자산** | {metadata.get('asset', 'SPY')} (S&P 500 ETF) |
-        | **모델** | {metadata.get('model', 'Ridge_100')} (L2 정규화, α=100) |
-        | **타겟** | 5일 실현 변동성 (Sqrt 변환) |
-        | **테스트 기간** | {metadata.get('test_start', 'N/A')} ~ {metadata.get('test_end', 'N/A')} |
-        | **샘플 수** | {metadata.get('n_samples', 'N/A')}개 (Out-of-Sample) |
+        | **Asset** | {metadata.get('asset', 'SPY')} (S&P 500 ETF) |
+        | **Model** | {metadata.get('model', 'Ridge_100')} (L2 Regularization, α=100) |
+        | **타겟** | 5일 실현 변동성 (Sqrt Transform) |
+        | **Test Period** | {metadata.get('test_start', 'N/A')} ~ {metadata.get('test_end', 'N/A')} |
+        | **Sample Count** | {metadata.get('n_samples', 'N/A')}개 (Out-of-Sample) |
         """)
         
         # 평가지표 계산
@@ -559,7 +559,7 @@ def render_results():
             with col3:
                 st.metric("MAE", f"{mae:.4f}")
             with col4:
-                st.metric("샘플수", f"{len(actual)}")
+                st.metric("Samples", f"{len(actual)}")
         
         # 시계열 차트
         fig_ts = go.Figure()
@@ -579,7 +579,7 @@ def render_results():
         st.plotly_chart(fig_ts, use_container_width=True)
         
         st.markdown("""
-        > **해석**: 파란선(실제)과 빨간점선(예측)의 일치도가 높을수록 예측력이 좋음.
+        > **Interpretation**: 파란선(실제)과 빨간점선(예측)의 일치도가 높을수록 예측력이 좋음.
         > 급등 구간에서 예측이 다소 지연되는 패턴이 관찰됨 (변동성 클러스터링).
         """)
         
@@ -601,14 +601,14 @@ def render_results():
         st.plotly_chart(fig_error, use_container_width=True)
         
         st.markdown("""
-        > **해석**: 양수 = 과소예측(Actual > Predicted), 음수 = 과대예측.
+        > **Interpretation**: 양수 = 과소예측(Actual > Predicted), 음수 = 과대예측.
         > 고변동 구간에서 과소예측 경향, 저변동 구간에서 과대예측 경향 확인.
         """)
         
         # Rolling R² 차트
         st.markdown("**Rolling R² (250일 윈도우)**")
         st.markdown("""
-        - **자산**: SPY | **모델**: Ridge (α=100) | **윈도우**: 250 거래일 (≈1년)
+        - **Asset**: SPY | **Model**: Ridge (α=100) | **윈도우**: 250 거래일 (≈1년)
         """)
         fig_roll = go.Figure()
         fig_roll.add_trace(go.Scatter(
@@ -624,7 +624,7 @@ def render_results():
         st.plotly_chart(fig_roll, use_container_width=True)
         
         st.markdown("""
-        > **해석**: R²가 0 이상 유지되는 구간에서 모델이 Persistence보다 우수.
+        > **Interpretation**: R²가 0 이상 유지되는 구간에서 Model이 Persistence보다 우수.
         > 변동성 급등기에 일시적으로 R² 하락 가능 (예측 어려움).
         """)
         
@@ -670,11 +670,11 @@ def render_results():
     else:
         st.info("SPY 시계열 데이터가 없습니다. src/spy_predictions_viz.py 실행 필요.")
     
-    st.markdown("### Walk-Forward CV 결과 (R² 성능 지표)")
+    st.markdown("### Walk-Forward CV Results (R² 성능 지표)")
     
     st.markdown("""
-    - **자산**: SPY, QQQ, XLK, XLF (주식 ETF)
-    - **모델**: 각 자산별 최적 모델 (Ridge/Lasso/Huber)
+    - **Asset**: SPY, QQQ, XLK, XLF (주식 ETF)
+    - **Model**: 각 Asset별 Optimal Model (Ridge/Lasso/Huber)
     - **지표**: Out-of-Sample R² (높을수록 예측력 우수)
     """)
     
@@ -704,7 +704,7 @@ def render_results():
     
     st.dataframe(wf_data, use_container_width=True)
     
-    st.markdown("### Diebold-Mariano 검정")
+    st.markdown("### Diebold-Mariano Test")
     
     # JSON에서 동적 로드
     if 'paper_statistics' in results and 'dm_test' in results['paper_statistics']:
@@ -729,23 +729,23 @@ def render_results():
     
     st.dataframe(dm_data, use_container_width=True)
     
-    st.info("모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
+    st.info("모든 Asset에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
     
-    with st.expander("DM 검정이란?"):
+    with st.expander("DM Test이란?"):
         st.markdown("""
-        **Diebold-Mariano 검정**은 두 예측 모델의 성능 차이가 통계적으로 유의미한지 검정합니다.
+        **Diebold-Mariano Test**은 두 예측 Model의 성능 차이가 통계적으로 유의미한지 Test합니다.
         
-        - **p < 0.05**: 기존 모델(Persistence) 보다 예측력이 **우연히** 좋을 확률은 5% 미만
-        - 즉, ML 모델의 우수성이 **통계적으로 입증**되었음을 의미합니다.
+        - **p < 0.05**: 기존 Model(Persistence) 보다 예측력이 **우연히** 좋을 확률은 5% 미만
+        - 즉, ML Model의 우수성이 **통계적으로 입증**되었음을 의미합니다.
         """)
     
-    # 모델 × 자산 매트릭스
-    st.markdown("### 모델 x 자산 R2 매트릭스")
+    # Model × Asset 매트릭스
+    st.markdown("### Model x Asset R2 매트릭스")
     
     # JSON에서 동적 로드
     if 'model_asset_matrix' in results and 'matrix' in results['model_asset_matrix']:
         matrix_raw = results['model_asset_matrix']['matrix']
-        # 데이터 변환
+        # 데이터 Transform
         matrix_dict = {}
         for asset, models in matrix_raw.items():
             for model, metrics in models.items():
@@ -754,7 +754,7 @@ def render_results():
                 matrix_dict[model][asset] = metrics.get('r2', 0)
         matrix_data = pd.DataFrame(matrix_dict).T
     else:
-        # 폴백: 학술 연구 기반 자산 매트릭스
+        # 폴백: 학술 연구 기반 Asset 매트릭스
         matrix_data = pd.DataFrame({
             'Ridge_10': {'SPY': 0.375, 'QQQ': 0.283, 'GLD': -0.040, 'USO': 0.242, 'TLT': -0.357, 'EEM': 0.213, 'XLF': 0.228, 'XLK': 0.167},
             'Ridge_100': {'SPY': 0.357, 'QQQ': 0.264, 'GLD': -0.038, 'USO': 0.243, 'TLT': -0.360, 'EEM': 0.213, 'XLF': 0.264, 'XLK': 0.152},
@@ -763,7 +763,7 @@ def render_results():
             'ElasticNet': {'SPY': 0.269, 'QQQ': 0.143, 'GLD': -0.093, 'USO': 0.231, 'TLT': -0.482, 'EEM': 0.206, 'XLF': 0.308, 'XLK': 0.079}
         }).T
     
-    # 자산군 그룹화 순서 적용
+    # Asset군 그룹화 순서 Applied
     asset_order = ['SPY', 'QQQ', 'XLK', 'XLF', 'GLD', 'USO', 'TLT', 'EEM']
     available_cols = [col for col in asset_order if col in matrix_data.columns]
     matrix_ordered = matrix_data[available_cols] if available_cols else matrix_data
@@ -795,12 +795,12 @@ def render_results():
             line=dict(color="gold", width=4)
         )
     
-    # 자산군 구분선
-    fig_heatmap.add_vline(x=1.5, line_dash="dash", line_color="gray", opacity=0.5)  # 주식 | 섹터
-    fig_heatmap.add_vline(x=3.5, line_dash="dash", line_color="gray", opacity=0.5)  # 섹터 | 기타
+    # Asset군 구분선
+    fig_heatmap.add_vline(x=1.5, line_dash="dash", line_color="gray", opacity=0.5)  # 주식 | Sector
+    fig_heatmap.add_vline(x=3.5, line_dash="dash", line_color="gray", opacity=0.5)  # Sector | 기타
     
     fig_heatmap.update_layout(
-        title='Model x Asset R2 Heatmap (자산군: 주식 | 섹터 | 기타)',
+        title='Model x Asset R2 Heatmap (Asset군: 주식 | Sector | 기타)',
         xaxis_title='Asset',
         yaxis_title='Model',
         template='plotly_white',
@@ -809,17 +809,17 @@ def render_results():
     
     st.plotly_chart(fig_heatmap, use_container_width=True)
     
-    # 자산군 범례
+    # Asset군 범례
     st.markdown("""
-    | 자산군 | 자산 | 특징 |
+    | Asset군 | Asset | 특징 |
     |--------|------|------|
-    | **주식** | SPY, QQQ | 높은 예측력 (R² > 0.25) |
-    | **섹터** | XLK, XLF | 중간 예측력 (R² 0.15~0.30) |
-    | **기타** | GLD, USO, TLT, EEM | 낮거나 음수 R² (모델 적합성 낮음) |
+    | **주식** | SPY, QQQ | High Predictability (R² > 0.25) |
+    | **Sector** | XLK, XLF | Medium 예측력 (R² 0.15~0.30) |
+    | **기타** | GLD, USO, TLT, EEM | 낮거나 음수 R² (Model 적합성 Low) |
     """)
     
-    # 자산별 최고 모델
-    st.markdown("### 자산별 최적 모델")
+    # Asset별 최고 Model
+    st.markdown("### Asset별 Optimal Model")
     
     # JSON에서 동적 로드
     if 'model_asset_matrix' in results and 'best_by_asset' in results['model_asset_matrix']:
@@ -841,7 +841,7 @@ def render_results():
     
     st.dataframe(best_models, use_container_width=True)
     
-    # 모델별 평균 성능 차트
+    # Model별 평균 성능 차트
     model_avg = matrix_data.mean(axis=1).sort_values(ascending=False)
     
     fig_model = go.Figure(go.Bar(
@@ -862,15 +862,15 @@ def render_results():
     st.plotly_chart(fig_model, use_container_width=True)
 
 # ============================================================================
-# PART 4: 추가 분석
+# PART 4: Additional Analysis
 # ============================================================================
 
 def render_additional():
-    st.markdown('<h2 class="section-header">Part 4: 추가 분석</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header">Part 4: Additional Analysis</h2>', unsafe_allow_html=True)
     
-    st.markdown("### 특성 중요도")
+    st.markdown("### Characteristic 중요도")
     
-    # JSON에서 동적 로드 (SHAP 분석 결과)
+    # JSON에서 동적 로드 (SHAP 분석 Results)
     if 'sci_journal' in results and 'results' in results['sci_journal']:
         shap_data = results['sci_journal']['results'].get('shap', {})
         feat_imp = shap_data.get('feature_importance', {})
@@ -895,7 +895,7 @@ def render_additional():
     fig = go.Figure()
     
     if 'SPY' in importance_data.columns:
-        # 폴백 데이터 (자산별 컬럼)
+        # 폴백 데이터 (Asset별 컬럼)
         for asset in ['SPY', 'QQQ', 'XLK', 'XLF']:
             if asset in importance_data.columns:
                 fig.add_trace(go.Bar(
@@ -923,14 +923,14 @@ def render_additional():
     
     st.info("**VIX가 가장 중요한 예측 변수** (R2 감소 0.29~0.44)")
     
-    # 특성 방향성 설명
+    # Characteristic 방향성 Description
     st.markdown("""
-    | 특성 | 방향 | 해석 |
+    | Characteristic | 방향 | Interpretation |
     |------|------|------|
     | **VIX_lag1** | (+) | VIX 상승 → 미래 RV 상승 예측 |
     | **RV_5d_lag1** | (+) | 과거 변동성 → 미래 변동성 (지속성) |
     | **RV_22d_lag1** | (+) | 장기 평균으로의 회귀 |
-    | **direction_5d** | (-) | 하락장 → 변동성 상승 (레버리지 효과) |
+    | **direction_5d** | (-) | 하락장 → 변동성 상승 (레버리지 Effect) |
     """)
     
     st.markdown("### 방향 정확도")
@@ -956,17 +956,17 @@ def render_additional():
     
     st.dataframe(vix_data, use_container_width=True)
     
-    st.info("**중간 변동성 구간 (VIX 15-30)에서 예측력 최고**")
+    st.info("**Medium 변동성 구간 (VIX 15-30)에서 예측력 최고**")
     
-    with st.expander("실무적 해석"):
+    with st.expander("실무적 Interpretation"):
         st.markdown("""
-        | VIX 구간 | 시장 상황 | 모델 성능 |
+        | VIX 구간 | 시장 상황 | Model 성능 |
         |----------|----------|----------|
-        | **< 15** | 안정적 상승장, 저변동성 | 예측 불필요 (변동성 낮음) |
+        | **< 15** | 안정적 상승장, 저변동성 | 예측 불필요 (변동성 Low) |
         | **15-30** | 박스권, 완만한 하락장 | **예측 가치 최대** |
         | **> 30** | 급락장, 위기 상황 | 예측 어려움 (극단적 변동) |
         
-        **결론**: VIX 15-30 구간에서 ML 모델을 활용한 포지션 조절이 가장 효과적
+        **결론**: VIX 15-30 구간에서 ML Model을 활용한 포지션 조절이 가장 Effect적
         """)
 
 # ============================================================================
@@ -976,7 +976,7 @@ def render_additional():
 def render_economic():
     st.markdown('<h2 class="section-header">Part 5: 경제적 유의성</h2>', unsafe_allow_html=True)
     
-    st.markdown("### HAR-RV 모델 대비 개선")
+    st.markdown("### HAR-RV Model 대비 개선")
     
     # JSON에서 동적 로드
     if 'sci' in results and 'har_comparison' in results['sci']:
@@ -1032,7 +1032,7 @@ def render_economic():
     fig = go.Figure()
     
     fig.add_trace(go.Bar(
-        name='전략 수익',
+        name='Strategy Return',
         x=['SPY', 'QQQ', 'XLF', 'XLK'],
         y=[39.1, 42.2, 25.4, 46.5],
         marker_color='#28a745'
@@ -1101,7 +1101,7 @@ def render_economic():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric("평균 초과 수익", "+3.5%", "모든 자산")
+        st.metric("Average Excess Return", "+3.5%", "모든 Asset")
     with col2:
         st.metric("Sharpe 개선", "+0.13", "평균")
     with col3:
@@ -1166,7 +1166,7 @@ def render_conclusion():
         **예측력**
         - Walk-Forward CV R² = 0.18 (SPY, QQQ)
         - HAR-RV 대비 최대 +0.25 개선
-        - DM 검정 통과 (p<0.05)
+        - DM Test 통과 (p<0.05)
         """)
     
     with col2:
@@ -1181,7 +1181,7 @@ def render_conclusion():
     
     st.markdown("""
     1. **VIX 중요성 확인**: 내재 변동성이 단기 예측에 핵심 (R² 감소 0.34)
-    2. **타겟 변환 효과**: Sqrt/Log 변환이 원시값보다 우수
+    2. **Target Transform Effect**: Sqrt/Log Transform이 원시값보다 우수
     3. **경제적 가치 입증**: 실제 트레이딩에서 초과 수익 달성
     """)
     
@@ -1194,9 +1194,9 @@ def render_conclusion():
     - Train/Test 분할 시점에 따른 성능 변동
     
     **향후 연구**
-    - 레짐 스위칭 모델 적용
+    - 레짐 스위칭 Model Applied
     - 고빈도 데이터 활용
-    - 다른 자산군 확장
+    - 다른 Asset군 확장
     """)
     
     st.markdown("---")
@@ -1222,9 +1222,9 @@ elif selected_part == "Part 1: 서론":
     render_introduction()
 elif selected_part == "Part 2: 방법론":
     render_methodology()
-elif selected_part == "Part 3: 결과":
+elif selected_part == "Part 3: Results":
     render_results()
-elif selected_part == "Part 4: 추가 분석":
+elif selected_part == "Part 4: Additional Analysis":
     render_additional()
 elif selected_part == "Part 5: 경제적 유의성":
     render_economic()
