@@ -23,7 +23,7 @@ from pathlib import Path
 # 페이지 설정
 st.set_page_config(
     page_title="5일 VRP 예측 연구",
-    page_icon="📈",
+    page_icon="",
     layout="wide"
 )
 
@@ -241,7 +241,7 @@ def render_introduction():
     
     with col1:
         st.success("""
-        **✅ 예측력 확인**
+        **예측력 확인**
         - Walk-Forward CV R² = 0.18 (SPY, QQQ)
         - HAR-RV 대비 최대 +0.25 개선
         - Diebold-Mariano 검정 통과 (p<0.05)
@@ -249,7 +249,7 @@ def render_introduction():
     
     with col2:
         st.success("""
-        **✅ 실용적 가치**
+        **실용적 가치**
         - 방향 정확도 68-72%
         - 초과 수익률 1-7%
         - MDD 최대 10%p 개선
@@ -412,7 +412,7 @@ def render_results():
     
     st.dataframe(dm_data, use_container_width=True)
     
-    st.success("✅ 모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
+    st.success("모든 자산에서 Persistence 대비 통계적으로 유의미한 개선 (p<0.10)")
     
     # 모델 × 자산 매트릭스
     st.markdown("### 모델 × 자산 R² 매트릭스")
@@ -519,7 +519,7 @@ def render_additional():
     
     st.plotly_chart(fig, use_container_width=True)
     
-    st.warning("💡 **VIX가 가장 중요한 예측 변수** (R² 감소 0.29~0.44)")
+    st.warning("**VIX가 가장 중요한 예측 변수** (R² 감소 0.29~0.44)")
     
     st.markdown("### 방향 정확도")
     
@@ -532,7 +532,7 @@ def render_additional():
     
     st.dataframe(direction_data, use_container_width=True)
     
-    st.info("💡 **하락 예측이 더 정확** (SPY 75%, QQQ 79%)")
+    st.info("**하락 예측이 더 정확** (SPY 75%, QQQ 79%)")
     
     st.markdown("### VIX 레짐별 성능")
     
@@ -544,7 +544,7 @@ def render_additional():
     
     st.dataframe(vix_data, use_container_width=True)
     
-    st.success("✅ **중간 변동성 구간 (VIX 15-30)에서 예측력 최고**")
+    st.success("**중간 변동성 구간 (VIX 15-30)에서 예측력 최고**")
 
 # ============================================================================
 # PART 5: 경제적 유의성
