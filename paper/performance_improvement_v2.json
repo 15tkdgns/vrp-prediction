@@ -1,0 +1,20 @@
+{
+  "results": {
+    "ElasticNet_baseline": 0.2571675500849785,
+    "ElasticNet_tuned": 0.26067491035636925,
+    "Ridge": 0.25184528213553237,
+    "RandomForest": 0.18502556984494167,
+    "XGBoost": 0.12158474962898913,
+    "LightGBM": 0.1769963856285327,
+    "Ensemble_EN_RF": 0.2355803168724957,
+    "Ensemble_optimal": 0.2532943495561333
+  },
+  "best_model": "ElasticNet_tuned",
+  "best_r2": 0.26067491035636925,
+  "best_params": {
+    "alpha": 0.0003,
+    "l1_ratio": 0.6
+  },
+  "improvement": 0.003507360271390758,
+  "timestamp": "2025-12-12T22:23:47.488196"
+}

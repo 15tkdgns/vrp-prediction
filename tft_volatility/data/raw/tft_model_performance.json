@@ -1,0 +1,14 @@
+{
+  "model": "Temporal Fusion Transformer",
+  "test_r2": -0.17312200720861726,
+  "test_rmse": 0.008926027454435825,
+  "test_mae": 0.004635692108422518,
+  "config": {
+    "hidden_size": 16,
+    "attention_heads": 2,
+    "dropout": 0.2,
+    "max_encoder_length": 30,
+    "max_prediction_length": 5
+  },
+  "timestamp": "2025-12-09T18:12:46.417531"
+}

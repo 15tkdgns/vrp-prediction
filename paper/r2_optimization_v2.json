@@ -1,0 +1,73 @@
+{
+  "gld_log_combination": {
+    "Original": {
+      "r2": 0.3457685408334492,
+      "direction": 0.720164609053498
+    },
+    "Log(RV+1)": {
+      "r2": 0.23743116091438332,
+      "direction": 0.6522633744855967
+    },
+    "Sqrt(RV)": {
+      "r2": 0.28294173651061294,
+      "direction": 0.6728395061728395
+    }
+  },
+  "extensive_hyperparam": {
+    "best_r2": 0.29883483234751496,
+    "best_config": {
+      "alpha": 0.01,
+      "l1_ratio": 0.01
+    }
+  },
+  "time_features": {
+    "Base": {
+      "n_features": 13,
+      "r2": 0.2612903712983239,
+      "direction": 0.6707818930041153
+    },
+    "+ Time": {
+      "n_features": 15,
+      "r2": 0.2612903712983239,
+      "direction": 0.6707818930041153
+    }
+  },
+  "different_horizons": {
+    "5d": {
+      "r2": 0.06485634186077038,
+      "direction": 0.6487025948103793
+    },
+    "10d": {
+      "r2": 0.19239013698160357,
+      "direction": 0.6973947895791583
+    },
+    "22d": {
+      "r2": 0.283610222405282,
+      "direction": 0.6808080808080809
+    }
+  },
+  "nonlinear_features": {
+    "degree_1": {
+      "n_features": 5,
+      "r2": 0.23743116091438332,
+      "direction": 0.6522633744855967
+    },
+    "degree_2": {
+      "n_features": 15,
+      "r2": 0.23743116091438332,
+      "direction": 0.6522633744855967
+    }
+  },
+  "optimal_combination": {
+    "best_r2": 0.23743116091438332,
+    "best_direction": 0.6522633744855967,
+    "best_config": {
+      "alpha": 0.2,
+      "l1_ratio": 0.9,
+      "selected_features": [
+        "Vol_lag1"
+      ]
+    }
+  },
+  "timestamp": "2025-12-13T19:41:18.807057"
+}

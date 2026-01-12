@@ -1,0 +1,486 @@
+{
+  "table1_descriptive": [
+    {
+      "Variable": "VIX",
+      "N": 1375,
+      "Mean": 21.1236,
+      "Std": 7.9406,
+      "Min": 11.86,
+      "P25": 16.42,
+      "Median": 18.86,
+      "P75": 24.245,
+      "Max": 82.69,
+      "Skewness": 2.7135,
+      "Kurtosis": 12.5841
+    },
+    {
+      "Variable": "RV (22-day)",
+      "N": 1375,
+      "Mean": 18.0206,
+      "Std": 11.9572,
+      "Min": 5.6656,
+      "P25": 11.2117,
+      "Median": 14.7203,
+      "P75": 20.4849,
+      "Max": 91.1406,
+      "Skewness": 3.3808,
+      "Kurtosis": 14.8859
+    },
+    {
+      "Variable": "VRP",
+      "N": 1375,
+      "Mean": 3.103,
+      "Std": 7.9793,
+      "Min": -45.9006,
+      "P25": 1.4515,
+      "Median": 3.8276,
+      "P75": 6.693,
+      "Max": 23.2444,
+      "Skewness": -2.8871,
+      "Kurtosis": 12.5969
+    },
+    {
+      "Variable": "VRP (True)",
+      "N": 1375,
+      "Mean": 3.3167,
+      "Std": 10.2982,
+      "Min": -69.586,
+      "P25": 1.4432,
+      "Median": 4.4205,
+      "P75": 7.4804,
+      "Max": 24.7885,
+      "Skewness": -3.596,
+      "Kurtosis": 18.2952
+    },
+    {
+      "Variable": "Daily Return (%)",
+      "N": 1375,
+      "Mean": 0.0563,
+      "Std": 1.3536,
+      "Min": -10.9424,
+      "P25": -0.5151,
+      "Median": 0.09,
+      "P75": 0.71,
+      "Max": 10.5019,
+      "Skewness": -0.253,
+      "Kurtosis": 12.3095
+    }
+  ],
+  "table2_correlation": {
+    "VIX": {
+      "VIX": 1.0,
+      "RV_22d": 0.7497,
+      "VRP": -0.1282,
+      "VRP_true": 0.1706,
+      "VIX_lag1": 0.9644,
+      "VRP_lag1": -0.1337
+    },
+    "RV_22d": {
+      "VIX": 0.7497,
+      "RV_22d": 1.0,
+      "VRP": -0.7525,
+      "VRP_true": 0.0667,
+      "VIX_lag1": 0.762,
+      "VRP_lag1": -0.73
+    },
+    "VRP": {
+      "VIX": -0.1282,
+      "RV_22d": -0.7525,
+      "VRP": 1.0,
+      "VRP_true": 0.0699,
+      "VIX_lag1": -0.1821,
+      "VRP_lag1": 0.9608
+    },
+    "VRP_true": {
+      "VIX": 0.1706,
+      "RV_22d": 0.0667,
+      "VRP": 0.0699,
+      "VRP_true": 1.0,
+      "VIX_lag1": 0.1756,
+      "VRP_lag1": 0.0524
+    },
+    "VIX_lag1": {
+      "VIX": 0.9644,
+      "RV_22d": 0.762,
+      "VRP": -0.1821,
+      "VRP_true": 0.1756,
+      "VIX_lag1": 1.0,
+      "VRP_lag1": -0.1279
+    },
+    "VRP_lag1": {
+      "VIX": -0.1337,
+      "RV_22d": -0.73,
+      "VRP": 0.9608,
+      "VRP_true": 0.0524,
+      "VIX_lag1": -0.1279,
+      "VRP_lag1": 1.0
+    }
+  },
+  "table3_model_comparison": [
+    {
+      "Category": "Ensemble",
+      "Model": "Stacking (best)",
+      "R\u00b2": 0.229,
+      "RMSE": 9.6527,
+      "MAE": 5.7803,
+      "Direction (%)": 72.73
+    },
+    {
+      "Category": "Linear",
+      "Model": "ElasticNet (best)",
+      "R\u00b2": 0.2153,
+      "RMSE": 9.7384,
+      "MAE": 5.9076,
+      "Direction (%)": 77.09
+    },
+    {
+      "Category": "Linear",
+      "Model": "Lasso",
+      "R\u00b2": 0.1164,
+      "RMSE": 10.3336,
+      "MAE": 6.5597,
+      "Direction (%)": 70.18
+    },
+    {
+      "Category": "Linear",
+      "Model": "Ridge",
+      "R\u00b2": 0.1125,
+      "RMSE": 10.3568,
+      "MAE": 6.5749,
+      "Direction (%)": 69.45
+    },
+    {
+      "Category": "Linear",
+      "Model": "OLS",
+      "R\u00b2": 0.1067,
+      "RMSE": 10.3904,
+      "MAE": 6.61,
+      "Direction (%)": 69.09
+    },
+    {
+      "Category": "Traditional",
+      "Model": "HAR-RV",
+      "R\u00b2": 0.1027,
+      "RMSE": 10.4135,
+      "MAE": 6.6311,
+      "Direction (%)": 66.91
+    },
+    {
+      "Category": "Tree",
+      "Model": "LightGBM",
+      "R\u00b2": -0.2631,
+      "RMSE": 12.355,
+      "MAE": 8.8147,
+      "Direction (%)": 54.18
+    },
+    {
+      "Category": "Deep Learning",
+      "Model": "MLP (128,64)",
+      "R\u00b2": -0.3149,
+      "RMSE": 12.6059,
+      "MAE": 8.073,
+      "Direction (%)": 51.27
+    },
+    {
+      "Category": "Traditional",
+      "Model": "EWMA",
+      "R\u00b2": -0.4621,
+      "RMSE": 13.2931,
+      "MAE": 9.4026,
+      "Direction (%)": 52.0
+    },
+    {
+      "Category": "Tree",
+      "Model": "XGBoost",
+      "R\u00b2": -0.6161,
+      "RMSE": 13.9752,
+      "MAE": 9.0637,
+      "Direction (%)": 56.36
+    },
+    {
+      "Category": "Tree",
+      "Model": "Random Forest",
+      "R\u00b2": -1.0272,
+      "RMSE": 15.6525,
+      "MAE": 9.8817,
+      "Direction (%)": 60.36
+    },
+    {
+      "Category": "Tree",
+      "Model": "GradientBoosting",
+      "R\u00b2": -1.4435,
+      "RMSE": 17.1845,
+      "MAE": 10.5982,
+      "Direction (%)": 58.91
+    }
+  ],
+  "table4_category_best": [
+    {
+      "Category": "Ensemble",
+      "Model": "Stacking (best)",
+      "R\u00b2": 0.229,
+      "RMSE": 9.6527,
+      "MAE": 5.7803,
+      "Direction (%)": 72.73
+    },
+    {
+      "Category": "Linear",
+      "Model": "ElasticNet (best)",
+      "R\u00b2": 0.2153,
+      "RMSE": 9.7384,
+      "MAE": 5.9076,
+      "Direction (%)": 77.09
+    },
+    {
+      "Category": "Traditional",
+      "Model": "HAR-RV",
+      "R\u00b2": 0.1027,
+      "RMSE": 10.4135,
+      "MAE": 6.6311,
+      "Direction (%)": 66.91
+    },
+    {
+      "Category": "Tree",
+      "Model": "LightGBM",
+      "R\u00b2": -0.2631,
+      "RMSE": 12.355,
+      "MAE": 8.8147,
+      "Direction (%)": 54.18
+    },
+    {
+      "Category": "Deep Learning",
+      "Model": "MLP (128,64)",
+      "R\u00b2": -0.3149,
+      "RMSE": 12.6059,
+      "MAE": 8.073,
+      "Direction (%)": 51.27
+    }
+  ],
+  "table5_feature_importance": [
+    {
+      "Rank": 1,
+      "Feature": "RV_5d",
+      "Coefficient": 1.3719,
+      "Abs_Coefficient": 1.3719
+    },
+    {
+      "Rank": 2,
+      "Feature": "VIX_lag1",
+      "Coefficient": 1.2537,
+      "Abs_Coefficient": 1.2537
+    },
+    {
+      "Rank": 3,
+      "Feature": "RV_1d",
+      "Coefficient": 1.0889,
+      "Abs_Coefficient": 1.0889
+    },
+    {
+      "Rank": 4,
+      "Feature": "regime_high",
+      "Coefficient": 0.9909,
+      "Abs_Coefficient": 0.9909
+    },
+    {
+      "Rank": 5,
+      "Feature": "return_5d",
+      "Coefficient": -0.9412,
+      "Abs_Coefficient": 0.9412
+    },
+    {
+      "Rank": 6,
+      "Feature": "RV_22d",
+      "Coefficient": 0.9321,
+      "Abs_Coefficient": 0.9321
+    },
+    {
+      "Rank": 7,
+      "Feature": "return_22d",
+      "Coefficient": -0.7815,
+      "Abs_Coefficient": 0.7815
+    },
+    {
+      "Rank": 8,
+      "Feature": "VIX_change",
+      "Coefficient": 0.5513,
+      "Abs_Coefficient": 0.5513
+    },
+    {
+      "Rank": 9,
+      "Feature": "VIX_lag5",
+      "Coefficient": 0.4504,
+      "Abs_Coefficient": 0.4504
+    },
+    {
+      "Rank": 10,
+      "Feature": "VRP_lag5",
+      "Coefficient": -0.0772,
+      "Abs_Coefficient": 0.0772
+    },
+    {
+      "Rank": 11,
+      "Feature": "VRP_lag1",
+      "Coefficient": 0.0,
+      "Abs_Coefficient": 0.0
+    },
+    {
+      "Rank": 12,
+      "Feature": "VRP_ma5",
+      "Coefficient": -0.0,
+      "Abs_Coefficient": 0.0
+    }
+  ],
+  "table6_robustness": [
+    {
+      "Test": "60/40 Split",
+      "Train Size": 825,
+      "Test Size": 550,
+      "R\u00b2": 0.0421,
+      "Direction (%)": 44.55
+    },
+    {
+      "Test": "70/30 Split",
+      "Train Size": 962,
+      "Test Size": 413,
+      "R\u00b2": 0.1729,
+      "Direction (%)": 53.51
+    },
+    {
+      "Test": "80/19 Split",
+      "Train Size": 1100,
+      "Test Size": 275,
+      "R\u00b2": 0.2153,
+      "Direction (%)": 77.09
+    },
+    {
+      "Test": "90/9 Split",
+      "Train Size": 1237,
+      "Test Size": 138,
+      "R\u00b2": 0.1305,
+      "Direction (%)": 76.09
+    },
+    {
+      "Test": "Year 2021",
+      "Train Size": 176,
+      "Test Size": 76,
+      "R\u00b2": 0.288,
+      "Direction (%)": 63.16
+    },
+    {
+      "Test": "Year 2022",
+      "Train Size": 175,
+      "Test Size": 76,
+      "R\u00b2": -2.6156,
+      "Direction (%)": 50.0
+    },
+    {
+      "Test": "Year 2023",
+      "Train Size": 175,
+      "Test Size": 75,
+      "R\u00b2": -0.1222,
+      "Direction (%)": 54.67
+    },
+    {
+      "Test": "Year 2024",
+      "Train Size": 176,
+      "Test Size": 76,
+      "R\u00b2": 0.5014,
+      "Direction (%)": 77.63
+    }
+  ],
+  "table7_trading": [
+    {
+      "Strategy": "Buy & Hold",
+      "N Trades": 275,
+      "Total Return (%)": 100.75,
+      "Avg Return (%)": 0.37,
+      "Sharpe Ratio": 0.53,
+      "Win Rate (%)": 67.3
+    },
+    {
+      "Strategy": "Prediction-based",
+      "N Trades": 192,
+      "Total Return (%)": 788.92,
+      "Avg Return (%)": 4.11,
+      "Sharpe Ratio": 9.26,
+      "Win Rate (%)": 83.3
+    },
+    {
+      "Strategy": "VIX > 20",
+      "N Trades": 25,
+      "Total Return (%)": 238.05,
+      "Avg Return (%)": 9.52,
+      "Sharpe Ratio": 42.02,
+      "Win Rate (%)": 100.0
+    },
+    {
+      "Strategy": "VIX > 25",
+      "N Trades": 4,
+      "Total Return (%)": 59.93,
+      "Avg Return (%)": 14.98,
+      "Sharpe Ratio": 48.22,
+      "Win Rate (%)": 100.0
+    }
+  ],
+  "table8_multi_asset": [
+    {
+      "Asset": "S&P 500",
+      "Ticker": "SPY",
+      "N": 2467,
+      "VIX-RV Corr": 0.8283,
+      "R\u00b2": 0.0563,
+      "Direction (%)": 58.5
+    },
+    {
+      "Asset": "EAFE (Developed)",
+      "Ticker": "EFA",
+      "N": 2467,
+      "VIX-RV Corr": 0.7499,
+      "R\u00b2": 0.3349,
+      "Direction (%)": 74.09
+    },
+    {
+      "Asset": "Emerging Markets",
+      "Ticker": "EEM",
+      "N": 2467,
+      "VIX-RV Corr": 0.6875,
+      "R\u00b2": -0.227,
+      "Direction (%)": 61.54
+    },
+    {
+      "Asset": "Gold",
+      "Ticker": "GLD",
+      "N": 2467,
+      "VIX-RV Corr": 0.5142,
+      "R\u00b2": 0.3572,
+      "Direction (%)": 71.26
+    }
+  ],
+  "table9_statistical": [
+    {
+      "Test": "Bias (t-test)",
+      "Statistic": -1.5429,
+      "p-value": "0.124012",
+      "Conclusion": "No Bias"
+    },
+    {
+      "Test": "R\u00b2 (F-test)",
+      "Statistic": 5.9901,
+      "p-value": "0.000000",
+      "Conclusion": "Significant"
+    },
+    {
+      "Test": "Direction (Binomial)",
+      "Statistic": "212/275",
+      "p-value": "0.000000",
+      "Conclusion": "Significant"
+    },
+    {
+      "Test": "Normality (Shapiro-Wilk)",
+      "Statistic": "N/A",
+      "p-value": "0.000000",
+      "Conclusion": "Non-Normal"
+    }
+  ],
+  "timestamp": "2025-12-13T19:30:16.558870"
+}

@@ -1,0 +1,443 @@
+{
+  "table1_descriptive": [
+    {
+      "Variable": "VIX",
+      "N": 1380,
+      "Mean": "21.1047",
+      "Std": "7.9326",
+      "Min": "11.8600",
+      "Q25": "16.4100",
+      "Median": "18.8400",
+      "Q75": "24.2300",
+      "Max": "82.6900",
+      "Skewness": "2.7178",
+      "Kurtosis": "12.6166"
+    },
+    {
+      "Variable": "RV_22d",
+      "N": 1380,
+      "Mean": "18.0017",
+      "Std": "11.9396",
+      "Min": "5.6656",
+      "Q25": "11.2297",
+      "Median": "14.6412",
+      "Q75": "20.4600",
+      "Max": "91.1406",
+      "Skewness": "3.3879",
+      "Kurtosis": "14.9475"
+    },
+    {
+      "Variable": "VRP",
+      "N": 1380,
+      "Mean": "3.1031",
+      "Std": "7.9653",
+      "Min": "-45.9006",
+      "Q25": "1.4675",
+      "Median": "3.8190",
+      "Q75": "6.6784",
+      "Max": "23.2444",
+      "Skewness": "-2.8919",
+      "Kurtosis": "12.6500"
+    },
+    {
+      "Variable": "VRP_true",
+      "N": 1380,
+      "Mean": "3.2125",
+      "Std": "10.4316",
+      "Min": "-69.5860",
+      "Q25": "1.3947",
+      "Median": "4.4087",
+      "Q75": "7.4735",
+      "Max": "24.7885",
+      "Skewness": "-3.5056",
+      "Kurtosis": "17.2894"
+    },
+    {
+      "Variable": "Daily Returns (%)",
+      "N": 1380,
+      "Mean": "0.0584",
+      "Std": "1.3523",
+      "Min": "-10.9424",
+      "Q25": "-0.5150",
+      "Median": "0.0904",
+      "Q75": "0.7223",
+      "Max": "10.5019",
+      "Skewness": "-0.2562",
+      "Kurtosis": "12.3162"
+    }
+  ],
+  "table2_correlation": {
+    "VIX": {
+      "VIX": 1.0,
+      "RV_22d": 0.7498,
+      "VRP": -0.128,
+      "VRP_true": 0.1745,
+      "VIX_lag1": 0.9644,
+      "VRP_lag1": -0.1336
+    },
+    "RV_22d": {
+      "VIX": 0.7498,
+      "RV_22d": 1.0,
+      "VRP": -0.7522,
+      "VRP_true": 0.0694,
+      "VIX_lag1": 0.7621,
+      "VRP_lag1": -0.7298
+    },
+    "VRP": {
+      "VIX": -0.128,
+      "RV_22d": -0.7522,
+      "VRP": 1.0,
+      "VRP_true": 0.0697,
+      "VIX_lag1": -0.1818,
+      "VRP_lag1": 0.9608
+    },
+    "VRP_true": {
+      "VIX": 0.1745,
+      "RV_22d": 0.0694,
+      "VRP": 0.0697,
+      "VRP_true": 1.0,
+      "VIX_lag1": 0.1789,
+      "VRP_lag1": 0.0518
+    },
+    "VIX_lag1": {
+      "VIX": 0.9644,
+      "RV_22d": 0.7621,
+      "VRP": -0.1818,
+      "VRP_true": 0.1789,
+      "VIX_lag1": 1.0,
+      "VRP_lag1": -0.1278
+    },
+    "VRP_lag1": {
+      "VIX": -0.1336,
+      "RV_22d": -0.7298,
+      "VRP": 0.9608,
+      "VRP_true": 0.0518,
+      "VIX_lag1": -0.1278,
+      "VRP_lag1": 1.0
+    }
+  },
+  "table3_model_comparison": [
+    {
+      "Model": "HAR-RV",
+      "R\u00b2": "0.1027",
+      "RMSE": "10.4135",
+      "MAE": "6.6311",
+      "Direction Acc.": "66.91%"
+    },
+    {
+      "Model": "Ridge",
+      "R\u00b2": "0.1125",
+      "RMSE": "10.3568",
+      "MAE": "6.5749",
+      "Direction Acc.": "69.45%"
+    },
+    {
+      "Model": "Lasso",
+      "R\u00b2": "0.1164",
+      "RMSE": "10.3336",
+      "MAE": "6.5597",
+      "Direction Acc.": "70.18%"
+    },
+    {
+      "Model": "ElasticNet",
+      "R\u00b2": "0.1347",
+      "RMSE": "10.2259",
+      "MAE": "6.4326",
+      "Direction Acc.": "71.27%"
+    },
+    {
+      "Model": "Random Forest",
+      "R\u00b2": "-1.0272",
+      "RMSE": "15.6525",
+      "MAE": "9.8817",
+      "Direction Acc.": "60.36%"
+    },
+    {
+      "Model": "Gradient Boosting",
+      "R\u00b2": "-1.4435",
+      "RMSE": "17.1845",
+      "MAE": "10.5982",
+      "Direction Acc.": "58.91%"
+    }
+  ],
+  "table4_feature_importance": [
+    {
+      "Rank": 1,
+      "Feature": "VIX_lag1",
+      "Coefficient": "5.7677"
+    },
+    {
+      "Rank": 2,
+      "Feature": "VIX_lag5",
+      "Coefficient": "5.4731"
+    },
+    {
+      "Rank": 3,
+      "Feature": "RV_22d",
+      "Coefficient": "4.2515"
+    },
+    {
+      "Rank": 4,
+      "Feature": "VRP_lag5",
+      "Coefficient": "2.3587"
+    },
+    {
+      "Rank": 5,
+      "Feature": "VRP_ma5",
+      "Coefficient": "1.8815"
+    },
+    {
+      "Rank": 6,
+      "Feature": "VIX_change",
+      "Coefficient": "1.5094"
+    },
+    {
+      "Rank": 7,
+      "Feature": "regime_high",
+      "Coefficient": "1.2176"
+    },
+    {
+      "Rank": 8,
+      "Feature": "RV_1d",
+      "Coefficient": "0.9969"
+    },
+    {
+      "Rank": 9,
+      "Feature": "RV_5d",
+      "Coefficient": "0.9196"
+    },
+    {
+      "Rank": 10,
+      "Feature": "VRP_lag1",
+      "Coefficient": "0.6531"
+    },
+    {
+      "Rank": 11,
+      "Feature": "return_5d",
+      "Coefficient": "0.4814"
+    },
+    {
+      "Rank": 12,
+      "Feature": "return_22d",
+      "Coefficient": "0.4426"
+    }
+  ],
+  "table5_robustness": {
+    "individual": [
+      {
+        "Seed": 0,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 21,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 42,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 123,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 456,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 789,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 1000,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 2023,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 2024,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      },
+      {
+        "Seed": 2025,
+        "R\u00b2": 0.13474366366188395,
+        "Direction Acc.": 0.7127272727272728
+      }
+    ],
+    "mean_r2": 0.13474366366188395,
+    "std_r2": 0.0,
+    "mean_direction": 0.7127272727272728,
+    "std_direction": 0.0
+  },
+  "table6_walk_forward": [
+    {
+      "Period": "2021-02 - 2021-05",
+      "R\u00b2": -24.937285228875748,
+      "Direction Acc.": 0.5238095238095238
+    },
+    {
+      "Period": "2021-05 - 2021-08",
+      "R\u00b2": -0.5055699805733243,
+      "Direction Acc.": 0.6666666666666666
+    },
+    {
+      "Period": "2021-08 - 2021-11",
+      "R\u00b2": 0.5328152142087393,
+      "Direction Acc.": 0.746031746031746
+    },
+    {
+      "Period": "2021-11 - 2022-02",
+      "R\u00b2": -2.9055450050982947,
+      "Direction Acc.": 0.4603174603174603
+    },
+    {
+      "Period": "2022-02 - 2022-05",
+      "R\u00b2": -0.8758751084906298,
+      "Direction Acc.": 0.5238095238095238
+    },
+    {
+      "Period": "2022-05 - 2022-08",
+      "R\u00b2": -0.7471006863182323,
+      "Direction Acc.": 0.49206349206349204
+    },
+    {
+      "Period": "2022-08 - 2022-11",
+      "R\u00b2": -1.3321079030111318,
+      "Direction Acc.": 0.5714285714285714
+    },
+    {
+      "Period": "2022-11 - 2023-02",
+      "R\u00b2": -10.563288641923895,
+      "Direction Acc.": 0.42857142857142855
+    },
+    {
+      "Period": "2023-02 - 2023-05",
+      "R\u00b2": -3.321660589207066,
+      "Direction Acc.": 0.5555555555555556
+    },
+    {
+      "Period": "2023-05 - 2023-08",
+      "R\u00b2": -0.7697431585832375,
+      "Direction Acc.": 0.5555555555555556
+    },
+    {
+      "Period": "2023-08 - 2023-11",
+      "R\u00b2": -0.6433483939340712,
+      "Direction Acc.": 0.4126984126984127
+    },
+    {
+      "Period": "2023-11 - 2024-02",
+      "R\u00b2": -0.5403396183079343,
+      "Direction Acc.": 0.3492063492063492
+    },
+    {
+      "Period": "2024-02 - 2024-05",
+      "R\u00b2": 0.3070541429499696,
+      "Direction Acc.": 0.6031746031746031
+    },
+    {
+      "Period": "2024-05 - 2024-08",
+      "R\u00b2": 0.13570418664314698,
+      "Direction Acc.": 0.6349206349206349
+    },
+    {
+      "Period": "2024-08 - 2024-11",
+      "R\u00b2": -2.812993479900313,
+      "Direction Acc.": 0.31746031746031744
+    },
+    {
+      "Period": "2024-11 - 2025-02",
+      "R\u00b2": 0.05934307730153254,
+      "Direction Acc.": 0.5873015873015873
+    },
+    {
+      "Period": "2025-02 - 2025-05",
+      "R\u00b2": -1.5489008395699466,
+      "Direction Acc.": 0.6031746031746031
+    }
+  ],
+  "table7_out_of_sample": [
+    {
+      "Train/Test Split": "60/40",
+      "Train Size": 825,
+      "Test Size": 550,
+      "R\u00b2": "-0.1661",
+      "RMSE": "8.7143",
+      "Direction Acc.": "44.36%"
+    },
+    {
+      "Train/Test Split": "70/30",
+      "Train Size": 962,
+      "Test Size": 413,
+      "R\u00b2": "0.0900",
+      "RMSE": "8.7174",
+      "Direction Acc.": "54.96%"
+    },
+    {
+      "Train/Test Split": "80/19",
+      "Train Size": 1100,
+      "Test Size": 275,
+      "R\u00b2": "0.1347",
+      "RMSE": "10.2259",
+      "Direction Acc.": "71.27%"
+    },
+    {
+      "Train/Test Split": "90/9",
+      "Train Size": 1237,
+      "Test Size": 138,
+      "R\u00b2": "0.0872",
+      "RMSE": "13.3585",
+      "Direction Acc.": "69.57%"
+    }
+  ],
+  "table8_trading": [
+    {
+      "Strategy": "Buy & Hold",
+      "N Trades": 275,
+      "Total Return": "100.75%",
+      "Avg Return": "0.37%",
+      "Sharpe Ratio": "0.53",
+      "Win Rate": "67.3%",
+      "Max Drawdown": "830.96%"
+    },
+    {
+      "Strategy": "Prediction-based",
+      "N Trades": 202,
+      "Total Return": "697.27%",
+      "Avg Return": "3.45%",
+      "Sharpe Ratio": "7.87",
+      "Win Rate": "77.7%",
+      "Max Drawdown": "174.52%"
+    },
+    {
+      "Strategy": "VIX > 20",
+      "N Trades": 25,
+      "Total Return": "238.05%",
+      "Avg Return": "9.52%",
+      "Sharpe Ratio": "42.02",
+      "Win Rate": "100.0%",
+      "Max Drawdown": "0.00%"
+    },
+    {
+      "Strategy": "VIX > 25",
+      "N Trades": 4,
+      "Total Return": "59.93%",
+      "Avg Return": "14.98%",
+      "Sharpe Ratio": "48.22",
+      "Win Rate": "100.0%",
+      "Max Drawdown": "0.00%"
+    }
+  ],
+  "timestamp": "2025-12-12T23:51:20.660765"
+}

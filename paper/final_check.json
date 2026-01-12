@@ -1,0 +1,99 @@
+{
+  "data_leakage": {
+    "status": "passed",
+    "issues": []
+  },
+  "reproducibility": {
+    "status": "perfect",
+    "r2_mean": 0.21528894983312408,
+    "r2_std": 0.0
+  },
+  "temporal_integrity": {
+    "status": "passed",
+    "train_start": "2020-02-10",
+    "train_end": "2024-06-24",
+    "test_start": "2024-06-25",
+    "test_end": "2025-07-30",
+    "gap_days": 1
+  },
+  "feature_definitions": {
+    "features": {
+      "RV_1d": {
+        "formula": "|return(t)| \u00d7 \u221a252 \u00d7 100",
+        "description": "\uc77c\uac04 \uc2e4\ud604\ubcc0\ub3d9\uc131 (\uc5f0\uc728\ud654)",
+        "unit": "%"
+      },
+      "RV_5d": {
+        "formula": "std(return(t-4:t)) \u00d7 \u221a252 \u00d7 100",
+        "description": "5\uc77c \uc2e4\ud604\ubcc0\ub3d9\uc131 (\uc5f0\uc728\ud654)",
+        "unit": "%"
+      },
+      "RV_22d": {
+        "formula": "std(return(t-21:t)) \u00d7 \u221a252 \u00d7 100",
+        "description": "22\uc77c \uc2e4\ud604\ubcc0\ub3d9\uc131 (\uc5f0\uc728\ud654)",
+        "unit": "%"
+      },
+      "VIX_lag1": {
+        "formula": "VIX(t-1)",
+        "description": "\uc804\uc77c VIX",
+        "unit": "%"
+      },
+      "VIX_lag5": {
+        "formula": "VIX(t-5)",
+        "description": "5\uc77c \uc804 VIX",
+        "unit": "%"
+      },
+      "VIX_change": {
+        "formula": "(VIX(t) - VIX(t-1)) / VIX(t-1)",
+        "description": "VIX \uc77c\uac04 \ubcc0\ud654\uc728",
+        "unit": "ratio"
+      },
+      "VRP_lag1": {
+        "formula": "VIX(t-1) - RV_22d(t-1)",
+        "description": "\uc804\uc77c VRP",
+        "unit": "%"
+      },
+      "VRP_lag5": {
+        "formula": "VIX(t-5) - RV_22d(t-5)",
+        "description": "5\uc77c \uc804 VRP",
+        "unit": "%"
+      },
+      "VRP_ma5": {
+        "formula": "mean(VRP(t-4:t))",
+        "description": "VRP 5\uc77c \uc774\ub3d9\ud3c9\uade0",
+        "unit": "%"
+      },
+      "regime_high": {
+        "formula": "1 if VIX(t) >= 25 else 0",
+        "description": "\uace0\ubcc0\ub3d9\uc131 \uc815\uad8c \uc9c0\uc2dc\uc790",
+        "unit": "binary"
+      },
+      "return_5d": {
+        "formula": "sum(return(t-4:t))",
+        "description": "5\uc77c \ub204\uc801 \uc218\uc775\ub960",
+        "unit": "ratio"
+      },
+      "return_22d": {
+        "formula": "sum(return(t-21:t))",
+        "description": "22\uc77c \ub204\uc801 \uc218\uc775\ub960",
+        "unit": "ratio"
+      }
+    }
+  },
+  "final_performance": {
+    "ElasticNet (\u03b1=1.0, l1=0.1)": {
+      "r2": 0.21528894983312408,
+      "mae": 5.907641088829741,
+      "direction": 0.7709090909090909
+    },
+    "Stacking (EN+Ridge)": {
+      "r2": 0.22902733927524088,
+      "mae": 5.780286893352497,
+      "direction": 0.7272727272727273
+    }
+  },
+  "summary": {
+    "status": "complete"
+  },
+  "timestamp": "2025-12-13T19:18:39.142774"
+}

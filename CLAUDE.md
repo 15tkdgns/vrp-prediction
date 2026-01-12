@@ -85,16 +85,16 @@ npm run format     # Format with Prettier
 
 ## Architecture Overview
 
-This is a **Financial Volatility Prediction System** for SPY ETF analysis that works with verified ElasticNet regression model. **메인 모델: 변동성 예측 (Test R² = 0.2218, CV R² = 0.1190)**
+This is a **Financial Volatility Prediction System** for SPY ETF analysis that works with verified ElasticNet regression model. **메인 모델: 변동성 예측 (Test R² = 0.2572, CV R² = 0.1261) - VIX + Regime 특성 통합**
 
 ### System Mode: Volatility Prediction
-- ✅ **메인 모델**: ElasticNet Regression 변동성 예측 (alpha=0.0005, l1_ratio=0.3)
-- ✅ **성능**: Test R² = 0.2218, CV R² = 0.1190 ± 0.2520 (안정적, 과적합 없음)
+- ✅ **메인 모델**: ElasticNet Regression 변동성 예측 (alpha=0.0005, l1_ratio=0.5)
+- ✅ **성능**: Test R² = 0.2572, CV R² = 0.1261 ± 0.2726 (VIX+Regime으로 +15.9% 개선)
 - ✅ **타겟 변수**: target_vol_5d (5일 후 변동성 예측)
 - ✅ **재현성**: Random seed 42, 모델 직렬화, 고정 데이터셋
 - ✅ **실용적 적용**: 리스크 모니터링, VIX 옵션 거래, 동적 헤징, 포지션 사이징
-- ✅ **데이터**: 2015-2024 SPY 실제 데이터 (1,369 샘플, train: 1,095 / test: 274)
-- ✅ **특성**: 31개 선별된 변동성/래그/통계 특성
+- ✅ **데이터**: 2015-2024 SPY + VIX 데이터 (1,369 샘플, train: 1,095 / test: 274)
+- ✅ **특성**: 43개 선별된 변동성/래그/통계/VIX/Regime 특성
 
 ### Core System Architecture (Static Mode)
 
@@ -132,7 +132,7 @@ This is a **Financial Volatility Prediction System** for SPY ETF analysis that w
   - **Volatility Predictions**: SPY volatility vs ElasticNet model predictions
   - **Feature Impact**: SHAP-based feature importance analysis
   - **Economic Value**: Backtest results and risk management metrics (리스크 모니터링 강조)
-  - **Model Comparison**: ElasticNet vs Lasso vs Ridge vs Random Forest
+  - **Model Comparison**: ElasticNet vs HAR Benchmark
   - **Statistical Validation**: Residual analysis, significance testing
   - **Feature Analysis**: Feature correlation and distribution
 - ✅ **Responsive Design** - Bootstrap 5 + Chart.js + FontAwesome
@@ -198,13 +198,13 @@ This is a **Financial Volatility Prediction System** for SPY ETF analysis that w
 
 | Metric | Value | Description |
 |--------|-------|-------------|
-| **Test R²** | **0.2218** | 테스트 세트 결정계수 (과적합 없음) |
-| **CV R² (Mean)** | **0.1190** | 교차 검증 평균 R² |
-| **CV R² (Std)** | **±0.2520** | 교차 검증 표준편차 |
-| **Test RMSE** | **0.0074** | 평균 제곱근 오차 |
-| **Test MAE** | **0.0042** | 평균 절대 오차 |
+| **Test R²** | **0.2572** | 테스트 세트 결정계수 (VIX+Regime으로 +15.9% 개선) |
+| **CV R² (Mean)** | **0.1261** | 교차 검증 평균 R² |
+| **CV R² (Std)** | **±0.2726** | 교차 검증 표준편차 |
+| **Test RMSE** | **0.0072** | 평균 제곱근 오차 |
+| **Test MAE** | **0.0040** | 평균 절대 오차 |
 | **Alpha** | **0.0005** | 최적 정규화 강도 |
-| **L1 Ratio** | **0.3** | 최적 L1/L2 비율 |
+| **L1 Ratio** | **0.5** | 최적 L1/L2 비율 |
 
 ### Economic Value (Risk Management Focus)
 

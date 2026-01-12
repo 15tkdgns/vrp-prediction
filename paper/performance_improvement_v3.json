@@ -1,0 +1,78 @@
+{
+  "results": {
+    "ElasticNet_prev_best": 0.24085024488787876,
+    "ElasticNet_new_best": 0.24897045356888536,
+    "Ensemble_EN_Ridge": 0.24136359952917996
+  },
+  "best_model": "ElasticNet_new_best",
+  "best_r2": 0.24897045356888536,
+  "best_params": {
+    "alpha": 0.0005,
+    "l1_ratio": 0.5
+  },
+  "baseline": 0.2607,
+  "improvement": -0.011729546431114624,
+  "top_features": [
+    {
+      "feature": "vix_lag_1",
+      "coef": 0.0019779156706825475
+    },
+    {
+      "feature": "volatility_20",
+      "coef": 0.0008420251807712856
+    },
+    {
+      "feature": "vix_change",
+      "coef": 0.00029659700912206037
+    },
+    {
+      "feature": "skew_20",
+      "coef": 0.0002873060227425654
+    },
+    {
+      "feature": "mean_return_10",
+      "coef": 0.0002676765168217044
+    },
+    {
+      "feature": "mean_return_20",
+      "coef": 0.0002360364843108425
+    },
+    {
+      "feature": "regime_high_vol",
+      "coef": 0.00016969457576766927
+    },
+    {
+      "feature": "high_low_range_ma5",
+      "coef": 0.00016526566852650596
+    },
+    {
+      "feature": "volatility_50",
+      "coef": 0.00013190765779537517
+    },
+    {
+      "feature": "vix_zscore",
+      "coef": 0.00012169678877731025
+    },
+    {
+      "feature": "vix_change_5",
+      "coef": 8.805407918975199e-05
+    },
+    {
+      "feature": "volume_ma_ratio",
+      "coef": 6.852467957197012e-05
+    },
+    {
+      "feature": "momentum_10",
+      "coef": 5.9516943344274065e-05
+    },
+    {
+      "feature": "realized_vol_20",
+      "coef": 5.299566939385972e-05
+    },
+    {
+      "feature": "vol_trend",
+      "coef": 4.293701795439159e-05
+    }
+  ],
+  "timestamp": "2025-12-12T22:25:11.789720"
+}

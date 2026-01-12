@@ -1,0 +1,151 @@
+{
+  "issue1_prediction_limit": {
+    "r2_vix_only": 0.561894641889772,
+    "r2_theoretical": 0.265158840813078,
+    "r2_model": -0.0925706277519045,
+    "vix_rv_correlation": 0.5149357637735779
+  },
+  "issue2_extended_period": {
+    "60/40": {
+      "train_size": 2235,
+      "test_size": 1490,
+      "r2": 0.025280505753664806,
+      "direction_accuracy": 0.6302013422818792
+    },
+    "70/30": {
+      "train_size": 2607,
+      "test_size": 1118,
+      "r2": -0.009626726777614003,
+      "direction_accuracy": 0.5948121645796064
+    },
+    "80/20": {
+      "train_size": 2980,
+      "test_size": 745,
+      "r2": -0.1391363535315382,
+      "direction_accuracy": 0.5516778523489932
+    }
+  },
+  "issue3_covid_analysis": {
+    "Pre-COVID (2010-2019)": {
+      "n_samples": 2493,
+      "r2": 0.011628214401187664,
+      "direction_accuracy": 0.6653306613226453
+    },
+    "COVID Shock (2020.02-2020.06)": {
+      "n_samples": 104,
+      "r2": -13.188913016311227,
+      "direction_accuracy": 0.3333333333333333
+    },
+    "COVID Recovery (2020.07-2021.12)": {
+      "n_samples": 380,
+      "r2": 0.23883307452251912,
+      "direction_accuracy": 0.7105263157894737
+    },
+    "Post-COVID (2022-2024)": {
+      "n_samples": 731,
+      "r2": 0.03960788484857036,
+      "direction_accuracy": 0.5782312925170068
+    },
+    "Excluding COVID (2010-2019 + 2022-2024)": {
+      "n_samples": 3224,
+      "r2": -0.0338473445714349,
+      "direction_accuracy": 0.5519379844961241
+    }
+  },
+  "issue4_adaptive_walkforward": {
+    "\uace0\uc815 252\uc77c": {
+      "n_predictions": 2197,
+      "r2": -0.06984411586332362,
+      "positive_r2": false
+    },
+    "\uace0\uc815 504\uc77c": {
+      "n_predictions": 1945,
+      "r2": -0.029479532429389055,
+      "positive_r2": false
+    },
+    "\ud655\uc7a5\ud615 (\ucd5c\uc18c 252\uc77c)": {
+      "n_predictions": 2197,
+      "r2": 0.008883950344266034,
+      "positive_r2": true
+    },
+    "\ud655\uc7a5\ud615 (\ucd5c\uc18c 504\uc77c)": {
+      "n_predictions": 1945,
+      "r2": 0.02124696373084034,
+      "positive_r2": true
+    }
+  },
+  "issue5_asset_specific": {
+    "SPY (S&P 500)": {
+      "vol_index": "^VIX",
+      "n_samples": 2471,
+      "r2": 0.07174990729807496,
+      "direction_accuracy": 0.5292929292929293
+    },
+    "QQQ (Nasdaq)": {
+      "vol_index": "^VXN",
+      "n_samples": 2471,
+      "r2": 0.022535607124076207,
+      "direction_accuracy": 0.4808080808080808
+    }
+  },
+  "issue6_slippage": {
+    "\ube44\uc6a9 \uc5c6\uc74c": {
+      "total_cost_pct": 0.0,
+      "n_trades": 5,
+      "gross_return": 173.47077941790354,
+      "total_cost": 0.0,
+      "net_return": 173.47077941790354,
+      "sharpe": 0.9428673626040166
+    },
+    "VIX \uc120\ubb3c (\ubcf4\uc218\uc801)": {
+      "total_cost_pct": 0.1,
+      "n_trades": 5,
+      "gross_return": 173.47077941790354,
+      "total_cost": 0.5,
+      "net_return": 172.97077941790354,
+      "sharpe": 0.9401497078907332
+    },
+    "VIX \uc635\uc158": {
+      "total_cost_pct": 0.18000000000000002,
+      "n_trades": 5,
+      "gross_return": 173.47077941790354,
+      "total_cost": 0.9000000000000001,
+      "net_return": 172.57077941790354,
+      "sharpe": 0.9379755841201065
+    },
+    "VXX ETN": {
+      "total_cost_pct": 0.04,
+      "n_trades": 5,
+      "gross_return": 173.47077941790354,
+      "total_cost": 0.2,
+      "net_return": 173.27077941790355,
+      "sharpe": 0.9417803007187034
+    },
+    "\ucd5c\uc545\uc758 \uacbd\uc6b0": {
+      "total_cost_pct": 0.35000000000000003,
+      "n_trades": 5,
+      "gross_return": 173.47077941790354,
+      "total_cost": 1.7500000000000002,
+      "net_return": 171.72077941790354,
+      "sharpe": 0.9333555711075249
+    }
+  },
+  "issue7_garch_benchmark": {
+    "GARCH(1,1)": {
+      "rv_r2": -7.2208635763839535,
+      "vrp_r2": -8.38724648677142
+    },
+    "EGARCH(1,1)": {
+      "rv_r2": -6.41230863063686,
+      "vrp_r2": -7.317558456116517
+    },
+    "GJR-GARCH(1,1)": {
+      "rv_r2": -8.283179322102534,
+      "vrp_r2": -9.968475448466062
+    },
+    "ElasticNet": {
+      "vrp_r2": 0.07174990729807496
+    }
+  },
+  "timestamp": "2025-12-13T18:34:04.014793"
+}

@@ -1,0 +1,177 @@
+{
+  "hyperparam_sensitivity": {
+    "best_params": {
+      "alpha": 1.0,
+      "l1_ratio": 0.1
+    },
+    "best_r2": 0.21528894983312408,
+    "r2_min": 0.10826480962229557,
+    "r2_max": 0.21528894983312408,
+    "r2_mean": 0.16211939770087802,
+    "r2_std": 0.038235244759893317,
+    "sensitivity": "\ub192\uc74c"
+  },
+  "statistical_significance": {
+    "bias_test": {
+      "t_stat": -1.7157851389106802,
+      "p_value": 0.0873317495679735
+    },
+    "r2_test": {
+      "r2": 0.13474366366188395,
+      "f_stat": 3.40003672869361,
+      "p_value": 0.00012102787854229025
+    },
+    "direction_test": {
+      "accuracy": 0.7127272727272728,
+      "p_value": 6.066566053306966e-13
+    },
+    "confidence_interval": {
+      "lower": -2.256503917012938,
+      "upper": 0.14787332058700065
+    }
+  },
+  "trading_frequency": {
+    "monthly_avg_trades": 14.428571428571429,
+    "avg_trade_ratio": 75.37878787878789,
+    "annual_trades": 173.14285714285714
+  },
+  "risk_metrics": {
+    "var_95": -3.2982329560576336,
+    "var_99": -34.385864122385186,
+    "es_95": -14.091654829332736,
+    "es_99": -34.565458146563465,
+    "max_loss": -34.666387680676294,
+    "max_drawdown": -174.5155184645186
+  },
+  "model_interpretability": {
+    "coefficients": [
+      {
+        "feature": "VIX_lag1",
+        "coefficient": 5.767719000400806
+      },
+      {
+        "feature": "VIX_lag5",
+        "coefficient": -5.4731371433701
+      },
+      {
+        "feature": "RV_22d",
+        "coefficient": 4.251531338943663
+      },
+      {
+        "feature": "VRP_lag5",
+        "coefficient": 2.3587349929318147
+      },
+      {
+        "feature": "VRP_ma5",
+        "coefficient": -1.8815483757922058
+      },
+      {
+        "feature": "VIX_change",
+        "coefficient": 1.5094441610336593
+      },
+      {
+        "feature": "regime_high",
+        "coefficient": 1.2176145641351437
+      },
+      {
+        "feature": "RV_1d",
+        "coefficient": 0.996941000888543
+      },
+      {
+        "feature": "RV_5d",
+        "coefficient": 0.919642292642081
+      },
+      {
+        "feature": "VRP_lag1",
+        "coefficient": 0.6531051550362862
+      },
+      {
+        "feature": "return_5d",
+        "coefficient": -0.48143169874152114
+      },
+      {
+        "feature": "return_22d",
+        "coefficient": -0.44261432945647083
+      }
+    ],
+    "nonzero_features": 12,
+    "sparsity": 0.0
+  },
+  "multicollinearity": {
+    "vif": [
+      {
+        "feature": "RV_22d",
+        "vif": 169.91505727085095,
+        "r2": 0.9941147063947019
+      },
+      {
+        "feature": "VRP_lag1",
+        "vif": 97.86259970426191,
+        "r2": 0.9897815917110114
+      },
+      {
+        "feature": "VIX_lag1",
+        "vif": 92.12953019831714,
+        "r2": 0.9891457169286828
+      },
+      {
+        "feature": "VRP_ma5",
+        "vif": 70.05938762958034,
+        "r2": 0.9857263953649263
+      },
+      {
+        "feature": "VRP_lag5",
+        "vif": 19.099197582011463,
+        "r2": 0.947641779414762
+      },
+      {
+        "feature": "VIX_lag5",
+        "vif": 17.775302396930446,
+        "r2": 0.9437421666495707
+      },
+      {
+        "feature": "RV_5d",
+        "vif": 6.667307115030933,
+        "r2": 0.8500144087039914
+      },
+      {
+        "feature": "RV_1d",
+        "vif": 3.058610261327985,
+        "r2": 0.6730541276724087
+      },
+      {
+        "feature": "return_5d",
+        "vif": 2.618805491587174,
+        "r2": 0.6181465163363729
+      },
+      {
+        "feature": "return_22d",
+        "vif": 2.3906531233853157,
+        "r2": 0.5817042672489696
+      },
+      {
+        "feature": "regime_high",
+        "vif": 2.362359116742916,
+        "r2": 0.5766943336799943
+      },
+      {
+        "feature": "VIX_change",
+        "vif": 1.5248160313293477,
+        "r2": 0.3441831804928025
+      }
+    ],
+    "high_vif_count": 6,
+    "medium_vif_count": 1
+  },
+  "t1_delay": {
+    "T+0": {
+      "r2": 0.13474366366188395,
+      "direction": 0.7127272727272728
+    },
+    "T+1": {
+      "r2": 0.18276211607727355,
+      "direction": 0.7090909090909091
+    }
+  },
+  "timestamp": "2025-12-13T18:43:48.426830"
+}

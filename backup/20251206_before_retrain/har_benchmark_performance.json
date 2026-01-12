@@ -1,0 +1,30 @@
+{
+  "model_name": "HAR Benchmark",
+  "model_type": "Heterogeneous Autoregressive",
+  "target": "target_vol_5d",
+  "cv_r2_mean": 0.21455560640036359,
+  "cv_r2_std": 0.16510841797939327,
+  "cv_fold_scores": [
+    0.20278035793357962,
+    0.2423852925860931,
+    0.473403202375143,
+    0.20080414194202822,
+    -0.046594962835025955
+  ],
+  "test_r2": -0.04728452920656423,
+  "test_mse": 1.0084824367074585e-05,
+  "test_rmse": 0.003175661248791279,
+  "test_mae": 0.002480931022743474,
+  "n_samples_total": 2402,
+  "n_samples_train": 1921,
+  "n_samples_test": 481,
+  "n_features": 3,
+  "features": [
+    "rv_daily",
+    "rv_weekly",
+    "rv_monthly"
+  ],
+  "alpha": 0.01,
+  "validation_method": "Purged K-Fold CV (5-fold, purge=5, embargo=5)",
+  "timestamp": "2025-10-14T15:00:44.241101"
+}

@@ -1,0 +1,713 @@
+{
+  "table1_descriptive": {
+    "data": {
+      "GLD": [
+        {
+          "Variable": "VIX",
+          "N": 2467,
+          "Mean": 18.29,
+          "Std": 7.34,
+          "Min": 9.14,
+          "Median": 16.29,
+          "Max": 82.69,
+          "Skew": 2.59,
+          "Kurt": 12.74
+        },
+        {
+          "Variable": "RV (22d)",
+          "N": 2467,
+          "Mean": 13.34,
+          "Std": 4.47,
+          "Min": 6.33,
+          "Median": 12.69,
+          "Max": 37.79,
+          "Skew": 1.65,
+          "Kurt": 5.18
+        },
+        {
+          "Variable": "VRP",
+          "N": 2467,
+          "Mean": 4.94,
+          "Std": 6.33,
+          "Min": -10.55,
+          "Median": 4.07,
+          "Max": 54.16,
+          "Skew": 1.27,
+          "Kurt": 5.02
+        },
+        {
+          "Variable": "VRP (True)",
+          "N": 2467,
+          "Mean": 4.93,
+          "Std": 6.47,
+          "Min": -20.59,
+          "Median": 4.03,
+          "Max": 51.0,
+          "Skew": 1.47,
+          "Kurt": 5.76
+        },
+        {
+          "Variable": "Return (%)",
+          "N": 2467,
+          "Mean": 0.03,
+          "Std": 0.89,
+          "Min": -5.37,
+          "Median": 0.05,
+          "Max": 4.9,
+          "Skew": -0.1,
+          "Kurt": 2.85
+        }
+      ],
+      "SPY": [
+        {
+          "Variable": "VIX",
+          "N": 2467,
+          "Mean": 18.29,
+          "Std": 7.34,
+          "Min": 9.14,
+          "Median": 16.29,
+          "Max": 82.69,
+          "Skew": 2.59,
+          "Kurt": 12.74
+        },
+        {
+          "Variable": "RV (22d)",
+          "N": 2467,
+          "Mean": 14.84,
+          "Std": 9.77,
+          "Min": 3.4,
+          "Median": 12.27,
+          "Max": 90.83,
+          "Skew": 3.77,
+          "Kurt": 22.62
+        },
+        {
+          "Variable": "VRP",
+          "N": 2467,
+          "Mean": 3.45,
+          "Std": 5.53,
+          "Min": -45.59,
+          "Median": 3.79,
+          "Max": 23.24,
+          "Skew": -2.63,
+          "Kurt": 19.34
+        },
+        {
+          "Variable": "VRP (True)",
+          "N": 2467,
+          "Mean": 3.46,
+          "Std": 7.91,
+          "Min": -69.33,
+          "Median": 4.4,
+          "Max": 24.79,
+          "Skew": -3.94,
+          "Kurt": 28.12
+        },
+        {
+          "Variable": "Return (%)",
+          "N": 2467,
+          "Mean": 0.06,
+          "Std": 1.11,
+          "Min": -10.94,
+          "Median": 0.06,
+          "Max": 9.06,
+          "Skew": -0.56,
+          "Kurt": 12.88
+        }
+      ]
+    },
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Descriptive Statistics}\n\\label{tab:descriptive}\n\\begin{tabular}{lrrrrrrrr}\n\\hline\nVariable & N & Mean & Std & Min & Median & Max & Skew & Kurt \\\\\n\\hline\n\\multicolumn{9}{l}{\\textbf{Panel GLD}} \\\\\nVIX & 2467 & 18.29 & 7.34 & 9.14 & 16.29 & 82.69 & 2.59 & 12.74 \\\\\nRV (22d) & 2467 & 13.34 & 4.47 & 6.33 & 12.69 & 37.79 & 1.65 & 5.18 \\\\\nVRP & 2467 & 4.94 & 6.33 & -10.55 & 4.07 & 54.16 & 1.27 & 5.02 \\\\\nVRP (True) & 2467 & 4.93 & 6.47 & -20.59 & 4.03 & 51.0 & 1.47 & 5.76 \\\\\nReturn (%) & 2467 & 0.03 & 0.89 & -5.37 & 0.05 & 4.9 & -0.1 & 2.85 \\\\\n\\multicolumn{9}{l}{\\textbf{Panel SPY}} \\\\\nVIX & 2467 & 18.29 & 7.34 & 9.14 & 16.29 & 82.69 & 2.59 & 12.74 \\\\\nRV (22d) & 2467 & 14.84 & 9.77 & 3.4 & 12.27 & 90.83 & 3.77 & 22.62 \\\\\nVRP & 2467 & 3.45 & 5.53 & -45.59 & 3.79 & 23.24 & -2.63 & 19.34 \\\\\nVRP (True) & 2467 & 3.46 & 7.91 & -69.33 & 4.4 & 24.79 & -3.94 & 28.12 \\\\\nReturn (%) & 2467 & 0.06 & 1.11 & -10.94 & 0.06 & 9.06 & -0.56 & 12.88 \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "table2_correlation": {
+    "data": {
+      "Vol": {
+        "Vol": 1.0,
+        "RV_22d": 0.514,
+        "VRP": 0.796,
+        "VRP_true": 0.797,
+        "Vol_lag1": 0.966,
+        "VRP_lag1": 0.766
+      },
+      "RV_22d": {
+        "Vol": 0.514,
+        "RV_22d": 1.0,
+        "VRP": -0.11,
+        "VRP_true": 0.311,
+        "Vol_lag1": 0.525,
+        "VRP_lag1": -0.084
+      },
+      "VRP": {
+        "Vol": 0.796,
+        "RV_22d": -0.11,
+        "VRP": 1.0,
+        "VRP_true": 0.704,
+        "Vol_lag1": 0.75,
+        "VRP_lag1": 0.947
+      },
+      "VRP_true": {
+        "Vol": 0.797,
+        "RV_22d": 0.311,
+        "VRP": 0.704,
+        "VRP_true": 1.0,
+        "Vol_lag1": 0.766,
+        "VRP_lag1": 0.671
+      },
+      "Vol_lag1": {
+        "Vol": 0.966,
+        "RV_22d": 0.525,
+        "VRP": 0.75,
+        "VRP_true": 0.766,
+        "Vol_lag1": 1.0,
+        "VRP_lag1": 0.796
+      },
+      "VRP_lag1": {
+        "Vol": 0.766,
+        "RV_22d": -0.084,
+        "VRP": 0.947,
+        "VRP_true": 0.671,
+        "Vol_lag1": 0.796,
+        "VRP_lag1": 1.0
+      }
+    },
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Correlation Matrix}\n\\label{tab:correlation}\n\\begin{tabular}{lrrrrrr}\n\\hline\n & Vol & RV_22d & VRP & VRP_true & Vol_lag1 & VRP_lag1 \\\\\n\\hline\nVol & 1.000 & 0.514 & 0.796 & 0.797 & 0.966 & 0.766 \\\\\nRV_22d & 0.514 & 1.000 & -0.110 & 0.311 & 0.525 & -0.084 \\\\\nVRP & 0.796 & -0.110 & 1.000 & 0.704 & 0.750 & 0.947 \\\\\nVRP_true & 0.797 & 0.311 & 0.704 & 1.000 & 0.766 & 0.671 \\\\\nVol_lag1 & 0.966 & 0.525 & 0.750 & 0.766 & 1.000 & 0.796 \\\\\nVRP_lag1 & 0.766 & -0.084 & 0.947 & 0.671 & 0.796 & 1.000 \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "table3_features": {
+    "data": [
+      {
+        "Feature": "RV_1d",
+        "Formula": "|r_t| \u00d7 \u221a252 \u00d7 100",
+        "Description": "Daily realized volatility (annualized)"
+      },
+      {
+        "Feature": "RV_5d",
+        "Formula": "\u03c3(r_{t-4:t}) \u00d7 \u221a252 \u00d7 100",
+        "Description": "5-day realized volatility"
+      },
+      {
+        "Feature": "RV_22d",
+        "Formula": "\u03c3(r_{t-21:t}) \u00d7 \u221a252 \u00d7 100",
+        "Description": "22-day realized volatility"
+      },
+      {
+        "Feature": "Vol_lag1",
+        "Formula": "VIX_{t-1}",
+        "Description": "Previous day VIX"
+      },
+      {
+        "Feature": "Vol_lag5",
+        "Formula": "VIX_{t-5}",
+        "Description": "VIX 5 days ago"
+      },
+      {
+        "Feature": "Vol_change",
+        "Formula": "(VIX_t - VIX_{t-1})/VIX_{t-1}",
+        "Description": "VIX daily change"
+      },
+      {
+        "Feature": "VRP_lag1",
+        "Formula": "VRP_{t-1}",
+        "Description": "Previous day VRP"
+      },
+      {
+        "Feature": "VRP_lag5",
+        "Formula": "VRP_{t-5}",
+        "Description": "VRP 5 days ago"
+      },
+      {
+        "Feature": "VRP_ma5",
+        "Formula": "mean(VRP_{t-4:t})",
+        "Description": "VRP 5-day moving average"
+      },
+      {
+        "Feature": "regime_high",
+        "Formula": "1 if VIX \u2265 25",
+        "Description": "High volatility regime indicator"
+      },
+      {
+        "Feature": "return_5d",
+        "Formula": "\u03a3r_{t-4:t}",
+        "Description": "5-day cumulative return"
+      },
+      {
+        "Feature": "return_22d",
+        "Formula": "\u03a3r_{t-21:t}",
+        "Description": "22-day cumulative return"
+      }
+    ],
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Feature Definitions}\n\\label{tab:features}\n\\begin{tabular}{lll}\n\\hline\nFeature & Formula & Description \\\\\n\\hline\nRV_1d & $|r_t| \u00d7 \u221a252 \u00d7 100$ & Daily realized volatility (annualized) \\\\\nRV_5d & $\u03c3(r_{t-4:t}) \u00d7 \u221a252 \u00d7 100$ & 5-day realized volatility \\\\\nRV_22d & $\u03c3(r_{t-21:t}) \u00d7 \u221a252 \u00d7 100$ & 22-day realized volatility \\\\\nVol_lag1 & $VIX_{t-1}$ & Previous day VIX \\\\\nVol_lag5 & $VIX_{t-5}$ & VIX 5 days ago \\\\\nVol_change & $(VIX_t - VIX_{t-1})/VIX_{t-1}$ & VIX daily change \\\\\nVRP_lag1 & $VRP_{t-1}$ & Previous day VRP \\\\\nVRP_lag5 & $VRP_{t-5}$ & VRP 5 days ago \\\\\nVRP_ma5 & $mean(VRP_{t-4:t})$ & VRP 5-day moving average \\\\\nregime_high & $1 if VIX \u2265 25$ & High volatility regime indicator \\\\\nreturn_5d & $\u03a3r_{t-4:t}$ & 5-day cumulative return \\\\\nreturn_22d & $\u03a3r_{t-21:t}$ & 22-day cumulative return \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "table4_model_comparison": {
+    "data": [
+      {
+        "Model": "MLP (64)",
+        "Category": "Neural",
+        "R\u00b2": 0.4276,
+        "RMSE": 3.29,
+        "MAE": 2.7,
+        "Direction (%)": 73.1
+      },
+      {
+        "Model": "MLP (128,64)",
+        "Category": "Neural",
+        "R\u00b2": 0.4213,
+        "RMSE": 3.31,
+        "MAE": 2.69,
+        "Direction (%)": 73.3
+      },
+      {
+        "Model": "Gradient Boosting",
+        "Category": "Tree",
+        "R\u00b2": 0.3799,
+        "RMSE": 3.43,
+        "MAE": 2.75,
+        "Direction (%)": 72.9
+      },
+      {
+        "Model": "Random Forest",
+        "Category": "Tree",
+        "R\u00b2": 0.3756,
+        "RMSE": 3.44,
+        "MAE": 2.75,
+        "Direction (%)": 72.9
+      },
+      {
+        "Model": "Lasso",
+        "Category": "Linear",
+        "R\u00b2": 0.3681,
+        "RMSE": 3.46,
+        "MAE": 2.81,
+        "Direction (%)": 73.5
+      },
+      {
+        "Model": "ElasticNet",
+        "Category": "Linear",
+        "R\u00b2": 0.368,
+        "RMSE": 3.46,
+        "MAE": 2.8,
+        "Direction (%)": 72.7
+      },
+      {
+        "Model": "OLS",
+        "Category": "Linear",
+        "R\u00b2": 0.368,
+        "RMSE": 3.46,
+        "MAE": 2.81,
+        "Direction (%)": 73.3
+      },
+      {
+        "Model": "Ridge",
+        "Category": "Linear",
+        "R\u00b2": 0.368,
+        "RMSE": 3.46,
+        "MAE": 2.81,
+        "Direction (%)": 73.3
+      }
+    ],
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Model Comparison (GLD, 22-day Gap)}\n\\label{tab:model_comparison}\n\\begin{tabular}{llrrrr}\n\\hline\nModel & Category & R\u00b2 & RMSE & MAE & Direction (\\%) \\\\\n\\hline\nMLP (64) & Neural & 0.4276 & 3.29 & 2.70 & 73.1 \\\\\nMLP (128,64) & Neural & 0.4213 & 3.31 & 2.69 & 73.3 \\\\\nGradient Boosting & Tree & 0.3799 & 3.43 & 2.75 & 72.9 \\\\\nRandom Forest & Tree & 0.3756 & 3.44 & 2.75 & 72.9 \\\\\nLasso & Linear & 0.3681 & 3.46 & 2.81 & 73.5 \\\\\nElasticNet & Linear & 0.3680 & 3.46 & 2.80 & 72.7 \\\\\nOLS & Linear & 0.3680 & 3.46 & 2.81 & 73.3 \\\\\nRidge & Linear & 0.3680 & 3.46 & 2.81 & 73.3 \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "table5_best_category": {
+    "data": [
+      {
+        "Category": "Linear",
+        "Best Model": "ElasticNet",
+        "R\u00b2": 0.3547,
+        "Direction (%)": 72.9
+      },
+      {
+        "Category": "Tree",
+        "Best Model": "LightGBM",
+        "R\u00b2": 0.3985,
+        "Direction (%)": 74.1
+      },
+      {
+        "Category": "Neural Network",
+        "Best Model": "MLP (64)",
+        "R\u00b2": 0.4374,
+        "Direction (%)": 74.1
+      },
+      {
+        "Category": "Ensemble",
+        "Best Model": "MLP+GB+EN",
+        "R\u00b2": 0.4266,
+        "Direction (%)": 74.9
+      }
+    ],
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Best Model by Category}\n\\label{tab:best_category}\n\\begin{tabular}{llrr}\n\\hline\nCategory & Best Model & R\u00b2 & Direction (\\%) \\\\\n\\hline\nLinear & ElasticNet & 0.3547 & 72.9 \\\\\nTree & LightGBM & 0.3985 & 74.1 \\\\\nNeural Network & MLP (64) & 0.4374 & 74.1 \\\\\nEnsemble & MLP+GB+EN & 0.4266 & 74.9 \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "table6_feature_importance": {
+    "data": [
+      {
+        "Rank": 1,
+        "Feature": "Vol_lag1",
+        "Coefficient": 1.2345,
+        "Abs_Coef": 1.2345
+      },
+      {
+        "Rank": 2,
+        "Feature": "RV_22d",
+        "Coefficient": 0.7791,
+        "Abs_Coef": 0.7791
+      },
+      {
+        "Rank": 3,
+        "Feature": "return_22d",
+        "Coefficient": 0.5179,
+        "Abs_Coef": 0.5179
+      },
+      {
+        "Rank": 4,
+        "Feature": "VRP_lag1",
+        "Coefficient": 0.4156,
+        "Abs_Coef": 0.4156
+      },
+      {
+        "Rank": 5,
+        "Feature": "RV_5d",
+        "Coefficient": 0.3504,
+        "Abs_Coef": 0.3504
+      },
+      {
+        "Rank": 6,
+        "Feature": "Vol_change",
+        "Coefficient": 0.295,
+        "Abs_Coef": 0.295
+      },
+      {
+        "Rank": 7,
+        "Feature": "return_5d",
+        "Coefficient": 0.2804,
+        "Abs_Coef": 0.2804
+      },
+      {
+        "Rank": 8,
+        "Feature": "RV_1d",
+        "Coefficient": 0.1242,
+        "Abs_Coef": 0.1242
+      },
+      {
+        "Rank": 9,
+        "Feature": "VRP_ma5",
+        "Coefficient": 0.1208,
+        "Abs_Coef": 0.1208
+      },
+      {
+        "Rank": 10,
+        "Feature": "Vol_lag5",
+        "Coefficient": 0.0,
+        "Abs_Coef": 0.0
+      },
+      {
+        "Rank": 11,
+        "Feature": "VRP_lag5",
+        "Coefficient": -0.0,
+        "Abs_Coef": 0.0
+      },
+      {
+        "Rank": 12,
+        "Feature": "regime_high",
+        "Coefficient": 0.0,
+        "Abs_Coef": 0.0
+      }
+    ]
+  },
+  "table7_robustness_split": {
+    "data": [
+      {
+        "Split": "90/10",
+        "Train": 2198,
+        "Test": 247,
+        "R\u00b2": 0.2636,
+        "Direction (%)": 65.6
+      },
+      {
+        "Split": "80/20",
+        "Train": 1951,
+        "Test": 494,
+        "R\u00b2": 0.368,
+        "Direction (%)": 72.7
+      },
+      {
+        "Split": "70/30",
+        "Train": 1704,
+        "Test": 741,
+        "R\u00b2": 0.6709,
+        "Direction (%)": 82.5
+      },
+      {
+        "Split": "60/40",
+        "Train": 1458,
+        "Test": 987,
+        "R\u00b2": 0.6638,
+        "Direction (%)": 78.4
+      }
+    ]
+  },
+  "table8_robustness_year": {
+    "data": [
+      {
+        "Year": 2017,
+        "N": 251,
+        "R\u00b2": -1.7967,
+        "Direction (%)": 57.8
+      },
+      {
+        "Year": 2018,
+        "N": 251,
+        "R\u00b2": 0.3038,
+        "Direction (%)": 66.9
+      },
+      {
+        "Year": 2019,
+        "N": 252,
+        "R\u00b2": 0.4476,
+        "Direction (%)": 63.1
+      },
+      {
+        "Year": 2020,
+        "N": 253,
+        "R\u00b2": 0.4717,
+        "Direction (%)": 78.3
+      },
+      {
+        "Year": 2021,
+        "N": 252,
+        "R\u00b2": 0.6326,
+        "Direction (%)": 74.6
+      },
+      {
+        "Year": 2022,
+        "N": 251,
+        "R\u00b2": 0.5024,
+        "Direction (%)": 78.5
+      },
+      {
+        "Year": 2023,
+        "N": 250,
+        "R\u00b2": 0.0018,
+        "Direction (%)": 58.4
+      },
+      {
+        "Year": 2024,
+        "N": 230,
+        "R\u00b2": 0.2744,
+        "Direction (%)": 66.5
+      }
+    ]
+  },
+  "table9_trading": {
+    "data": [
+      {
+        "Strategy": "Buy & Hold",
+        "N Trades": 494,
+        "Total Return (%)": 1283.77,
+        "Sharpe": 9.47,
+        "Win Rate (%)": 72.3
+      },
+      {
+        "Strategy": "Model Prediction",
+        "N Trades": 264,
+        "Total Return (%)": 1302.11,
+        "Sharpe": 22.76,
+        "Win Rate (%)": 91.3
+      },
+      {
+        "Strategy": "VIX > 20",
+        "N Trades": 79,
+        "Total Return (%)": 506.68,
+        "Sharpe": 25.68,
+        "Win Rate (%)": 96.2
+      },
+      {
+        "Strategy": "VIX > 25",
+        "N Trades": 6,
+        "Total Return (%)": 76.47,
+        "Sharpe": 34.14,
+        "Win Rate (%)": 100.0
+      }
+    ]
+  },
+  "table10_multi_asset": {
+    "data": [
+      {
+        "Asset": "S&P 500",
+        "Ticker": "SPY",
+        "N": 2467,
+        "VIX-RV Corr": 0.828,
+        "R\u00b2": 0.0208,
+        "Direction (%)": 56.1
+      },
+      {
+        "Asset": "EAFE (Developed)",
+        "Ticker": "EFA",
+        "N": 2467,
+        "VIX-RV Corr": 0.75,
+        "R\u00b2": 0.3139,
+        "Direction (%)": 73.1
+      },
+      {
+        "Asset": "Gold",
+        "Ticker": "GLD",
+        "N": 2467,
+        "VIX-RV Corr": 0.514,
+        "R\u00b2": 0.368,
+        "Direction (%)": 72.7
+      },
+      {
+        "Asset": "Emerging Markets",
+        "Ticker": "EEM",
+        "N": 2467,
+        "VIX-RV Corr": 0.687,
+        "R\u00b2": -0.2108,
+        "Direction (%)": 60.9
+      }
+    ]
+  },
+  "table11_statistical": {
+    "data": [
+      {
+        "Test": "Bias (t-test)",
+        "Statistic": -5.2924,
+        "p-value": "0.0000",
+        "Conclusion": "Biased"
+      },
+      {
+        "Test": "R\u00b2 (F-test)",
+        "Statistic": 23.3368,
+        "p-value": "0.0000",
+        "Conclusion": "Significant"
+      },
+      {
+        "Test": "Direction (Binomial)",
+        "Statistic": "359/494",
+        "p-value": "0.0000",
+        "Conclusion": "Significant"
+      }
+    ]
+  },
+  "table12_hyperparam": {
+    "data": [
+      {
+        "\u03b1": 0.01,
+        "l1_ratio": 0.1,
+        "R\u00b2": 0.3678
+      },
+      {
+        "\u03b1": 0.01,
+        "l1_ratio": 0.5,
+        "R\u00b2": 0.3681
+      },
+      {
+        "\u03b1": 0.01,
+        "l1_ratio": 0.9,
+        "R\u00b2": 0.3682
+      },
+      {
+        "\u03b1": 0.1,
+        "l1_ratio": 0.1,
+        "R\u00b2": 0.3671
+      },
+      {
+        "\u03b1": 0.1,
+        "l1_ratio": 0.5,
+        "R\u00b2": 0.368
+      },
+      {
+        "\u03b1": 0.1,
+        "l1_ratio": 0.9,
+        "R\u00b2": 0.3699
+      },
+      {
+        "\u03b1": 0.5,
+        "l1_ratio": 0.1,
+        "R\u00b2": 0.3613
+      },
+      {
+        "\u03b1": 0.5,
+        "l1_ratio": 0.5,
+        "R\u00b2": 0.3674
+      },
+      {
+        "\u03b1": 0.5,
+        "l1_ratio": 0.9,
+        "R\u00b2": 0.364
+      },
+      {
+        "\u03b1": 1.0,
+        "l1_ratio": 0.1,
+        "R\u00b2": 0.3566
+      },
+      {
+        "\u03b1": 1.0,
+        "l1_ratio": 0.5,
+        "R\u00b2": 0.357
+      },
+      {
+        "\u03b1": 1.0,
+        "l1_ratio": 0.9,
+        "R\u00b2": 0.3362
+      }
+    ]
+  },
+  "table13_vix_beta": {
+    "data": [
+      {
+        "Asset": "S&P 500",
+        "VIX-RV Corr": 0.828,
+        "VIX-RV Beta": 1.103,
+        "VRP R\u00b2": 0.0208
+      },
+      {
+        "Asset": "EAFE",
+        "VIX-RV Corr": 0.75,
+        "VIX-RV Beta": 0.882,
+        "VRP R\u00b2": 0.3139
+      },
+      {
+        "Asset": "Gold",
+        "VIX-RV Corr": 0.514,
+        "VIX-RV Beta": 0.313,
+        "VRP R\u00b2": 0.368
+      },
+      {
+        "Asset": "Emerging",
+        "VIX-RV Corr": 0.687,
+        "VIX-RV Beta": 0.823,
+        "VRP R\u00b2": -0.2108
+      }
+    ]
+  },
+  "table14_summary": {
+    "data": [
+      {
+        "Configuration": "Best Model",
+        "Model": "MLP (64)",
+        "Asset": "GLD",
+        "R\u00b2": 0.4374,
+        "Direction (%)": 74.1
+      },
+      {
+        "Configuration": "Best Ensemble",
+        "Model": "MLP+GB+EN",
+        "Asset": "GLD",
+        "R\u00b2": 0.4266,
+        "Direction (%)": 74.9
+      },
+      {
+        "Configuration": "Best Linear",
+        "Model": "ElasticNet",
+        "Asset": "GLD",
+        "R\u00b2": 0.3547,
+        "Direction (%)": 72.9
+      },
+      {
+        "Configuration": "SPY Baseline",
+        "Model": "ElasticNet",
+        "Asset": "SPY",
+        "R\u00b2": 0.0281,
+        "Direction (%)": 55.9
+      }
+    ],
+    "latex": "\n\\begin{table}[htbp]\n\\centering\n\\caption{Final Results Summary}\n\\label{tab:final_summary}\n\\begin{tabular}{llrrr}\n\\hline\nConfiguration & Model & Asset & R\u00b2 & Direction (\\%) \\\\\n\\hline\nBest Model & MLP (64) & GLD & 0.4374 & 74.1 \\\\\nBest Ensemble & MLP+GB+EN & GLD & 0.4266 & 74.9 \\\\\nBest Linear & ElasticNet & GLD & 0.3547 & 72.9 \\\\\nSPY Baseline & ElasticNet & SPY & 0.0281 & 55.9 \\\\\n\\hline\n\\end{tabular}\n\\end{table}"
+  },
+  "timestamp": "2025-12-13T20:04:28.831213"
+}

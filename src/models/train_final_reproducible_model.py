@@ -59,9 +59,34 @@ def load_spy_data():
             raise FileNotFoundError(f"데이터 로드 실패: {e}")
 
 
+def load_vix_data(spy_index):
+    """VIX 데이터 로드 (변동성 예측 핵심 특성)"""
+    print("\n[1.5/6] VIX 데이터 로드 중...")
+    
+    try:
+        import yfinance as yf
+        vix = yf.download('^VIX', start=spy_index[0], end=spy_index[-1],
+                         progress=False, auto_adjust=True)
+        
+        if isinstance(vix.columns, pd.MultiIndex):
+            vix.columns = vix.columns.get_level_values(0)
+        
+        print(f"  ✓ VIX 데이터 로드 완료: {len(vix)} 행")
+        return vix['Close']
+    except Exception as e:
+        print(f"  ⚠️ VIX 로드 실패: {e}")
+        return None
+
+
 def create_features_and_target(spy):
-    """특성 및 타겟 생성"""
+    """특성 및 타겟 생성 (VIX 포함)"""
     print("\n[2/6] 특성 및 타겟 생성 중...")
+
+    # VIX 데이터 추가 (변동성 예측 핵심!)
+    vix_data = load_vix_data(spy.index)
+    if vix_data is not None:
+        spy['VIX'] = vix_data
+        spy['VIX'] = spy['VIX'].ffill()  # 결측치 전방 채움
 
     # 기본 계산
     spy['returns'] = spy['Close'].pct_change()
@@ -96,6 +121,42 @@ def create_features_and_target(spy):
     for window in [5, 10, 20]:
         spy[f'momentum_{window}'] = spy['returns'].rolling(window).sum()
 
+    # 7. VIX 특성 (핵심! - R² +0.02 개선)
+    if 'VIX' in spy.columns:
+        print("  → VIX 특성 추가 중...")
+        spy['vix_lag_1'] = spy['VIX'].shift(1)  # 가장 중요한 특성!
+        spy['vix_lag_5'] = spy['VIX'].shift(5)
+        spy['vix_change'] = spy['VIX'].pct_change()
+        spy['vix_zscore'] = (spy['VIX'] - spy['VIX'].rolling(20).mean()) / (spy['VIX'].rolling(20).std() + 1e-8)
+
+        # 8. Regime 특성 (시장 상태 라벨링 - 상호작용 기반)
+        print("  → Regime 특성 추가 중...")
+        
+        vix_lagged = spy['VIX'].shift(1)  # 전일 VIX 사용
+        
+        # Regime 임계값 기반 더미 (핵심)
+        spy['regime_high_vol'] = (vix_lagged >= 25).astype(int)   # VIX 25 이상
+        spy['regime_crisis'] = (vix_lagged >= 35).astype(int)     # VIX 35 이상
+        
+        # VIX와 변동성의 조건부 상호작용 (핵심 개선!)
+        spy['vol_in_high_regime'] = spy['regime_high_vol'] * spy['volatility_5']
+        spy['vol_in_crisis'] = spy['regime_crisis'] * spy['volatility_5']
+        
+        # VIX 초과분 (임계값 대비 얼마나 높은지)
+        spy['vix_excess_25'] = np.maximum(vix_lagged - 25, 0)
+        spy['vix_excess_35'] = np.maximum(vix_lagged - 35, 0)
+        
+        # COVID 기간 (특수 regime)
+        spy['regime_covid'] = 0
+        covid_mask = (spy.index >= '2020-02-01') & (spy.index <= '2020-06-30')
+        spy.loc[covid_mask, 'regime_covid'] = 1
+        
+        print(f"    - High Vol (VIX>=25): {(spy['regime_high_vol'] == 1).sum()}일")
+        print(f"    - Crisis (VIX>=35): {(spy['regime_crisis'] == 1).sum()}일")
+
+    # 참고: HAR/GARCH 피처는 advanced_volatility_pipeline_v3.py에서 제공
+    # 22일 롤링으로 인한 데이터 손실로 현재 파이프라인에서는 비활성화
+
     # 타겟: 5일 미래 변동성 (t+1 ~ t+5)
     vol_values = []
     returns = spy['returns'].values
@@ -111,15 +172,16 @@ def create_features_and_target(spy):
     spy = spy.dropna()
     print(f"  ✓ 특성/타겟 생성 완료: {spy.shape}")
 
-    # 특성 컬럼 선택
+    # 특성 컬럼 선택 (VIX + Regime 특성 포함)
     feature_cols = []
     for col in spy.columns:
         if col.startswith(('volatility_', 'realized_vol_', 'mean_return_',
                           'skew_', 'kurt_', 'return_lag_', 'vol_lag_',
-                          'vol_ratio_', 'zscore_', 'momentum_')):
+                          'vol_ratio_', 'zscore_', 'momentum_', 'vix_', 'regime_',
+                          'vol_in_', 'vix_excess_')):
             feature_cols.append(col)
 
-    print(f"  ✓ 선택된 특성: {len(feature_cols)}개")
+    print(f"  ✓ 선택된 특성: {len(feature_cols)}개 (VIX + Regime 포함)")
 
     return spy, feature_cols
 
@@ -150,8 +212,8 @@ def train_model(spy, feature_cols):
     print("  (병렬 처리로 속도 향상)")
 
     param_grid = {
-        'alpha': [0.05, 0.1, 0.15, 0.2],  # 0.1 중심으로 탐색
-        'l1_ratio': [0.5, 0.7, 0.9]
+        'alpha': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1, 0.15, 0.2],  # 확장된 범위 (45개 조합)
+        'l1_ratio': [0.1, 0.3, 0.5, 0.7, 0.9]  # 확장된 범위
     }
 
     # K-Fold Cross-Validation (5-fold, shuffle=False for time series)

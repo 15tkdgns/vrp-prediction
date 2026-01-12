@@ -1,0 +1,139 @@
+{
+  "model_comparison": {
+    "HAR-RV": {
+      "r2": 0.10271001720064943,
+      "rmse": 10.413519588995612,
+      "mae": 6.631091872824214,
+      "direction_accuracy": 0.6690909090909091
+    },
+    "Ridge": {
+      "r2": 0.11245945650349842,
+      "rmse": 10.356791402795297,
+      "mae": 6.574895766644329,
+      "direction_accuracy": 0.6945454545454546
+    },
+    "Lasso": {
+      "r2": 0.116430266319692,
+      "rmse": 10.33359756108504,
+      "mae": 6.559659818605982,
+      "direction_accuracy": 0.7018181818181818
+    },
+    "ElasticNet": {
+      "r2": 0.13474366366188395,
+      "rmse": 10.225946654146966,
+      "mae": 6.432584396066644,
+      "direction_accuracy": 0.7127272727272728
+    },
+    "GradientBoosting": {
+      "r2": -1.394336614107453,
+      "rmse": 17.010760577549433,
+      "mae": 10.400678980171145,
+      "direction_accuracy": 0.5927272727272728
+    }
+  },
+  "cv_results": [
+    {
+      "fold": 1,
+      "train_size": 229,
+      "test_size": 229,
+      "r2": -24.612210471249238,
+      "direction_accuracy": 0.4978165938864629
+    },
+    {
+      "fold": 2,
+      "train_size": 458,
+      "test_size": 229,
+      "r2": -0.5592534684328467,
+      "direction_accuracy": 0.5633187772925764
+    },
+    {
+      "fold": 3,
+      "train_size": 687,
+      "test_size": 229,
+      "r2": -5.1364168649307755,
+      "direction_accuracy": 0.45414847161572053
+    },
+    {
+      "fold": 4,
+      "train_size": 916,
+      "test_size": 229,
+      "r2": -0.9241939895977802,
+      "direction_accuracy": 0.4890829694323144
+    },
+    {
+      "fold": 5,
+      "train_size": 1145,
+      "test_size": 229,
+      "r2": 0.15466313416652477,
+      "direction_accuracy": 0.7292576419213974
+    }
+  ],
+  "dm_test": {
+    "HAR-RV": {
+      "dm_statistic": -0.5750334418929306,
+      "p_value": 0.5652686801280644,
+      "better_model": "ElasticNet"
+    },
+    "Ridge": {
+      "dm_statistic": -6.0929581506395225,
+      "p_value": 1.1084304585295968e-09,
+      "better_model": "ElasticNet"
+    },
+    "Lasso": {
+      "dm_statistic": -5.874227818271683,
+      "p_value": 4.2481882456257836e-09,
+      "better_model": "ElasticNet"
+    },
+    "GradientBoosting": {
+      "dm_statistic": -4.681097701578496,
+      "p_value": 2.853429002858121e-06,
+      "better_model": "ElasticNet"
+    }
+  },
+  "error_analysis": {
+    "mean_error": -1.0543152982129687,
+    "mae": 6.432584396066644,
+    "std_error": 10.171450448456879,
+    "min_error": -35.887701051379,
+    "max_error": 24.934087194760398,
+    "regime_errors": {
+      "Low Vol (VIX<20)": 6.37944849177885,
+      "Normal (20\u2264VIX<25)": 4.795581087721561
+    }
+  },
+  "economic_significance": {
+    "Buy & Hold": {
+      "total_return": 100.75028432335694,
+      "avg_return": 0.3663646702667525,
+      "std_return": 10.993377176752675,
+      "sharpe_ratio": 0.5290329574441094,
+      "win_rate": 0.6727272727272727,
+      "n_trades": 275
+    },
+    "ElasticNet": {
+      "total_return": 697.2651369432834,
+      "avg_return": 3.451807608630116,
+      "std_return": 6.96159370292052,
+      "sharpe_ratio": 7.871149822125831,
+      "win_rate": 0.7772277227722773,
+      "n_trades": 202
+    },
+    "HAR-RV": {
+      "total_return": 709.6029947529935,
+      "avg_return": 4.326847528981667,
+      "std_return": 6.258617782398583,
+      "sharpe_ratio": 10.974719582437132,
+      "win_rate": 0.8048780487804879,
+      "n_trades": 164
+    },
+    "GradientBoosting": {
+      "total_return": 602.6632417637386,
+      "avg_return": 3.366833752870048,
+      "std_return": 5.430164860618023,
+      "sharpe_ratio": 9.842579418237355,
+      "win_rate": 0.6983240223463687,
+      "n_trades": 179
+    }
+  },
+  "timestamp": "2025-12-12T23:42:57.089526"
+}

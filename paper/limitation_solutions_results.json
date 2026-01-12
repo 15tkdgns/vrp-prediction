@@ -1,0 +1,45 @@
+{
+  "regime_switching": {
+    "single_r2": 0.2607789294956885,
+    "regime_switching_r2": 0.06124102374430329,
+    "improvement": -0.1995379057513852,
+    "regime_results": {
+      "low": {
+        "single": 0.09649433666205942,
+        "switching": 0.004729060116646644
+      },
+      "normal": {
+        "single": 0.04206097125876096,
+        "switching": 0.03153021757674357
+      },
+      "high": {
+        "single": 0.1231982697349242,
+        "switching": 0.002154758215813679
+      }
+    }
+  },
+  "adaptive_learning": {
+    "full_r2": 0.2607789294956885,
+    "short_window_r2": -0.23403971576119398,
+    "weighted_r2": 0.2530589581047341,
+    "rolling_r2": 0.2691967886705915,
+    "best_method": "Rolling",
+    "best_r2": 0.2691967886705915
+  },
+  "ensemble_variance": {
+    "individual_r2": {
+      "ElasticNet_1": 0.2607789294956885,
+      "ElasticNet_2": 0.2571675500849785,
+      "ElasticNet_3": 0.23921777783613907,
+      "Ridge": 0.2465582889581932,
+      "RF": 0.14804108560138785
+    },
+    "simple_avg_r2": 0.2403361738740608,
+    "en_avg_r2": 0.25362911720824,
+    "weighted_r2": 0.2610568681583749,
+    "bootstrap_r2": 0.2455954741641524,
+    "variance_reduction": 0.284287762050917
+  },
+  "baseline_r2": 0.2608,
+  "timestamp": "2025-12-12T22:31:01.562451"
+}
