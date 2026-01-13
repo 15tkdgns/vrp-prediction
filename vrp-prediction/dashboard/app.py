@@ -11,7 +11,7 @@ sys.path.insert(0, '.')
 # 페이지 설정
 st.set_page_config(
     page_title="CAVB 변동성 예측",
-    page_icon="📊",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -46,17 +46,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 메인 타이틀
-st.title("📊 VIX-RV Basis 기반 Cross-Asset 변동성 예측")
+st.title(" VIX-RV Basis 기반 Cross-Asset 변동성 예측")
 st.markdown("**5일 선행 예측 | ElasticNet 모델 | HAR-RV 벤치마크**")
 st.markdown("---")
 
 # 탭 생성
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 연구 개요",
-    "🔬 방법론",
-    "📈 결과",
-    "✓ 검증",
-    "📚 참고문헌"
+    " 연구 개요",
+    " 방법론",
+    " 결과",
+    " 검증",
+    " 참고문헌"
 ])
 
 with tab1:

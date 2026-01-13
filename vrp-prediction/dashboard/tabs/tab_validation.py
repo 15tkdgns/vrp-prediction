@@ -29,7 +29,7 @@ def render_validation():
             'lag 22 자기상관 = 0.002',
             'R²≈1.0 (탐지 확인)'
         ],
-        '상태': ['✓ PASS', '✓ PASS', '✓ PASS', '✓ PASS', '✓ PASS', '✓ PASS']
+        '상태': [' PASS', ' PASS', ' PASS', ' PASS', ' PASS', ' PASS']
     }
     
     df = pd.DataFrame(validation_data)
@@ -48,7 +48,7 @@ def render_validation():
     - 비중첩 R²: 0.8616
     - 차이: **-0.0045** (-0.5%)
     
-    **결론**: 중첩 윈도우 효과 무시 가능 ✓
+    **결론**: 중첩 윈도우 효과 무시 가능 
     """)
     
     # 복잡 모델 비교

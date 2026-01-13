@@ -47,14 +47,14 @@ def render_overview():
     
     with col1:
         st.markdown("""
-        **✅ 검증된 가설**:
+        ** 검증된 가설**:
         - H1: HAR-RV (0.733) → HAR+VIX (0.744) = +1.5%
         - H3: ElasticNet이 Stacking보다 +30.7% 우수
         """)
     
     with col2:
         st.markdown("""
-        **⚠️ 부분 검증**:
+        **️ 부분 검증**:
         - H2: CAVB는 S&P 500에서만 유의 (p=0.008)
         - 다른 4개 자산: HAR+VIX로 충분
         """)

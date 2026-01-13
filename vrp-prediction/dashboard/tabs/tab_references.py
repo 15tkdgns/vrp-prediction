@@ -8,7 +8,7 @@ import pandas as pd
 def render_references():
     """통합 참고문헌 탭"""
     
-    st.title("📚 참고문헌 (References)")
+    st.title(" 참고문헌 (References)")
     
     st.markdown("""
     본 섹션은 연구의 **이론적 기초와 방법론**을 다룹니다.
@@ -17,7 +17,7 @@ def render_references():
     """)
     
     # 탭 분리
-    tab1, tab2 = st.tabs(["🎯 Literature Review (주요 참고문헌)", "📖 References (기타 레퍼런스)"])
+    tab1, tab2 = st.tabs([" Literature Review (주요 참고문헌)", " References (기타 레퍼런스)"])
     
     with tab1:
         render_literature_review()
@@ -528,7 +528,7 @@ bad_good_ratio = bad_vol / good_vol
         """)
     
     # ========== 종합 비교 ==========
-    st.subheader("📋 선행연구 종합 비교표")
+    st.subheader(" 선행연구 종합 비교표")
     
     comprehensive = pd.DataFrame({
         "연구": ["Branco (2023)", "Prokopczuk (2022)", "Bali (2020)", 
@@ -544,7 +544,7 @@ bad_good_ratio = bad_vol / good_vol
     st.caption("*Different target, not directly comparable")
     
     # ========== Research Gap ==========
-    st.subheader("🎯 Research Gap Matrix")
+    st.subheader(" Research Gap Matrix")
     
     st.markdown("#### 우리가 해결한 연구 격차")
     
@@ -567,17 +567,17 @@ bad_good_ratio = bad_vol / good_vol
     with col1:
         st.success("""
         **Novel Contributions**:
-        1. ✨ **CAVB Concept**: VIX-RV 직접 활용 (+10.9%)
-        2. ✨ **VRP Decomposition 실증**: Bollerslev 이론 검증
-        3. ✨ **ElasticNet 우수성**: Moderate data에서 ML > Linear 반박
+        1.  **CAVB Concept**: VIX-RV 직접 활용 (+10.9%)
+        2.  **VRP Decomposition 실증**: Bollerslev 이론 검증
+        3.  **ElasticNet 우수성**: Moderate data에서 ML > Linear 반박
         """)
     
     with col2:
         st.success("""
         **Practical Impact**:
-        4. ✨ **Feature Engineering 체계화**: 4-Group approach
-        5. ✨ **48% 변수 축소**: RFE 15개로 성능 유지
-        6. ✨ **Daily frequency**: 실시간 트레이딩 적용
+        4.  **Feature Engineering 체계화**: 4-Group approach
+        5.  **48% 변수 축소**: RFE 15개로 성능 유지
+        6.  **Daily frequency**: 실시간 트레이딩 적용
         """)
 
         st.success("""
@@ -588,7 +588,7 @@ bad_good_ratio = bad_vol / good_vol
         """)
     
     # ========== 종합 비교 ==========
-    st.subheader("📋 선행연구 종합 비교표")
+    st.subheader(" 선행연구 종합 비교표")
     
     comprehensive = pd.DataFrame({
         "연구": ["Branco (2023)", "Prokopczuk (2022)", "Bali (2020)", 
@@ -604,7 +604,7 @@ bad_good_ratio = bad_vol / good_vol
     st.caption("*Different target, not directly comparable")
     
     # ========== Research Gap ==========
-    st.subheader("🎯 Research Gap Matrix")
+    st.subheader(" Research Gap Matrix")
     
     st.markdown("#### 우리가 해결한 연구 격차")
     
@@ -627,17 +627,17 @@ bad_good_ratio = bad_vol / good_vol
     with col1:
         st.success("""
         **Novel Contributions**:
-        1. ✨ **CAVB Concept**: VIX-RV 직접 활용 (+10.9%)
-        2. ✨ **VRP Decomposition 실증**: Bollerslev 이론 검증
-        3. ✨ **ElasticNet 우수성**: Moderate data에서 ML > Linear 반박
+        1.  **CAVB Concept**: VIX-RV 직접 활용 (+10.9%)
+        2.  **VRP Decomposition 실증**: Bollerslev 이론 검증
+        3.  **ElasticNet 우수성**: Moderate data에서 ML > Linear 반박
         """)
     
     with col2:
         st.success("""
         **Practical Impact**:
-        4. ✨ **Feature Engineering 체계화**: 4-Group approach
-        5. ✨ **48% 변수 축소**: RFE 15개로 성능 유지
-        6. ✨ **Daily frequency**: 실시간 트레이딩 적용
+        4.  **Feature Engineering 체계화**: 4-Group approach
+        5.  **48% 변수 축소**: RFE 15개로 성능 유지
+        6.  **Daily frequency**: 실시간 트레이딩 적용
         """)
 
 def render_other_references():
@@ -796,7 +796,7 @@ def render_other_references():
     st.success("**평균 Impact Factor: 6.8** (매우 높은 수준)")
     
     # ========== Features → References ==========
-    st.subheader("🔗 Features → References 매핑")
+    st.subheader(" Features → References 매핑")
     
     mapping = pd.DataFrame({
         "Feature Group": ["Baseline (HAR)", "VRP Decomposition", "Good/Bad Vol", "Ensemble"],
