@@ -1,0 +1,6 @@
+# This file intentionally left empty to override any pyproject.toml from git history
+# Streamlit should use requirements.txt instead
+
+[build-system]
+requires = []
+build-backend = ""
